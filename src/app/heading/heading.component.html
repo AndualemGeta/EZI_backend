@@ -1,0 +1,49 @@
+<section id="heading" class="mat-typography" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
+  <div class="container">	
+		<div class="heading-section" fxLayout="column" fxLayoutAlign="center center">
+    		<div [class.animated]="isHeading" [class.fadeInLeft]="isHeading">
+	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px'}">EZI BUS Innovative Solutions </h1>
+	        </div>
+	        <div [class.animated]="isSubheading" [class.fadeInRight]="isSubheading">
+	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Select Your Departure,Destination ,Trip Date BooK now  </h2>
+	        </div>
+	        <div fxLayout="row" [class.animated]="isHeadingBtn" [class.fadeIn]="isHeadingBtn" [class.heading-btn]="isHeadingBtn">
+        		<!--<a class="heading-button-left" mat-flat-button color="accent">Action</a>-->
+		        
+				<div class="example-container">
+					   <mat-form-field appearance="fill" >
+						<mat-label>Departure</mat-label>
+						<mat-select >
+						  <mat-option value="primary">Addis Ababa</mat-option>
+						  <mat-option value="accent">Bahir Dar</mat-option> 
+						  <mat-option value="accent">DireDawa</mat-option>
+						  <mat-option value="warn">Hawassa</mat-option>
+						</mat-select>
+					  </mat-form-field>
+					  &nbsp;
+					  <mat-form-field appearance="fill" >
+						<mat-label>Destination</mat-label>
+						<mat-select >
+						  <mat-option value="primary">Addis Ababa</mat-option>
+						  <mat-option value="accent">Bahir Dar</mat-option> 
+						  <mat-option value="accent">DireDawa</mat-option>
+						  <mat-option value="warn">Hawassa</mat-option>
+						</mat-select>
+					  </mat-form-field>
+&nbsp;
+					  <mat-form-field>
+						<mat-label>Trip Date</mat-label>
+						<input type="date" matInput placeholder="Trip Date" >
+					  </mat-form-field>
+					  &nbsp;
+					  <a class="heading-button-right" mat-stroked-button color="accent">Search</a>
+					</div>
+				  
+
+				
+	    	</div>
+	    </div>
+   </div>
+
+
+</section>
