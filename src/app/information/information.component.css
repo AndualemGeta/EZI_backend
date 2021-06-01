@@ -21,3 +21,18 @@
 .portfolio-heading h3{
   font-size: 22px;
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+
+}
+
+.mat-headline {
+    font-family: "Yu Gothic UI";
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}

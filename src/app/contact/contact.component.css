@@ -24,3 +24,11 @@
 .contact-form > * {
   width: 100%;
 }
+
+.contact-button{
+  border-color: green;
+  border-radius: 4px;
+  color: #0B3954;
+  font-family: "Yu Gothic UI";
+  font-weight: bold;
+}

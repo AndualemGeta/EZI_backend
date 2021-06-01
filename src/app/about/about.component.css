@@ -6,6 +6,11 @@
   padding-bottom: 30px;
 }
 
+.about-title{
+  font-family: "Yu Gothic UI";
+  color: #0B3954;
+}
+
 .about-heading h2{
   font-size: 32px;
 }
@@ -41,4 +46,5 @@
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+  color: #00ff73;
 }

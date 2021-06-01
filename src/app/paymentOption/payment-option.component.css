@@ -20,6 +20,8 @@
 
 .mat-card{
 	padding: 0;
+	height: 200px;
+	margin-top: 30px;
 }
 
 .mat-card-image {
@@ -42,4 +44,21 @@
 .owl-nav .my-but{
 	background-color: red;
 }
+.img-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
 
+}
+
+.portfolio-row {
+	margin-top: 25px;
+}
+
+.mat-headline {
+	text-align: center;
+	font-family: "Yu Gothic UI";
+	font-weight: bold;
+	font-size: 22px;
+}

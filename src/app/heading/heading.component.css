@@ -20,3 +20,31 @@
 .heading-button-right{
   margin-left: 10px;
 }
+
+.logo > img {
+  height: 50px;
+}
+.mat-typography {
+  background: linear-gradient(rgb(0, 255, 115),rgb(255,255,255));
+  /*background-image: url("src/assets/img/gihion.jpg");*/
+  /*background-size: cover;*/
+}
+
+h1, h2 {
+  color: #0B3954;
+  font-family: "Yu Gothic UI";
+  font-weight: bold;
+}
+
+.heading-button-right{
+  border-color: green;
+  border-radius: 4px;
+  color: #0B3954;
+  font-family: "Yu Gothic UI";
+  font-weight: bold;
+}
+
+mat-card{
+  border-radius: 15px;
+  margin-top: 15px;
+}

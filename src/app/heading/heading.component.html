@@ -1,11 +1,13 @@
+<div>
 <section id="heading" class="mat-typography" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
   <div class="container">	
 		<div class="heading-section" fxLayout="column" fxLayoutAlign="center center">
     		<div [class.animated]="isHeading" [class.fadeInLeft]="isHeading">
-	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px'}">EZI BUS Innovative Solutions </h1>
+	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px', 'color' : '#0B3954'}">EZI BUS </h1>
 	        </div>
+			<mat-card class=""search-section>
 	        <div [class.animated]="isSubheading" [class.fadeInRight]="isSubheading">
-	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Select Your Departure,Destination ,Trip Date BooK now  </h2>
+	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Search Your Trip Now </h2>
 	        </div>
 	        <div fxLayout="row" [class.animated]="isHeadingBtn" [class.fadeIn]="isHeadingBtn" [class.heading-btn]="isHeadingBtn">
         		<!--<a class="heading-button-left" mat-flat-button color="accent">Action</a>-->
@@ -36,12 +38,13 @@
 						<input type="date" matInput placeholder="Trip Date" >
 					  </mat-form-field>
 					  &nbsp;
-					  <a class="heading-button-right" mat-stroked-button color="accent">Search</a>
+					  <a class="heading-button-right" mat-stroked-button >Search</a>
 					</div>
 				  
 
 				
 	    	</div>
+			</mat-card>
 	    </div>
    </div>
 

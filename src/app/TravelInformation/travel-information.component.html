@@ -1,200 +1,211 @@
 <section id="travel-info" class="mat-typography" [ngStyle.lt-md]="{'margin-top': '50px', 'margin-bottom': '50px'}">
       <div class="container">
-
+		  <div class="locationlist">
       	<div class="pricing-section pricing-heading" fxLayout="column" fxLayoutAlign="center center">
             <div>
             <h2 [ngStyle.lt-md]="{'margin-bottom': '15px'}">Travel information</h2>
             </div>
             <div>
-	        <h3 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Most Our Destination Information.</h3>
+	        <h3 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Our Destinations </h3>
 	        </div>
         </div>
 
-		<mat-tab-group matTabNavBar color="accent">
-
-		  <mat-tab label="Addis Ababa">
-
-		  	<table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-			  <!-- Item Column -->
-			  <ng-container matColumnDef="item">
-			    <th mat-header-cell *matHeaderCellDef> Destination </th>
-			    <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-			    
-			  </ng-container>
-
-			  <!-- Cost Column -->
-			  <ng-container matColumnDef="cost">
-			    <th mat-header-cell *matHeaderCellDef> Distance </th>
-			    <td mat-cell *matCellDef="let specification"> {{specification.cost |number}} KM </td>
-			    
-			  </ng-container>
-
-			  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-			
-
-			</table>
-
-		  </mat-tab>
-
-		 
-		  <mat-tab label="Adama">
-		  	
-			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-			<!-- Item Column -->
-			<ng-container matColumnDef="item">
-			  <th mat-header-cell *matHeaderCellDef> Destination </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-			  
-			</ng-container>
-
-			<!-- Cost Column -->
-			<ng-container matColumnDef="cost">
-			  <th mat-header-cell *matHeaderCellDef>Distance </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} </td>
-			 
-			</ng-container>
-
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-			
-
-		  </table>
-
-		</mat-tab>
-
-		<mat-tab label="BahirDar">
-			
-			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-			<!-- Item Column -->
-			<ng-container matColumnDef="item">
-			  <th mat-header-cell *matHeaderCellDef> Destination </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-			  
-			</ng-container>
-
-			<!-- Cost Column -->
-			<ng-container matColumnDef="cost">
-			  <th mat-header-cell *matHeaderCellDef> Distance </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.cost | currency}} </td>
-			 
-			</ng-container>
-
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-			
-
-		  </table>
-
-		</mat-tab>
-
-		<mat-tab label="DireDawa">
-			
-			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-			<!-- Item Column -->
-			<ng-container matColumnDef="item">
-			  <th mat-header-cell *matHeaderCellDef> Destination </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-			  
-			</ng-container>
-
-			<!-- Cost Column -->
-			<ng-container matColumnDef="cost">
-			  <th mat-header-cell *matHeaderCellDef> Distance </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} </td>
-			  
-			</ng-container>
-
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-		
-
-		  </table>
-
-		</mat-tab>
-
-		
-
-		
-
-		<mat-tab label="JigJiga">
-			
-			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-			<!-- Item Column -->
-			<ng-container matColumnDef="item">
-			  <th mat-header-cell *matHeaderCellDef> Destination </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-		  
-			</ng-container>
-  
-			<!-- Cost Column -->
-			<ng-container matColumnDef="cost">
-			  <th mat-header-cell *matHeaderCellDef> Distance </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>
-		  
-			</ng-container>
-  
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-		   
-  
-		  </table>
-  
-		</mat-tab>
-
-		<mat-tab label="Hawssa">
-			
-			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-			<!-- Item Column -->
-			<ng-container matColumnDef="item">
-			  <th mat-header-cell *matHeaderCellDef> Destination </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-		  
-			</ng-container>
-  
-			<!-- Cost Column -->
-			<ng-container matColumnDef="cost">
-			  <th mat-header-cell *matHeaderCellDef> Distance </th>
-			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>
-		  
-			</ng-container>
-  
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-		   
-  
-		  </table>
-  
-		</mat-tab>
+			  <mat-chip-list >
+				  <mat-chip>Addis Ababa</mat-chip>
+				  <mat-chip>Hawassa</mat-chip>
+				  <mat-chip>Mekele</mat-chip>
+				  <mat-chip>JigJiga</mat-chip>
+				  <mat-chip>Harar</mat-chip>
+				  <mat-chip>Dire Dawa</mat-chip>
+			  </mat-chip-list>
+		  </div>
 
 
-		<mat-tab label="Mekele">
-			
-		  <table mat-table [dataSource]="specifications" class="mat-elevation-z8">
-		  <!-- Item Column -->
-		  <ng-container matColumnDef="item">
-			<th mat-header-cell *matHeaderCellDef> Destination </th>
-			<td mat-cell *matCellDef="let specification"> {{specification.item}} </td>
-		
-		  </ng-container>
+<!--		<mat-tab-group matTabNavBar color="accent">-->
 
-		  <!-- Cost Column -->
-		  <ng-container matColumnDef="cost">
-			<th mat-header-cell *matHeaderCellDef> Distance </th>
-			<td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>
-		
-		  </ng-container>
+<!--		  <mat-tab label="Addis Ababa">-->
 
-		  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-		 
+<!--		  	<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--			  &lt;!&ndash; Item Column &ndash;&gt;-->
+<!--			  <ng-container matColumnDef="item">-->
+<!--			    <th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			    <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--			    -->
+<!--			  </ng-container>-->
 
-		</table>
+<!--			  &lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--			  <ng-container matColumnDef="cost">-->
+<!--			    <th mat-header-cell *matHeaderCellDef> Distance </th>-->
+<!--			    <td mat-cell *matCellDef="let specification"> {{specification.cost |number}} KM </td>-->
+<!--			    -->
+<!--			  </ng-container>-->
 
-	  </mat-tab>
+<!--			  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--			  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--			-->
+
+<!--			</table>-->
+
+<!--		  </mat-tab>-->
+
+<!--		 -->
+<!--		  <mat-tab label="Adama">-->
+<!--		  	-->
+<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="item">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--			  -->
+<!--			</ng-container>-->
+
+<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="cost">-->
+<!--			  <th mat-header-cell *matHeaderCellDef>Distance </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} </td>-->
+<!--			 -->
+<!--			</ng-container>-->
+
+<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--			-->
+
+<!--		  </table>-->
+
+<!--		</mat-tab>-->
+
+<!--		<mat-tab label="BahirDar">-->
+<!--			-->
+<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="item">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--			  -->
+<!--			</ng-container>-->
+
+<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="cost">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | currency}} </td>-->
+<!--			 -->
+<!--			</ng-container>-->
+
+<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--			-->
+
+<!--		  </table>-->
+
+<!--		</mat-tab>-->
+
+<!--		<mat-tab label="DireDawa">-->
+<!--			-->
+<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="item">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--			  -->
+<!--			</ng-container>-->
+
+<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="cost">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} </td>-->
+<!--			  -->
+<!--			</ng-container>-->
+
+<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--		-->
+
+<!--		  </table>-->
+
+<!--		</mat-tab>-->
+
+<!--		-->
+
+<!--		-->
+
+<!--		<mat-tab label="JigJiga">-->
+<!--			-->
+<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="item">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--		  -->
+<!--			</ng-container>-->
+<!--  -->
+<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="cost">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>-->
+<!--		  -->
+<!--			</ng-container>-->
+<!--  -->
+<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--		   -->
+<!--  -->
+<!--		  </table>-->
+<!--  -->
+<!--		</mat-tab>-->
+
+<!--		<mat-tab label="Hawssa">-->
+<!--			-->
+<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="item">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--		  -->
+<!--			</ng-container>-->
+<!--  -->
+<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--			<ng-container matColumnDef="cost">-->
+<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
+<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>-->
+<!--		  -->
+<!--			</ng-container>-->
+<!--  -->
+<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--		   -->
+<!--  -->
+<!--		  </table>-->
+<!--  -->
+<!--		</mat-tab>-->
+
+
+<!--		<mat-tab label="Mekele">-->
+<!--			-->
+<!--		  <table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
+<!--		  &lt;!&ndash; Item Column &ndash;&gt;-->
+<!--		  <ng-container matColumnDef="item">-->
+<!--			<th mat-header-cell *matHeaderCellDef> Destination </th>-->
+<!--			<td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
+<!--		-->
+<!--		  </ng-container>-->
+
+<!--		  &lt;!&ndash; Cost Column &ndash;&gt;-->
+<!--		  <ng-container matColumnDef="cost">-->
+<!--			<th mat-header-cell *matHeaderCellDef> Distance </th>-->
+<!--			<td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>-->
+<!--		-->
+<!--		  </ng-container>-->
+
+<!--		  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--		  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--		 -->
+
+<!--		</table>-->
+
+<!--	  </mat-tab>-->
 
 
 
-		</mat-tab-group>
+<!--		</mat-tab-group>-->
 	</div>
 </section>

@@ -21,3 +21,21 @@ tr.mat-footer-row {
 .pricing-section{
   text-align: center;
 }
+
+.locationlist{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+mat-chip{
+  font-size: 22px;
+  color: #0B3954;
+  font-family: "Yu Gothic UI";
+}
+.portfolio-row{
+  padding: 25px;
+}

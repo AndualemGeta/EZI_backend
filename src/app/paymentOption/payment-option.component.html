@@ -14,107 +14,113 @@
 			        </div>
 		        </div>
 
-			    <div class="owl-carousel owl-theme">
-					<div id="scroll-item" class="item" [about]>
-				    	<mat-card>
-			              <img mat-card-image src="assets/img/ezibusAgent.jpg" height="260px">
-			              <mat-card-content>
-			                <a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">EZI BUS Aents</h5></a>
-			                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
-			                  Cash Payment At <br>
-								1. EStifanos<br> 
-							  2. Lamberet<br>
-							  <br>
-			                </p>
-			                
-			              </mat-card-content>
-			            </mat-card>
-				    </div>
-					<div id="scroll-item" class="item" [about]>
-				    	<mat-card>
-			              <img mat-card-image src="assets/img/cbe.png" height="260px">
-			              <mat-card-content>
-			                <a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Commercial bank of Ethiopia</h5></a>
-			                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
-			                 1.Any CBE Branch<br>
-							 2.CBE Mobile Banking<br>
-							 3.CBE Birr
-			                </p>
-			                
-			              </mat-card-content>
-			            </mat-card>
-				    </div>
-				    <div id="scroll-item" class="item" [about]>
+		<div class="portfolio-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="150px" fxLayoutGap.sm="8px">
+
+
+		<div fxFlex="33.33">
 						<mat-card>
-			              <img mat-card-image src="assets/img/abyssinia.jpg" height="260px"> 
-						  <mat-card-content>
-			                <a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Abyssinia Bank</h5></a>
-			                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
-								1.Any Abyssinia Bank Branch<br>.
-								<br>
-								<br>
-								<br>
-							
-								
-			                </p>
-			                
-			              </mat-card-content>
-			            </mat-card>
-				    </div>
-				    <div id="scroll-item" class="item" [about]>
-				    	<mat-card>
-			              <img mat-card-image src="assets/img/lion.png" height="260px">
-			              <mat-card-content>
-							  
-			                <a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Lion Internationa Bank</h5></a>
-			                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
-								1.Any Lion International Bank Branch 
-							
-								<br>
-								<br>	
-							
-			                </p>
-			                
-			              </mat-card-content>
-			            </mat-card>
-				    </div>
-				    <div id="scroll-item" class="item" [about]>
-				    	<mat-card>
-			              <img mat-card-image src="assets/img/awash.png" height="260px">
-			              <mat-card-content>
-			                <a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Awash Bank</h5></a>
-			                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
-								1.Any Awash Bank Branch<br>
-								<br>
-								<br>
-								<br>
-			                </p>
-			                
-			              </mat-card-content>
-			            </mat-card>
-				    </div>
-				    
-				    <div id="scroll-item" class="item" [about]>
-				    	<mat-card>
-			              <img mat-card-image src="assets/img/newBank.jpg" height="260px">
-			              <mat-card-content>
-			                <a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">New Other</h5></a>
-			                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
-			                 This is Place for new Bank
-							 <br>
-								<br>
-								<br>
-								<br>
-			                </p>
-			                
-			              </mat-card-content>
-			            </mat-card>
-				    </div>
-				    
+							<img mat-card-image src="assets/img/users.png"  class="img-center">
+							<mat-card-content>
+								<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Pay At Agents</h5></a>
+<!--								<p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">-->
+<!--									Cash Payment At <br>-->
+<!--									1. EStifanos<br>-->
+<!--									2. Lamberet<br>-->
+<!--									<br>-->
+<!--								</p>-->
+
+							</mat-card-content>
+						</mat-card>
+					</div>
+				    	<div fxFlex="33.33">
+							<mat-card>
+								<img mat-card-image src="assets/img/cbe.png" class="img-center">
+								<mat-card-content>
+									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">CBE</h5></a>
+<!--									<p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">-->
+<!--										1.Any CBE Branch<br>-->
+<!--										2.CBE Mobile Banking<br>-->
+<!--										3.CBE Birr-->
+<!--									</p>-->
+
+								</mat-card-content>
+							</mat-card>
 				</div>
-				<div fxLayout="row" fxLayoutAlign="center center">
-					<button class="customPrevBtn" mat-raised-button color="primary">Prev</button>
-	  				<button class="customNextBtn" mat-raised-button color="accent">Next</button>
+				    	<div fxFlex="33.33">
+							<mat-card>
+								<img mat-card-image src="assets/img/abyssinia.jpg"  class="img-center">
+								<mat-card-content>
+									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Abyssinia Bank</h5></a>
+<!--									<p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">-->
+<!--										1.Any Abyssinia Bank Branch<br>.-->
+<!--										<br>-->
+<!--										<br>-->
+<!--										<br>-->
+
+
+<!--									</p>-->
+
+								</mat-card-content>
+							</mat-card>
 				</div>
+		</div>
+			<div class="portfolio-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="150px" fxLayoutGap.sm="8px">
+
+			<div fxFlex="33.33">
+							<mat-card>
+								<img mat-card-image src="assets/img/lion.png"  class="img-center">
+								<mat-card-content>
+
+									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Lion InternationaL Bank</h5></a>
+<!--									<p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">-->
+<!--										1.Any Lion International Bank Branch-->
+
+<!--										<br>-->
+<!--										<br>-->
+
+<!--									</p>-->
+
+								</mat-card-content>
+							</mat-card>
+				</div>
+				    	<div fxFlex="33.33">
+							<mat-card>
+								<img mat-card-image src="assets/img/awash.png" class="img-center">
+								<mat-card-content>
+									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Awash Bank</h5></a>
+<!--									<p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">-->
+<!--										1.Any Awash Bank Branch<br>-->
+<!--										<br>-->
+<!--										<br>-->
+<!--										<br>-->
+<!--									</p>-->
+
+								</mat-card-content>
+							</mat-card>
+				</div>
+				    	<div fxFlex="33.33">
+							<mat-card>
+								<img mat-card-image src="assets/img/newBank.jpg" class="img-center">
+								<mat-card-content>
+									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Hello Cash</h5></a>
+<!--									<p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">-->
+<!--										This is Place for new Bank-->
+<!--										<br>-->
+<!--										<br>-->
+<!--										<br>-->
+<!--										<br>-->
+<!--									</p>-->
+
+								</mat-card-content>
+							</mat-card>
+				</div>
+
+
+
+				</div>
+<!--				<div fxLayout="row" fxLayoutAlign="center center">-->
+<!--					<button class="customPrevBtn" mat-raised-button color="primary">Prev</button>-->
+<!--	  				<button class="customNextBtn" mat-raised-button color="accent">Next</button>-->
+<!--				</div>-->
     </div>
 </section>
