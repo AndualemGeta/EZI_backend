@@ -1,16 +1,17 @@
-<section id="travel-info" class="mat-typography" [ngStyle.lt-md]="{'margin-top': '50px', 'margin-bottom': '50px'}">
+<section id="travel-info" class="mat-typography aos-init-animate " data-aos="fade-up" [ngStyle.lt-md]="{'margin-top': '50px', 'margin-bottom': '50px'}">
       <div class="container">
-		  <div class="locationlist">
+		
       	<div class="pricing-section pricing-heading" fxLayout="column" fxLayoutAlign="center center">
-            <div>
+            
             <h2 [ngStyle.lt-md]="{'margin-bottom': '15px'}">Travel information</h2>
-            </div>
+            
             <div>
 	        <h3 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Our Destinations </h3>
 	        </div>
-        </div>
+		</div>
+           <div class="locationlist" fxLayout="column" fxLayoutAlign="center center">
 
-			  <mat-chip-list >
+			  <mat-chip-list>
 				  <mat-chip>Addis Ababa</mat-chip>
 				  <mat-chip>Hawassa</mat-chip>
 				  <mat-chip>Mekele</mat-chip>
@@ -18,8 +19,8 @@
 				  <mat-chip>Harar</mat-chip>
 				  <mat-chip>Dire Dawa</mat-chip>
 			  </mat-chip-list>
-		  </div>
-
+		  
+			</div>
 
 <!--		<mat-tab-group matTabNavBar color="accent">-->
 

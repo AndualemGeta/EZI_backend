@@ -2,6 +2,7 @@
 
 .heading-section{
   text-align: center;
+  margin-top:20%;
 }
 
 .heading-section h1{
@@ -9,7 +10,7 @@
 }
 
 .heading-section h2{
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .heading-button-left{
@@ -25,9 +26,19 @@
   height: 50px;
 }
 .mat-typography {
+  margin-top: -200px;
+background-image: url("src/assets/img/ezibackground.jpg");
+background-size: cover;
+width: 100%;
+height: 500px;
+
+  /*
+    background-image: linear-gradient(
+180deg
+,rgba(0, 0, 0, .4),rgba(0, 0, 0,.2),rgba(0, 0, 0,.46));
   background: linear-gradient(rgb(0, 255, 115),rgb(255,255,255));
-  /*background-image: url("src/assets/img/gihion.jpg");*/
-  /*background-size: cover;*/
+  background-image: url("src/assets/img/ezibackground.jpg");
+  background-size: cover;*/
 }
 
 h1, h2 {
@@ -44,7 +55,12 @@ h1, h2 {
   font-weight: bold;
 }
 
-mat-card{
+.search-form{
   border-radius: 15px;
-  margin-top: 15px;
+  /*margin-top: -30px;*/
+  width: 80%;
+}
+.mat-success {
+  background-color: green;
+  color: #fff;
 }
