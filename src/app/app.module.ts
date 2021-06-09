@@ -14,7 +14,7 @@ import { TravelInformationComponent } from './TravelInformation/travel-informati
 import { PaymentOptionComponent } from './paymentOption/payment-option.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-
+import {FooterComponent} from "src/app/footer/footer.component"
 
 
 @NgModule({
@@ -26,7 +26,8 @@ import { ContactDialogComponent } from './contact-dialog/contact-dialog.componen
     TravelInformationComponent,
     PaymentOptionComponent,
     ContactComponent,
-    ContactDialogComponent
+    ContactDialogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

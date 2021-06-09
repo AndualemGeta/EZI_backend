@@ -1,25 +1,14 @@
-
 <section id="heading" class="mat-typography">
-	<!-- 
-[ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
--->
-  <div class="container">	
-		
-	
+	<div class="container">	
 	<div class="heading-section" fxLayout="column" fxLayoutAlign="center center">
-    	<!--	
-		<div [class.animated]="isHeading" [class.fadeInLeft]="isHeading">
-				<img src="../../assets/img/ezibackground.jpg" width="50%">
+	<div [class.animated]="isHeading" [class.fadeInLeft]="isHeading">
+	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px', 'color' : '#0B3954'}">EZI BUS </h1>
 	        </div>
-		-->
 			<mat-card class="search-form"search-section>
 	        <div [class.animated]="isSubheading" [class.fadeInRight]="isSubheading">
 	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Search Your Trip Now </h2>
 	        </div>
 	        <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="isHeadingBtn" [class.fadeIn]="isHeadingBtn" [class.heading-btn]="isHeadingBtn">
-			
-				<!--<a class="heading-button-left" mat-flat-button color="accent">Action</a>-->
-		        
 				<div class="example-container" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
 					   <mat-form-field appearance="fill" >
 						<mat-label>Departure</mat-label>
@@ -40,22 +29,16 @@
 						  <mat-option value="warn">Hawassa</mat-option>
 						</mat-select>
 					  </mat-form-field>
-&nbsp;
+                        &nbsp;
 					  <mat-form-field>
 						<mat-label>Trip Date</mat-label>
 						<input type="date" matInput placeholder="Trip Date" >
 					  </mat-form-field>
 					  &nbsp;
-					  
 					  <a class="heading-button-right" mat-flat-button  color="success">Search</a>
 					</div>
-				  
-
-				
 	    	</div>
 			</mat-card>
 	    </div>
    </div>
-
-
 </section>
