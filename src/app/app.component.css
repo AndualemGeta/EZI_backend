@@ -56,6 +56,7 @@ h1.navigation-company-name {
 
 .navigation-sidenav-container {
   flex: 1;
+  background-color: rgb(221, 224, 218);
 }
 
 .navigation-is-mobile .navigation-sidenav-container {
