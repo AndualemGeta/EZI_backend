@@ -1,5 +1,5 @@
 {
-  "name": "nglp",
+  "name": "ezibus",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "angular-cli-ghpages": "^0.6.2",
+    "aos": "^2.3.4",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "jquery": "^3.6.0",
