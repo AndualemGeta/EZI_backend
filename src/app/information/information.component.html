@@ -1,5 +1,5 @@
-<section id="information" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
-      <div class="container portfolio-card">
+<section id="information" data-aos="fade-up" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
+      <div class="container portfolio-card ">
 
         <div class="portfolio-section portfolio-heading mat-typography" fxLayout="column" fxLayoutAlign="center center">
             <div>
@@ -10,9 +10,9 @@
             </div>
         </div>
 
-
+        
         <div class="portfolio-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="30px" fxLayoutGap.sm="8px">
-          <div fxFlex="33.33" [about]>
+          <div fxFlex="33.33" [about] >
             <mat-card class="p-0 m-0">
               <img mat-card-image src="http://ezibus.leapfrogtechafrica.com/assets/images/GHION.jpg" class="center">
               <mat-card-content>
@@ -45,9 +45,9 @@
               <img mat-card-image src="../../assets/img/noha.jpg" class="center">
               <mat-card-content>
                 <h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">NOHA BUS</h5>
-                <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
+            <p class="mat-subheading-2" [ngStyle.sm]="{'font-size': '12px'}">
 <!--                  Another operator company-->
-                </p>
+                    </p>
 <!--                <mat-divider class="mb-1"></mat-divider>-->
 <!--                <button class="portfolio-button" mat-icon-button><mat-icon class="text-muted">link</mat-icon></button>-->
 <!--                <button class="portfolio-button" mat-icon-button><mat-icon class="text-muted">share</mat-icon></button>-->
@@ -55,6 +55,5 @@
             </mat-card>
           </div>
         </div>
-
       </div>
 </section>

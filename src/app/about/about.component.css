@@ -1,5 +1,6 @@
 .about-section{
   text-align: center;
+  transition-duration: 1s;
 }
 
 .about-heading{

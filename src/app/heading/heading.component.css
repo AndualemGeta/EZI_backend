@@ -27,13 +27,19 @@
   height: 50px;
 }
 .mat-typography {
-background-image: url("src/assets/img/ezibackground.jpg");
+
+  /* background-image: linear-gradient(
+    180deg
+    ,rgba(0, 0, 0, .4),rgba(0, 0, 0,.2),rgba(0, 0, 0,.46)); */
+    background: url("../../assets/img/ezibackground.jpg");
+    background-size: contain;
+  /*
+  background-image: url("src/assets/img/ezibackground.jpg");
 height: 700px;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
-  /*
-    background-image: linear-gradient(
+ background-image: linear-gradient(
 180deg
 ,rgba(0, 0, 0, .4),rgba(0, 0, 0,.2),rgba(0, 0, 0,.46));
   background: linear-gradient(rgb(0, 255, 115),rgb(255,255,255));

@@ -14,11 +14,12 @@ import { TravelInformationComponent } from './TravelInformation/travel-informati
 import { PaymentOptionComponent } from './paymentOption/payment-option.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import {FooterComponent} from "src/app/footer/footer.component"
-
+import {FooterComponent} from "src/app/footer/footer.component";
+import { HomeComponent} from "src/app/home/home.component";
 
 @NgModule({
   declarations: [
+    HomeComponent,
     AppComponent,
     InformationComponent,
     AboutComponent,

@@ -12,7 +12,7 @@ import { SE } from './directives/scroll.directive';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 import { DOCUMENT } from '@angular/common';
-
+import * as AOS from 'aos';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -37,7 +37,9 @@ export class AppComponent implements OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
-
+  ngOnInit(){
+    AOS.init();
+    }
   public detectScroll(event: SE) {
     
     if (event.header) {
