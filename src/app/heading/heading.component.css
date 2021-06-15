@@ -31,8 +31,9 @@
   /* background-image: linear-gradient(
     180deg
     ,rgba(0, 0, 0, .4),rgba(0, 0, 0,.2),rgba(0, 0, 0,.46)); */
-    background: url("../../assets/img/ezibackground.jpg");
+    background: url("../../assets/img/back2-enhanced.jpg");
     background-size: contain;
+    /*background-repeat: no-repeat;*/
   /*
   background-image: url("src/assets/img/ezibackground.jpg");
 height: 700px;
