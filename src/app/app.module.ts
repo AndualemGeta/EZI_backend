@@ -1,46 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from "src/app/app.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContactDialogComponent } from 'src/app/componenet/contact-dialog/contact-dialog.component';
+import { AppRoutingModule } from "src/app/app.routing.module";
+import { Material2Module } from "src/app/material2.module";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { DirectivesModule } from './directives/directives.module';
-import { Material2Module } from './material2.module';
-
-import { AppComponent } from './app.component';
-import { InformationComponent } from './information/information.component';
-import { AboutComponent } from './about/about.component';
-import { HeadingComponent } from './heading/heading.component';
-import { TravelInformationComponent } from './TravelInformation/travel-information.component';
-import { PaymentOptionComponent } from './paymentOption/payment-option.component';
-import { ContactComponent } from './contact/contact.component';
-import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import {FooterComponent} from "src/app/footer/footer.component";
-import { HomeComponent} from "src/app/home/home.component";
-
 @NgModule({
   declarations: [
-    HomeComponent,
     AppComponent,
-    InformationComponent,
-    AboutComponent,
-    HeadingComponent,
-    TravelInformationComponent,
-    PaymentOptionComponent,
-    ContactComponent,
-    ContactDialogComponent,
-    FooterComponent
+    ContactDialogComponent 
+    
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    Material2Module,
-    FlexLayoutModule,
-    DirectivesModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    BrowserModule, BrowserAnimationsModule,AppRoutingModule,Material2Module,HttpClientModule
+    ,FormsModule, ReactiveFormsModule  ],
   providers: [],
+  bootstrap: [AppComponent],
   entryComponents: [ ContactDialogComponent ],
-  bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

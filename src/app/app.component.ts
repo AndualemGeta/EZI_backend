@@ -1,25 +1,17 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, Inject } from '@angular/core';
-import { SE } from './directives/scroll.directive';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
-import { DOCUMENT } from '@angular/common';
 import * as AOS from 'aos';
+import { DOCUMENT } from '@angular/common';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { SE } from './componenet/directives/scroll.directive';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
-
+export class AppComponent {
+  title = 'ezibus';
   contactFabButton: any;
   bodyelement: any;
   sidenavelement: any;
@@ -32,7 +24,7 @@ export class AppComponent implements OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  constructor(@Inject(DOCUMENT) document, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+  constructor(@Inject(DOCUMENT) private document: Document, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -54,13 +46,10 @@ export class AppComponent implements OnDestroy {
       this.fixedTolbar = false;
     }
     
+    
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ContactDialogComponent, {
-      width: '250px'
-    });
-  }
+
 
   setToggleOn(){
 
@@ -84,5 +73,8 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
+  
+
+
 
 }

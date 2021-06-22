@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+  }
+
+.search-body{
+    margin-top: 80px;
+    background-color: rgb(255, 253, 253);
+}
+.trip-list-body{
+  background-color: #f4f4f4;
+  width: 100%;
+}
+.mat-success {
+  background-color: green;
+  color: #fff;
+}

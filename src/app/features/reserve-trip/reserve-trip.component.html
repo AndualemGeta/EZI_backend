@@ -1,0 +1,52 @@
+<app-header></app-header>
+<div style="margin-top: 100px;" flex fxLayout="row" fxLayout.lt-sm="column" >
+  <div fxFlex="10%"></div>
+  <div fxFlex="60%"> 
+<mat-card-content>
+  <h1> Route From {{ routeState.departureLocation}} To {{routeState.arrivalLocation}} </h1>
+  <p>Trip Date :{{ routeState.tripDate|date:"MMM,dd,yyyy"}} Price:{{ routeState.price}} </p>
+  <form class="my-form" [formGroup]="reserveRegisterForm" >
+     <mat-form-field class="full-width" style="margin-right: 140px;">
+       <mat-label>Full Name</mat-label>
+        <input  matInput  placeholder="Full Name"  name="fname" formControlName="name"  required>
+         </mat-form-field> 
+         <mat-form-field class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input  matInput formControlName="phone" placeholder="Phone Number" name="address"  required>
+         </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>Luggage Weight</mat-label>
+            <input type="number"  matInput  placeholder="Luggage Weight" formControlName="laggage" >
+         </mat-form-field>
+         <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Select Your Seat</mat-label>
+          <mat-select formControlName="seatNum">
+            <mat-option *ngFor="let seatnumber of routeState.availableSeats" [value]="seatnumber">{{seatnumber}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field  appearance="fill" class="full-width">
+          <mat-label>Select Bank Account</mat-label>
+          <mat-select formControlName="accountId">
+            <mat-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+         &nbsp; &nbsp;&nbsp;
+         <a (click)="reserve()" class="heading-button-right action-buton"  mat-flat-button   color="success">Reserve</a>
+         <a  [routerLink]="['/home']"  class="heading-button-right action-buton" mat-flat-button   color="accent">Cancel</a>
+         <a  (click)="backFunction()"  class="heading-button-right action-buton"  mat-flat-button   color="accent">Back</a>
+  </form>
+</mat-card-content>
+</div>
+<div fxFlex="20%">
+  <h1>Your Order is </h1>
+  <p> Trip Date :{{ routeState.tripDate|date:"MMM,dd,yyyy"}} <br> 
+    Route From {{ routeState.departureLocation}} To {{routeState.arrivalLocation}} <br>
+    Departure Station: {{routeState.departureStation}} <br>
+    Departure Time: {{routeState.departureTime|date:"hh:mm"}} <br>
+    Departure Support Phone: {{routeState.departureLocationPhone}} <br>
+    Arrival Station: {{routeState.arrivalStation}} <br>
+    Arrival Support Phone: {{routeState.arrivalLocationPhone}} <br>
+    Price:{{ routeState.price}} ETB<br>
+  </p>
+</div>
+</div>
