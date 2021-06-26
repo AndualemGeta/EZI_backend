@@ -30,6 +30,7 @@
         </div>
 </div>
 
+<<<<<<< HEAD
 <div class="">
 
 </div>
@@ -109,3 +110,74 @@
     
     
  
+=======
+
+<div class="trip-list-body" flex fxLayout="row" fxLayout.lt-sm="column" >
+  <div fxFlex="10%"></div>
+  <div fxFlex="70%"> 
+    <p style="text-align: center;">Addis Ababa To BahirDar  {{now|date:"MMM,dd,YYYY"}} </p>
+    <table mat-table [dataSource]="route" class="mat-elevation-z8">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Bus Brand </th>
+        <td mat-cell *matCellDef="let element"> {{element.operator}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Departure </th>
+        <td mat-cell *matCellDef="let element"> {{element.departureStation}}<br>
+        {{element.departureTime|date:"hh:mm"}}<br>
+        {{element.price|number}} ETB  
+      </td>
+      </ng-container>
+        
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Seats Available </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.availableSeats.length}} Seats available
+                </td>
+      </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef> Reserve </th>
+              <td mat-cell *matCellDef="let element"> 
+                <a class="heading-button-right success" (click)="ReserveSeat(element)" mat-flat-button color="success">Reserve</a>{{element.weight}} </td>
+            </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    </div>
+  <div fxFlex="10%"> </div>
+</div>
+
+
+
+<!---
+
+
+<mat-selection-list #shoes [multiple]="false">
+  <div fxLayout="row" fxLayoutAlign="center">
+      <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+      <mat-card style="align-items: center; background-color: antiquewhite;margin: 25px;">  
+        {{shoe}}
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <input matInput value="Disco party!" #message>
+        </mat-form-field>
+        
+        <mat-form-field>
+          <mat-label>Action</mat-label>
+          <input matInput value="Dance" #action>
+        </mat-form-field>
+      </mat-card>
+    </mat-list-option>
+    <mat-divider></mat-divider>
+  </div>
+
+  </mat-selection-list>
+  
+  
+-->
+>>>>>>> d2797e1bdc9d06e4ce19f7e901a5905a713729ab

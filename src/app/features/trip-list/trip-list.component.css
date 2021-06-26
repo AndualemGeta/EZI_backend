@@ -13,6 +13,7 @@ table {
 .mat-success {
   background-color: green;
   color: #fff;
+<<<<<<< HEAD
 }
 .trip-lists{
   padding: 5px;
@@ -51,4 +52,6 @@ mat-slider {
   .trip-detail-item {
     padding: 3%;
   }
+=======
+>>>>>>> d2797e1bdc9d06e4ce19f7e901a5905a713729ab
 }

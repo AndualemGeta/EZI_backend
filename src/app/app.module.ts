@@ -7,7 +7,10 @@ import { AppRoutingModule } from "src/app/app.routing.module";
 import { Material2Module } from "src/app/material2.module";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+<<<<<<< HEAD
 import {MatSliderModule} from '@angular/material/slider';
+=======
+>>>>>>> d2797e1bdc9d06e4ce19f7e901a5905a713729ab
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +19,11 @@ import {MatSliderModule} from '@angular/material/slider';
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,AppRoutingModule,Material2Module,HttpClientModule
+<<<<<<< HEAD
     ,FormsModule, ReactiveFormsModule,MatSliderModule  ],
+=======
+    ,FormsModule, ReactiveFormsModule  ],
+>>>>>>> d2797e1bdc9d06e4ce19f7e901a5905a713729ab
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [ ContactDialogComponent ],
