@@ -20,7 +20,7 @@ export class EziBusService {
   }
 
   baseurl =
-    "http://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
+    "https://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
   // baseurl = 'http://localhost:5000'; /*url to communicate real data base */
   operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
 
@@ -58,7 +58,7 @@ export class EziBusService {
     return this.http.put(`${this.baseurl}${url}`, body, {
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',    
+        Accept: 'application/json',
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',

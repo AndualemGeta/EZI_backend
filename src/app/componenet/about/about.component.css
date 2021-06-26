@@ -8,7 +8,7 @@
 }
 
 .about-title{
-  font-family: "Yu Gothic UI";
+  font-family: yrsa;
   color: #0B3954;
 }
 
@@ -22,6 +22,8 @@
 
 .about-text{
   text-align: center;
+  font-family: yrsa;
+  font-size: 20px;
 }
 
 .material-icons {
@@ -49,3 +51,4 @@
   font-feature-settings: 'liga';
   color: #00ff73;
 }
+

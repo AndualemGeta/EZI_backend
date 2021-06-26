@@ -39,3 +39,9 @@ mat-chip{
 .portfolio-row{
   padding: 25px;
 }
+
+mat-chip, .travel-info-font {
+  font-family: yrsa !important;
+}
+
+

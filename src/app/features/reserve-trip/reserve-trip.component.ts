@@ -10,6 +10,7 @@ import { SessionService } from '../../Service/SessionService';
 import { EziBusService } from '../../Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { Location } from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-reserve-trip',
   templateUrl: './reserve-trip.component.html',
@@ -52,7 +53,8 @@ export class ReserveTripComponent implements OnInit {
     private fb: FormBuilder,
     private eziService: EziBusService,
     private routeStateService: RouteStateService,
-    private location:Location
+    private location:Location,
+    private _snackBar : MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class ReserveTripComponent implements OnInit {
     console.log(this.routeState);
     this.selectedTrip=this.routeState;
     this.trip = false;
-    this.loading = true;
+    this.loading = false;
     this.noTrip = false;
     this.disableReservebutton = false;
     this.disableSubmit = false;
@@ -148,11 +150,16 @@ backFunction(){
     }
   }
 
+  showMessage(message){
+    this._snackBar.open(message,"UNDO");
+  }
+
   get userFormControl() {
     return this.userform.controls;
   }
 
   reserve(){
+    this.loading = true;
     var rawData = this.reserveRegisterForm.getRawValue();
     var data = {
       accountId: rawData.accountId,
@@ -167,7 +174,7 @@ backFunction(){
       statusCode: 'Reserved',
       paymentTypeCode: 'Electronic',
       pickupLocation: "mexico shebelie",
-      paymentMethodCode: "Electronic",
+      paymentMethodCode: "BankTransfer",
       passenger: {
         fullName: rawData.name,
         phoneNumber: rawData.phone,
@@ -187,7 +194,10 @@ backFunction(){
         this.reserveRegisterForm.reset();
         this.display = false;
         this.disableSubmit = false;
-        
+        this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
+        this.router.navigate(["home"]);
+        this.loading = false;
+
       },
       (error) => {
         this.iserror = true;
@@ -200,7 +210,8 @@ backFunction(){
           this.responseMesssage = this.responseMesssage + value;
         }
         this.display = false;
-      
+        this.loading = false;
+        this.showMessage(this.responseMesssage);
       }
     );
   }

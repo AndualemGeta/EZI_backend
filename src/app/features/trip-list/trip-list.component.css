@@ -13,7 +13,6 @@ table {
 .mat-success {
   background-color: green;
   color: #fff;
-<<<<<<< HEAD
 }
 .trip-lists{
   padding: 5px;
@@ -37,21 +36,66 @@ mat-slider {
   justify-content: center;
 }
 .trip-detail-item{
-  width : 250px;
+  width : 200px;
   text-align: center;
   padding: 1%;
 }
 
+.operator-name {
+  font-family: yrsa;
+}
+
 .trip-detail-property{
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
   font-weight: 600;
-  padding: 10px;
+  margin-bottom : 10px !important;
+  font-family: yrsa;
 }
+
+.trip-detail-value {
+  font-family: yrsa;
+}
+
 @media (max-width : 768px) {
   .trip-detail-item {
     padding: 3%;
   }
-=======
->>>>>>> d2797e1bdc9d06e4ce19f7e901a5905a713729ab
+}
+
+@media(min-width: 768px){
+  .trip-lists {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+.trip-result-icon {
+  color :  #5cb85c;
+  margin-bottom: 15px;
+  font-size: 18px;
+
+}
+
+.search-trip-form {
+  margin-top: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.search-button {
+  height: 35px;
+}
+.no-trip-found {
+  font-family: yrsa;
+  font-width: bold;
+  font-size: 25px;
+  text-align: center;
+
+}
+
+
+html,body, .trip-list-page {
+  margin: 0px;
+  height: 100%;
 }

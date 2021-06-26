@@ -5,24 +5,25 @@
     .about-heading{
     padding-bottom: 30px;
   }
-  
+
   .about-title{
-    font-family: "Yu Gothic UI";
+    font-family: yrsa;
     color: #0B3954;
   }
-  
+
   .about-heading h2{
     font-size: 32px;
   }
-  
+
   .about-heading h3{
     font-size: 22px;
   }
-  
+
   .about-text{
     text-align: center;
+    font-family: yrsa;
   }
-  
+
   .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -35,17 +36,16 @@
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-  
+
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility;
-  
+
     /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale;
-  
+
     /* Support for IE. */
     font-feature-settings: 'liga';
     color: #00ff73;
   }
-  

@@ -32,8 +32,8 @@
 	padding: 10px;
 }
 
-.mat-card-content a { 
-	color: inherit; 
+.mat-card-content a {
+	color: inherit;
 }
 
 .item {
@@ -61,4 +61,8 @@
 	font-family: "Yu Gothic UI";
 	font-weight: bold;
 	font-size: 22px;
+}
+
+.payment-options-font, .mat-headline {
+  font-family: yrsa;
 }

@@ -10,7 +10,7 @@
   max-width: 500px;
   width: 100%;
 }
- 
+
 .full-width {
   width: 100%;
 }
@@ -21,4 +21,60 @@
 .action-buton{
   margin-left: 10%;
   margin-bottom: 5%;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+.reserve-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 5%;
+  background-color: #f4f4f4;
+}
+
+.trip-detail-property {
+  font-size: 16px;
+  font-family: yrsa;
+  font-weight: 600;
+}
+
+.trip-detail-value {
+  font-size: 16px;
+  font-family: yrsa;
+}
+.trip-detail-item {
+  margin-top: 10px;
+}
+
+.trip-detail-title{
+  font-family: yrsa;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.reserved-trip-detail {
+  margin : 20px;
+}
+
+.reserve-form {
+  margin : 20px;
+}
+mat-label {
+  font-family: yrsa;
+
+}
+
+.input {
+  font-family: yrsa;
+}
+
+.trip-result-icon {
+  color :  #5cb85c;
+  margin-bottom: 15px;
+  font-size: 25px;
+  margin-right: 10px;
+
 }

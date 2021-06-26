@@ -1,7 +1,11 @@
+<div class="trip-list-page">
+
 <app-header></app-header>
-<div class="search-body" fxLayout="row" fxLayoutAlign="center">
-    <div class="example-container" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
+
      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+       <mat-card class="search-trip-form">
+
         <mat-form-field appearance="fill">
           <mat-label>Departure</mat-label>
           <mat-select formControlName="departure">
@@ -25,159 +29,67 @@
                 <input type="date" matInput placeholder="Trip Date" formControlName="tripDate">
               </mat-form-field>
               &nbsp;
-              <a class="heading-button-right" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
-            </form>
-        </div>
-</div>
+              <a class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
+       </mat-card>
+     </form>
 
-<<<<<<< HEAD
+
 <div class="">
 
 </div>
 
 <div class="trip-list-body" >
   <div fxFlex="100%">
-    <mat-card class="trip-lists">
+    <mat-card class="trip-lists"  *ngIf="route.length == 0">
+      <div class="trip-item">
+        <div class="no-trip-found" flex="1">
+          No Trip Found, Please select another date
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="trip-lists"  *ngFor="let trip of route">
      <div class="trip-item">
        <div class="operator-name" flex="1">
-          Operator Name
+         {{trip.operator}} BUS
        </div>
        <div class="trip-detail" >
         <div class="trip-detail-item">
-          <i class="material-icons">
+          <i class="material-icons trip-result-icon">
             place
           </i> <br/>
-         <span class="trip-detail-property"> Departure - Destination </span>  <br/>
-         <span class="trip-detail-value">  Addis Ababa - Dire Dawa </span> 
+         <div class="trip-detail-property"> Departure - Destination </div>  <br/>
+         <div class="trip-detail-value"> {{trip.departureLocation}} - {{trip.arrivalLocation}} </div>
         </div>
-        <div class="trip-detail-item">Seat Available <br/> 51</div>
+
         <div class="trip-detail-item">
-         
-          Departure Time <br/> Jun 26, 2021 - 10:00 AM</div>
-        <div class="trip-detail-item"> 
-          <span class="trip-price">450 Birr</span>
-         <br/>
-         <a class="heading-button-right success" mat-flat-button color="success">Reserve</a>
+          <i class="material-icons trip-result-icon">
+            airline_seat_recline_normal
+          </i> <br/>
+          <div class="trip-detail-property">Seat Available</div> <br/>
+          <div class="trip-detail-value">{{trip.availableSeats.length}}</div>
         </div>
+
+        <div class="trip-detail-item">
+          <i class="material-icons trip-result-icon">
+           watch_later
+          </i> <br/>
+          <div class="trip-detail-property">Departure Time  </div><br/>
+            <div class="trip-detail-value">{{trip.departureTime|date:'MMM d, y, h:mm:ss a'	}}</div>
+        </div>
+
+        <div class="trip-detail-item">
+          <i class="material-icons trip-result-icon">
+            payments
+          </i> <br/>
+          <div class="trip-detail-property">{{trip.price}} Birr</div> <br/>
+           <a class="heading-button-right success" mat-flat-button color="success" (click)="ReserveSeat(trip)">Reserve</a>
+        </div>
+
        </div>
 
      </div>
     </mat-card>
   </div>
 </div>
-<!-- 
-<div class="trip-list-body" flex fxLayout="row" fxLayout.lt-sm="column" >
-  <div fxFlex="10%"></div>
-  <div fxFlex="70%"> 
-   <p style="text-align: center;">Available Trips</p>  
-      <mat-list-item *ngFor="let element of route">
-           
-           <mat-card class="trip-lists">
-            <mat-grid-list cols="1" rowHeight="60px">
-              <mat-grid-tile> 
-                <mat-icon>info</mat-icon>{{element.operator}}
-                </mat-grid-tile>
-              </mat-grid-list>
-            <mat-grid-list cols="1" rowHeight="60px">
-              <mat-grid-tile> 
-                <mat-icon>info</mat-icon>{{element.operator}}
-                &nbsp;
-                Trip Date {{ element.tripDate|date:"MMM,dd,yyyy"}} 
-                {{element.departureLocation}} <mat-slider aria-label="unit(s)"></mat-slider> {{element.arrivalLocation}}
-              </mat-grid-tile>
-              </mat-grid-list>
-            <mat-grid-list cols="4" rowHeight="3:1">
-            <mat-grid-tile>
-            </mat-grid-tile>
-            <mat-grid-tile>Departure<br>
-              {{element.departureStation}}<br>
-              at {{element.departureTime|date:"hh:mm"}}
-            </mat-grid-tile>
-            <mat-grid-tile>Destination<br>
-              {{element.arrivalLocation}}<br>
-              {{element.arrivalStation}}
-            </mat-grid-tile>
-            <mat-grid-tile> {{element.price|number}} ETB <br>{{element.availableSeats.length}} Seats Available<br></mat-grid-tile>
-          </mat-grid-list>
-          <mat-grid-list cols="3" rowHeight="40px">
-            <mat-grid-tile> 
-            </mat-grid-tile>
-            <mat-grid-tile> </mat-grid-tile>
-            <mat-grid-tile><a class="heading-button-right success" (click)="ReserveSeat(element)" mat-flat-button color="success">Reserve</a></mat-grid-tile>
-          </mat-grid-list>
-         </mat-card>
-         </mat-list-item> -->
-    
-    
- 
-=======
-
-<div class="trip-list-body" flex fxLayout="row" fxLayout.lt-sm="column" >
-  <div fxFlex="10%"></div>
-  <div fxFlex="70%"> 
-    <p style="text-align: center;">Addis Ababa To BahirDar  {{now|date:"MMM,dd,YYYY"}} </p>
-    <table mat-table [dataSource]="route" class="mat-elevation-z8">
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> Bus Brand </th>
-        <td mat-cell *matCellDef="let element"> {{element.operator}} </td>
-      </ng-container>
-    
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Departure </th>
-        <td mat-cell *matCellDef="let element"> {{element.departureStation}}<br>
-        {{element.departureTime|date:"hh:mm"}}<br>
-        {{element.price|number}} ETB  
-      </td>
-      </ng-container>
-        
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef> Seats Available </th>
-        <td mat-cell *matCellDef="let element">
-          {{element.availableSeats.length}} Seats available
-                </td>
-      </ng-container>
-            <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
-              <th mat-header-cell *matHeaderCellDef> Reserve </th>
-              <td mat-cell *matCellDef="let element"> 
-                <a class="heading-button-right success" (click)="ReserveSeat(element)" mat-flat-button color="success">Reserve</a>{{element.weight}} </td>
-            </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    </div>
-  <div fxFlex="10%"> </div>
 </div>
 
-
-
-<!---
-
-
-<mat-selection-list #shoes [multiple]="false">
-  <div fxLayout="row" fxLayoutAlign="center">
-      <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-      <mat-card style="align-items: center; background-color: antiquewhite;margin: 25px;">  
-        {{shoe}}
-        <mat-form-field>
-          <mat-label>Message</mat-label>
-          <input matInput value="Disco party!" #message>
-        </mat-form-field>
-        
-        <mat-form-field>
-          <mat-label>Action</mat-label>
-          <input matInput value="Dance" #action>
-        </mat-form-field>
-      </mat-card>
-    </mat-list-option>
-    <mat-divider></mat-divider>
-  </div>
-
-  </mat-selection-list>
-  
-  
--->
->>>>>>> d2797e1bdc9d06e4ce19f7e901a5905a713729ab

@@ -1,24 +1,26 @@
 <app-header></app-header>
-<div style="margin-top: 100px;" flex fxLayout="row" fxLayout.lt-sm="column" >
-  <div fxFlex="10%"></div>
-  <div fxFlex="60%"> 
-<mat-card-content>
-  <h1> Route From {{ routeState.departureLocation}} To {{routeState.arrivalLocation}} </h1>
-  <p>Trip Date :{{ routeState.tripDate|date:"MMM,dd,yyyy"}} Price:{{ routeState.price}} </p>
-  <form class="my-form" [formGroup]="reserveRegisterForm" >
-     <mat-form-field class="full-width" style="margin-right: 140px;">
-       <mat-label>Full Name</mat-label>
-        <input  matInput  placeholder="Full Name"  name="fname" formControlName="name"  required>
-         </mat-form-field> 
-         <mat-form-field class="full-width">
-            <mat-label>Phone Number</mat-label>
-            <input  matInput formControlName="phone" placeholder="Phone Number" name="address"  required>
-         </mat-form-field>
-         <mat-form-field class="full-width">
-            <mat-label>Luggage Weight</mat-label>
-            <input type="number"  matInput  placeholder="Luggage Weight" formControlName="laggage" >
-         </mat-form-field>
-         <mat-form-field appearance="fill" class="full-width">
+
+<div class="reserve-container">
+
+
+  <div class="reserve-form">
+    <mat-card>
+      <div class="trip-detail-title">{{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</div>
+
+      <form class="my-form" [formGroup]="reserveRegisterForm" >
+        <mat-form-field class="full-width" style="margin-right: 140px;">
+          <mat-label>Full Name</mat-label>
+          <input  matInput  placeholder="Full Name"  name="fname" formControlName="name"  required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input  matInput formControlName="phone" placeholder="Phone Number" name="address"  required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Luggage Weight</mat-label>
+          <input type="number"  matInput  placeholder="Luggage Weight" formControlName="laggage" >
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
           <mat-label>Select Your Seat</mat-label>
           <mat-select formControlName="seatNum">
             <mat-option *ngFor="let seatnumber of routeState.availableSeats" [value]="seatnumber">{{seatnumber}}</mat-option>
@@ -30,23 +32,78 @@
             <mat-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-         &nbsp; &nbsp;&nbsp;
-         <a (click)="reserve()" class="heading-button-right action-buton"  mat-flat-button   color="success">Reserve</a>
-         <a  [routerLink]="['/home']"  class="heading-button-right action-buton" mat-flat-button   color="accent">Cancel</a>
-         <a  (click)="backFunction()"  class="heading-button-right action-buton"  mat-flat-button   color="accent">Back</a>
-  </form>
-</mat-card-content>
+        &nbsp; &nbsp;&nbsp; <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
+        <div class="action-buttons" *ngIf="!loading">
+          <a (click)="reserve()" class="heading-button-right action-buton"  mat-flat-button   color="success">
+
+            Reserve</a>
+
+          <a  [routerLink]="['/home']"  class="heading-button-right action-buton" mat-flat-button   color="primary">Cancel</a>
+          <a  (click)="backFunction()"  class="heading-button-right action-buton"  mat-flat-button   color="danger">Back</a>
+        </div>
+
+      </form>
+    </mat-card>
+  </div>
+  <div class="reserved-trip-detail">
+    <mat-card>
+      <div class="trip-detail-title">Trip Detail</div>
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          event
+        </i>
+        <span class="trip-detail-property">Trip Date :</span>:
+        <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+      </div>
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          place
+        </i><span class="trip-detail-property">Route</span>:
+        <span class="trip-detail-value">{{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
+      </div>
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          business
+        </i><span class="trip-detail-property">Departure Station:</span>:
+        <span class="trip-detail-value">{{routeState.departureStation}}</span>
+      </div>
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          business
+        </i>
+        <span class="trip-detail-property">Arrival Station:</span>:
+        <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
+      </div>
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          watch_later
+        </i>  <span class="trip-detail-property"> Departure Time</span>:
+        <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+      </div>
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          call
+        </i>
+        <span class="trip-detail-property">Departure Support Phone</span>:
+        <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
+      </div>
+
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">
+          payments
+        </i> <span class="trip-detail-property">Price:</span>:
+        <span class="trip-detail-value">{{ routeState.price}} ETB</span>
+      </div>
+
+    </mat-card>
+  </div>
 </div>
-<div fxFlex="20%">
-  <h1>Your Order is </h1>
-  <p> Trip Date :{{ routeState.tripDate|date:"MMM,dd,yyyy"}} <br> 
-    Route From {{ routeState.departureLocation}} To {{routeState.arrivalLocation}} <br>
-    Departure Station: {{routeState.departureStation}} <br>
-    Departure Time: {{routeState.departureTime|date:"hh:mm"}} <br>
-    Departure Support Phone: {{routeState.departureLocationPhone}} <br>
-    Arrival Station: {{routeState.arrivalStation}} <br>
-    Arrival Support Phone: {{routeState.arrivalLocationPhone}} <br>
-    Price:{{ routeState.price}} ETB<br>
-  </p>
-</div>
-</div>
+<!--<div style="margin-top: 100px;" flex fxLayout="row" fxLayout.lt-sm="column" >-->
+<!--  <div fxFlex="10%"></div>-->
+<!--  <div fxFlex="60%">-->
+
+<!--</div>-->
+<!--<div fxFlex="20%">-->
+
+<!--</div>-->
+<!--</div>-->

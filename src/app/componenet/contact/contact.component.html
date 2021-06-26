@@ -2,10 +2,10 @@
     <div class="container">
 		      <div class="contact-section contact-heading mat-typography" fxLayout="column" fxLayoutAlign="center center">
 		            <div>
-		            <h2 [ngStyle.lt-md]="{'margin-bottom': '15px'}">Contact Us</h2>
+		            <h2 class="contact-font-type" [ngStyle.lt-md]="{'margin-bottom': '15px'}">Contact Us</h2>
 		            </div>
 		            <div>
-			        <h3 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">We'd love to hear from you. Please get in touch!.</h3>
+			        <h3 class="contact-font-type" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">We'd love to hear from you. Please get in touch!.</h3>
 			        </div>
 		        </div>
 
@@ -13,10 +13,10 @@
 
 				<form class="formwidth" (ngSubmit)="onSubmit()">
 				  <div class="contact-form" [ngStyle.xs]="{'padding-left': '50px', 'padding-right': '50px'}" [ngStyle.sm]="{'padding-left': '100px', 'padding-right': '100px'}" [ngStyle.md]="{'padding-left': '150px', 'padding-right': '150px'}" [ngStyle.lg]="{'padding-left': '200px', 'padding-right': '200px'}">
-					  
+
 				  	  <mat-form-field appearance="outline" color="accent">
 					  	<mat-label>Please enter your name </mat-label>
-					    <input matInput placeholder="Name" 
+					    <input matInput placeholder="Name"
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="nameFormControl.hasError('required')">
 					      Name is <strong>required</strong>
@@ -25,7 +25,7 @@
 
 					  <mat-form-field appearance="outline" color="accent">
 					  	<mat-label>Please enter your phone </mat-label>
-					    <input matInput placeholder="Phone" 
+					    <input matInput placeholder="Phone"
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="phoneFormControl.hasError('required')">
 					      Phone is <strong>required</strong>
@@ -34,7 +34,7 @@
 
 					  <mat-form-field appearance="outline" color="accent">
 					  	<mat-label>Please enter your email </mat-label>
-					    <input matInput placeholder="Email" 
+					    <input matInput placeholder="Email"
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
 					      Please enter a valid email address
@@ -51,7 +51,7 @@
 					   </div>
 
 				  </div>
-  					
+
 				</form>
 	</div>
 </section>
