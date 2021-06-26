@@ -1,0 +1,111 @@
+<app-header></app-header>
+<div class="search-body" fxLayout="row" fxLayoutAlign="center">
+    <div class="example-container" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
+     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Departure</mat-label>
+          <mat-select formControlName="departure">
+            <mat-option *ngFor="let city of cities" [value]="city.locationId">
+            {{city.name}}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+              &nbsp;
+              <mat-form-field appearance="fill">
+                <mat-label>Destination</mat-label>
+                <mat-select formControlName="destination">
+                <mat-option *ngFor="let city of cities" [value]="city.locationId">
+                  {{city.name}}
+                </mat-option>
+                </mat-select>
+              </mat-form-field>
+                &nbsp;
+              <mat-form-field>
+                <mat-label>Trip Date</mat-label>
+                <input type="date" matInput placeholder="Trip Date" formControlName="tripDate">
+              </mat-form-field>
+              &nbsp;
+              <a class="heading-button-right" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
+            </form>
+        </div>
+</div>
+
+<div class="">
+
+</div>
+
+<div class="trip-list-body" >
+  <div fxFlex="100%">
+    <mat-card class="trip-lists">
+     <div class="trip-item">
+       <div class="operator-name" flex="1">
+          Operator Name
+       </div>
+       <div class="trip-detail" >
+        <div class="trip-detail-item">
+          <i class="material-icons">
+            place
+          </i> <br/>
+         <span class="trip-detail-property"> Departure - Destination </span>  <br/>
+         <span class="trip-detail-value">  Addis Ababa - Dire Dawa </span> 
+        </div>
+        <div class="trip-detail-item">Seat Available <br/> 51</div>
+        <div class="trip-detail-item">
+         
+          Departure Time <br/> Jun 26, 2021 - 10:00 AM</div>
+        <div class="trip-detail-item"> 
+          <span class="trip-price">450 Birr</span>
+         <br/>
+         <a class="heading-button-right success" mat-flat-button color="success">Reserve</a>
+        </div>
+       </div>
+
+     </div>
+    </mat-card>
+  </div>
+</div>
+<!-- 
+<div class="trip-list-body" flex fxLayout="row" fxLayout.lt-sm="column" >
+  <div fxFlex="10%"></div>
+  <div fxFlex="70%"> 
+   <p style="text-align: center;">Available Trips</p>  
+      <mat-list-item *ngFor="let element of route">
+           
+           <mat-card class="trip-lists">
+            <mat-grid-list cols="1" rowHeight="60px">
+              <mat-grid-tile> 
+                <mat-icon>info</mat-icon>{{element.operator}}
+                </mat-grid-tile>
+              </mat-grid-list>
+            <mat-grid-list cols="1" rowHeight="60px">
+              <mat-grid-tile> 
+                <mat-icon>info</mat-icon>{{element.operator}}
+                &nbsp;
+                Trip Date {{ element.tripDate|date:"MMM,dd,yyyy"}} 
+                {{element.departureLocation}} <mat-slider aria-label="unit(s)"></mat-slider> {{element.arrivalLocation}}
+              </mat-grid-tile>
+              </mat-grid-list>
+            <mat-grid-list cols="4" rowHeight="3:1">
+            <mat-grid-tile>
+            </mat-grid-tile>
+            <mat-grid-tile>Departure<br>
+              {{element.departureStation}}<br>
+              at {{element.departureTime|date:"hh:mm"}}
+            </mat-grid-tile>
+            <mat-grid-tile>Destination<br>
+              {{element.arrivalLocation}}<br>
+              {{element.arrivalStation}}
+            </mat-grid-tile>
+            <mat-grid-tile> {{element.price|number}} ETB <br>{{element.availableSeats.length}} Seats Available<br></mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="3" rowHeight="40px">
+            <mat-grid-tile> 
+            </mat-grid-tile>
+            <mat-grid-tile> </mat-grid-tile>
+            <mat-grid-tile><a class="heading-button-right success" (click)="ReserveSeat(element)" mat-flat-button color="success">Reserve</a></mat-grid-tile>
+          </mat-grid-list>
+         </mat-card>
+         </mat-list-item> -->
+    
+    
+ 

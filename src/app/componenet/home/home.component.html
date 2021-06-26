@@ -1,0 +1,45 @@
+<mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
+    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')"><img height="100%" src="assets/img/ezi-circle.png" ></a>
+    <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" >EZI BUS</span>    
+    <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
+        <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">Travel information</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">Payment</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('contact')">Contact</a>
+    </mat-nav-list>
+    <span class="navigation-spacer"></span>
+    9293
+    <button id=contact-fab-button (click)="openDialog()" mat-mini-fab color="primary" matTooltip="Contact Us" [matTooltipPosition]="'left'"><mat-icon>phone</mat-icon></button>
+  </mat-toolbar>
+  <div class="navigation-empty" fxShow="false" fxShow.gt-xs="true"> welll </div>
+  <mat-sidenav-container
+          class="navigation-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
+                 <mat-nav-list>
+        <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
+        <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">Travel information</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">Payment</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('contact')">Contact</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content nglp-scroll (onScroll)="detectScroll($event)">
+    <app-heading></app-heading>
+    <app-how-it-work></app-how-it-work>
+    <app-about></app-about>
+    <app-information></app-information>
+    <app-travel-information></app-travel-information>
+    <app-payment-option></app-payment-option>
+    <app-contact></app-contact>
+    <app-footer></app-footer>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+

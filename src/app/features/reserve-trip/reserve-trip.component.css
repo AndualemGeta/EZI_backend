@@ -1,0 +1,24 @@
+.test{
+  background-color: blue;
+}
+
+.my-panel .ui-panel-titlebar {
+  background: blue
+}
+.my-form{
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+ 
+.full-width {
+  width: 100%;
+}
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+.action-buton{
+  margin-left: 10%;
+  margin-bottom: 5%;
+}

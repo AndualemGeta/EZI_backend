@@ -1,0 +1,64 @@
+#scroll-item{
+	cursor: all-scroll;
+}
+
+.blog-section{
+  text-align: center;
+}
+
+.blog-heading{
+  padding-bottom: 30px;
+}
+
+.blog-heading h2{
+  font-size: 32px;
+}
+
+.blog-heading h3{
+  font-size: 22px;
+}
+
+.mat-card{
+	padding: 0;
+	height: 200px;
+	margin-top: 30px;
+}
+
+.mat-card-image {
+	margin: 0;
+}
+
+.mat-card-content {
+	padding: 10px;
+}
+
+.mat-card-content a { 
+	color: inherit; 
+}
+
+.item {
+	margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.owl-nav .my-but{
+	background-color: red;
+}
+.img-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+
+}
+
+.portfolio-row {
+	margin-top: 25px;
+}
+
+.mat-headline {
+	text-align: center;
+	font-family: "Yu Gothic UI";
+	font-weight: bold;
+	font-size: 22px;
+}
