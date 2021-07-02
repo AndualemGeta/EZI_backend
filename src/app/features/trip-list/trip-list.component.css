@@ -1,15 +1,28 @@
-table {
-    width: 100%;
-  }
+.trip-list-page {
+  background-color: #f4f4f4;
+  min-height: 100vh;
 
+ }
 .search-body{
     margin-top: 80px;
     background-color: rgb(255, 253, 253);
 }
-.trip-list-body{
-  background-color: #f4f4f4;
-  width: 100%;
+.search-trip-form {
+  border-radius: 15px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 10%;
+  margin-bottom: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  
 }
+.search-button {
+  height: 35px;
+}
+
 .mat-success {
   background-color: green;
   color: #fff;
@@ -77,25 +90,18 @@ mat-slider {
 
 }
 
-.search-trip-form {
-  margin-top: 10%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.search-button {
-  height: 35px;
-}
+
 .no-trip-found {
   font-family: yrsa;
-  font-width: bold;
+  font-weight: bold;
   font-size: 25px;
   text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top:3%;
+  }
 
-}
 
 
-html,body, .trip-list-page {
-  margin: 0px;
-  height: 100%;
-}

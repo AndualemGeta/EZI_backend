@@ -18,6 +18,7 @@ export class TripListComponent implements OnInit {
 constructor(private routeStateService: RouteStateService, private router: Router,
   private fb: FormBuilder,
   private eziService: EziBusService) { }
+  loading:boolean;
   form: FormGroup;
   routeState;
   now:Date;
@@ -31,6 +32,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
   cities: any[];
   route:any=[];
   ngOnInit(): void {
+    this.loading=false;
     this.routeState = this.routeStateService.getCurrent().data;
      this.now=new Date();
      this.getAllLocations();
@@ -41,8 +43,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
   });
   this.getSearchResult(this.routeState.departure,this.routeState.destination,this.routeState.tripDate);
   }
-
-
     getAllLocations() {
     this.eziService.getAllLocations().then((value) => {
       this.cities = value;
@@ -50,11 +50,14 @@ constructor(private routeStateService: RouteStateService, private router: Router
   }
  async getSearchResult(departure,destination,tripDate) {
     await this.eziService.searchTrip(departure,destination,tripDate).then((response) => {
-      console.log(response);
-      this.route = response;
+       this.route = response;
+       this.loading=false;
+    },(error) => {
+      this.loading=false;
     });
   }
   onSubmit(){
+    this.loading=true;
     let departure=this.form.controls.departure.value;
     let destination=this.form.controls.destination.value;
     let tripDate=this.form.controls.tripDate.value;

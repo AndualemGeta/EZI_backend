@@ -182,7 +182,7 @@ backFunction(){
         age: 0,
       },
     };
-    console.log(data);
+
     this.eziService.reserve(data).subscribe(
       (res) => {
         this.iserror = false;
