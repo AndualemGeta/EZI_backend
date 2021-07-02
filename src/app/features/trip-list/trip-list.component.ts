@@ -3,23 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
-
 export interface PeriodicElement {
   name: string;
   position: string;
   weight: string;
   symbol: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: "Ghion Bus", name: '12:45 pm', symbol: '25', weight: ""},
-  {position: "DreamLiner Bus", name: '12:40 pm', symbol: '23', weight: ""},
-  {position: "Noha Bus", name: '12:35 pm', symbol: '25', weight: ""},
-  {position: "Noha Bus", name: '12:00 pm', symbol: '21', weight: ""},
-  {position: "DreamLinear Bus", name: '11:45 pm', symbol: '6', weight: ""},
-  {position: "Noha Bus", name: '11:30 pm', symbol: '23', weight: ""},
-  
-];
 @Component({
   selector: 'app-trip-list',
   templateUrl: './trip-list.component.html',
@@ -30,8 +19,8 @@ constructor(private routeStateService: RouteStateService, private router: Router
   private fb: FormBuilder,
   private eziService: EziBusService) { }
   form: FormGroup;
- routeState;
- now:Date;
+  routeState;
+  now:Date;
   seatNo: any;
   AvailableSeat: any[];
   accounts: any[];
@@ -40,12 +29,12 @@ constructor(private routeStateService: RouteStateService, private router: Router
   responseStyle;
   newLine: any = {};
   cities: any[];
-  route:any[];
+  route:any=[];
   ngOnInit(): void {
     this.routeState = this.routeStateService.getCurrent().data;
      this.now=new Date();
-    this.getAllLocations();
-    this.form = this.fb.group({
+     this.getAllLocations();
+     this.form = this.fb.group({
       departure: ['', Validators.required],
       destination: ['', Validators.required],
       tripDate: ['', Validators.required]
@@ -53,8 +42,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
   this.getSearchResult(this.routeState.departure,this.routeState.destination,this.routeState.tripDate);
   }
 
-  displayedColumns: string[] = ['position', 'name', 'symbol', 'weight'];
-  dataSource = ELEMENT_DATA;
+
     getAllLocations() {
     this.eziService.getAllLocations().then((value) => {
       this.cities = value;

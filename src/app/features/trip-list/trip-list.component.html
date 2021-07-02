@@ -1,11 +1,8 @@
 <div class="trip-list-page">
 
 <app-header></app-header>
-
-     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
+ <form [formGroup]="form" (ngSubmit)="onSubmit()">
        <mat-card class="search-trip-form">
-
         <mat-form-field appearance="fill">
           <mat-label>Departure</mat-label>
           <mat-select formControlName="departure">
@@ -32,12 +29,6 @@
               <a class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
        </mat-card>
      </form>
-
-
-<div class="">
-
-</div>
-
 <div class="trip-list-body" >
   <div fxFlex="100%">
     <mat-card class="trip-lists"  *ngIf="route.length == 0">
@@ -47,6 +38,7 @@
         </div>
       </div>
     </mat-card>
+    <div *ngIf="route.length != 0">
     <mat-card class="trip-lists"  *ngFor="let trip of route">
      <div class="trip-item">
        <div class="operator-name" flex="1">
@@ -89,6 +81,7 @@
 
      </div>
     </mat-card>
+  </div>
   </div>
 </div>
 </div>
