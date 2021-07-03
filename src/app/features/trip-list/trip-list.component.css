@@ -1,8 +1,7 @@
 .trip-list-page {
   background-color: #f4f4f4;
   min-height: 100vh;
-
- }
+}
 .search-body{
     margin-top: 80px;
     background-color: rgb(255, 253, 253);
@@ -17,8 +16,7 @@
   flex-wrap: wrap;
   text-align: center;
   justify-content: center;
-  
-}
+  }
 .search-button {
   height: 35px;
 }

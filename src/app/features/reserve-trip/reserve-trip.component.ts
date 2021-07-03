@@ -10,6 +10,7 @@ import { SessionService } from '../../Service/SessionService';
 import { EziBusService } from '../../Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { Location } from '@angular/common';
+import {formatDate} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-reserve-trip',
@@ -59,7 +60,6 @@ export class ReserveTripComponent implements OnInit {
 
   ngOnInit() {
     this.routeState = this.routeStateService.getCurrent().data;
-    console.log(this.routeState);
     this.selectedTrip=this.routeState;
     this.trip = false;
     this.loading = false;
@@ -98,7 +98,18 @@ export class ReserveTripComponent implements OnInit {
     });
   }
 backFunction(){
-  this.location.back();
+   let searchData={
+    departure:this.routeState.departureLocationId,
+    destination:this.routeState.arrivalLocationId,
+     tripDate: formatDate(this.routeState.tripDate,'yyyy-MM-dd', 'en-US')
+   };
+   this.routeStateService.add(
+    "trip-list",
+    "/trip-list",
+    searchData,
+    false
+  );
+  //this.location.back();
 }
   onClickSearchLine() {
     this.loading = true;

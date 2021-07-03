@@ -18,6 +18,10 @@
   background-color: green;
   color: #fff;
 }
+.mat-back {
+  background-color: #C0C0C0;
+  color: #404040;
+}
 .action-buton{
   margin-left: 10%;
   margin-bottom: 5%;
