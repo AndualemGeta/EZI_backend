@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
@@ -27,8 +27,9 @@ export class HeadingComponent implements OnInit {
   responseStyle;
   newLine: any = {};
   cities: any[];
-
+  myControl = new FormControl();
   ngOnInit() {
+    
     this.form = this.fb.group({
       departure: ['', Validators.required],
       destination: ['', Validators.required],

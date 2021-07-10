@@ -108,4 +108,9 @@ html {
      margin-top: 0px !important;
      margin-bottom: 0px !important;
    }
-   
+   .call-center{
+     font-size: 28px;
+     font-weight: bold;
+     color: #44CF6C;
+     font-family: 'Courier New', Courier, monospace;
+   }

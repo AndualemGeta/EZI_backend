@@ -18,13 +18,15 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
 
-  imports: [MatSnackBarModule,MatMenuModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
+  imports: [MatGridListModule,MatAutocompleteModule,MatSnackBarModule,MatMenuModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
             MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatTabsModule,
             MatTableModule, MatFormFieldModule, MatInputModule, MatDialogModule,MatDatepickerModule, MatChipsModule],
-  exports: [MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
+  exports: [MatGridListModule,MatAutocompleteModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
             MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatTabsModule,
             MatTableModule, MatFormFieldModule, MatInputModule, MatDialogModule,MatDatepickerModule,MatSelectModule, MatChipsModule]
 })
