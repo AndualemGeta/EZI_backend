@@ -51,7 +51,20 @@
 	width: 150px;
 
 }
+.lion-img-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 250px;
 
+}
+.abyssinia-img-center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+
+}
 .portfolio-row {
 	margin-top: 25px;
 }

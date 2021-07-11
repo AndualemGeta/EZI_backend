@@ -4,3 +4,18 @@
     color: #fff;
   }
   
+  .major-contents {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    }
+  .major-sub-contents{
+  display: flex;
+  flex-wrap: wrap;  
+}
+  .major-sub-content-detail{
+  width :250px;
+  margin: 6px;
+  float: left;
+  text-align: left;
+  }

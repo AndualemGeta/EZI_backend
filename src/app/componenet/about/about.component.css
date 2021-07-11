@@ -1,31 +1,14 @@
 .about-section{
   text-align: center;
   transition-duration: 1s;
-}
-
-.about-heading{
   padding-bottom: 30px;
+  margin-top: 25px;
 }
 
 .about-title{
   font-family: yrsa;
   color: #0B3954;
 }
-
-.about-heading h2{
-  font-size: 32px;
-}
-
-.about-heading h3{
-  font-size: 22px;
-}
-
-.about-text{
-  text-align: center;
-  font-family: yrsa;
-  font-size: 20px;
-}
-
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -52,3 +35,19 @@
   color: #00ff73;
 }
 
+.sub-content-title{
+  text-align: center;
+  font-family: yrsa;
+  font-size: 20px;
+}
+.sub-content-title h2{
+  font-size: 32px;
+}
+
+.sub-content-title h3{
+  font-size: 22px;
+}
+.sub-content-text{
+  font-family: yars;
+  font-size: 15px;
+}
