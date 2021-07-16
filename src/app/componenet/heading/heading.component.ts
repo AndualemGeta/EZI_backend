@@ -19,6 +19,8 @@ export class HeadingComponent implements OnInit {
     private fb: FormBuilder,
     private eziService: EziBusService) { }
   routeState;
+  selectedDeparture:any;
+  selectedDestination:any;
   seatNo: any;
   AvailableSeat: any[];
   accounts: any[];
@@ -29,12 +31,13 @@ export class HeadingComponent implements OnInit {
   cities: any[];
   myControl = new FormControl();
   ngOnInit() {
-    
-    this.form = this.fb.group({
-      departure: ['', Validators.required],
-      destination: ['', Validators.required],
-      tripDate: ['', Validators.required]
-  });
+   this.selectedDeparture ="ba8fcf90-31de-420f-68ac-08d8a643ea62";
+   this.selectedDestination ="8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
+   this.form = this.fb.group({
+      departure: [this.selectedDeparture, Validators.required],
+      destination: [this.selectedDestination, Validators.required],
+      tripDate: ['', Validators.required],
+       });
     this.getAllLocations();
     this.getAllBankAccounts();
   }
@@ -45,6 +48,7 @@ searchResult(){
     departure:this.form.controls.departure.value,
     tripDate:this.form.controls.tripDate.value
   };
+ 
   this.routeStateService.add(
     "user-list",
     "/trip-list",
@@ -54,6 +58,7 @@ searchResult(){
  }
  getAllLocations() {
   this.eziService.getAllLocations().then((value) => {
+    console.log(value);
     this.cities = value;
   });
 }
@@ -63,7 +68,11 @@ getAllBankAccounts() {
     this.accounts = response;
   });
 }
-
+ExchangeTrip(){
+   let departure =this.selectedDeparture;
+   this.selectedDeparture=this.selectedDestination;
+   this.selectedDestination=departure;
+  }
 onSubmit(){
   this.form.controls.destination.value;
   this.form.controls.departure.value;

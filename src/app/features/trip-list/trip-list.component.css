@@ -100,6 +100,10 @@ mat-slider {
   margin-right: 15%;
   margin-top:3%;
   }
-
+  .content-icon{
+    font-size: 25px;  
+    font-feature-settings: 'liga';
+      color: #00ff73; 
+  }
 
 

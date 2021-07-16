@@ -11,20 +11,22 @@
 	        <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="isHeadingBtn" [class.fadeIn]="isHeadingBtn" [class.heading-btn]="isHeadingBtn">
 				<div class="example-container" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
 					<form [formGroup]="form">
-						
-					<mat-form-field appearance="fill">
+						<mat-form-field appearance="fill">
 						<mat-label>Departure</mat-label>
-						<mat-select formControlName="departure">
-						  <mat-option *ngFor="let city of cities" [value]="city.locationId">
+						<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
+						  <mat-option *ngFor="let city of cities"  [value]="city.locationId">
 							{{city.name}}
 						  </mat-option>
 						</mat-select>
 					  </mat-form-field>
+					  <span fxShow="false" fxShow.gt-xs="true" (click)="ExchangeTrip() " class="content-icon material-icons">
+						sync_alt
+						</span>
 								&nbsp;
 								<mat-form-field appearance="fill">
 								  <mat-label>Destination</mat-label>
-								  <mat-select formControlName="destination">
-									<mat-option *ngFor="let city of cities" [value]="city.locationId">
+								  <mat-select formControlName="destination" [(ngModel)]="selectedDestination">
+									<mat-option *ngFor="let city of cities" [(value)]="city.locationId">
 									  {{city.name}}
 									</mat-option>
 								  </mat-select>
@@ -33,7 +35,7 @@
 								  
 								<mat-form-field>
 								  <mat-label>Trip Date</mat-label>
-								  <input type="date" matInput placeholder="Trip Date" formControlName="tripDate">
+								  <input type="date" matInput placeholder="Trip Date" formControlName="tripDate" [ngModel] ="now | date:'yyyy-MM-dd'">
 								</mat-form-field>
 								&nbsp;
 							<a class="heading-button-right" mat-flat-button (click)="searchResult()"  color="success">Search</a>

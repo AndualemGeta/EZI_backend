@@ -21,7 +21,7 @@
 
   .about-text{
     text-align: center;
-    font-family: yrsa;
+    font-family: yrsa !important;
   }
 
   .material-icons {
@@ -79,11 +79,11 @@
   .sub-content-detail-title{
     font-size: 18px;
     font-weight: bold;
-    font-family: yars;
+    font-family: yrsa !important;
   }
   .sub-content-detail-value{
     font-size: 13px;
-    font-family: yars;
+    font-family: yrsa !important;
   }
   @media (max-width : 768px) {
     .how-it-work-sub-contents {

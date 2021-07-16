@@ -45,21 +45,21 @@ accounts:any[];
 
     getAllLocations() {
       this.eziService.getAllLocations().then((value) => {
-        console.log(value);
+  
         this.cities = value;
       });
     }
   
     getAllBankAccounts() {
       this.eziService.getOperatorAccounts().then((response) => {
-        console.log(response);
+    
         this.accounts = response;
       });
     }
 
 
   public detectScroll(event: any) {
-    console.log(event);
+
     if (event.header) {
       this.isActive = false;
       this.isActivefadeInDown = true;

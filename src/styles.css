@@ -19,3 +19,8 @@
   float: left;
   text-align: left;
   }
+  .content-icon{
+    font-size: 25px;  
+    font-feature-settings: 'liga';
+      color: #00ff73; 
+  }

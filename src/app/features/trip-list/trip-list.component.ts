@@ -20,6 +20,8 @@ constructor(private routeStateService: RouteStateService, private router: Router
   private fb: FormBuilder,
   private eziService: EziBusService,
   ) { }
+  selectedDeparture:any;
+  selectedDestination:any;
   loading:boolean;
   form: FormGroup;
   searchResultmessage="No Trip Found, Please select another date";
@@ -38,8 +40,10 @@ constructor(private routeStateService: RouteStateService, private router: Router
     this.loading=false;
     this.routeState = this.routeStateService.getCurrent().data;
     
-     this.now=new Date();
-     this.getAllLocations();
+    this.getAllLocations();
+    this.selectedDeparture =this.routeState.departure ? this.routeState.departure:"ba8fcf90-31de-420f-68ac-08d8a643ea62";
+    this.selectedDestination =this.routeState.destination ? this.routeState.destination:"8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
+    this.now=this.routeState.tripDate;
      this.form = this.fb.group({
       departure: ['', Validators.required],
       destination: ['', Validators.required],
@@ -94,4 +98,10 @@ ReserveSeat(element){
     false
   );
   }
+
+  ExchangeTrip(){
+    let departure =this.selectedDeparture;
+    this.selectedDeparture=this.selectedDestination;
+    this.selectedDestination=departure;
+   }
 }

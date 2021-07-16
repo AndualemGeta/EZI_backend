@@ -37,7 +37,7 @@
 
 .sub-content-title{
   text-align: center;
-  font-family: yrsa;
+  font-family: yrsa !important;
   font-size: 20px;
 }
 .sub-content-title h2{
@@ -48,6 +48,6 @@
   font-size: 22px;
 }
 .sub-content-text{
-  font-family: yars;
+  font-family: yrsa !important;
   font-size: 15px;
 }

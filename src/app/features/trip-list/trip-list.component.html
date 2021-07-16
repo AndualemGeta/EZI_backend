@@ -5,16 +5,20 @@
        <mat-card class="search-trip-form">
         <mat-form-field appearance="fill">
           <mat-label>Departure</mat-label>
-          <mat-select formControlName="departure">
+          <mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
             <mat-option *ngFor="let city of cities" [value]="city.locationId">
             {{city.name}}
             </mat-option>
           </mat-select>
           </mat-form-field>
+          <span  fxShow="false" fxShow.gt-xs="true" style="margin-top: 2.5%;" (click)="ExchangeTrip() " class="content-icon material-icons">
+						sync_alt
+						</span>
+					
               &nbsp;
               <mat-form-field appearance="fill">
                 <mat-label>Destination</mat-label>
-                <mat-select formControlName="destination">
+                <mat-select formControlName="destination" [(ngModel)]="selectedDestination">
                 <mat-option *ngFor="let city of cities" [value]="city.locationId">
                   {{city.name}}
                 </mat-option>

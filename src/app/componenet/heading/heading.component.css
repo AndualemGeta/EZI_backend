@@ -67,6 +67,11 @@ h1, h2 {
   /*margin-top: -30px;*/
   width: 80%;
 }
+.content-icon{
+  font-size: 25px;  
+  font-feature-settings: 'liga';
+    color: #00ff73; 
+}
 .mat-success {
   background-color: green;
   color: #fff;
