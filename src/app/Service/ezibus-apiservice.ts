@@ -76,12 +76,19 @@ export class EziBusService {
       });;
   }
 
+  searchAllTrip(departureLocationId,arrivalLocationId,tripDate){
+    let url = `​/api/public/searchAllTrip/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+    return this.getApiService(url).then((data) => {
+      return data;
+    });
+  }
   searchTrip(departureLocationId,arrivalLocationId,tripDate){
     let url = `​/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
     return this.getApiService(url).then((data) => {
       return data;
     });
   }
+
 
   getOperatorAccounts(){
     let url = `/api/public/bankAccounts/${this.operatorId}`;

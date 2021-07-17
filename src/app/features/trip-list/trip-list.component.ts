@@ -39,7 +39,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
   ngOnInit(): void {
     this.loading=false;
     this.routeState = this.routeStateService.getCurrent().data;
-    
     this.getAllLocations();
     this.selectedDeparture =this.routeState.departure ? this.routeState.departure:"ba8fcf90-31de-420f-68ac-08d8a643ea62";
     this.selectedDestination =this.routeState.destination ? this.routeState.destination:"8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
@@ -57,8 +56,9 @@ constructor(private routeStateService: RouteStateService, private router: Router
     });
   }
  async getSearchResult(departure,destination,tripDate) {
-    await this.eziService.searchTrip(departure,destination,tripDate).then((response) => {
-       this.route = response;
+    await this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
+      console.log(response); 
+      this.route = response;
        if(this.route.length==0){
         this.searchResultmessage="No Trip Found, Please select another date";   
        }

@@ -37,7 +37,7 @@
 
            </mat-card>
      </form>
-<div class="trip-list-body" >
+<div class="trip-list-body" *ngIf="!loading" >
   <div fxFlex="100%">
     <mat-card class="no-trip-found" *ngIf="route.length == 0">
           {{searchResultmessage}}
@@ -80,9 +80,7 @@
           <div class="trip-detail-property">{{trip.price}} Birr</div> <br/>
            <a class="heading-button-right success" mat-flat-button color="success" (click)="ReserveSeat(trip)">Reserve</a>
         </div>
-
        </div>
-
      </div>
     </mat-card>
   </div>
