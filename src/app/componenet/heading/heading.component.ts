@@ -58,7 +58,7 @@ searchResult(){
  }
  getAllLocations() {
   this.eziService.getAllLocations().then((value) => {
-    console.log(value);
+  
     this.cities = value;
   });
 }

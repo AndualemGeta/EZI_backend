@@ -77,7 +77,7 @@ export class EziBusService {
   }
 
   searchAllTrip(departureLocationId,arrivalLocationId,tripDate){
-    let url = `​/api/public/searchAllTrip/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+    let url = `​/api/public/saerchAllTrip/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
     return this.getApiService(url).then((data) => {
       return data;
     });

@@ -11,19 +11,13 @@
     </mat-nav-list>
     <span class="navigation-spacer"></span>
     <mat-icon>phone</mat-icon>  9293
-    <!--    <button mat-mini-fab color="primary" matTooltip="Call and reserve seat" [matTooltipPosition]="'left'"><mat-icon>phone</mat-icon></button>
-  -->
-
+   <!--<button mat-mini-fab color="primary" matTooltip="Call and reserve seat" [matTooltipPosition]="'left'"><mat-icon>phone</mat-icon></button>-->
     </mat-toolbar>
   
-  <mat-sidenav-container
-          class="navigation-sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
-  >
-
+  <mat-sidenav-container class="navigation-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
-                 <mat-nav-list>
+       <mat-nav-list>
         <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
         <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a>
         <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>

@@ -98,6 +98,7 @@ ReserveSeat(element){
     false
   );
   }
+ 
 
   ExchangeTrip(){
     let departure =this.selectedDeparture;

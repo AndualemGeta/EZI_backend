@@ -1,5 +1,6 @@
+<app-header></app-header>
+
 <div class="trip-list-page">
-  <app-header></app-header>
   <div fxLayout="column" fxLayoutAlign="center">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
        <mat-card class="search-trip-form">
@@ -46,7 +47,7 @@
     <mat-card class="trip-lists"  *ngFor="let trip of route">
      <div class="trip-item">
        <div class="operator-name" flex="1">
-         {{trip.operator}} BUS
+         {{trip.operator | uppercase }} BUS
        </div>
        <div class="trip-detail" >
         <div class="trip-detail-item">

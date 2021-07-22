@@ -1,12 +1,8 @@
-<mat-toolbar class="navigation-toolbar">
-    <a class="logo" fxShow="false" fxShow.gt-md="true" href="/home"><img height="100%" src="assets/img/ezi-circle.png" ></a>
-    <a class="logo" style="margin-left: -20px;" fxShow.sm="false" fxShow.gt-md="false" fxShow="true" href="/home">
-        <mat-icon>arrow_back</mat-icon></a>
-     <span style="color: #f4f5f6;" >EZI BUS</span>
+<mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
+    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="gotoHome()" ><mat-icon>arrow_back</mat-icon></button>
+    <a class="logo" fxShow="false" (click)="gotoHome()" fxShow.gt-xs="true"><img height="100%" src="assets/img/ezi-circle.png" ></a>
+    <span style="color: #f4f5f6;">EZI BUS</span>    
     <span class="navigation-spacer"></span>
-    <mat-icon>phone</mat-icon> 9293
-<!--   <button id=contact-fab-button mat-mini-fab color="primary" matTooltip="Call and reserve seat" [matTooltipPosition]="'left'"></button>
---> 
-</mat-toolbar>
-
+    <mat-icon>phone</mat-icon>  9293
+    </mat-toolbar>
 

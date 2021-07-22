@@ -6,6 +6,9 @@ import { MatDialog,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialo
 import { DOCUMENT } from '@angular/common';
 import * as AOS from 'aos';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
+import { RouteStateService } from 'src/app/Service/route-state.service';
+import { Location } from '@angular/common'
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -26,7 +29,12 @@ export class HeaderComponent implements OnInit {
 
   private _mobileQueryListener: () => void;
 
-  constructor(@Inject(DOCUMENT)  document: Document,private eziService: EziBusService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+  constructor(@Inject(DOCUMENT)  document: Document,private eziService: EziBusService,
+  changeDetectorRef: ChangeDetectorRef,
+   media: MediaMatcher, 
+   public dialog: MatDialog,
+   private routeStateService: RouteStateService,
+   private location:Location) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -58,5 +66,8 @@ export class HeaderComponent implements OnInit {
  
 scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
+}
+gotoHome(){
+  this.location.back();
 }
 }
