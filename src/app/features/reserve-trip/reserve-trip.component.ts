@@ -12,6 +12,7 @@ import { RouteStateService } from 'src/app/Service/route-state.service';
 import { Location } from '@angular/common';
 import {formatDate} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 @Component({
   selector: 'app-reserve-trip',
   templateUrl: './reserve-trip.component.html',
@@ -55,7 +56,8 @@ export class ReserveTripComponent implements OnInit {
     private eziService: EziBusService,
     private routeStateService: RouteStateService,
     private location:Location,
-    private _snackBar : MatSnackBar
+    private _snackBar : MatSnackBar,
+    private printService: TicketPrintService
   ) {}
 
   ngOnInit() {
@@ -142,7 +144,6 @@ backFunction(){
       this.iserror = false;
       this.disableSubmit = false;
       var data = this.userform.getRawValue();
-      console.log(data);
       this.eziService
         .search(
           data.departure.locationId,
@@ -194,8 +195,10 @@ backFunction(){
       },
     };
 
+    
     this.eziService.reserve(data).subscribe(
       (res) => {
+    //    console.log(res);
         this.iserror = false;
         this.responseStyle = 'success';
         this.responseDialog = true;
@@ -206,9 +209,9 @@ backFunction(){
         this.display = false;
         this.disableSubmit = false;
         this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
-        this.router.navigate(["home"]);
+      //  this.router.navigate(["home"]);
         this.loading = false;
-
+        this.printData(res);
       },
       (error) => {
         this.iserror = true;
@@ -226,6 +229,8 @@ backFunction(){
       }
     );
   }
-
+  printData(selectedData) {
+    this.printService.generateSinglePassengerTicketPDF(selectedData);
+  }
 
 }

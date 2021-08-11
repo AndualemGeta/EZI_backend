@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,NgZone, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective, NgForm, FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Contact } from './contact';
-
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {take} from 'rxjs/operators';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class NgLpErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
