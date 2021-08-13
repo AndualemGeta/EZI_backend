@@ -2,6 +2,9 @@
   background-color: #f4f4f4;
   min-height: 100vh;
 }
+.search-form{
+  margin-top: 25%;
+}
 .search-body{
     margin-top: 80px;
     background-color: rgb(255, 253, 253);
@@ -10,7 +13,7 @@
   border-radius: 15px;
   margin-left: 15%;
   margin-right: 15%;
-  margin-top: 10%;
+  margin-top:120px;
   margin-bottom: 0px;
   display: flex;
   flex-wrap: wrap;
@@ -24,6 +27,7 @@
 .mat-success {
   background-color: green;
   color: #fff;
+  
 }
 .trip-lists{
   padding: 5px;

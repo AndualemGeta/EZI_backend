@@ -35,7 +35,7 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 5%;
+  margin-top: 3%;
   background-color: #f4f4f4;
 }
 
@@ -60,11 +60,12 @@ body {
 }
 
 .reserved-trip-detail {
-  margin : 20px;
+  margin : 50px;
 }
 
 .reserve-form {
-  margin : 20px;
+  margin : 50px;
+  
 }
 mat-label {
   font-family: yrsa;

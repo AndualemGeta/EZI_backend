@@ -1,5 +1,4 @@
 <app-header></app-header>
-
 <div class="trip-list-page">
   <div fxLayout="column" fxLayoutAlign="center">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -14,8 +13,7 @@
           </mat-form-field>
           <span  fxShow="false" fxShow.gt-xs="true" style="margin-top: 2.5%;" (click)="ExchangeTrip() " class="content-icon material-icons">
 						sync_alt
-						</span>
-					
+						</span>					
               &nbsp;
               <mat-form-field appearance="fill">
                 <mat-label>Destination</mat-label>
@@ -35,14 +33,20 @@
               <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
               <a *ngIf="!loading" class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
             </div>
-
            </mat-card>
      </form>
-<div class="trip-list-body" *ngIf="!loading" >
+    
+     <div *ngIf="loading" style="text-align:center; margin: 60px;">
+       <img src="../../../assets/img/searching.gif">
+      </div>
+
+<div class="trip-list-body" *ngIf="!loading">
   <div fxFlex="100%">
+    <div *ngIf="loading==false">
     <mat-card class="no-trip-found" *ngIf="route.length == 0">
           {{searchResultmessage}}
       </mat-card>
+    </div>
     <div *ngIf="route.length != 0">
     <mat-card class="trip-lists"  *ngFor="let trip of route">
      <div class="trip-item">
