@@ -63,6 +63,7 @@ export class ReserveTripComponent implements OnInit {
   ngOnInit() {
     this.routeState = this.routeStateService.getCurrent().data;
     this.selectedTrip=this.routeState;
+  
     this.trip = false;
     this.loading = false;
     this.noTrip = false;
@@ -156,6 +157,7 @@ backFunction(){
             this.SearchResponse = 'Trip not found';
             this.noTrip = true;
           }
+          console.log(response);
           this.Trip = response;
           this.loading = false;
         });
@@ -211,7 +213,7 @@ backFunction(){
         this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
       //  this.router.navigate(["home"]);
         this.loading = false;
-        this.printData(res);
+       // this.printData(res);
       },
       (error) => {
         this.iserror = true;

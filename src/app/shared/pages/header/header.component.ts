@@ -68,6 +68,7 @@ scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
 }
 gotoHome(){
-  this.location.back();
+
+  //this.location.back();
 }
 }

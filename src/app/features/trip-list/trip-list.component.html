@@ -39,8 +39,7 @@
      <div *ngIf="loading" style="text-align:center; margin: 60px;">
        <img src="../../../assets/img/searching.gif">
       </div>
-
-<div class="trip-list-body" *ngIf="!loading">
+ <div class="trip-list-body" *ngIf="!loading">
   <div fxFlex="100%">
     <div *ngIf="loading==false">
     <mat-card class="no-trip-found" *ngIf="route.length == 0">
