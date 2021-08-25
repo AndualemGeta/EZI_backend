@@ -1,18 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  FormGroup, FormControl, FormArray,
-  Validators,
-  FormBuilder,
-  
-} from '@angular/forms';
-import { SessionService } from '../../Service/SessionService';
-import { EziBusService } from '../../Service/ezibus-apiservice';
-import { RouteStateService } from 'src/app/Service/route-state.service';
-import { Location } from '@angular/common';
+import {Component, OnInit } from '@angular/core';
+import {Router } from '@angular/router';
+import {FormGroup, FormControl, FormArray,Validators,FormBuilder} from '@angular/forms';
+import {SessionService } from '../../Service/SessionService';
+import {EziBusService } from '../../Service/ezibus-apiservice';
+import {RouteStateService } from 'src/app/Service/route-state.service';
+import {Location } from '@angular/common';
 import {formatDate} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { TicketPrintService } from 'src/app/Service/ticket-print.service';
+import {TicketPrintService } from 'src/app/Service/ticket-print.service';
 @Component({
   selector: 'app-reserve-trip',
   templateUrl: './reserve-trip.component.html',
@@ -21,7 +16,6 @@ import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 })
 export class ReserveTripComponent implements OnInit {
   dynamicForm: FormGroup;
-  
   responseDialog: boolean;
   iserror: boolean;
   disableSubmit: boolean;
@@ -63,16 +57,12 @@ export class ReserveTripComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.dynamicForm  =this.fb.group({
       numberOfTickets: ['1', Validators.required],
       tickets: new FormArray([])
   });
-
-
     this.routeState = this.routeStateService.getCurrent().data;
     this.selectedTrip=this.routeState;
-  
     this.trip = false;
     this.loading = false;
     this.noTrip = false;
@@ -80,9 +70,9 @@ export class ReserveTripComponent implements OnInit {
     this.disableSubmit = false;
     this.responseDialog = false;
     this.userform = this.fb.group({
-      departure: new FormControl('', Validators.required),
-      destination: new FormControl('', Validators.required),
-      tripDate: new FormControl('', [Validators.required]),
+    departure: new FormControl('', Validators.required),
+    destination: new FormControl('', Validators.required),
+    tripDate: new FormControl('', [Validators.required]),
     });
     this.reserveRegisterForm = this.fb.group({
       name: ['', Validators.required],

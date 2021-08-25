@@ -12,6 +12,11 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import("src/app/features/reserve-trip/reserve-trip.module").then((m) => m.ReserveTripdModule),
   },
+  {
+    path: "seat-list",
+    loadChildren: () =>
+      import("src/app/features/seat-list/seat-list.routing").then((m) => m.SeatListRoutingModule),
+  },
   
   {
     path: "trip-list",
