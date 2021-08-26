@@ -30,15 +30,19 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "src/assets/styles/nglp.scss",
               "src/assets/styles/styles.scss",
               "node_modules/owl.carousel/dist/assets/owl.carousel.css",
               "node_modules/aos/dist/aos.css"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js",
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
               "node_modules/aos/dist/aos.js",
-              "node_modules/jquery/dist/jquery.min.js"]
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
           },
           "configurations": {
             "production": {
