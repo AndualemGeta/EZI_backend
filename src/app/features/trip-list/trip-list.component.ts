@@ -56,11 +56,13 @@ constructor(private routeStateService: RouteStateService, private router: Router
       this.cities = value;
     });
   }
- async getSearchResult(departure,destination,tripDate) {
-    await this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
+ getSearchResult(departure,destination,tripDate) {
+    console.log("searching trips");
+    this.eziService.searchTrip(departure,destination,tripDate).then((response) => {
+      console.log(response);
       this.route = response;
        if(this.route.length==0){
-        this.searchResultmessage="No Trip Found, Please select another date";   
+        this.searchResultmessage="No Trip Found, Please select another date";
        }
        this.loading=false;
     },(error) => {
@@ -75,6 +77,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
     let tripDate=this.form.controls.tripDate.value;
     let tDate=formatDate(tripDate,'yyyy-MM-dd', 'en-US');
     let today=formatDate(new Date(),'yyyy-MM-dd', 'en-US');
+    console.log(departure);
     if(departure==""||destination==""){
       this.route=[];
       this.searchResultmessage="Please select Departure and Destination";
@@ -85,7 +88,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
        this.searchResultmessage="Please select future Date";
        this.loading=false;
     }
-    
+
     else{
    this.getSearchResult(departure,destination,tripDate);
   }
@@ -98,7 +101,7 @@ ReserveSeat(element){
     false
   );
   }
- 
+
 
   ExchangeTrip(){
     let departure =this.selectedDeparture;

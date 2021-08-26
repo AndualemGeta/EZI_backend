@@ -19,9 +19,10 @@ export class EziBusService {
   ) {
   }
 
-  baseurl =
-    "https://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
-  // baseurl = 'http://localhost:5000'; /*url to communicate real data base */
+  // baseurl =
+     //"https://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
+  baseurl = 'http://localhost:5000'; /*url to communicate real data base */
+  // baseurl = "http://localhost:5000";
   operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
 
   getApiService(url): any {
@@ -83,8 +84,11 @@ export class EziBusService {
     });
   }
   searchTrip(departureLocationId,arrivalLocationId,tripDate){
+    console.log("api call");
     let url = `​/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+    console.log(url);
     return this.getApiService(url).then((data) => {
+      console.log(data);
       return data;
     });
   }
@@ -102,6 +106,7 @@ export class EziBusService {
 
   search(departureLocationId, arrivalLocationId, tripDate){
     let url = `/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+    console.log(url);
     return this.getApiService(url).then((data) => {
       console.log(data)
       return data;

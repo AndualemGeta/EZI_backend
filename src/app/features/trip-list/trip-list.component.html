@@ -13,7 +13,7 @@
           </mat-form-field>
           <span  fxShow="false" fxShow.gt-xs="true" style="margin-top: 2.5%;" (click)="ExchangeTrip() " class="content-icon material-icons">
 						sync_alt
-						</span>					
+						</span>
               &nbsp;
               <mat-form-field appearance="fill">
                 <mat-label>Destination</mat-label>
@@ -29,13 +29,13 @@
                 <input type="date" matInput [ngModel] ="now | date:'yyyy-MM-dd'"  formControlName="tripDate">
               </mat-form-field>
               &nbsp;
-              <div style="margin-top: 2.5%;margin-left: 1%;"> 
+              <div style="margin-top: 2.5%;margin-left: 1%;">
               <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
               <a *ngIf="!loading" class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
             </div>
            </mat-card>
      </form>
-    
+
      <div *ngIf="loading" style="text-align:center; margin: 60px;">
        <img src="../../../assets/img/searching.gif">
       </div>

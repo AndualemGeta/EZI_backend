@@ -46,6 +46,7 @@ export class ReserveTripComponent implements OnInit {
   msgs: any;
   loading: boolean;
   routeState;
+  paymentMethod : string;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -63,6 +64,7 @@ export class ReserveTripComponent implements OnInit {
   });
     this.routeState = this.routeStateService.getCurrent().data;
     this.selectedTrip=this.routeState;
+
     this.trip = false;
     this.loading = false;
     this.noTrip = false;
@@ -80,12 +82,24 @@ export class ReserveTripComponent implements OnInit {
       discount: [0, Validators.required],
       laggage: [0, Validators.required],
       seatNum: ['', Validators.required],
-      accountId: ['', Validators.required],
+      accountId: ['', []],
+      paymentMethod : ['', Validators.required]
     });
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
     this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
+
+    var bankControl = this.reserveRegisterForm.get('accountId');
+    this.reserveRegisterForm.get('paymentMethod').valueChanges.subscribe((value) => {
+      if(value == 'BankTransfer')
+      {
+         bankControl.setValidators([Validators.required]);
+      }
+      else{
+        bankControl.setValidators(null);
+      }
+    })
   }
 
   getAllLocations() {
@@ -172,63 +186,71 @@ backFunction(){
   }
 
   reserve(){
-    this.loading = true;
-    var rawData = this.reserveRegisterForm.getRawValue();
-    var data = {
-      accountId: rawData.accountId,
-      charges: this.selectedTrip.price,
-      discount: 0,
-      seatNumber: rawData.seatNum,
-      luggageWeight: rawData.laggage,
-      registrationDate: new Date(),
-      updateAt: new Date(),
-      scheduleId: this.selectedTrip.scheduleId,
-      bookedById: this.agentId,
-      statusCode: 'Reserved',
-      paymentTypeCode: 'Electronic',
-      pickupLocation: "mexico shebelie",
-      paymentMethodCode: "BankTransfer",
-      passenger: {
-        fullName: rawData.name,
-        phoneNumber: rawData.phone,
-        gender: 'Male',
-        age: 0,
-      },
-    };
+    if(this.reserveRegisterForm.valid) {
 
-    
-    this.eziService.reserve(data).subscribe(
-      (res) => {
-    //    console.log(res);
-        this.iserror = false;
-        this.responseStyle = 'success';
-        this.responseDialog = true;
-        this.responseTitle = 'SUCCESS!!!';
-        this.responseMesssage =
-          'You have successfully reserved a trip. You will receive SMS shortly. ';
-        this.reserveRegisterForm.reset();
-        this.display = false;
-        this.disableSubmit = false;
-        this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
-      //  this.router.navigate(["home"]);
-        this.loading = false;
-       // this.printData(res);
-      },
-      (error) => {
-        this.iserror = true;
-        this.responseTitle = 'Error!!!';
-        this.responseDialog = true;
-        this.responseMesssage = '';
-        this.responseStyle = 'error';
-        this.disableSubmit = false;
-        for (const [key, value] of Object.entries(error)) {
-          this.responseMesssage = this.responseMesssage + value;
+      this.loading = true;
+      var rawData = this.reserveRegisterForm.getRawValue();
+      var data = {
+        accountId: rawData.accountId,
+        charges: this.selectedTrip.price,
+        discount: 0,
+        seatNumber: rawData.seatNum,
+        luggageWeight: rawData.laggage,
+        registrationDate: new Date(),
+        updateAt: new Date(),
+        scheduleId: this.selectedTrip.scheduleId,
+        bookedById: this.agentId,
+        statusCode: 'Reserved',
+        paymentTypeCode: 'Electronic',
+        pickupLocation: "mexico shebelie",
+        passenger: {
+          fullName: rawData.name,
+          phoneNumber: rawData.phone,
+          gender: 'Male',
+          age: 0,
+        },
+      };
+    if(rawData.paymentMethod == 'BankTransfer'){
+      data['paymentMethodCode'] = 'BankTransfer'
+    }
+    if(rawData.paymentMethod == 'TeleBirr'){
+      data['paymentMethodCode'] = 'Electronic';
+      data['paymentProviderCode'] = 'TeleBirr';
+    }
+     console.log(data);
+      this.eziService.reserve(data).subscribe(
+        (res) => {
+          console.log(res);
+          this.iserror = false;
+          this.responseStyle = 'success';
+          this.responseDialog = true;
+          this.responseTitle = 'SUCCESS!!!';
+          this.responseMesssage =
+            'You have successfully reserved a trip. You will receive SMS shortly. ';
+          this.reserveRegisterForm.reset();
+          this.display = false;
+          this.disableSubmit = false;
+          this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
+          //  this.router.navigate(["home"]);
+          this.loading = false;
+          // this.printData(res);
+        },
+        (error) => {
+          this.iserror = true;
+          this.responseTitle = 'Error!!!';
+          this.responseDialog = true;
+          this.responseMesssage = '';
+          this.responseStyle = 'error';
+          this.disableSubmit = false;
+          for (const [key, value] of Object.entries(error)) {
+            this.responseMesssage = this.responseMesssage + value;
+          }
+          this.display = false;
+          this.loading = false;
+          this.showMessage(this.responseMesssage);
         }
-        this.display = false;
-        this.loading = false;
-        this.showMessage(this.responseMesssage);
-      }
-    );
+      );
+    }
   }
   printData(selectedData) {
     this.printService.generateSinglePassengerTicketPDF(selectedData);

@@ -24,7 +24,14 @@
             <mat-option *ngFor="let seatnumber of routeState.availableSeats" [value]="seatnumber">{{seatnumber}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field  appearance="fill" class="full-width">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Payment Method</mat-label>
+          <mat-select formControlName="paymentMethod" [(ngModel)]="paymentMethod">
+            <mat-option value="BankTransfer">Bank Transfer</mat-option>
+            <mat-option value="TeleBirr">Tele Birr</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field  appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
           <mat-label>Select Bank Account</mat-label>
           <mat-select formControlName="accountId">
             <mat-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.name}}</mat-option>
