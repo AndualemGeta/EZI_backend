@@ -9,6 +9,7 @@ import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
+import { TooltipModule  } from 'ngx-bootstrap/tooltip';
 import { DatePipe } from "@angular/common";
 import {AppCommonModule} from './app.common.module';
 @NgModule({
@@ -17,7 +18,7 @@ import {AppCommonModule} from './app.common.module';
     ContactDialogComponent
 
   ],
-  imports: [ BrowserModule, AppCommonModule, BrowserAnimationsModule,AppRoutingModule ],
+  imports: [ BrowserModule, AppCommonModule, BrowserAnimationsModule,AppRoutingModule,TooltipModule.forRoot() ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ ContactDialogComponent ],

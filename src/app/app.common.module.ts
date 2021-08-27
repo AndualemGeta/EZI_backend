@@ -11,13 +11,14 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 @NgModule({
     imports: [
         CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
        HttpClientModule, MatIconModule,
       MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule
     ] ,
-    exports: [ CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
+    exports: [CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
       HttpClientModule, MatIconModule,
       MatDialogModule,MatProgressSpinnerModule, MatSnackBarModule],
     declarations: []
