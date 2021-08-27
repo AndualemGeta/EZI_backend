@@ -96,7 +96,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
 ReserveSeat(element){
   this.routeStateService.add(
     "user-list",
-    "/seat-list",
+    "/reserve",
      element,
     false
   );
