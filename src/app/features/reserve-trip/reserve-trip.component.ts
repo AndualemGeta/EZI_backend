@@ -233,9 +233,6 @@ backFunction(){
           this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
           //  this.router.navigate(["home"]);
           this.loading = false;
-          if(data['paymentProviderCode'] == 'TeleBirr'){
-            window.open(res['paymentDetails'],'_blank');
-          }
           // this.printData(res);
         },
         (error) => {

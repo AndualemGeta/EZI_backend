@@ -19,6 +19,6 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
     FormsModule, ReactiveFormsModule
   ],
   declarations: [SeatListComponent],
-  
+  exports: [SeatListComponent],
 })
 export class SeatListModule {}

@@ -21,13 +21,14 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
 
-  imports: [TextFieldModule,MatGridListModule,MatAutocompleteModule,MatSnackBarModule,MatMenuModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
+  imports: [MatStepperModule,TextFieldModule,MatGridListModule,MatAutocompleteModule,MatSnackBarModule,MatMenuModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
             MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatTabsModule,
             MatTableModule, MatFormFieldModule, MatInputModule, MatDialogModule,MatDatepickerModule, MatChipsModule],
-  exports: [TextFieldModule,MatGridListModule,MatAutocompleteModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
+  exports: [MatStepperModule,TextFieldModule,MatGridListModule,MatAutocompleteModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
             MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatTabsModule,
             MatTableModule, MatFormFieldModule, MatInputModule, MatDialogModule,MatDatepickerModule,MatSelectModule, MatChipsModule]
 })

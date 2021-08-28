@@ -1,5 +1,8 @@
 import {Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router } from '@angular/router';
+import { EziBusService } from 'src/app/Service/ezibus-apiservice';
+import { RouteStateService } from 'src/app/Service/route-state.service';
 @Component({
   selector: 'app-seat-list',
   templateUrl: './seat-list.component.html',
@@ -7,6 +10,7 @@ import {Router } from '@angular/router';
 })
 export class SeatListComponent  {
    seatConfig: any = null;
+   submitted:boolean;
    seatmap = [];
    seatChartConfig = {
     showRowsLabel: false,
@@ -20,52 +24,85 @@ export class SeatListComponent  {
     cartId: "",
     eventId: 0
   };
-
+  selectedTrip: any;
+  routeState;
   title = "seat-chart-generator";
-  constructor() { }
+  constructor(private routeStateService: RouteStateService, private router: Router,
+    private _formBuilder: FormBuilder,
+    private eziService: EziBusService,
+    ) { }
+    isLinear = false;
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
+    dynamicForm: FormGroup;
   ngOnInit(): void {
+    this.dynamicForm  =this._formBuilder.group({
+      numberOfTickets: ['1', Validators.required],
+      tickets: new FormArray([])
+  });
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
     //Process a simple bus layout
+    this.routeState = this.routeStateService.getCurrent().data;
+    this.selectedTrip=this.routeState;
     this.seatConfig = [
       {
-        seat_price: 250,
+        seat_price: 500,
         seat_map: [
           {
             seat_label: "1",
-            layout: "g_____"
+            layout: "g____gg"
           },
           {
             seat_label: "2",
-            layout: "gg__gg"
+            layout: "ggg__gg"
           },
           {
             seat_label: "3",
-            layout: "gg__gg"
+            layout: "ggg__gg"
           },
           {
             seat_label: "4",
-            layout: "gg__gg"
+            layout: "ggg__gg"
           },
           {
             seat_label: "5",
-            layout: "gg__gg"
+            layout: "ggg__gg"
           },
           {
             seat_label: "6",
-            layout: "gg__gg"
+            layout: "ggg__gg"
           },
           {
             seat_label: "7",
-            layout: "gg__gg"
+            layout: "ggg__gg"
           },
           {
             seat_label: "8",
-            layout: "gggggg"
+            layout: "ggg__gg"
+          },
+          {
+            seat_label: "9",
+            layout: "ggg__gg"
+          },
+          {
+            seat_label: "10",
+            layout: "ggg__gg"
+          },
+          {
+            seat_label: "11",
+            layout: "ggggggg"
           }
         ]
       }
     ];
+
     this.processSeatChart(this.seatConfig);
-    this.blockSeats("7_1,7_2");
+    this.blockSeats("8_1,7_2");
   }
 
   public processSeatChart(map_data: any[]) {
@@ -82,7 +119,7 @@ export class SeatListComponent  {
         } else {
           row_label += item_map[item_map.length - 2].seat_label;
         }
-        row_label += " : Rs. " + map_data[__counter].seat_price;
+        row_label += " : Birr " + map_data[__counter].seat_price;
 
         item_map.forEach(map_element => {
           var mapObj = {
@@ -125,9 +162,7 @@ export class SeatListComponent  {
       }
     }
   }
-  processBooking(){
-
-  }
+ 
   public selectSeat(seatObject: any) {
     console.log("Seat to block: ", seatObject);
     if (seatObject.status == "available") {
@@ -174,5 +209,60 @@ export class SeatListComponent  {
       }
     }
   }
+
+
+  processBooking(element){
+    console.log("welcome to ethiopia");
+    this.routeStateService.add(
+      "reserve-list",
+      "/reserve",
+       element,
+      false
+    );
+  }
+
+// convenience getters for easy access to form fields
+get f() { return this.dynamicForm.controls; }
+get t() { return this.f.tickets as FormArray; }
+
+onChangeTickets(e) {
+  const numberOfTickets = e.target.value || 0;
+  if (this.t.length < numberOfTickets) {
+      for (let i = this.t.length; i < numberOfTickets; i++) {
+          this.t.push(this._formBuilder.group({
+              name: ['', Validators.required],
+              email: ['', [Validators.required, Validators.email]]
+          }));
+      }
+  } else {
+      for (let i = this.t.length; i >= numberOfTickets; i--) {
+          this.t.removeAt(i);
+      }
+  }
+}
+onSubmit() {
+  this.submitted = true;
+
+  // stop here if form is invalid
+  if (this.dynamicForm.invalid) {
+      return;
+  }
+
+  // display form values on success
+  alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
+}
+  onReset() {
+    // reset whole form back to initial state
+    //this.submitted = false;
+    this.dynamicForm.reset();
+    this.t.clear();
+  }
+  
+  onClear() {
+    // clear errors and reset ticket fields
+    //this.submitted = false;
+    this.t.reset();
+  }
+  
 }
 
