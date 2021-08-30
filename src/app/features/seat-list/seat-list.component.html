@@ -1,19 +1,66 @@
 <app-header></app-header>
-<div class="container-fluid" style="margin-top: 100px;">
-  <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
+<div class="container-fluid" style="margin-top: 100px;background-color: #f7f7f7;">
   <mat-stepper [linear]="isLinear" #stepper>
      <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Please Select Seat Number</ng-template>
       <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <p> {{this.selectedTrip.displayName}} <br>
-               Select Seat and reserve  
-          
-          </p>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <div class="reserved-trip-detail">
+            <mat-card style="height: 450px;">
+              <div class="trip-detail-title">Trip Detail</div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  event
+                </i>
+                <span class="trip-detail-property">Trip Date :</span>:
+                <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  place
+                </i><span class="trip-detail-property">Route</span>:
+                <span class="trip-detail-value">{{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  business
+                </i><span class="trip-detail-property">Departure Station:</span>:
+                <span class="trip-detail-value">{{routeState.departureStation}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  business
+                </i>
+                <span class="trip-detail-property">Arrival Station:</span>:
+                <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  watch_later
+                </i>  <span class="trip-detail-property"> Departure Time</span>:
+                <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  call
+                </i>
+                <span class="trip-detail-property">Departure Support Phone</span>:
+                <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
+              </div>
+        
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  payments
+                </i> <span class="trip-detail-property">Price:</span>:
+                <span class="trip-detail-value">{{ routeState.price}} ETB</span>
+              </div>
+        
+            </mat-card>
+          </div>
         </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <mat-card style="height: 450px;">
+          <div class="trip-detail-title">Select A Seat</div>
         <div *ngFor="let seatrow of seatmap" >
             <div class="col-12 pricing-label" *ngIf="seatChartConfig?.showRowWisePricing && seatrow.seatPricingInformation != ''">{{seatrow.seatPricingInformation}}</div>
             <div class="seatrow container">
@@ -32,38 +79,72 @@
                 </div>
             </div>
         </div>
+        </mat-card>
       </div>
       <!-- *ngIf="cart?.selectedSeats?.length > 0" -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div>
-            <p class="col-lg-12 no-padding">Selected Seats : </p>
-            <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>
-            </div>
-              <br>  
+        <mat-card style="height: 450px;">    
+        <div>
+            <div class="trip-detail-title">Selected Seats</div>
+            <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
+          </div>
+            <br>  
               <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
               <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
-        <div class="col-lg-12 book-area">
-          <button [disabled]="cart?.selectedSeats?.length == 0" type="button"  (click)="processBooking(this.selectedTrip)" class="btn btn-primary" >Book Now</button>
+        <div class="col-lg-12" >
+          <button [disabled]="cart?.selectedSeats?.length == 0" type="button" mat-button matStepperNext   mat-button color="success" >Book Now</button>
         </div>
+      </mat-card>  
       </div>
     </div><!--end of page-->
-      <div>
-        <button mat-button matStepperNext>Next</button>
+    <!-- 
+    <div>
+        <button (click)="processBooking(this.selectedTrip)" >Next</button>
       </div>
+    -->
     </mat-step>
 
 
     <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
-      <form [formGroup]="secondFormGroup">
-        <mat-form-field appearance="fill">
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+      <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+              
+          <div class="card">
+          <div class="trip-detail-title" style="text-align: center;"> Please fill Passenger Information Properly </div>
+            <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
+                <div class="list-group-item">
+                    <h5 class="card-title">Passenger {{i + 1}}</h5>
+                    <div [formGroup]="ticket" class="form-row">
+                        <div class="form-group col-10">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" formControlName="name"/>
+                            <div *ngIf="submitted && ticket.controls.name.errors" class="invalid-feedback">
+                                <div *ngIf="ticket.controls.name.errors.required">Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-10">
+                            <label>Phone Number</label>
+                            <input type="text" formControlName="email" class="form-control" />
+                                <div *ngIf="submitted && ticket.controls.email.errors" class="invalid-feedback">
+                                <div *ngIf="ticket.controls.email.errors.required">Phone Number is required</div>
+                                <div *ngIf="ticket.controls.email.errors.email">Email must be a valid email address</div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button class="btn btn-primary mr-1" mat-button matStepperNext>Payment</button>
+              </div>
+              </div>
         </div>
+      </div>
+    </div>
       </form>
     </mat-step>
     <mat-step>
@@ -76,53 +157,4 @@
     </mat-step>
   </mat-stepper>
 
-  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-    <div class="card m-3">
-        <div class="card-body">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Number of Tickets</label>
-                    <select formControlName="numberOfTickets" class="form-control" (change)="onChangeTickets($event)" [ngClass]="{ 'is-invalid': submitted && f.numberOfTickets.errors }">
-                        <option value=""></option>
-                        <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
-                    </select>
-                    <div *ngIf="submitted && f.numberOfTickets.errors" class="invalid-feedback">
-                        <div *ngIf="f.numberOfTickets.errors.required">Number of tickets is required</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
-            <div class="list-group-item">
-                <h5 class="card-title">Ticket {{i + 1}}</h5>
-                <div [formGroup]="ticket" class="form-row">
-                    <div class="form-group col-6">
-                        <label>Name</label>
-                        <input type="text" formControlName="name"/>
-                        
-                        <div *ngIf="submitted && ticket.controls.name.errors" class="invalid-feedback">
-                            <div *ngIf="ticket.controls.name.errors.required">Name is required</div>
-                        </div>
-                    
-                    </div>
-                    <div class="form-group col-6">
-                        <label>Email</label>
-                        <input type="text" formControlName="email"  />
-                        <!--
-                        <div *ngIf="submitted && ticket.controls.email.errors" class="invalid-feedback">
-                            <div *ngIf="ticket.controls.email.errors.required">Email is required</div>
-                            <div *ngIf="ticket.controls.email.errors.email">Email must be a valid email address</div>
-                        </div>
-                      -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer text-center">
-            <button class="btn btn-primary mr-1">Buy Tickets</button>
-            <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
-            <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
-        </div>
-    </div>
-  </form>
- 
+  
