@@ -109,6 +109,14 @@
       <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+              <mat-card style="height: 370px;"> 
+                <div class="trip-detail-title">Selected Seats</div>
+                <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
+              
+                <br>  
+                  <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
+                  <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
+        </mat-card>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
               
@@ -144,6 +152,10 @@
               </div>
         </div>
       </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        
+        </div>
+
     </div>
       </form>
     </mat-step>
