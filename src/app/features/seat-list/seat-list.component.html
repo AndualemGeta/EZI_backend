@@ -1,9 +1,11 @@
+
 <app-header></app-header>
-<div class="container-fluid" style="margin-top: 100px;background-color: #f7f7f7;">
+<div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper [linear]="isLinear" #stepper>
      <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Please Select Seat Number</ng-template>
-      <div class="row">
+      <div class="row reserve-container">
+
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
             <mat-card style="height: 450px;">
@@ -54,10 +56,10 @@
                 </i> <span class="trip-detail-property">Price:</span>:
                 <span class="trip-detail-value">{{ routeState.price}} ETB</span>
               </div>
-        
             </mat-card>
           </div>
         </div>
+
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <mat-card style="height: 450px;">
           <div class="trip-detail-title">Select A Seat</div>
@@ -107,9 +109,9 @@
 
     <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
       <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-          <div class="row">
+          <div class="row reserve-container">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-              <mat-card style="height: 370px;"> 
+              <mat-card style="height: 408px; width: 100%;"> 
                 <div class="trip-detail-title">Selected Seats</div>
                 <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
               
@@ -118,28 +120,31 @@
                   <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
         </mat-card>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-              
-          <div class="card">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
+              <div class="card">     
+       
           <div class="trip-detail-title" style="text-align: center;"> Please fill Passenger Information Properly </div>
             <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
                 <div class="list-group-item">
                     <h5 class="card-title">Passenger {{i + 1}}</h5>
                     <div [formGroup]="ticket" class="form-row">
                         <div class="form-group col-10">
-                            <label>Full Name</label>
-                            <input type="text" class="form-control" formControlName="name"/>
-                            <div *ngIf="submitted && ticket.controls.name.errors" class="invalid-feedback">
-                                <div *ngIf="ticket.controls.name.errors.required">Name is required</div>
-                            </div>
+                          <mat-form-field class="full-width" style="margin-right: 140px;">
+                            <mat-label>Full Name</mat-label>
+                            <input  matInput  placeholder="Full Name"  name="fname" formControlName="name"  required>
+                          </mat-form-field>  
                         </div>
                         <div class="form-group col-10">
-                            <label>Phone Number</label>
-                            <input type="text" formControlName="email" class="form-control" />
-                                <div *ngIf="submitted && ticket.controls.email.errors" class="invalid-feedback">
-                                <div *ngIf="ticket.controls.email.errors.required">Phone Number is required</div>
-                                <div *ngIf="ticket.controls.email.errors.email">Email must be a valid email address</div>
-                            </div>
+                            <mat-form-field class="full-width">
+                              <mat-label>Phone Number</mat-label>
+                              <input  matInput formControlName="email" placeholder="Phone Number" name="address"  required>
+                            </mat-form-field>
+                          </div>
+                          <div class="form-group col-10">
+                          <mat-form-field class="full-width">
+                            <mat-label>Luggage Weight</mat-label>
+                            <input type="number"  matInput  placeholder="Luggage Weight" formControlName="laggage" >
+                          </mat-form-field>
                           </div>
                     </div>
                 </div>
@@ -153,18 +158,44 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        
         </div>
-
     </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Choos Payment Option and Reserve</ng-template>
-      <p>Choos Payment Option and Reserve</p>
+      <div class="reserve-container">
+        <div class="reserve-form">
+          <mat-card>
+            <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS   {{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</div>
+            <form class="my-form" [formGroup]="reserveRegisterForm" >
+             <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Payment Method</mat-label>
+                <mat-select formControlName="paymentMethod" [(ngModel)]="paymentMethod">
+                  <mat-option value="BankTransfer">Bank Transfer</mat-option>
+                  <mat-option value="TeleBirr">Tele Birr</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field  appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
+                <mat-label>Select Bank Account</mat-label>
+                <mat-select formControlName="accountId">
+                  <mat-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              &nbsp; &nbsp;&nbsp; <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
+              <div class="action-buttons" *ngIf="!loading">
+                <a (click)="reserve()" class="heading-button-right action-buton"  mat-flat-button   color="success">Reserve</a> &nbsp;
+                  <button mat-button matStepperPrevious mat-flat-button  color="back">Back</button>&nbsp;
+                  <button mat-button (click)="stepper.reset()" mat-flat-button color="accent">Reset</button>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+        
+      </div>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        
+      
       </div>
     </mat-step>
   </mat-stepper>

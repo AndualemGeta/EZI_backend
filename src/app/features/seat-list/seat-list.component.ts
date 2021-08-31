@@ -1,5 +1,5 @@
 import {Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
@@ -17,6 +17,7 @@ export class SeatListComponent  {
     showRowWisePricing: false,
     newSeatNoForRow: false
   };
+  
    cart = {
     selectedSeats: [],
     seatstoStore: [],
@@ -24,9 +25,19 @@ export class SeatListComponent  {
     cartId: "",
     eventId: 0
   };
+  display: boolean;
+  cities: any[];
+  Trip: any;
+  selectedCity: any;
   selectedTrip: any;
+  accounts: any[];
+  agentId: string;
   routeState;
   title = "seat-chart-generator";
+  reserveRegisterForm: FormGroup;
+  disableReservebutton: boolean;
+  loading: boolean;
+  paymentMethod : string;
   constructor(private routeStateService: RouteStateService, private router: Router,
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
@@ -47,6 +58,30 @@ export class SeatListComponent  {
       secondCtrl: ['', Validators.required]
     });
     //Process a simple bus layout
+    this.reserveRegisterForm = this._formBuilder.group({
+      name: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.required]],
+      discount: [0, Validators.required],
+      laggage: [0, Validators.required],
+      seatNum: ['', Validators.required],
+      accountId: ['', []],
+      paymentMethod : ['', Validators.required]
+    });
+    this.display = false;
+    this.getAllLocations();
+    this.getAllBankAccounts();
+    this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
+
+    var bankControl = this.reserveRegisterForm.get('accountId');
+    this.reserveRegisterForm.get('paymentMethod').valueChanges.subscribe((value) => {
+      if(value == 'BankTransfer')
+      {
+         bankControl.setValidators([Validators.required]);
+      }
+      else{
+        bankControl.setValidators(null);
+      }
+    })
     this.routeState = this.routeStateService.getCurrent().data;
     this.selectedTrip=this.routeState;
     this.seatConfig = [
@@ -250,7 +285,8 @@ AddNUmberOfPassengers(e) {
       for (let i = this.t.length; i < numberOfTickets; i++) {
           this.t.push(this._formBuilder.group({
               name: ['', Validators.required],
-              email: ['', [Validators.required, Validators.email]]
+              email: ['', [Validators.required, Validators.email]],
+              laggage: [0, Validators.required],
           }));
       }
   } else {
@@ -281,6 +317,18 @@ onSubmit() {
     // clear errors and reset ticket fields
     //this.submitted = false;
     this.t.reset();
+  }
+
+  getAllLocations() {
+    this.eziService.getAllLocations().then((value) => {
+      this.cities = value;
+    });
+  }
+
+  getAllBankAccounts() {
+    this.eziService.getOperatorAccounts().then((response) => {
+      this.accounts = response;
+    });
   }
   
 }
