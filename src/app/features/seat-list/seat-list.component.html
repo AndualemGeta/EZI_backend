@@ -1,38 +1,30 @@
-
 <app-header></app-header>
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper [linear]="isLinear" #stepper>
      <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Please Select Seat Number</ng-template>
       <div class="row reserve-container">
-
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
             <mat-card style="height: 450px;">
               <div class="trip-detail-title">Trip Detail</div>
               <div class="trip-detail-item">
-                <i class="material-icons trip-result-icon">
-                  event
-                </i>
+                <i class="material-icons trip-result-icon">event</i>
                 <span class="trip-detail-property">Trip Date :</span>:
                 <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
               </div>
               <div class="trip-detail-item">
-                <i class="material-icons trip-result-icon">
-                  place
-                </i><span class="trip-detail-property">Route</span>:
+                <i class="material-icons trip-result-icon">place</i>
+                <span class="trip-detail-property">Route</span>:
                 <span class="trip-detail-value">{{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
               </div>
               <div class="trip-detail-item">
-                <i class="material-icons trip-result-icon">
-                  business
-                </i><span class="trip-detail-property">Departure Station:</span>:
+                <i class="material-icons trip-result-icon">business</i>
+                <span class="trip-detail-property">Departure Station:</span>:
                 <span class="trip-detail-value">{{routeState.departureStation}}</span>
               </div>
               <div class="trip-detail-item">
-                <i class="material-icons trip-result-icon">
-                  business
-                </i>
+                <i class="material-icons trip-result-icon">business</i>
                 <span class="trip-detail-property">Arrival Station:</span>:
                 <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
               </div>
@@ -43,17 +35,14 @@
                 <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
               </div>
               <div class="trip-detail-item">
-                <i class="material-icons trip-result-icon">
-                  call
-                </i>
+                <i class="material-icons trip-result-icon">call</i>
                 <span class="trip-detail-property">Departure Support Phone</span>:
                 <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
               </div>
         
               <div class="trip-detail-item">
-                <i class="material-icons trip-result-icon">
-                  payments
-                </i> <span class="trip-detail-property">Price:</span>:
+                <i class="material-icons trip-result-icon">payments</i> 
+                <span class="trip-detail-property">Price:</span>:
                 <span class="trip-detail-value">{{ routeState.price}} ETB</span>
               </div>
             </mat-card>
@@ -167,15 +156,29 @@
       <div class="reserve-container">
         <div class="reserve-form">
           <mat-card>
+
             <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS   {{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</div>
-            <form class="my-form" [formGroup]="reserveRegisterForm" >
-             <mat-form-field appearance="fill" class="full-width">
+            <span>Selected Seats   </span>
+            <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
+            <br>  
+                  <p>Total Selected Seats: {{ cart?.selectedSeats?.length }}</p>
+                  <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
+                  <span class="trip-detail-title">Choose Payment Option</span>
+                  <form class="my-form" [formGroup]="reserveRegisterForm" >
+              <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
+                <mat-radio-button value="TeleBirr" (change)="changeGender('telebirr')">Tele Birr</mat-radio-button>&nbsp;
+                <mat-radio-button value="BankTransfer" (change)="changeGender('bank')"> Bank Transfer</mat-radio-button>
+              </mat-radio-group>
+              <!--
+              <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Payment Method</mat-label>
                 <mat-select formControlName="paymentMethod" [(ngModel)]="paymentMethod">
                   <mat-option value="BankTransfer">Bank Transfer</mat-option>
                   <mat-option value="TeleBirr">Tele Birr</mat-option>
                 </mat-select>
               </mat-form-field>
+            -->
+            
               <mat-form-field  appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
                 <mat-select formControlName="accountId">
@@ -191,11 +194,8 @@
             </form>
           </mat-card>
         </div>
-        
       </div>
       <div>
-        
-      
       </div>
     </mat-step>
   </mat-stepper>

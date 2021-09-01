@@ -330,6 +330,18 @@ onSubmit() {
       this.accounts = response;
     });
   }
+
+  changeGender(Value) {
+    console.log(Value)
+    if(Value=="bank"){
+      this.paymentMethod == 'BankTransfer';
+    console.log("Bank");
+    }
+    else{
+      this.paymentMethod == '';
+    }
+    
+  }
   
 }
 
