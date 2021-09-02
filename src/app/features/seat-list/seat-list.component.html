@@ -3,7 +3,7 @@
   <mat-stepper [linear]="isLinear" #stepper>
      <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Please Select Seat Number</ng-template>
-      <div class="row reserve-container">
+      <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
             <mat-card style="height: 450px;">
@@ -48,7 +48,6 @@
             </mat-card>
           </div>
         </div>
-
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <mat-card style="height: 450px;">
           <div class="trip-detail-title">Select A Seat</div>
@@ -88,30 +87,22 @@
       </mat-card>  
       </div>
     </div><!--end of page-->
-    <!-- 
-    <div>
-        <button (click)="processBooking(this.selectedTrip)" >Next</button>
-      </div>
-    -->
     </mat-step>
-
-
+    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
     <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
-      <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-          <div class="row reserve-container">
+      
+          <div class="row ">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
               <mat-card style="height: 408px; width: 100%;"> 
                 <div class="trip-detail-title">Selected Seats</div>
                 <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
-              
-                <br>  
+               <br>  
                   <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
                   <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
         </mat-card>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
               <div class="card">     
-       
           <div class="trip-detail-title" style="text-align: center;"> Please fill Passenger Information Properly </div>
             <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
                 <div class="list-group-item">
@@ -149,36 +140,27 @@
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
         </div>
     </div>
-      </form>
+      
     </mat-step>
+  
     <mat-step>
       <ng-template matStepLabel>Choos Payment Option and Reserve</ng-template>
-      <div class="reserve-container">
-        <div class="reserve-form">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
           <mat-card>
-
             <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS   {{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</div>
             <span>Selected Seats   </span>
             <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
             <br>  
                   <p>Total Selected Seats: {{ cart?.selectedSeats?.length }}</p>
                   <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
-                  <span class="trip-detail-title">Choose Payment Option</span>
-                  <form class="my-form" [formGroup]="reserveRegisterForm" >
+                  <p class="trip-detail-title">Choose Payment Option</p>
               <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
                 <mat-radio-button value="TeleBirr" (change)="changeGender('telebirr')">Tele Birr</mat-radio-button>&nbsp;
                 <mat-radio-button value="BankTransfer" (change)="changeGender('bank')"> Bank Transfer</mat-radio-button>
               </mat-radio-group>
-              <!--
-              <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Payment Method</mat-label>
-                <mat-select formControlName="paymentMethod" [(ngModel)]="paymentMethod">
-                  <mat-option value="BankTransfer">Bank Transfer</mat-option>
-                  <mat-option value="TeleBirr">Tele Birr</mat-option>
-                </mat-select>
-              </mat-form-field>
-            -->
-            
               <mat-form-field  appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
                 <mat-select formControlName="accountId">
@@ -190,14 +172,18 @@
                 <a (click)="reserve()" class="heading-button-right action-buton"  mat-flat-button   color="success">Reserve</a> &nbsp;
                   <button mat-button matStepperPrevious mat-flat-button  color="back">Back</button>&nbsp;
                   <button mat-button (click)="stepper.reset()" mat-flat-button color="accent">Reset</button>
-              </div>
-            </form>
+                  <button mat-button (click)="onSubmit()" mat-flat-button color="accent">submit</button>
+              
+                </div>
+            
           </mat-card>
+        
         </div>
       </div>
       <div>
       </div>
     </mat-step>
+  </form>
   </mat-stepper>
 
   

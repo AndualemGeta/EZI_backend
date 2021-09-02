@@ -49,44 +49,46 @@ export class SeatListComponent  {
   ngOnInit(): void {
     this.dynamicForm  =this._formBuilder.group({
       numberOfTickets: ['1', Validators.required],
-      tickets: new FormArray([])
-  });
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-    //Process a simple bus layout
-    this.reserveRegisterForm = this._formBuilder.group({
-      name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.required]],
-      discount: [0, Validators.required],
-      laggage: [0, Validators.required],
-      seatNum: ['', Validators.required],
+      tickets: new FormArray([]),
       accountId: ['', []],
       paymentMethod : ['', Validators.required]
-    });
+  });
+    // this.firstFormGroup = this._formBuilder.group({
+    //   firstCtrl: ['', Validators.required]
+    // });
+    // this.secondFormGroup = this._formBuilder.group({
+    //   secondCtrl: ['', Validators.required]
+    // });
+    //Process a simple bus layout
+    // this.reserveRegisterForm = this._formBuilder.group({
+    //   name: ['', Validators.required],
+    //   phone: ['', [Validators.required, Validators.required]],
+    //   discount: [0, Validators.required],
+    //   laggage: [0, Validators.required],
+    //   seatNum: ['', Validators.required],
+    //   accountId: ['', []],
+    //   paymentMethod : ['', Validators.required]
+    // });
+
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
     this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
-
-    var bankControl = this.reserveRegisterForm.get('accountId');
-    this.reserveRegisterForm.get('paymentMethod').valueChanges.subscribe((value) => {
-      if(value == 'BankTransfer')
-      {
-         bankControl.setValidators([Validators.required]);
-      }
-      else{
-        bankControl.setValidators(null);
-      }
-    })
+    // var bankControl = this.reserveRegisterForm.get('accountId');
+    // this.reserveRegisterForm.get('paymentMethod').valueChanges.subscribe((value) => {
+    //   if(value == 'BankTransfer')
+    //   {
+    //      bankControl.setValidators([Validators.required]);
+    //   }
+    //   else{
+    //     bankControl.setValidators(null);
+    //   }
+    // })
     this.routeState = this.routeStateService.getCurrent().data;
     this.selectedTrip=this.routeState;
     this.seatConfig = [
       {
-        seat_price: 500,
+        seat_price:this.selectedTrip.price,
         seat_map: [
           {
             seat_label: "1",
@@ -137,7 +139,7 @@ export class SeatListComponent  {
     ];
 
     this.processSeatChart(this.seatConfig);
-    this.blockSeats("8_1,7_2");
+    this.blockSeats("8_1,7_2,");
   }
 
   public processSeatChart(map_data: any[]) {
@@ -250,15 +252,6 @@ export class SeatListComponent  {
   }
 
 
-  processBooking(element){
-    console.log("welcome to ethiopia");
-    this.routeStateService.add(
-      "reserve-list",
-      "/reserve",
-       element,
-      false
-    );
-  }
 
 // convenience getters for easy access to form fields
 get f() { return this.dynamicForm.controls; }
@@ -297,10 +290,11 @@ AddNUmberOfPassengers(e) {
 }
 onSubmit() {
   this.submitted = true;
-
+console.log(this.dynamicForm.value);
   // stop here if form is invalid
   if (this.dynamicForm.invalid) {
-      return;
+    console.log("Problems");  
+    return;
   }
 
   // display form values on success
@@ -335,12 +329,10 @@ onSubmit() {
     console.log(Value)
     if(Value=="bank"){
       this.paymentMethod == 'BankTransfer';
-    console.log("Bank");
     }
     else{
       this.paymentMethod == '';
     }
-    
   }
   
 }
