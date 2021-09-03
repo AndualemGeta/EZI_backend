@@ -37,7 +37,7 @@ export class SeatListComponent  {
   reserveRegisterForm: FormGroup;
   disableReservebutton: boolean;
   loading: boolean;
-  paymentMethod : string;
+  paymentMethod : string="TeleBirr";
   constructor(private routeStateService: RouteStateService, private router: Router,
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
@@ -50,40 +50,13 @@ export class SeatListComponent  {
     this.dynamicForm  =this._formBuilder.group({
       tickets: new FormArray([]),
       accountId: ['', []],
-      paymentMethod : ['', Validators.required]
-  });
-
-    // this.firstFormGroup = this._formBuilder.group({
-    //   firstCtrl: ['', Validators.required]
-    // });
-    // this.secondFormGroup = this._formBuilder.group({
-    //   secondCtrl: ['', Validators.required]
-    // });
-    //Process a simple bus layout
-    // this.reserveRegisterForm = this._formBuilder.group({
-    //   name: ['', Validators.required],
-    //   phone: ['', [Validators.required, Validators.required]],
-    //   discount: [0, Validators.required],
-    //   laggage: [0, Validators.required],
-    //   seatNum: ['', Validators.required],
-    //   accountId: ['', []],
-    //   paymentMethod : ['', Validators.required]
-    // });
-
+      paymentMethod : ['TeleBirr', Validators.required],
+      seatNumber:[this.cart.selectedSeats]
+     });
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
     this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
-    // var bankControl = this.reserveRegisterForm.get('accountId');
-    // this.reserveRegisterForm.get('paymentMethod').valueChanges.subscribe((value) => {
-    //   if(value == 'BankTransfer')
-    //   {
-    //      bankControl.setValidators([Validators.required]);
-    //   }
-    //   else{
-    //     bankControl.setValidators(null);
-    //   }
-    // })
     this.routeState = this.routeStateService.getCurrent().data;
     this.selectedTrip=this.routeState;
     this.seatConfig = [
@@ -137,9 +110,8 @@ export class SeatListComponent  {
         ]
       }
     ];
-
     this.processSeatChart(this.seatConfig);
-    this.blockSeats("8_1,7_2,");
+    this.blockSeats(this.selectedTrip.availableSeats);
   }
 
   public processSeatChart(map_data: any[]) {
@@ -196,16 +168,14 @@ export class SeatListComponent  {
       }
     }
   }
- 
-  public selectSeat(seatObject: any) {
+ public selectSeat(seatObject: any) {
     if (seatObject.status == "available") {
       seatObject.status = "booked";
       this.cart.selectedSeats.push(seatObject.seatNo);
       this.cart.seatstoStore.push(seatObject.key);
       this.cart.totalamount += seatObject.price;
       this.AddNUmberOfPassengers(this.cart.selectedSeats.length);
-      
-    } else if ((seatObject.status = "booked")) {
+      } else if ((seatObject.status = "booked")) {
       seatObject.status = "available";
       var seatIndex = this.cart.selectedSeats.indexOf(seatObject.seatNo);
       if (seatIndex > -1) {
@@ -214,67 +184,26 @@ export class SeatListComponent  {
         this.cart.totalamount -= seatObject.price;
       }
       this.AddNUmberOfPassengers(this.cart.selectedSeats.length);
-      
-    }
+     }
   }
 
   public blockSeats(seatsToBlock: string) {
     if (seatsToBlock != "") {
-      var seatsToBlockArr = seatsToBlock.split(",");
-      console.log(this.seatmap);
-      console.log(this.selectedTrip);
-      let a=this.selectedTrip.availableSeats;
-      let b=this.selectedTrip.seatCapacity;
-       console.log(b);
-
-      //  for (let index = 0; index < a.length; index++) {
-      //   for (let index2 = 0; index2 < this.seatmap.length; index2++) {
-      //     const element = this.seatmap[index2];
-      //     if (element.seatRowLabel == a[index]) {
-      //       var seatObj = element.seats[parseInt(seatSplitArr[1]) - 1];
-      //       if (seatObj) {
-      //         seatObj["status"] = "unavailable";
-      //         this.seatmap[index2]["seats"][
-      //           parseInt(seatSplitArr[1]) - 1
-      //         ] = seatObj;
-      //         break;
-      //       }
-      //     }
-      //   }
-      // }
-       
-      /*
-      for (let ix = 0; ix < a.length; ix++) {
-            console.log(a[ix]);
-            if(a.find(x => x === a[ix])){
-              console.log(a[ix]);
-              console.log("we get");
-            }
-      }
-      */
-
-      for (let index = 0; index < seatsToBlockArr.length; index++) {
-        var seat = seatsToBlockArr[index] + "";
-        var seatSplitArr = seat.split("_");
-        for (let index2 = 0; index2 < this.seatmap.length; index2++) {
-          const element = this.seatmap[index2];
-          console.log(element.seatRowLabel);
-          if (element.seatRowLabel == seatSplitArr[0]) {
-            //console.log(element.seats.find(x => x));
-            var seatObj = element.seats[parseInt(seatSplitArr[1]) - 1];
-            console.log(element.seats[parseInt(seatSplitArr[1]) - 1]);
-            if (seatObj) {
-              seatObj["status"] = "unavailable";
-              this.seatmap[index2]["seats"][
-                parseInt(seatSplitArr[1]) - 1
-              ] = seatObj;
-              break;
-            }
+      let xseat=[];
+       for (let index2 = 0; index2 < this.seatmap.length; index2++) {
+        const element = this.seatmap[index2];
+       for (let i2 = 0; i2 < element.seats.length; i2++){
+          xseat.push(element.seats[i2]);
+         }
+       }
+      for (let i = 0; i < xseat.length; i++){
+        for (let r = 0; r < seatsToBlock.length; r++){
+          if(xseat[i].seatNo==seatsToBlock[r]){
+            xseat[i].status="unavailable";
+            break;
           }
         }
       }
-
-      
     }
   }
 
@@ -284,28 +213,13 @@ export class SeatListComponent  {
 get f() { return this.dynamicForm.controls; }
 get t() { return this.f.tickets as FormArray; }
 
-onChangeTickets(e) {
-  const numberOfTickets = e.target.value || 0;
-  if (this.t.length < numberOfTickets) {
-      for (let i = this.t.length; i < numberOfTickets; i++) {
-          this.t.push(this._formBuilder.group({
-              name: ['', Validators.required],
-              email: ['', [Validators.required, Validators.email]]
-          }));
-      }
-  } else {
-      for (let i = this.t.length; i >= numberOfTickets; i--) {
-          this.t.removeAt(i);
-      }
-  }
-}
 AddNUmberOfPassengers(e) {
   const numberOfTickets = e || 0;
   if (this.t.length < numberOfTickets) {
       for (let i = this.t.length; i < numberOfTickets; i++) {
           this.t.push(this._formBuilder.group({
               name: ['', Validators.required],
-              email: ['', [Validators.required, Validators.email]],
+              phone: ['', Validators.required],
               laggage: [0, Validators.required],
           }));
       }
@@ -317,26 +231,20 @@ AddNUmberOfPassengers(e) {
 }
 onSubmit() {
   this.submitted = true;
-console.log(this.dynamicForm.value);
+  console.log(this.dynamicForm.value);
   // stop here if form is invalid
-  if (this.dynamicForm.invalid) {
-    console.log("Problems");  
+  if (this.dynamicForm.invalid) { 
     return;
   }
-
-  // display form values on success
+// display form values on success
   alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
 }
   onReset() {
-    // reset whole form back to initial state
-    //this.submitted = false;
     this.dynamicForm.reset();
     this.t.clear();
   }
   
   onClear() {
-    // clear errors and reset ticket fields
-    //this.submitted = false;
     this.t.reset();
   }
 
@@ -353,12 +261,11 @@ console.log(this.dynamicForm.value);
   }
 
   changeGender(Value) {
-    console.log(Value)
-    if(Value=="bank"){
+    if(Value=="BankTransfer"){
       this.paymentMethod == 'BankTransfer';
     }
     else{
-      this.paymentMethod == '';
+      this.paymentMethod == 'TeleBirr';
     }
   }
   
