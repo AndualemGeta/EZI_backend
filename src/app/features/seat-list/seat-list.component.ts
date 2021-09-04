@@ -17,7 +17,7 @@ export class SeatListComponent  {
     showRowWisePricing: false,
     newSeatNoForRow: false
   };
-  
+  ReservedSeats=[];
    cart = {
     selectedSeats: [],
     seatstoStore: [],
@@ -110,8 +110,15 @@ export class SeatListComponent  {
         ]
       }
     ];
-    this.processSeatChart(this.seatConfig);
-    this.blockSeats(this.selectedTrip.availableSeats);
+     this.processSeatChart(this.seatConfig);
+    
+    for(let z=1;z<=this.selectedTrip.seatCapacity;z++){
+      let seat=this.selectedTrip.availableSeats.filter(x => x == z).length
+      if(seat==0){
+        this.ReservedSeats.push(z);
+          } 
+    }
+this.blockSeats(this.ReservedSeats);
   }
 
   public processSeatChart(map_data: any[]) {
@@ -169,7 +176,12 @@ export class SeatListComponent  {
     }
   }
  public selectSeat(seatObject: any) {
+
     if (seatObject.status == "available") {
+      if(this.cart.selectedSeats.length>=5){
+        alert("You Can not reserve more than 5 seats");
+        return false;
+            }
       seatObject.status = "booked";
       this.cart.selectedSeats.push(seatObject.seatNo);
       this.cart.seatstoStore.push(seatObject.key);
@@ -187,7 +199,7 @@ export class SeatListComponent  {
      }
   }
 
-  public blockSeats(seatsToBlock: string) {
+  public blockSeats(seatsToBlock) {
     if (seatsToBlock != "") {
       let xseat=[];
        for (let index2 = 0; index2 < this.seatmap.length; index2++) {
@@ -219,7 +231,7 @@ AddNUmberOfPassengers(e) {
       for (let i = this.t.length; i < numberOfTickets; i++) {
           this.t.push(this._formBuilder.group({
               name: ['', Validators.required],
-              phone: ['', Validators.required],
+              phone:['', [Validators.required, Validators.pattern(new RegExp("[0-9 ]{10}"))]],
               laggage: [0, Validators.required],
           }));
       }
@@ -234,10 +246,11 @@ onSubmit() {
   console.log(this.dynamicForm.value);
   // stop here if form is invalid
   if (this.dynamicForm.invalid) { 
+    alert("Please fill all passenger information first");
     return;
   }
 // display form values on success
-  alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
+  alert('SUCCESS!!!\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
 }
   onReset() {
     this.dynamicForm.reset();
