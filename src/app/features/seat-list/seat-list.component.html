@@ -1,4 +1,6 @@
+
 <app-header></app-header>
+
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper [linear]="isLinear" #stepper>
      <mat-step [stepControl]="firstFormGroup">
@@ -92,15 +94,7 @@
     <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
       
           <div class="row ">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-              <mat-card style="height: 408px; width: 100%;"> 
-                <div class="trip-detail-title">Selected Seats</div>
-                <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
-               <br>  
-                  <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
-                  <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
-        </mat-card>
-            </div>
+            
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
               <div class="card">     
           <div class="trip-detail-title" style="text-align: center;"> Please fill Passenger Information Properly </div>
@@ -136,6 +130,15 @@
               </div>
               </div>
         </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <mat-card style="height: 408px; width: 100%;"> 
+          <div class="trip-detail-title">Selected Seats</div>
+          <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
+         <br>  
+            <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
+            <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
+  </mat-card>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
         </div>

@@ -46,6 +46,33 @@ export class SeatListComponent  {
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
     dynamicForm: FormGroup;
+newPassanger={
+    registrationDate: new Date(),
+    updatedAt: new Date(),
+    scheduleId: "",
+    passengers: [
+      {
+        charges: 0,
+        discount: 0,
+        seatNumber: 0,
+        luggageWeight: 0,
+        pickupLocation: "",
+        passenger: {
+          phoneNumber: "",
+          fullName: "",
+          gender: "",
+          age: 0
+        }
+      }
+    ],
+    bookedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    statusCode: "",
+    paymentTypeCode: ""
+  }
+
+
+
+
   ngOnInit(): void {
     this.dynamicForm  =this._formBuilder.group({
       tickets: new FormArray([]),
@@ -178,8 +205,8 @@ this.blockSeats(this.ReservedSeats);
  public selectSeat(seatObject: any) {
 
     if (seatObject.status == "available") {
-      if(this.cart.selectedSeats.length>=5){
-        alert("You Can not reserve more than 5 seats");
+      if(this.cart.selectedSeats.length>=3){
+        alert("You Can not reserve more than 3 seats");
         return false;
             }
       seatObject.status = "booked";
