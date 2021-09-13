@@ -1,6 +1,4 @@
-
 <app-header></app-header>
-
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper [linear]="isLinear" #stepper>
      <mat-step [stepControl]="firstFormGroup">
@@ -92,18 +90,25 @@
     </mat-step>
     <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
     <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
-      
-          <div class="row ">
-            
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
-              <div class="card">     
-          <div class="trip-detail-title" style="text-align: center;"> Please fill Passenger Information Properly </div>
-            <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
+       <div class="row ">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3">
+          <mat-card style="height: 408px; width: 100%;"> 
+            <div class="trip-detail-title">Selected Seats</div>
+            <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
+           <br>  
+              <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
+              <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
+    </mat-card>
+        </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">        
+          <div class="trip-detail-title" style="text-align: center;"> Please Fill Passenger Information Properly </div>
+          <div class="card" style="text-align: center;">   
+          <div *ngFor="let ticket of t.controls;let i = index" class="list-group list-group-flush">
                 <div class="list-group-item">
                     <h5 class="card-title">Passenger {{i + 1}}</h5>
                     <div [formGroup]="ticket" class="form-row">
                         <div class="form-group col-10">
-                          <mat-form-field class="full-width" style="margin-right: 140px;">
+                          <mat-form-field class="full-width" >
                             <mat-label>Full Name</mat-label>
                             <input  matInput  placeholder="Full Name"  name="fname" formControlName="name"  required>
                           </mat-form-field>  
@@ -131,17 +136,7 @@
               </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <mat-card style="height: 408px; width: 100%;"> 
-          <div class="trip-detail-title">Selected Seats</div>
-          <span *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">{{seatLabel}}</span>          
-         <br>  
-            <p>Total Selected : {{ cart?.selectedSeats?.length }}</p>
-            <p>Total Amount :&nbsp;&nbsp; {{cart.totalamount}} Birr</p>
-  </mat-card>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        </div>
+      
     </div>
     </mat-step>
     <mat-step>

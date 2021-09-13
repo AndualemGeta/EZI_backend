@@ -1,5 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
@@ -9,7 +10,14 @@ import { RouteStateService } from 'src/app/Service/route-state.service';
   styleUrls: ['./seat-list.component.css']
 })
 export class SeatListComponent  {
-   seatConfig: any = null;
+  responseDialog: boolean;
+  iserror: boolean;
+  disableSubmit: boolean;
+  responseMesssage: any; 
+  responseStyle:string;
+   responseTitle:string;
+  
+  seatConfig: any = null;
    submitted:boolean;
    seatmap = [];
    seatChartConfig = {
@@ -41,22 +49,39 @@ export class SeatListComponent  {
   constructor(private routeStateService: RouteStateService, private router: Router,
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
+    private _snackBar : MatSnackBar,
     ) { }
     isLinear = false;
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
     dynamicForm: FormGroup;
-newPassanger={
+    passengers= 
+      {
+     charges: 0,
+     discount: 0,
+     seatNumber: 0,
+     luggageWeight: 0,
+     pickupLocation: "mexico shebelie",
+     passenger: {
+       phoneNumber: "",
+       fullName: "",
+       gender: "",
+       age: 0
+     }
+   }
+ 
+    
+    newPassanger={
     registrationDate: new Date(),
     updatedAt: new Date(),
-    scheduleId: "",
+    scheduleId: "",        
     passengers: [
-      {
+         {
         charges: 0,
         discount: 0,
         seatNumber: 0,
         luggageWeight: 0,
-        pickupLocation: "",
+        pickupLocation: "mexico shebelie",
         passenger: {
           phoneNumber: "",
           fullName: "",
@@ -66,13 +91,9 @@ newPassanger={
       }
     ],
     bookedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    statusCode: "",
-    paymentTypeCode: ""
+    statusCode: 'Reserved',
+    paymentTypeCode: 'Electronic',
   }
-
-
-
-
   ngOnInit(): void {
     this.dynamicForm  =this._formBuilder.group({
       tickets: new FormArray([]),
@@ -203,8 +224,7 @@ this.blockSeats(this.ReservedSeats);
     }
   }
  public selectSeat(seatObject: any) {
-
-    if (seatObject.status == "available") {
+ if (seatObject.status == "available") {
       if(this.cart.selectedSeats.length>=3){
         alert("You Can not reserve more than 3 seats");
         return false;
@@ -214,10 +234,10 @@ this.blockSeats(this.ReservedSeats);
       this.cart.seatstoStore.push(seatObject.key);
       this.cart.totalamount += seatObject.price;
       this.AddNUmberOfPassengers(this.cart.selectedSeats.length);
-      } else if ((seatObject.status = "booked")) {
+      } else if((seatObject.status = "booked")) {
       seatObject.status = "available";
       var seatIndex = this.cart.selectedSeats.indexOf(seatObject.seatNo);
-      if (seatIndex > -1) {
+      if(seatIndex > -1) {
         this.cart.selectedSeats.splice(seatIndex, 1);
         this.cart.seatstoStore.splice(seatIndex, 1);
         this.cart.totalamount -= seatObject.price;
@@ -251,7 +271,9 @@ this.blockSeats(this.ReservedSeats);
 // convenience getters for easy access to form fields
 get f() { return this.dynamicForm.controls; }
 get t() { return this.f.tickets as FormArray; }
-
+showMessage(message){
+  this._snackBar.open(message,"UNDO");
+}
 AddNUmberOfPassengers(e) {
   const numberOfTickets = e || 0;
   if (this.t.length < numberOfTickets) {
@@ -276,9 +298,23 @@ onSubmit() {
     alert("Please fill all passenger information first");
     return;
   }
-// display form values on success
+  this.newPassanger.passengers=[];
+  //console.log(this.selectedTrip);
+  //console.log(this.dynamicForm.value);
+  let v=this.dynamicForm.value;
+  this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
+  for(let i=0;i<v.tickets.length;i++){
+    this.passengers.charges=this.selectedTrip.price;
+    this.passengers.seatNumber=this.cart.selectedSeats[i];
+    this.passengers.passenger.fullName=v.tickets[i].name;
+    this.passengers.passenger.phoneNumber=v.tickets[i].phone;
+    this.newPassanger.passengers.push(this.passengers);
+    console.log(this.newPassanger);
+  }
+   
+  // display form values on success
   alert('SUCCESS!!!\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
-}
+  }
   onReset() {
     this.dynamicForm.reset();
     this.t.clear();
@@ -308,6 +344,75 @@ onSubmit() {
       this.paymentMethod == 'TeleBirr';
     }
   }
+
+  reserve(){
+    if(this.reserveRegisterForm.valid) {
+      this.loading = true;
+      var rawData = this.reserveRegisterForm.getRawValue();
+      var data = {
+        accountId: rawData.accountId,
+        charges: this.selectedTrip.price,
+        discount: 0,
+        seatNumber: rawData.seatNum,
+        luggageWeight: rawData.laggage,
+        registrationDate: new Date(),
+        updateAt: new Date(),
+        scheduleId: this.selectedTrip.scheduleId,
+        bookedById: this.agentId,
+        statusCode: 'Reserved',
+        paymentTypeCode: 'Electronic',
+        pickupLocation: "mexico shebelie",
+        passenger: {
+          fullName: rawData.name,
+          phoneNumber: rawData.phone,
+          gender: 'Male',
+          age: 0,
+        },
+      };
+    if(rawData.paymentMethod == 'BankTransfer'){
+      data['paymentMethodCode'] = 'BankTransfer'
+    }
+    if(rawData.paymentMethod == 'TeleBirr'){
+      data['paymentMethodCode'] = 'Electronic';
+      data['paymentProviderCode'] = 'TeleBirr';
+    }
+     console.log(data);
+      this.eziService.reserve(data).subscribe(
+        (res) => {
+          console.log(res);
+          this.iserror = false;
+          this.responseStyle = 'success';
+          this.responseDialog = true;
+          this.responseTitle = 'SUCCESS!!!';
+          this.responseMesssage =
+            'You have successfully reserved a trip. You will receive SMS shortly. ';
+          this.reserveRegisterForm.reset();
+          this.display = false;
+          this.disableSubmit = false;
+          this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
+          //  this.router.navigate(["home"]);
+          this.loading = false;
+          // this.printData(res);
+        },
+        (error) => {
+          this.iserror = true;
+          this.responseTitle = 'Error!!!';
+          this.responseDialog = true;
+          this.responseMesssage = '';
+          this.responseStyle = 'error';
+          this.disableSubmit = false;
+          for (const [key, value] of Object.entries(error)) {
+            this.responseMesssage = this.responseMesssage + value;
+          }
+          this.display = false;
+          this.loading = false;
+          this.showMessage(this.responseMesssage);
+        }
+      );
+    }
+  }
+
+
   
 }
 
