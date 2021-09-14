@@ -1,6 +1,7 @@
 .how-it-work-body{
     background-color: #e5e5e5;
     width: 100%;
+    
 }
     .about-heading{
     padding-bottom: 30px;
@@ -54,12 +55,13 @@
     flex-wrap: wrap;
     text-align: center;
     
-    /*justify-content: center;
-    */
+    justify-content: center;
+    
     }
-  .how-it-work-sub-contents{
+  .how-it-work-sub-content{
   display: flex;
   flex-wrap: wrap;
+
   }
   .sub-content-detail{
   width :250px;

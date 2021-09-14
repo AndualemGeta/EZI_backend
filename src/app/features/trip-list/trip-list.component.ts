@@ -75,7 +75,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
     let tripDate=this.form.controls.tripDate.value;
     let tDate=formatDate(tripDate,'yyyy-MM-dd', 'en-US');
     let today=formatDate(new Date(),'yyyy-MM-dd', 'en-US');
-    console.log(departure);
     if(departure==""||destination==""){
       this.route=[];
       this.searchResultmessage="Please select Departure and Destination";

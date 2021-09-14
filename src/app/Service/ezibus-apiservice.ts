@@ -84,12 +84,9 @@ export class EziBusService {
     });
   }
   searchTrip(departureLocationId,arrivalLocationId,tripDate){
-    console.log("api call");
     let url = `​/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
-    console.log(url);
     return this.getApiService(url).then((data) => {
-      console.log(data);
-      return data;
+     return data;
     });
   }
 
@@ -106,7 +103,6 @@ export class EziBusService {
 
   search(departureLocationId, arrivalLocationId, tripDate){
     let url = `/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
-    console.log(url);
     return this.getApiService(url).then((data) => {
       console.log(data)
       return data;

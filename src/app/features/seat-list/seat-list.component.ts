@@ -40,7 +40,6 @@ export class SeatListComponent  {
   accounts: any[];
   agentId: string;
   routeState;
-  title = "seat-chart-generator";
   reserveRegisterForm: FormGroup;
   disableReservebutton: boolean;
   loading: boolean;
@@ -54,20 +53,6 @@ export class SeatListComponent  {
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
     dynamicForm: FormGroup;
-    passengers= 
-      {
-     charges: 0,
-     discount: 0,
-     seatNumber: 0,
-     luggageWeight: 0,
-     pickupLocation: "mexico shebelie",
-     passenger: {
-       phoneNumber: "",
-       fullName: "",
-       gender: "Male",
-       age: 0
-     }
-   }
   newPassanger={
     registrationDate: new Date(),
     updatedAt: new Date(),
@@ -145,8 +130,7 @@ export class SeatListComponent  {
         ]
       }
     ];
-     this.processSeatChart(this.seatConfig);
-    
+  this.processSeatChart(this.seatConfig);
     for(let z=1;z<=this.selectedTrip.seatCapacity;z++){
       let seat=this.selectedTrip.availableSeats.filter(x => x == z).length
       if(seat==0){
@@ -213,7 +197,7 @@ export class SeatListComponent  {
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
       if(this.cart.selectedSeats.length>=3){
-        alert("You Can not reserve more than 3 seats");
+       this.showMessage("You Can not reserve more than 3 seats");
         return false;
             }
       seatObject.status = "booked";
@@ -251,7 +235,7 @@ public blockSeats(seatsToBlock) {
       }
     }
   }
-  //convenience getters for easy access to form fields
+//convenience getters for easy access to form fields
 get f() { return this.dynamicForm.controls; }
 get t() { return this.f.tickets as FormArray; }
 showMessage(message){
@@ -276,18 +260,31 @@ AddNUmberOfPassengers(e) {
 onSubmit() {
   this.submitted = true;
   if (this.dynamicForm.invalid) { 
-    alert("Please fill all passenger information first");
+    this.showMessage("Please fill all passenger information first");
     return;
   }
   this.newPassanger.passengers=[];
-  let v=this.dynamicForm.value;
   this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
+  let v=this.dynamicForm.value;
+  if (v.tickets.length<=0) { 
+    this.showMessage("Please select seat first");
+    return;
+  }
   for(let i=0;i<v.tickets.length;i++){
-    this.passengers.charges=this.selectedTrip.price;
-    this.passengers.seatNumber=this.cart.selectedSeats[i];
-    this.passengers.passenger.fullName=v.tickets[i].name;
-    this.passengers.passenger.phoneNumber=v.tickets[i].phone;
-    this.newPassanger.passengers.push(this.passengers);
+    let newPassengerData={
+    charges: this.selectedTrip.price,
+     discount: 0,
+     seatNumber: this.cart.selectedSeats[i],
+     luggageWeight: 0,
+     pickupLocation: "mexico shebelie",
+     passenger: {
+       phoneNumber: v.tickets[i].phone,
+       fullName: v.tickets[i].name,
+       gender: "Male",
+       age: 0
+     }
+    }
+    this.newPassanger.passengers.push(newPassengerData);
     }
   if(this.paymentMethod == 'BankTransfer'){
     this.newPassanger.paymentMethodCode = 'BankTransfer'
@@ -296,6 +293,7 @@ onSubmit() {
     this.newPassanger.paymentMethodCode = 'Electronic';
     this.newPassanger.paymentProviderCode = 'TeleBirr';
   }
+  console.log(this.newPassanger);
   this.reserveSeat(this.newPassanger);
   }
   onReset() {
@@ -337,8 +335,7 @@ reserveSeat(data){
       this.disableSubmit = false;
       this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
       this.loading = false;
-    
-    },
+      },
     (error) => {
       this.iserror = true;
       this.responseTitle = 'Error!!!';
