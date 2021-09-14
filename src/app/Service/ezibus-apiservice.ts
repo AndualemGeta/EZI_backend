@@ -130,6 +130,25 @@ export class EziBusService {
       })
     );
   }
+  
+  reserveMultiple(data){
+    let url = `/api/public/reserveMultiple`;
+    return this.postApiService(url,data).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError((error) => {
+        let errorMsg;
+        if (error.error instanceof ErrorEvent) {
+          errorMsg = "Error:" + error.error.message;
+        } else {
+          errorMsg = this.getServerErrorMessage(error);
+        }
+        return throwError(errorMsg);
+      })
+    );
+  }
+
 
   private getServerErrorMessage(error: HttpErrorResponse): any {
     switch (error.status) {

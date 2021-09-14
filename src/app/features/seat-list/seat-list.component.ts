@@ -16,8 +16,7 @@ export class SeatListComponent  {
   responseMesssage: any; 
   responseStyle:string;
    responseTitle:string;
-  
-  seatConfig: any = null;
+   seatConfig: any = null;
    submitted:boolean;
    seatmap = [];
    seatChartConfig = {
@@ -65,32 +64,20 @@ export class SeatListComponent  {
      passenger: {
        phoneNumber: "",
        fullName: "",
-       gender: "",
+       gender: "Male",
        age: 0
      }
    }
- 
-    
-    newPassanger={
+  newPassanger={
     registrationDate: new Date(),
     updatedAt: new Date(),
-    scheduleId: "",        
-    passengers: [
-         {
-        charges: 0,
-        discount: 0,
-        seatNumber: 0,
-        luggageWeight: 0,
-        pickupLocation: "mexico shebelie",
-        passenger: {
-          phoneNumber: "",
-          fullName: "",
-          gender: "",
-          age: 0
-        }
-      }
-    ],
-    bookedById: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    scheduleId: "",  
+    accountId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    paymentMethodCode: "",
+    paymentProviderCode: "",
+    debitAccount: "",
+    passengers: [],
+    bookedById: "DE937EB1-F20A-44E5-451C-08D8A705F255",
     statusCode: 'Reserved',
     paymentTypeCode: 'Electronic',
   }
@@ -166,7 +153,7 @@ export class SeatListComponent  {
         this.ReservedSeats.push(z);
           } 
     }
-this.blockSeats(this.ReservedSeats);
+  this.blockSeats(this.ReservedSeats);
   }
 
   public processSeatChart(map_data: any[]) {
@@ -245,8 +232,7 @@ this.blockSeats(this.ReservedSeats);
       this.AddNUmberOfPassengers(this.cart.selectedSeats.length);
      }
   }
-
-  public blockSeats(seatsToBlock) {
+public blockSeats(seatsToBlock) {
     if (seatsToBlock != "") {
       let xseat=[];
        for (let index2 = 0; index2 < this.seatmap.length; index2++) {
@@ -265,14 +251,11 @@ this.blockSeats(this.ReservedSeats);
       }
     }
   }
-
-
-
-// convenience getters for easy access to form fields
+  //convenience getters for easy access to form fields
 get f() { return this.dynamicForm.controls; }
 get t() { return this.f.tickets as FormArray; }
 showMessage(message){
-  this._snackBar.open(message,"UNDO");
+  this._snackBar.open(message,"OK");
 }
 AddNUmberOfPassengers(e) {
   const numberOfTickets = e || 0;
@@ -292,15 +275,11 @@ AddNUmberOfPassengers(e) {
 }
 onSubmit() {
   this.submitted = true;
-  console.log(this.dynamicForm.value);
-  // stop here if form is invalid
   if (this.dynamicForm.invalid) { 
     alert("Please fill all passenger information first");
     return;
   }
   this.newPassanger.passengers=[];
-  //console.log(this.selectedTrip);
-  //console.log(this.dynamicForm.value);
   let v=this.dynamicForm.value;
   this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
   for(let i=0;i<v.tickets.length;i++){
@@ -309,11 +288,15 @@ onSubmit() {
     this.passengers.passenger.fullName=v.tickets[i].name;
     this.passengers.passenger.phoneNumber=v.tickets[i].phone;
     this.newPassanger.passengers.push(this.passengers);
-    console.log(this.newPassanger);
+    }
+  if(this.paymentMethod == 'BankTransfer'){
+    this.newPassanger.paymentMethodCode = 'BankTransfer'
   }
-   
-  // display form values on success
-  alert('SUCCESS!!!\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
+  if(this.paymentMethod == 'TeleBirr'){
+    this.newPassanger.paymentMethodCode = 'Electronic';
+    this.newPassanger.paymentProviderCode = 'TeleBirr';
+  }
+  this.reserveSeat(this.newPassanger);
   }
   onReset() {
     this.dynamicForm.reset();
@@ -344,75 +327,33 @@ onSubmit() {
       this.paymentMethod == 'TeleBirr';
     }
   }
-
-  reserve(){
-    if(this.reserveRegisterForm.valid) {
-      this.loading = true;
-      var rawData = this.reserveRegisterForm.getRawValue();
-      var data = {
-        accountId: rawData.accountId,
-        charges: this.selectedTrip.price,
-        discount: 0,
-        seatNumber: rawData.seatNum,
-        luggageWeight: rawData.laggage,
-        registrationDate: new Date(),
-        updateAt: new Date(),
-        scheduleId: this.selectedTrip.scheduleId,
-        bookedById: this.agentId,
-        statusCode: 'Reserved',
-        paymentTypeCode: 'Electronic',
-        pickupLocation: "mexico shebelie",
-        passenger: {
-          fullName: rawData.name,
-          phoneNumber: rawData.phone,
-          gender: 'Male',
-          age: 0,
-        },
-      };
-    if(rawData.paymentMethod == 'BankTransfer'){
-      data['paymentMethodCode'] = 'BankTransfer'
+reserveSeat(data){
+  this.eziService.reserveMultiple(data).subscribe(
+    (res) => {
+      this.iserror = false;
+       this.responseDialog = true;
+       this.dynamicForm.reset();
+      this.display = false;
+      this.disableSubmit = false;
+      this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
+      this.loading = false;
+    
+    },
+    (error) => {
+      this.iserror = true;
+      this.responseTitle = 'Error!!!';
+      this.responseDialog = true;
+      this.responseMesssage = '';
+      this.responseStyle = 'error';
+      this.disableSubmit = false;
+      for (const [key, value] of Object.entries(error)) {
+        this.responseMesssage = this.responseMesssage + value;
+      }
+      this.display = false;
+      this.loading = false;
+      this.showMessage(this.responseMesssage);
     }
-    if(rawData.paymentMethod == 'TeleBirr'){
-      data['paymentMethodCode'] = 'Electronic';
-      data['paymentProviderCode'] = 'TeleBirr';
-    }
-     console.log(data);
-      this.eziService.reserve(data).subscribe(
-        (res) => {
-          console.log(res);
-          this.iserror = false;
-          this.responseStyle = 'success';
-          this.responseDialog = true;
-          this.responseTitle = 'SUCCESS!!!';
-          this.responseMesssage =
-            'You have successfully reserved a trip. You will receive SMS shortly. ';
-          this.reserveRegisterForm.reset();
-          this.display = false;
-          this.disableSubmit = false;
-          this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
-          //  this.router.navigate(["home"]);
-          this.loading = false;
-          // this.printData(res);
-        },
-        (error) => {
-          this.iserror = true;
-          this.responseTitle = 'Error!!!';
-          this.responseDialog = true;
-          this.responseMesssage = '';
-          this.responseStyle = 'error';
-          this.disableSubmit = false;
-          for (const [key, value] of Object.entries(error)) {
-            this.responseMesssage = this.responseMesssage + value;
-          }
-          this.display = false;
-          this.loading = false;
-          this.showMessage(this.responseMesssage);
-        }
-      );
-    }
-  }
-
-
-  
+  );
+}
 }
 
