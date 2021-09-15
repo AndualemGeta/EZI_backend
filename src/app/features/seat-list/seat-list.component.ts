@@ -330,6 +330,7 @@ onSubmit() {
     }
   }
 reserveSeat(data){
+    this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
       this.iserror = false;
@@ -339,6 +340,14 @@ reserveSeat(data){
       this.disableSubmit = false;
       this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
       this.loading = false;
+      console.log(res);
+      console.log(data);
+      if(data['paymentMethodCode'] == "Electronic" && data["paymentProviderCode"] == "TeleBirr"){
+          window.open(res["paymentDetails"],"_self")
+      }
+      else{
+        this.router.navigate(["home"]);
+      }
       },
     (error) => {
       this.iserror = true;
