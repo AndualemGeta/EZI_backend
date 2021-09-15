@@ -13,7 +13,7 @@ export class SeatListComponent  {
   responseDialog: boolean;
   iserror: boolean;
   disableSubmit: boolean;
-  responseMesssage: any; 
+  responseMesssage: any;
   responseStyle:string;
    responseTitle:string;
    seatConfig: any = null;
@@ -44,6 +44,7 @@ export class SeatListComponent  {
   disableReservebutton: boolean;
   loading: boolean;
   paymentMethod : string="TeleBirr";
+  accountId : string = "";
   constructor(private routeStateService: RouteStateService, private router: Router,
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
@@ -56,7 +57,7 @@ export class SeatListComponent  {
   newPassanger={
     registrationDate: new Date(),
     updatedAt: new Date(),
-    scheduleId: "",  
+    scheduleId: "",
     accountId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     paymentMethodCode: "",
     paymentProviderCode: "",
@@ -135,7 +136,7 @@ export class SeatListComponent  {
       let seat=this.selectedTrip.availableSeats.filter(x => x == z).length
       if(seat==0){
         this.ReservedSeats.push(z);
-          } 
+          }
     }
   this.blockSeats(this.ReservedSeats);
   }
@@ -259,14 +260,14 @@ AddNUmberOfPassengers(e) {
 }
 onSubmit() {
   this.submitted = true;
-  if (this.dynamicForm.invalid) { 
+  if (this.dynamicForm.invalid) {
     this.showMessage("Please fill all passenger information first");
     return;
   }
   this.newPassanger.passengers=[];
   this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
   let v=this.dynamicForm.value;
-  if (v.tickets.length<=0) { 
+  if (v.tickets.length<=0) {
     this.showMessage("Please select seat first");
     return;
   }
@@ -288,10 +289,13 @@ onSubmit() {
     }
   if(this.paymentMethod == 'BankTransfer'){
     this.newPassanger.paymentMethodCode = 'BankTransfer'
+    this.newPassanger.accountId = this.accountId;
+    this.newPassanger.paymentProviderCode = null;
   }
   if(this.paymentMethod == 'TeleBirr'){
     this.newPassanger.paymentMethodCode = 'Electronic';
     this.newPassanger.paymentProviderCode = 'TeleBirr';
+    this.newPassanger.accountId = null;
   }
   console.log(this.newPassanger);
   this.reserveSeat(this.newPassanger);
@@ -300,7 +304,7 @@ onSubmit() {
     this.dynamicForm.reset();
     this.t.clear();
   }
-  
+
   onClear() {
     this.t.reset();
   }
