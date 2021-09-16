@@ -12,11 +12,7 @@
            <div class="locationlist" fxLayout="column" fxLayoutAlign="center center">
 
 			  <mat-chip-list>
-				  <mat-chip>Addis Ababa</mat-chip>
-				  <mat-chip>Bahir Dar</mat-chip>
-				  <mat-chip>Gondar</mat-chip>
-				  <mat-chip>Hawassa</mat-chip>
-
+				  <mat-chip *ngFor="let destination of destinations">{{destination}}</mat-chip>
 			  </mat-chip-list>
 
 			</div>

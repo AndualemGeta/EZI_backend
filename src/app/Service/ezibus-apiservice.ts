@@ -21,7 +21,7 @@ export class EziBusService {
 
    baseurl =
      "https://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
-  //baseurl = 'http://localhost:5000'; /*url to communicate real data base */
+  // baseurl = 'http://localhost:5000'; /*url to communicate real data base */
   // baseurl = "http://localhost:5000";
   operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
 
@@ -126,7 +126,7 @@ export class EziBusService {
       })
     );
   }
-  
+
   reserveMultiple(data){
     let url = `/api/public/reserveMultiple`;
     return this.postApiService(url,data).pipe(
@@ -143,6 +143,16 @@ export class EziBusService {
         return throwError(errorMsg);
       })
     );
+  }
+
+  getDestinations(){
+    let url = `/api/public/activeDestinations`;
+    return this.getApiService(url).then((data) => {
+      return data;
+    })
+      .catch((item) => {
+        return false;
+      });;
   }
 
 
