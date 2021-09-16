@@ -8,7 +8,7 @@ import * as AOS from 'aos';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { Location } from '@angular/common'
-
+import {Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -24,12 +24,9 @@ export class HeaderComponent implements OnInit {
    isActive = false;
   isActivefadeInDown = true;
   fixedTolbar = true;
-
-	mobileQuery: MediaQueryList;
-
-  private _mobileQueryListener: () => void;
-
-  constructor(@Inject(DOCUMENT)  document: Document,private eziService: EziBusService,
+  mobileQuery: MediaQueryList;
+ private _mobileQueryListener: () => void;
+ constructor(@Inject(DOCUMENT)  document: Document,private eziService: EziBusService,private router: Router,
   changeDetectorRef: ChangeDetectorRef,
    media: MediaMatcher, 
    public dialog: MatDialog,
@@ -38,6 +35,7 @@ export class HeaderComponent implements OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    
     
   }
   ngOnInit(){
@@ -68,7 +66,7 @@ scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
 }
 gotoHome(){
-
+  this.router.navigate(["home"]);
   //this.location.back();
 }
 }
