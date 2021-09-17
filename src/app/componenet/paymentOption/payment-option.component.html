@@ -9,63 +9,86 @@
 					EZI BUS offers a wide selection of payment options to buy ticket cash or online.
 						</h3>
 						Here below is the list of payment options which are available to make payment easier for our esteemed customers:
-
 			        </div>
 		        </div>
-
 		<div class="portfolio-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="150px" fxLayoutGap.sm="8px">
      <div fxFlex="33.33">
-						<mat-card class="p-0 m-0">
-							<img mat-card-image src="assets/img/users.png"  class="img-center">
-							<mat-card-content>
-								<a href="#payment"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Pay At Agents</h5></a>
-							</mat-card-content>
-						</mat-card>
-					</div>
+		<mat-accordion class="p-0 m-0">
+		<mat-expansion-panel (opened)="panelOpenState = true"
+								 (closed)="panelOpenState = false">
+			  <mat-expansion-panel-header style="height: 200px;"> 
+				 <img mat-card-image src="assets/img/users.png">
+			  </mat-expansion-panel-header>
+			  <h5>Agents</h5>
+			  <p>You can buy ticket cash in lamberet </p>
+			</mat-expansion-panel>
+		  </mat-accordion>
+			</div>
 				    	<div fxFlex="33.33">
-							<mat-card class="p-0 m-0">
-								<img mat-card-image src="assets/img/cbe.png" class="img-center">
-								<mat-card-content>
-									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">CBE</h5></a>									
-								</mat-card-content>
-							</mat-card>
+							<mat-accordion class="p-0 m-0">
+								<mat-expansion-panel (opened)="panelOpenState = true"
+														 (closed)="panelOpenState = false">
+									  <mat-expansion-panel-header style="height: 200px;"> 
+										<img mat-card-image src="assets/img/cbe.png" class="img-center">
+									  </mat-expansion-panel-header>
+									  <h5>CBE</h5>
+									  <p>You can buy ticket online in Commercial Bank of Ethiopia Mobile Banking </p>
+									</mat-expansion-panel>
+								  </mat-accordion>
 			         	</div>
 				    	<div fxFlex="33.33">
-							<mat-card class="p-0 m-0">
-								<img mat-card-image src="assets/img/abyssinia.jpg"  class="abyssinia-img-center">
-								<mat-card-content>
-									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Abyssinia Bank</h5></a>			
-								</mat-card-content>
-							</mat-card>
-				</div>
+							<mat-accordion class="p-0 m-0">
+							<mat-expansion-panel (opened)="panelOpenState = true"
+							(closed)="panelOpenState = false">
+		             <mat-expansion-panel-header style="height: 200px;"> 
+			       <img mat-card-image src="assets/img/abyssinia.jpg"  class="abyssinia-img-center">
+		             </mat-expansion-panel-header>
+		 <h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}"> Abyssinia</h5>
+		 <p>You can buy ticket online in Abyssinia Bank Mobile Banking </p>
+	   </mat-expansion-panel>
+	 </mat-accordion>
+				
+		</div>
 		</div>
 			<div class="portfolio-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="150px" fxLayoutGap.sm="8px">
-
 			<div fxFlex="33.33">
-							<mat-card>
-								<img mat-card-image src="assets/img/lion.png" class="lion-img-center">
-								<mat-card-content>
-									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Lion InternationaL Bank</h5></a>
-								</mat-card-content>
-							</mat-card>
+				<mat-accordion class="p-0 m-0">
+					<mat-expansion-panel (opened)="panelOpenState = true"
+					(closed)="panelOpenState = false">
+			 <mat-expansion-panel-header style="height: 200px;"> 
+				<br>
+				<img mat-card-image src="assets/img/lion.png"class="lion-img-center"  >
+			 </mat-expansion-panel-header>
+                <h5> Lion InternationaL Bank</h5>
+              <p>You can buy ticket online in Lion InternationaL  Bank Mobile Banking </p>
+             </mat-expansion-panel>
+                </mat-accordion>			
+				</div>
+				<div fxFlex="33.33">
+                       <mat-accordion class="p-0 m-0">
+						<mat-expansion-panel (opened)="panelOpenState = true"
+								(closed)="panelOpenState = false">
+						 <mat-expansion-panel-header style="height: 200px;"> 
+							<img mat-card-image src="assets/img/awash.png" class="img-center">
+						 </mat-expansion-panel-header>
+							<h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}"> Awash Bank</h5>
+						  <p>You can buy ticket online in Awash Bank Mobile Banking </p>
+						 </mat-expansion-panel>
+						</mat-accordion>
 				</div>
 				    	<div fxFlex="33.33">
-							<mat-card>
-								<img mat-card-image src="assets/img/awash.png" class="img-center">
-								<mat-card-content>
-									<a href="#blog">
-										<h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Awash Bank</h5></a>									
-								</mat-card-content>
-							</mat-card>
-				</div>
-				    	<div fxFlex="33.33">
-							<mat-card>
-								<img mat-card-image src="assets/img/telebirr.jpg" class="img-center">
-								<mat-card-content>
-									<a href="#blog"><h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Tele Birr</h5></a>
+                             <mat-accordion class="p-0 m-0">
+								<mat-expansion-panel (opened)="panelOpenState = true"
+										(closed)="panelOpenState = false">
+								 <mat-expansion-panel-header style="height:200px;"> 
+									<img mat-card-image src="assets/img/telebirr.png" class="img-center" >
+								 </mat-expansion-panel-header>
+									<h5 class="mat-headline" [ngStyle.sm]="{'font-size': '16px'}">Tele Birr</h5>
+								  <p>You can buy ticket online by using Tele Birr </p>
+								 </mat-expansion-panel>
+								</mat-accordion>
 
-								</mat-card-content>
-							</mat-card>
+							
 				</div>
 				</div>
     </div>

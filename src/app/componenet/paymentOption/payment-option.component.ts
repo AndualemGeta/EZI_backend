@@ -7,7 +7,7 @@ import * as $ from "jquery";
   styleUrls: ['./payment-option.component.css']
 })
 export class PaymentOptionComponent implements OnInit {
-  
+	panelOpenState = false;
  constructor(){}
 
  ngOnInit(){

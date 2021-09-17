@@ -79,7 +79,7 @@ export class SeatListComponent  {
     this.getAllBankAccounts();
     this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
     this.routeState = this.routeStateService.getCurrent().data;
-    this.selectedTrip=this.routeState;
+      this.selectedTrip=this.routeState;
     this.seatConfig = [
       {
         seat_price:this.selectedTrip.price,
@@ -297,7 +297,7 @@ onSubmit() {
     this.newPassanger.paymentProviderCode = 'TeleBirr';
     this.newPassanger.accountId = null;
   }
-  console.log(this.newPassanger);
+  
   this.reserveSeat(this.newPassanger);
   }
   onReset() {
@@ -362,6 +362,20 @@ reserveSeat(data){
       this.showMessage(this.responseMesssage);
     }
   );
+}
+BackToTripList(){
+  let searchData={
+    destination:this.routeState.arrivalLocationId,
+    departure:this.routeState.departureLocationId,
+    tripDate:this.routeState.tripDate
+  };
+  this.routeStateService.add(
+    "trip-list",
+    "/trip-list",
+    searchData,
+    false
+  );
+  //this.router.navigate(["trip-list"]);
 }
 }
 

@@ -39,7 +39,7 @@ accounts:any[];
   ngOnInit(){
     AOS.init();
     this.getAllBankAccounts();
-  this.getAllLocations();  
+    this.getAllLocations();  
   }
 
 

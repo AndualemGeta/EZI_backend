@@ -53,9 +53,16 @@
 }
 .lion-img-center {
 	display: block;
+	margin: auto;
+	margin-top: 0px;
+    height: 130px;
+
+}
+.telebirr-img-center {
+	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 250px;
+	width: 100px;
 
 }
 .abyssinia-img-center {
