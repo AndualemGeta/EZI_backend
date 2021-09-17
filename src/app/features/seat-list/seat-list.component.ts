@@ -291,13 +291,16 @@ onSubmit() {
     this.newPassanger.paymentMethodCode = 'BankTransfer'
     this.newPassanger.accountId = this.accountId;
     this.newPassanger.paymentProviderCode = null;
+    if(this.newPassanger.accountId==""){
+      this.showMessage("Please select Bank account you want to pay");
+      return false;
+    }
   }
   if(this.paymentMethod == 'TeleBirr'){
     this.newPassanger.paymentMethodCode = 'Electronic';
     this.newPassanger.paymentProviderCode = 'TeleBirr';
     this.newPassanger.accountId = null;
   }
-  
   this.reserveSeat(this.newPassanger);
   }
   onReset() {

@@ -101,8 +101,9 @@
     <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
     <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
        <div class="row ">
-        <div class="d-none d-lg-block col-md-2 col-lg-3">
-          <mat-card style="height: 380px; width: 100%;">
+
+        <div class="d-none d-lg-block col-md-2 col-lg-4">
+          <mat-card style="height: 380px; width:80%;">
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">summarize</i>
                 <span class="trip-detail-property">Total Selected Seat : </span>
@@ -123,6 +124,7 @@
               </div>  
     </mat-card>
         </div>
+        
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card">
           <div *ngFor="let ticket of t.controls;let i = index" class="list-group list-group-flush">
