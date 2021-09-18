@@ -6,7 +6,7 @@
       <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
-            <mat-card style="height: 450px;">
+            <mat-card style="height: 500px;">
               <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
@@ -48,7 +48,7 @@
           </div>
         </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <mat-card style="height: 450px;">
+        <mat-card style="height: 500px;">
           <div class="trip-detail-title">Select A Seat</div>
         <div *ngFor="let seatrow of seatmap" >
             <div class="col-12 pricing-label" *ngIf="seatChartConfig?.showRowWisePricing && seatrow.seatPricingInformation != ''">{{seatrow.seatPricingInformation}}</div>
@@ -71,7 +71,7 @@
       </div>
       <!-- *ngIf="cart?.selectedSeats?.length > 0" -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-card style="height: 450px;">
+        <mat-card style="height: 500px;">
           <div class="trip-detail-item">
             <i class="material-icons trip-result-icon">summarize</i>
             <span class="trip-detail-property">Total Selected Seat : </span>

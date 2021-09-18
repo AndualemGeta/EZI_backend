@@ -86,47 +86,55 @@ export class SeatListComponent  {
         seat_map: [
           {
             seat_label: "1",
-            layout: "g____gg"
+            layout: "g___gg"
           },
           {
             seat_label: "2",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "3",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "4",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "5",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "6",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "7",
-            layout: "ggg__gg"
+            layout: "gg__"
           },
           {
             seat_label: "8",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "9",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "10",
-            layout: "ggg__gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "11",
-            layout: "ggggggg"
+            layout: "gg__gg"
+          },
+          {
+            seat_label: "12",
+            layout: "gg__gg"
+          },
+          {
+            seat_label: "13",
+            layout: "gggggg"
           }
         ]
       }
