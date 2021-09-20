@@ -24,3 +24,9 @@
     font-feature-settings: 'liga';
       color: #00ff73; 
   }
+  .back-button-color{
+    font-size: 25px;  
+    font-feature-settings: 'liga';
+      color: #1D7874; 
+
+  }

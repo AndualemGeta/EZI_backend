@@ -4,10 +4,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 @Component({
   selector: 'app-seat-list',
   templateUrl: './seat-list.component.html',
-  styleUrls: ['./seat-list.component.css']
+  styleUrls: ['./seat-list.component.css'],providers: [{
+  provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
 export class SeatListComponent  {
   responseDialog: boolean;
@@ -86,7 +89,7 @@ export class SeatListComponent  {
         seat_map: [
           {
             seat_label: "1",
-            layout: "g___gg"
+            layout: "gg__gg"
           },
           {
             seat_label: "2",
@@ -110,7 +113,7 @@ export class SeatListComponent  {
           },
           {
             seat_label: "7",
-            layout: "gg__"
+            layout: "gg__gg"
           },
           {
             seat_label: "8",
@@ -122,7 +125,7 @@ export class SeatListComponent  {
           },
           {
             seat_label: "10",
-            layout: "gg__gg"
+            layout: "gg__"
           },
           {
             seat_label: "11",
@@ -134,7 +137,7 @@ export class SeatListComponent  {
           },
           {
             seat_label: "13",
-            layout: "gggggg"
+            layout: "gg-g-g"
           }
         ]
       }

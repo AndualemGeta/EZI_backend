@@ -136,6 +136,20 @@
     background-color: green;
     color: #fff;
   }
+
+  .mat-back-button-color{
+    background-color:  #1D7874; 
+     color: #fff;
+     margin-right: 25px;
+
+  }
+  .mat-reset-button-color{
+    background-color:  #559CAD; 
+     color: #fff;
+     margin-right: 25px;
+
+  }
+  
   .mat-back {
     background-color: #C0C0C0;
     color: #404040;
@@ -208,7 +222,7 @@
     margin-right: 10px;
   
   }
-
+  
 
 
 /*

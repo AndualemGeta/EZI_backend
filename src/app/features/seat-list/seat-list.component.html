@@ -1,8 +1,7 @@
 <app-header></app-header>
 <div class="container-fluid " style="margin-top: 100px;">
-  <mat-stepper [linear]="isLinear" #stepper>
-     <mat-step [stepControl]="firstFormGroup">
-      <ng-template matStepLabel>Please Select Seat Number</ng-template>
+  <mat-stepper #stepper>
+      <mat-step label="Please Select Seat number" state="seat">
       <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
@@ -91,17 +90,16 @@
               {{seatLabel}}</span> 
           </div>  
         <div class="col-lg-12" >
-          <button [disabled]="cart?.selectedSeats?.length == 0" type="button" mat-button matStepperNext   mat-button color="success" >Book Now</button>
-          <button type="button" mat-button (click)="BackToTripList()"   mat-button color="success"  style="margin-left: 20px;">Back</button>
+          <button type="button" mat-button (click)="BackToTripList()"  color="back-button-color" mat-button  style="margin-right: 20px;">Back</button>
+          <button [disabled]="cart?.selectedSeats?.length == 0" type="button" mat-button matStepperNext   mat-button color="success" >Book Now</button>  
         </div>
       </mat-card>
       </div>
     </div><!--end of page-->
     </mat-step>
     <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-    <mat-step [stepControl]="secondFormGroup" label="Fill out Passenger Information">
+      <mat-step label="Fill out Passenger Information" state="info">
        <div class="row ">
-
         <div class="d-none d-lg-block col-md-2 col-lg-4">
           <mat-card style="height: 380px; width:80%;">
               <div class="trip-detail-item">
@@ -161,7 +159,7 @@
             </div>
             <div class="card-footer text-center">
               <div>
-                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperPrevious  color="back-button-color">Back</button>
                 <button mat-flat-button [disabled]="this.dynamicForm.invalid"  color="success" matStepperNext>Proceed To Pay</button>
               </div>
               </div>
@@ -169,8 +167,7 @@
       </div>
     </div>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Select Payment Options</ng-template>
+      <mat-step label="Select Payment Options" state="payment">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
         </div>
@@ -233,9 +230,9 @@
               </mat-form-field>
               &nbsp; &nbsp;&nbsp; <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
               <div class="action-buttons" *ngIf="!loading">
-                  <button mat-button matStepperPrevious mat-flat-button  color="back">Back</button>&nbsp;
-                  <button mat-button (click)="stepper.reset()" mat-flat-button color="accent">Reset</button>&nbsp;
-                  <button mat-button (click)="onSubmit()" mat-flat-button [disabled]="this.dynamicForm.invalid"  color="success">Reserve</button>
+                  <button mat-button matStepperPrevious mat-flat-button color="back-button-color">Back</button> 
+                  <button mat-button (click)="stepper.reset()" mat-flat-button color="accent" color="reset-button-color">Reset</button>&nbsp;
+                  <button mat-button (click)="onSubmit()" mat-flat-button [disabled]="this.dynamicForm.invalid" color="success" style="margin:2px ;">Reserve</button>
                 </div>
           </mat-card>
         
@@ -245,6 +242,16 @@
       </div>
     </mat-step>
   </form>
+
+  <ng-template matStepperIcon="seat">
+    <mat-icon>event_seat</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="info">
+    <mat-icon>description</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="payment">
+    <mat-icon>payments</mat-icon>
+  </ng-template>
   </mat-stepper>
 
 
