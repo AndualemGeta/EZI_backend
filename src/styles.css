@@ -30,3 +30,11 @@
       color: #1D7874; 
 
   }
+  .section-header{
+    font-family: sans-serif;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 30px;
+  }

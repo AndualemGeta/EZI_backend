@@ -83,6 +83,18 @@
 	font-size: 22px;
 }
 
-.payment-options-font, .mat-headline {
-  font-family: yrsa;
+.payment-options-header{
+	font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 30px;
 }
+.payment-options-subheader {
+	font-family: yrsa;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  
+}
+

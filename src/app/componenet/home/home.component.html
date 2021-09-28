@@ -3,7 +3,7 @@
     <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')"><img height="100%" src="assets/img/ezi-circle.png" ></a>
     <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" >EZI BUS</span>    
     <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
-        <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a>
+       <!-- <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
         <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>
         <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">Travel information</a>
         <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">Payment</a>
@@ -20,7 +20,7 @@
                  [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
        <mat-nav-list>
         <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
-        <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a>
+        <!--<a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
         <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>
         <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">Travel information</a>
         <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">Payment</a>
@@ -30,7 +30,7 @@
     <mat-sidenav-content nglp-scroll (onScroll)="detectScroll($event)">
     <app-heading></app-heading>
     <app-how-it-work></app-how-it-work>
-    <app-about></app-about>
+    <!--<app-about></app-about>-->
     <app-information></app-information>
     <app-travel-information></app-travel-information>
     <app-payment-option></app-payment-option>
