@@ -1,6 +1,7 @@
 .how-it-work-body{
     background-color: #e5e5e5;
     width: 100%;
+    justify-content: center;
     
 }
     .about-heading{
@@ -29,16 +30,16 @@
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 150px;  /* Preferred icon size */
+    font-size: 100px;  /* Preferred icon size */
    /* display: inline-block;*/
     line-height: 1;
     text-transform: none;
     letter-spacing: normal;
     word-wrap: normal;
     white-space: nowrap;
+    /*
     direction: ltr;
-
-    /* Support for all WebKit browsers. */
+     Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility;
@@ -48,7 +49,7 @@
 
     /* Support for IE. */
     font-feature-settings: 'liga';
-    color: #00ff73;
+    color: #00ff03;
   }
   .how-it-work-contents {
     display: flex;
@@ -67,6 +68,7 @@
   margin: 6px;
   float: center;
   text-align: center;
+  justify-content: center;
   }
   .sub-content-detail-property{
     width: 75%;
@@ -76,7 +78,7 @@
     font-size: 50px;
     width: 50%; 
     flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center !important;
   
   }
   .sub-content-detail-title{
