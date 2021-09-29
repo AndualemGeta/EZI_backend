@@ -29,8 +29,8 @@
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 68px;  /* Preferred icon size */
-    display: inline-block;
+    font-size: 150px;  /* Preferred icon size */
+   /* display: inline-block;*/
     line-height: 1;
     text-transform: none;
     letter-spacing: normal;
@@ -54,34 +54,37 @@
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    
     justify-content: center;
-    
     }
   .how-it-work-sub-content{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   }
   .sub-content-detail{
   width :250px;
   margin: 6px;
-  float: left;
-  text-align: left;
+  float: center;
+  text-align: center;
   }
   .sub-content-detail-property{
     width: 75%;
-    float: left;    
+    float: center;    
   }
   .sub-content-detail-icon{
-    font-size: 25px;
-    width: 25%;
-    float: left;    
+    font-size: 50px;
+    width: 50%; 
+    flex-wrap: wrap;
+  justify-content: center;
+  
   }
   .sub-content-detail-title{
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
+    margin-top: 20px;;
     font-family: yrsa !important;
+    text-align: center;
   }
   .sub-content-detail-value{
     font-size: 14px;

@@ -7,12 +7,11 @@
 <!--footer starts from here-->
 <footer class="footer">
 <div class="container bottom_border">
-<div class="row">
-    
+<div class="row"> 
  <div class=" col-sm-4 col-md col-sm-4  col-12 col">
 <h5 class="headin5_amrc col_white_amrc pt2">Find us</h5>
 <!--headin5_amrc-->
-<p><mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> General Wingate St, Arada Sub City, Addis Ababa, Ethiopia</p>
+<p><mat-icon aria-hidden="false" aria-label="Example home icon">place</mat-icon> General Wingate St, Arada Sub City, Addis Ababa, Ethiopia</p>
 <p><mat-icon aria-hidden="false" aria-label="Example home icon">phone</mat-icon>+251111263655 </p>
 <p><mat-icon aria-hidden="false" aria-label="Example home icon">phone</mat-icon>+251111263569 </p>
 <p><mat-icon aria-hidden="false" aria-label="Example home icon">email</mat-icon> info@ezi-tech.com  </p>
@@ -58,15 +57,14 @@
 </div>
 <div class="container">
 <ul class="foote_bottom_ul_amrc">
-<li><a href="#">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#information">Partners</a></li>
-<li><a href="#payment-option">Payment</a></li>
-<li><a href="#travel-info">Travel Information</a></li>
-<li><a href="#contact">Contact</a></li>
+<li><a [routerLink]=""(click)="scroll('heading')">Home</a></li>
+<li><a [routerLink]=""(click)="scroll('information')">Partners</a></li>
+<li><a  [routerLink]="" (click)="scroll('payment-option')">Payment</a></li>
+<li><a [routerLink]="" (click)="scroll('travel-info')">Travel Information</a></li>
+<li><a [routerLink]=""(click)="scroll('contact')">Contact</a></li>
 </ul>
 <!--foote_bottom_ul_amrc ends here-->
-<p class="text-center">&copy; {{now|date:"MMM,dd/yyyy"}} <a href="https://leapfrogtechafrica.com">Leapfrog Africa Technology</a> All rights reserved </p>
+<p class="text-center">&copy; {{now|date:"MMM,dd/yyyy"}} <a href="https://leapfrogtechafrica.com" target="_blank">Leapfrog Africa Technology</a> All rights reserved </p>
 <ul class="social_footer_ul">
 <!--<li><a href="https://www.facebook.com/EZI-BUS-106113605034039" target="_blank"><mat-icon>facebook</mat-icon></a></li>-->
 <!--<li><a href="#"><mat-icon>telegram</mat-icon></a></li>-->
