@@ -89,7 +89,7 @@ export class SeatListComponent  {
         seat_map: [
           {
             seat_label: "1",
-            layout: "gg__gg"
+            layout: "g___gg"
           },
           {
             seat_label: "2",
@@ -117,7 +117,7 @@ export class SeatListComponent  {
           },
           {
             seat_label: "8",
-            layout: "gg__gg"
+            layout: "gg__"
           },
           {
             seat_label: "9",
@@ -125,7 +125,7 @@ export class SeatListComponent  {
           },
           {
             seat_label: "10",
-            layout: "gg__"
+            layout: "gg__gg"
           },
           {
             seat_label: "11",
@@ -331,6 +331,7 @@ onSubmit() {
 
   getAllBankAccounts() {
     this.eziService.getOperatorAccounts().then((response) => {
+     console.log(response);
       this.accounts = response;
     });
   }

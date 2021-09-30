@@ -169,7 +169,56 @@
     </mat-step>
       <mat-step label="Select Payment Options" state="payment">
       <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="d-none d-lg-block col-md-2 col-lg-4">
+          <div class="reserved-trip-detail">
+            <mat-card style="height: 500px;">
+              <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">event</i>
+                <span class="trip-detail-property">Trip Date :</span>:
+                <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">place</i>
+                <span class="trip-detail-property">Route</span>:
+                <span class="trip-detail-value">{{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">business</i>
+                <span class="trip-detail-property">Departure Station:</span>:
+                <span class="trip-detail-value">{{routeState.departureStation}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">business</i>
+                <span class="trip-detail-property">Arrival Station:</span>:
+                <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">
+                  watch_later
+                </i>  <span class="trip-detail-property"> Departure Time</span>:
+                <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">call</i>
+                <span class="trip-detail-property">Departure Support Phone</span>:
+                <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
+              </div>
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">event_seat</i>
+                <span class="trip-detail-property">Selected Seat: </span>
+                <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">
+                  {{seatLabel}}</span> 
+              </div>
+
+              <div class="trip-detail-item">
+                <i class="material-icons trip-result-icon">payments</i>
+                <span class="trip-detail-property">Total Price: </span>
+                <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
+              </div>
+            </mat-card>
+          </div>
+
         </div>
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
           <mat-card>
@@ -218,6 +267,19 @@
                   {{seatLabel}}</span> 
               </div>  
             <p class="trip-detail-title">Choose Payment Option</p>
+            <!-- <section formControlName="accountId"  [(ngModel)]="accountId">
+              <mat-checkbox *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-checkbox>
+              <mat-checkbox class="example-margin" [(ngModel)]="accountId">Indeterminate</mat-checkbox>
+            </section> -->
+            <!-- <mat-selection-list #shoes>
+              <mat-list-option  value="TeleBirr">
+                Tell Birr
+              </mat-list-option>
+              <mat-list-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">
+                {{account.bankName}}  {{account.accountNumber}}
+              </mat-list-option>
+            </mat-selection-list> -->
+
               <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
                 <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">Tele Birr</mat-radio-button>&nbsp;
                 <mat-radio-button  value="BankTransfer" (change)="changeGender('BankTransfer')"> Bank Transfer</mat-radio-button>
@@ -225,7 +287,7 @@
               <mat-form-field  appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
                 <mat-select formControlName="accountId"  [(ngModel)]="accountId">
-                  <mat-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.name}}</mat-option>
+                  <mat-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-option>
                 </mat-select>
               </mat-form-field>
               &nbsp; &nbsp;&nbsp; <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
