@@ -1,5 +1,5 @@
 <mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
-    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon class="header-icon">menu</mat-icon></button>
     <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')"><img height="100%" src="assets/img/ezi-circle.png" ></a>
     <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" >EZI BUS</span>    
     <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
@@ -10,7 +10,7 @@
         <a mat-list-item [routerLink]="" (click)="scroll('contact')">Contact</a>
     </mat-nav-list>
     <span class="navigation-spacer"></span>
-    <a href="tel:9293"><mat-icon>phone</mat-icon></a>
+    <a href="tel:9293"><mat-icon class="header-icon">phone</mat-icon></a>
     9293
    <!--<button mat-mini-fab color="primary" matTooltip="Call and reserve seat" [matTooltipPosition]="'left'"><mat-icon>phone</mat-icon></button>-->
     </mat-toolbar>

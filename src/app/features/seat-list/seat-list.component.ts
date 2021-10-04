@@ -5,6 +5,8 @@ import {Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { TicketPrintService } from 'src/app/Service/ticket-print.service';
+enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
   templateUrl: './seat-list.component.html',
@@ -48,10 +50,14 @@ export class SeatListComponent  {
   loading: boolean;
   paymentMethod : string="TeleBirr";
   accountId : string = "";
+
+  check_box_type = CheckBoxType;
+  currentlyChecked: CheckBoxType;
   constructor(private routeStateService: RouteStateService, private router: Router,
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
     private _snackBar : MatSnackBar,
+    private printService: TicketPrintService
     ) { }
     isLinear = false;
     firstFormGroup: FormGroup;
@@ -89,55 +95,55 @@ export class SeatListComponent  {
         seat_map: [
           {
             seat_label: "1",
-            layout: "g___gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "2",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "3",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "4",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "5",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "6",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "7",
-            layout: "gg__gg"
+            layout: "gg_"
           },
           {
             seat_label: "8",
-            layout: "gg__"
+            layout: "gg_gg"
           },
           {
             seat_label: "9",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "10",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "11",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "12",
-            layout: "gg__gg"
+            layout: "gg_gg"
           },
           {
             seat_label: "13",
-            layout: "gg-g-g"
+            layout: "ggggg"
           }
         ]
       }
@@ -359,6 +365,7 @@ reserveSeat(data){
           window.open(res["paymentDetails"],"_self")
       }
       else{
+       this.printData(res);
         this.router.navigate(["home"]);
       }
       },
@@ -378,6 +385,18 @@ reserveSeat(data){
     }
   );
 }
+
+
+selectCheckBox(targetType) {
+  console.log(targetType);
+  // If the checkbox was already checked, clear the currentlyChecked variable
+  // if(this.currentlyChecked === targetType) {
+  //   this.currentlyChecked = CheckBoxType.NONE;
+  //   return;
+  // }
+   this.currentlyChecked = targetType;
+   console.log(this.currentlyChecked);
+}
 BackToTripList(){
   let searchData={
     destination:this.routeState.arrivalLocationId,
@@ -391,6 +410,9 @@ BackToTripList(){
     false
   );
   //this.router.navigate(["trip-list"]);
+}
+printData(selectedData) {
+  this.printService.generateSinglePassengerTicketPDF(selectedData);
 }
 }
 

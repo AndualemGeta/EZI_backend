@@ -43,5 +43,9 @@ li, p, i, .pt2 {
 	font-size: 15px !important;
 
 }
-
+.content-icon{
+    font-size: 25px;  
+    font-feature-settings: 'liga';
+      color:green; 
+  }
 /* Credit to https://bootsnipp.com/snippets/bxDBA */

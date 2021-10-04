@@ -217,10 +217,8 @@ backFunction(){
       data['paymentMethodCode'] = 'Electronic';
       data['paymentProviderCode'] = 'TeleBirr';
     }
-     console.log(data);
       this.eziService.reserve(data).subscribe(
         (res) => {
-          console.log(res);
           this.iserror = false;
           this.responseStyle = 'success';
           this.responseDialog = true;

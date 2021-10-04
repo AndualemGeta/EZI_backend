@@ -267,11 +267,12 @@
                   {{seatLabel}}</span> 
               </div>  
             <p class="trip-detail-title">Choose Payment Option</p>
-            <!-- <section formControlName="accountId"  [(ngModel)]="accountId">
-              <mat-checkbox *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-checkbox>
+           
+              <!-- <section formControlName="accountId"  [(ngModel)]="accountId">
+              <mat-checkbox *ngFor="let account of accounts" [checked]="account.reservationBankAccountsId===account.reservationBankAccountsId"  (click)="selectCheckBox(account.reservationBankAccountsId)" [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}} {{account.reservationBankAccountsId===this.currentlyChecked}}</mat-checkbox>
               <mat-checkbox class="example-margin" [(ngModel)]="accountId">Indeterminate</mat-checkbox>
-            </section> -->
-            <!-- <mat-selection-list #shoes>
+            </section> 
+          <mat-selection-list #shoes>
               <mat-list-option  value="TeleBirr">
                 Tell Birr
               </mat-list-option>
@@ -280,7 +281,7 @@
               </mat-list-option>
             </mat-selection-list> -->
 
-              <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
+            <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
                 <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">Tele Birr</mat-radio-button>&nbsp;
                 <mat-radio-button  value="BankTransfer" (change)="changeGender('BankTransfer')"> Bank Transfer</mat-radio-button>
               </mat-radio-group>

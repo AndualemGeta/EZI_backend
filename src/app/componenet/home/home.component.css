@@ -109,3 +109,9 @@ html {
    margin-top: 0px !important;
    margin-bottom: 0px !important;
  }
+ .header-icon{
+  font-size: 30px;  
+  font-feature-settings: 'liga';
+  color:#eee; 
+   margin-right: 10px;
+}
