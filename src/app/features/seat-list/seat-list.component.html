@@ -224,63 +224,24 @@
           <mat-card>
             <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS</div>
             <div class="trip-detail-item">
-              <i class="material-icons trip-summery-icon">business</i>
-              <span class="trip-detail-property">Trip Date :</span>
-              <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
-              <i class="material-icons trip-summery-icon">place</i>
-              <span class="trip-detail-property">Route</span>
-              <span class="trip-detail-value">{{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
-            </div>
-           
-            <div class="trip-detail-item">
-              <i class="material-icons trip-summery-icon">business</i>
-              <span class="trip-detail-property">Departure Station:</span>:
-              <span class="trip-detail-value">{{routeState.departureStation}}</span>
-            </div>
-            <div class="trip-detail-item">
-              <i class="material-icons trip-summery-icon">business</i>
-              <span class="trip-detail-property">Arrival Station:</span>:
-              <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
-            </div>
-            <div class="trip-detail-item">
-              <i class="material-icons trip-summery-icon">
-                watch_later
-              </i>  <span class="trip-detail-property"> Departure Time</span>:
-              <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+              <span class="trip-detail-property">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}  </span>
+              <span class="trip-detail-property">    {{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
             </div>
               <div class="trip-detail-item">
-                <i class="material-icons trip-summery-icon">summarize</i>
                 <span class="trip-detail-property">Total Selected Seat : </span>
                 <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
               </div>  
-
               <div class="trip-detail-item">
-                <i class="material-icons trip-summery-icon">payments</i>
                 <span class="trip-detail-property">Total Amount: </span>
                 <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
               </div>
 
               <div class="trip-detail-item">
-                <i class="material-icons trip-summery-icon">event_seat</i>
                 <span class="trip-detail-property">Selected Seat: </span>
                 <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">
                   {{seatLabel}}</span> 
               </div>  
             <p class="trip-detail-title">Choose Payment Option</p>
-           
-              <!-- <section formControlName="accountId"  [(ngModel)]="accountId">
-              <mat-checkbox *ngFor="let account of accounts" [checked]="account.reservationBankAccountsId===account.reservationBankAccountsId"  (click)="selectCheckBox(account.reservationBankAccountsId)" [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}} {{account.reservationBankAccountsId===this.currentlyChecked}}</mat-checkbox>
-              <mat-checkbox class="example-margin" [(ngModel)]="accountId">Indeterminate</mat-checkbox>
-            </section> 
-          <mat-selection-list #shoes>
-              <mat-list-option  value="TeleBirr">
-                Tell Birr
-              </mat-list-option>
-              <mat-list-option *ngFor="let account of accounts" [value]="account.reservationBankAccountsId">
-                {{account.bankName}}  {{account.accountNumber}}
-              </mat-list-option>
-            </mat-selection-list> -->
-
             <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
                 <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">Tele Birr</mat-radio-button>&nbsp;
                 <mat-radio-button  value="BankTransfer" (change)="changeGender('BankTransfer')"> Bank Transfer</mat-radio-button>

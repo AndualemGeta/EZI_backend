@@ -32,7 +32,7 @@ export class TicketPrintService {
       margin: [0, -35, 0, 0],
       },
       {
-        text: `${response.transaction.schedule.operator} BUS`,
+        text: `${response.transactions.schedule.operator} BUS`,
         bold: true,
         fontSize: 24,
         alignment: "center",
@@ -55,12 +55,12 @@ export class TicketPrintService {
       },
 
       {
-        text: `Trip : ${response.transaction.schedule.displayName}`,
+        text: `Trip : ${response.transactions.schedule.displayName}`,
         bold: true,
         fontSize: 14,
       },
       {
-        text: `Passanger :  ${response.transaction.passenger.fullName}`,
+        text: `Passanger :  ${response.transactions.passenger.fullName}`,
         bold: true,
         fontSize: 14,
       },
@@ -68,15 +68,13 @@ export class TicketPrintService {
         columns: [
           [
             {
-              text: `Phone Number፡ ${response.transaction.passenger.phoneNumber}`,
+              text: `Phone Number፡ ${response.transactions.passenger.phoneNumber}`,
               style: "name",
             },
             {
               text: `Bill Code ፡ ${response.billCode}`,
             },
-            {
-              text: `Payment Type፡${response.paymentTypeCode} `,
-            },
+            
             {
               text: `Bank ፡${response.account.bankName}`,
             },
@@ -88,19 +86,16 @@ export class TicketPrintService {
           [
 
             {
-              text: `Price ፡ ${response.transaction.charges}`,
+              text: `Price ፡ ${response.transactions.totalPrice}`,
             },
             {
-              text: `Luggage Weight ፡${response.transaction.luggageWeight} `,
+              text: `Seat Number ፡ ${response.transactions.seatNumber}`,
             },
             {
-              text: `Seat Number ፡ ${response.transaction.seatNumber}`,
+              text: `Serial Number :${response.transactions.serial.serialNo} `,
             },
             {
-              text: `Serial Number :${response.transaction.serial.serialNo} `,
-            },
-            {
-              text: `Ticket ID :${response.transaction.ticketId} `,
+              text: `Ticket ID :${response.transactions.ticketId} `,
             },
           ],
         ],
@@ -110,7 +105,7 @@ export class TicketPrintService {
         margin: [0, 10, 0, 16],
       },
       {
-        text: `ማሳሰቢያ ይህ ወረቀት ህጋዊ ማህተምና ፊርማ ከሌለው አያገለግልም!!!`,
+        text: `ማሳሰቢያ ይህ ወረቀት እንደደረሰኝ አያገለግልም!!!`,
         bold: true,
         fontSize: 10,
         alignment: "left",
