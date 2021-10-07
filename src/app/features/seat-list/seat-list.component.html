@@ -221,19 +221,19 @@
 
         </div>
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-          <mat-card>
-            <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS</div>
+          <mat-card style="height: 500px;">
+            <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS &nbsp; <span class="trip-detail-property">    {{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span> &nbsp;&nbsp; <span class="trip-detail-property">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}  </span></div>
             <div class="trip-detail-item">
-              <span class="trip-detail-property">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}  </span>
-              <span class="trip-detail-property">    {{ routeState.departureLocation}} To {{routeState.arrivalLocation}}</span>
             </div>
               <div class="trip-detail-item">
                 <span class="trip-detail-property">Total Selected Seat : </span>
                 <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
+                
+                &nbsp; &nbsp; <span class="trip-detail-property">Total Amount: </span>
+                <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
               </div>  
               <div class="trip-detail-item">
-                <span class="trip-detail-property">Total Amount: </span>
-                <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
+                
               </div>
 
               <div class="trip-detail-item">

@@ -360,13 +360,12 @@ reserveSeat(data){
       this.disableSubmit = false;
       this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
       this.loading = false;
-      console.log(res);
       if(data['paymentMethodCode'] == "Electronic" && data["paymentProviderCode"] == "TeleBirr"){
           window.open(res["paymentDetails"],"_self")
       }
       else{
 
-        this.printData(res);
+      //  this.printData(res);
         this.router.navigate(["home"]);
       }
       },

@@ -23,6 +23,7 @@ export class TicketPrintService {
     return this.datePipe.transform(date, "yyyy-MM-dd");
   }
   generatepoolServicePdf(response) {
+    console.log(response);
     let content = [
       {
         image:
