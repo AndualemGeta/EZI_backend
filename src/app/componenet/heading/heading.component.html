@@ -42,11 +42,14 @@
                           </form>
 					</div>
 	    	</div>
-        <div [class.animated]="isSubheading" [class.fadeInRight]="isSubheading">
-			<img src="../../../assets/img/helpline-0016.png" width="300" 
-			height="20%" >
+        <div  fxShow="true" fxShow.gt-xs="false">
+			<img src="../../../assets/img/helpline-0016.png" width="100%" height="20%" >
           <!-- <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">For more information call us on <a href="tel:9293" ><mat-icon>phone</mat-icon><span style="font-size: 60px;">9293</span> </a> </h2> -->
         </div>
+		
+		<div  fxShow="false" fxShow.gt-xs="true">
+			<img src="../../../assets/img/helpline-0016.png" width="300" height="130" >
+                 </div>
 			</mat-card>
 	    </div>
    </div>
