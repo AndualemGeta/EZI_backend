@@ -244,7 +244,8 @@
             <p class="trip-detail-title">Choose Payment Option</p>
             <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
                 <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">Tele Birr</mat-radio-button>&nbsp;
-                <mat-radio-button  value="BankTransfer" (change)="changeGender('BankTransfer')"> Bank Transfer</mat-radio-button>
+               <br>
+                <mat-radio-button  value="BankTransfer" (change)="changeGender('BankTransfer')"> Pay At Bank Branch </mat-radio-button>
               </mat-radio-group>
               <mat-form-field  appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>

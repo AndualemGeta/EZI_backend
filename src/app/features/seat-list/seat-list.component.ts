@@ -353,6 +353,7 @@ reserveSeat(data){
     this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
+      console.log(res);
       this.iserror = false;
        this.responseDialog = true;
        this.dynamicForm.reset();
@@ -365,8 +366,8 @@ reserveSeat(data){
       }
       else{
 
-      //  this.printData(res);
-        this.router.navigate(["home"]);
+       this.printData(res);
+       this.router.navigate(["home"]);
       }
       },
     (error) => {
@@ -412,7 +413,7 @@ BackToTripList(){
   //this.router.navigate(["trip-list"]);
 }
 printData(selectedData) {
-  this.printService.generateSinglePassengerTicketPDF(selectedData);
+  this.printService.generatePassengerTicketPDF(selectedData);
 }
 }
 
