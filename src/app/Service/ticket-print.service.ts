@@ -1,3 +1,4 @@
+          
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import pdfMake from "../../assets/pdfmake/build/pdfmake";
@@ -20,10 +21,9 @@ export class TicketPrintService {
   constructor(private http: HttpClient, private datePipe: DatePipe) {}
   convertDateFormat(dateString) {
     let date = new Date(dateString);
-    return this.datePipe.transform(date, "yyyy-MM-dd HH:MM");
+    return this.datePipe.transform(date, "MMM-dd-yyyy HH:MM");
   }
   generatepoolServicePdf(response) {
-    console.log(response);
     let content = [
       {
         image:
@@ -112,6 +112,8 @@ export class TicketPrintService {
         alignment: "left",
         margin: [0, 0, 0, 30],
       },
+
+
     ];
     return content;
   }
@@ -127,6 +129,7 @@ export class TicketPrintService {
       },];
       return content;
   }
+
   generatSeatReservationPdf(response) {
     let content = [
       {
@@ -145,7 +148,7 @@ export class TicketPrintService {
         margin: [0, 0, 0, 0],
       },
       {
-        text: "Ezi Bus Electronic Seat Reservation Confirmation",
+        text: "Ezi Bus Electronic Reservation Please pay before Expiration Time",
         bold: true,
         fontSize: 12,
         alignment: "center",
@@ -155,38 +158,71 @@ export class TicketPrintService {
       {
         text: `Trip : ${response.schedule.displayName}`,
         bold: true,
+        alignment: "center",
         fontSize: 14,
+        margin: [0, 3, 0, 0],
       },
-      
+      {
+        text: `Departure Station : ${response.schedule.departureStation}`,
+        bold: true,
+        alignment: "center",
+        fontSize: 14,
+        margin: [0, 3, 0, 0],
+      },
+      {
+        text: `Departure Time : ${this.convertDateFormat(response.schedule.departureTime)}`,
+        bold: true,
+        alignment: "center",
+        fontSize: 14,
+        margin: [0, 3, 0, 0],
+      },
+      {
+        text: `Arrival Station : ${response.schedule.arrivalStation}`,
+        bold: true,
+        alignment: "center",
+        fontSize: 14,
+        margin: [0, 3, 0, 0],
+      },
      
       {
         columns: [
           [
+            
             {
               text: `Passanger :  ${response.passenger.fullName}`,
               bold: true,
               fontSize: 14,
+              margin: [0, 3, 0, 0],
             },
            
             {
               text: `Phone Number፡ ${response.passenger.phoneNumber}`,
-              style: "name",
+              fontSize: 14,
+              margin: [0, 3, 0, 0],
             },
             {
               text: `Bus :  ${response.schedule.busPlateNumber}`,
                bold: true,
                fontSize: 14,
+               margin: [0, 3, 0, 0],
              },
           ],
           [
+           
             {
               text: `Seat Number ፡ ${response.seatNumber}`,
+              fontSize: 14,
+              margin: [0, 3, 0, 0],
             },
             {
               text: `Agent Serial No :${response.serial.serialNo} `,
+              fontSize: 14,
+              margin: [0, 3, 0, 0],
             },
             {
               text: `Print ID :${response.ticketId} `,
+              fontSize: 14,
+              margin: [0, 3, 0, 0],
             },
           ],
         ],
@@ -195,8 +231,8 @@ export class TicketPrintService {
     return content;
   }
 
-
-  generatSeatReservationSummery(response) {
+  generatSeatReservationSummery(response) 
+  {
     let content = [
       {
         text: `______________________`,
@@ -228,7 +264,7 @@ export class TicketPrintService {
               text: `Payment Type ፡ ${response.paymentTypeCode}`,
             },
             {
-              text: `Valid Until : ${ this.convertDateFormat(response.expirationTime)} `,
+              text: `Valid Until : ${this.convertDateFormat(response.expirationTime)} `,
             },
             {
              // text: `Reservation ID :${response.reservationId} `,
@@ -238,7 +274,7 @@ export class TicketPrintService {
 
       },
       {
-        text: `Please Pay At any ${response.account.bankName} Branch!!!`,
+        text: `Please Pay At any ${response.account.bankName} Branch Before ${this.convertDateFormat(response.expirationTime)}!!!`,
         bold: true,
         fontSize: 18,
         alignment: "left",
@@ -246,6 +282,8 @@ export class TicketPrintService {
       },
     ];
     return content;
+  
+  
   }
 
   generateMultiplePassengerTicketPDF(Response) {
@@ -262,6 +300,7 @@ export class TicketPrintService {
   }
 
   generatePassengerTicketPDF(Response) {
+
     let content = [];
     content.push(this.generatEziImagePdf());
     Response.transactions.map((item) => {
