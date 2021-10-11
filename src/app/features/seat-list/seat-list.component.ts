@@ -353,7 +353,7 @@ reserveSeat(data){
     this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
-      console.log(res);
+     // console.log(res);
       this.iserror = false;
        this.responseDialog = true;
        this.dynamicForm.reset();
