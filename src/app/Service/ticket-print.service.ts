@@ -126,19 +126,6 @@ export class TicketPrintService {
       width: 65,
       alignment: "center",
       margin: [0, -35, 0, 0],
-      },];
-      return content;
-  }
-
-  generatSeatReservationPdf(response) {
-    let content = [
-      {
-        text: `${response.schedule.operator} BUS`,
-        bold: true,
-        fontSize: 24,
-        alignment: "center",
-        margin: [0, 0, 0, 10],
-        decoration: "underline",
       },
       {
         text: `ቀን፡${etDate(new Date())}`,
@@ -148,39 +135,48 @@ export class TicketPrintService {
         margin: [0, 0, 0, 0],
       },
       {
-        text: "Ezi Bus Electronic Reservation Please pay before Expiration Time",
+        text: "Ezi Bus Electronic Reservation",
+        fontSize: 14,
+        alignment: "center",
+        margin: [0, 0, 0, 5],
+      },
+    
+    ];
+      return content;
+  }
+
+  generatSeatReservationPdf(response) {
+    let content = [
+      {
+        text: `${response.schedule.operator} BUS`,
         bold: true,
-        fontSize: 12,
+        fontSize: 18,
         alignment: "center",
         margin: [0, 0, 0, 10],
+        decoration: "underline",
       },
-
       {
         text: `Trip : ${response.schedule.displayName}`,
-        bold: true,
-        alignment: "center",
-        fontSize: 14,
+        alignment: "left",
+        fontSize: 12,
         margin: [0, 3, 0, 0],
       },
       {
         text: `Departure Station : ${response.schedule.departureStation}`,
-        bold: true,
-        alignment: "center",
-        fontSize: 14,
+        alignment: "left",
+        fontSize: 12,
         margin: [0, 3, 0, 0],
       },
       {
         text: `Departure Time : ${this.convertDateFormat(response.schedule.departureTime)}`,
-        bold: true,
-        alignment: "center",
-        fontSize: 14,
+        alignment: "left",
+        fontSize: 12,
         margin: [0, 3, 0, 0],
       },
       {
-        text: `Arrival Station : ${response.schedule.arrivalStation}`,
-        bold: true,
-        alignment: "center",
-        fontSize: 14,
+        text: `Arrival Station : ${response.schedule.arrivalStation}`, 
+        alignment: "left",
+        fontSize: 12,
         margin: [0, 3, 0, 0],
       },
      
@@ -189,21 +185,19 @@ export class TicketPrintService {
           [
             
             {
-              text: `Passanger :  ${response.passenger.fullName}`,
-              bold: true,
-              fontSize: 14,
-              margin: [0, 3, 0, 0],
+              text: `Passanger :  ${response.passenger.fullName}`, 
+              fontSize: 12,
+              margin: [0, 6, 0, 0],
             },
            
             {
               text: `Phone Number፡ ${response.passenger.phoneNumber}`,
-              fontSize: 14,
+              fontSize: 12,
               margin: [0, 3, 0, 0],
             },
             {
               text: `Bus :  ${response.schedule.busPlateNumber}`,
-               bold: true,
-               fontSize: 14,
+               fontSize: 12,
                margin: [0, 3, 0, 0],
              },
           ],
@@ -211,17 +205,17 @@ export class TicketPrintService {
            
             {
               text: `Seat Number ፡ ${response.seatNumber}`,
-              fontSize: 14,
-              margin: [0, 3, 0, 0],
+              fontSize: 12,
+              margin: [0, 6, 0, 0],
             },
             {
               text: `Agent Serial No :${response.serial.serialNo} `,
-              fontSize: 14,
+              fontSize: 12,
               margin: [0, 3, 0, 0],
             },
             {
               text: `Print ID :${response.ticketId} `,
-              fontSize: 14,
+              fontSize: 12,
               margin: [0, 3, 0, 0],
             },
           ],
@@ -246,25 +240,43 @@ export class TicketPrintService {
           [
             {
               text: `Bill Code ፡ ${response.billCode}`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
             },
             
             {
               text: `Bank ፡${response.account.bankName}`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+           
+            {
+              text: `Bank Account Number ፡ ${response.account.accountNumber}`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
             },
             {
-              text: `Bank Account Number ፡ ${response.account.accountHolderName}`,
+              text: `Account Holder Name ፡ ${response.account.accountHolderName}`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
             },
           ],
           [
 
             {
               text: `Price ፡ ${response.totalPrice}`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
             },
             {
               text: `Payment Type ፡ ${response.paymentTypeCode}`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
             },
             {
               text: `Valid Until : ${this.convertDateFormat(response.expirationTime)} `,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
             },
             {
              // text: `Reservation ID :${response.reservationId} `,
@@ -314,7 +326,7 @@ export class TicketPrintService {
     let docDefinition = {
       pageSize: "A4",
       watermark: {
-        text: "Ezi Bus Thechnology",
+        text: "Ezi Bus Technology",
         color: "black",
         opacity: 0.3,
         bold: true,

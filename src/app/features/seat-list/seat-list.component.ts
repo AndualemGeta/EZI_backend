@@ -353,7 +353,7 @@ reserveSeat(data){
     this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
-     console.log(res);
+    // console.log(res);
       this.iserror = false;
        this.responseDialog = true;
        this.dynamicForm.reset();
@@ -365,7 +365,6 @@ reserveSeat(data){
           window.open(res["paymentDetails"],"_self")
       }
       else{
-
        this.printData(res);
        this.router.navigate(["home"]);
       }
@@ -396,7 +395,7 @@ selectCheckBox(targetType) {
   //   return;
   // }
    this.currentlyChecked = targetType;
-   console.log(this.currentlyChecked);
+  // console.log(this.currentlyChecked);
 }
 BackToTripList(){
   let searchData={
