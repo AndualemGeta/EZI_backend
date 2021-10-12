@@ -1,6 +1,6 @@
 <mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
     <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon class="header-icon">menu</mat-icon></button>
-    <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')"><img height="100%" src="assets/img/ezi-circle.png" ></a>
+    <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')"><img height="100%" src="assets/img/ezibus.ico" ></a>
     <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" >EZI BUS</span>    
     <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
        <!-- <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
