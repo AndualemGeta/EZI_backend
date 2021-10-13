@@ -33,6 +33,10 @@ const appRoutes: Routes = [
     redirectTo: "home",
     pathMatch: "full",
   },
+  {
+    path : "print-ticket/:billCode",
+    loadChildren : () => import("src/app/features/print-ticket/print-ticket.module").then((m) => m.PrintTicketModule )
+  }
 ];
 
 @NgModule({
