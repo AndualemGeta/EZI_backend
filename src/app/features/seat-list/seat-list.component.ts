@@ -382,6 +382,7 @@ reserveSeat(data){
     this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
+    // console.log(res);
       this.iserror = false;
        this.responseDialog = true;
        // this.dynamicForm.reset();
@@ -399,9 +400,8 @@ reserveSeat(data){
         this.myStepper.next();
       }
       else{
-
-      //  this.printData(res);
-        this.router.navigate(["home"]);
+       this.printData(res);
+       this.router.navigate(["home"]);
         this.dynamicForm.reset();
       }
       },
@@ -431,7 +431,7 @@ selectCheckBox(targetType) {
   //   return;
   // }
    this.currentlyChecked = targetType;
-   console.log(this.currentlyChecked);
+  // console.log(this.currentlyChecked);
 }
 BackToTripList(){
   let searchData={
@@ -447,41 +447,8 @@ BackToTripList(){
   );
   //this.router.navigate(["trip-list"]);
 }
-  printData(selectedData) {
-    this.printService.generateSinglePassengerTicketPDF(selectedData);
-  }
-
-  confirmOtp() {
-    var values = this.awashOtpForm.getRawValue();
-    console.log(values);
-    var data = {
-      billCode : this.reservation.billCode,
-      reservationId : this.reservation.reservationId,
-      otp : values.otp,
-      phoneNumber : values.phoneNumber
-    }
-
-    this.loading = true;
-    this.eziService.confirmAwashOtp(data).subscribe((res) => {
-      this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
-      this.loading = false;
-      this.router.navigate(["home"]);
-
-    },(error) => {
-      this.iserror = true;
-      this.responseTitle = 'Error!!!';
-      this.responseDialog = true;
-      this.responseMesssage = '';
-      this.responseStyle = 'error';
-      this.disableSubmit = false;
-      for (const [key, value] of Object.entries(error)) {
-        this.responseMesssage = this.responseMesssage + value;
-      }
-      this.display = false;
-      this.loading = false;
-      this.showMessage(this.responseMesssage);
-    })
-  }
-
+printData(selectedData) {
+  this.printService.generatePassengerTicketPDF(selectedData);
+}
 }
 
