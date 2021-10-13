@@ -1,17 +1,17 @@
-import {Injectable} from '@angular/core';
-import {DatePipe} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import etDate from '../../assets/js/getEthiopianDate.js';
 
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import pdfMake from "../../assets/pdfmake/build/pdfmake";
+import pdfFonts from "../../assets/pdfmake/build/vfs_fonts";
+import { DatePipe, UpperCasePipe } from "@angular/common";
+import etDate from "../../assets/js/getEthiopianDate.js";
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts = {
   amharic: {
-    normal: 'amharic.ttf',
-    bold: 'amharic.ttf',
-    italics: 'amharic.ttf',
-    bolditalics: 'amharic.ttf',
+    normal: "amharic.ttf",
+    bold: "amharic.ttf",
+    italics: "amharic.ttf",
+    bolditalics: "amharic.ttf",
   },
 };
 
