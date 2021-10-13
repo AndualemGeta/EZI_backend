@@ -7,6 +7,7 @@ import { RouteStateService } from 'src/app/Service/route-state.service';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 import {MatStepper} from '@angular/material/stepper';
+import {PassengerTicketPrintService} from '../../Service/passenger-ticket-print.service';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -66,7 +67,8 @@ export class SeatListComponent  {
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
     private _snackBar : MatSnackBar,
-    private printService: TicketPrintService
+    private printService: TicketPrintService,
+              private  ticketPrintService : PassengerTicketPrintService
     ) { }
     isLinear = false;
     firstFormGroup: FormGroup;
@@ -450,5 +452,144 @@ BackToTripList(){
 printData(selectedData) {
   this.printService.generatePassengerTicketPDF(selectedData);
 }
+
+  confirmOtp() {
+    var values = this.awashOtpForm.getRawValue();
+    console.log(values);
+    var data = {
+      billCode : this.reservation.billCode,
+      reservationId : this.reservation.reservationId,
+      otp : values.otp,
+      phoneNumber : values.phoneNumber
+    }
+
+    this.loading = true;
+    this.eziService.confirmAwashOtp(data).subscribe((res) => {
+      console.log(res);
+      this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
+      this.loading = false;
+      if(res.length > 0){
+        res.map((passData) => {
+          this.ticketPrintService.generatePDF(passData);
+        })
+      }
+      // this.router.navigate(["home"]);
+
+    },(error) => {
+      this.iserror = true;
+      this.responseTitle = 'Error!!!';
+      this.responseDialog = true;
+      this.responseMesssage = '';
+      this.responseStyle = 'error';
+      this.disableSubmit = false;
+      for (const [key, value] of Object.entries(error)) {
+        this.responseMesssage = this.responseMesssage + value;
+      }
+      this.display = false;
+      this.loading = false;
+      this.showMessage(this.responseMesssage);
+    })
+  }
+
+
+  testPrint(){
+    var data = [
+      {
+        "transactionId": "6ddf6eb4-a882-4524-a14e-08d98e2a6e45",
+        "ticketId": "079f6512-5594-45cb-b20f-0910b0a8d5b1",
+        "scheduleId": "fbae504b-c169-4510-6a45-08d98ddc4b7a",
+        "checkedIn": false,
+        "charges": 15,
+        "discount": 0,
+        "commission": 0,
+        "seatNumber": 33,
+        "luggageWeight": 0,
+        "registrationDate": "2021-10-13T09:19:53.25939",
+        "updatedAt": "2021-10-13T09:19:53.2593903",
+        "pickupLocation": "mexico shebelie",
+        "schedule": {
+          "scheduleId": "fbae504b-c169-4510-6a45-08d98ddc4b7a",
+          "seatCapacity": 51,
+          "isActive": true,
+          "tripDate": "2021-10-20T00:00:00",
+          "departureTime": "2021-10-20T05:30:00",
+          "checkinTime": "2021-10-20T05:00:00",
+          "description": null,
+          "createdAt": "2021-10-13T04:07:04.5358562",
+          "updatedAt": "2021-10-13T04:07:04.5358581",
+          "availableSeats": null,
+          "lineId": "7e7a815c-7489-4d15-24cc-08d8c068dd51",
+          "operatorId": "ede90f84-3c4b-419a-2d71-08d8a67654fd",
+          "busId": "eca2ac21-7850-4bd9-8dd8-08d8d258f5e0",
+          "parentScheduleId": null,
+          "departureLocation": "Addis Ababa",
+          "departureStation": "Autobus Tera Terminal",
+          "arrivalLocation": "ArbaMinch",
+          "arrivalStation": "Terminal 1",
+          "operator": "GHION",
+          "operatorSupportPhoneNumber": "0956939393",
+          "busSideNumber": "GB12",
+          "busPlateNumber": "A12345",
+          "price": 0,
+          "agentName": "tsedeniya Ghion",
+          "driverName": "k/mariam g/cherkos",
+          "driverId": "86ce72cb-5d52-43e6-fadd-08d8b864324a",
+          "agentId": "a6e9dd1e-e0cb-4d7a-4520-08d8a705f255",
+          "departureLocationId": "ba8fcf90-31de-420f-68ac-08d8a643ea62",
+          "arrivalLocationId": "839c3a7f-c636-485e-b84d-a9dcc30fec14",
+          "departureLocationPhone": "0956939393",
+          "arrivalLocationPhone": "0956939393",
+          "displayName": "Addis Ababa - ArbaMinch / 10/20/2021"
+        },
+        "passenger": {
+          "passengerId": "d6a4391d-8ab2-48f9-527a-08d98e2a6e4a",
+          "phoneNumber": "0910179448",
+          "fullName": "Mikiyas Abraham",
+          "gender": "Male",
+          "age": 0,
+          "registrationDate": "0001-01-01T00:00:00",
+          "transactions": []
+        },
+        "bookedBy": {
+          "agentId": "de937eb1-f20a-44e5-451c-08d8a705f255",
+          "address": "Addis Ababa",
+          "stateId": "001",
+          "homeNumber": "1300",
+          "kebele": "13",
+          "woreda": "13",
+          "city": "Addis Ababa",
+          "currentBalance": 0,
+          "userId": "d902a54b-b2ce-4cd8-be83-82259a909115",
+          "operatorId": "ede90f84-3c4b-419a-2d71-08d8a67654fd",
+          "superAgentId": null,
+          "fullName": "Senait geberab",
+          "smsEnabled": true
+        },
+        "updatedBy": {
+          "agentId": "de937eb1-f20a-44e5-451c-08d8a705f255",
+          "address": "Addis Ababa",
+          "stateId": "001",
+          "homeNumber": "1300",
+          "kebele": "13",
+          "woreda": "13",
+          "city": "Addis Ababa",
+          "currentBalance": 0,
+          "userId": "d902a54b-b2ce-4cd8-be83-82259a909115",
+          "operatorId": "ede90f84-3c4b-419a-2d71-08d8a67654fd",
+          "superAgentId": null,
+          "fullName": "Senait geberab",
+          "smsEnabled": true
+        },
+        "statusCode": "Booked",
+        "paymentTypeCode": "Electronic",
+        "serial": {
+          "serialNo": 1333,
+          "serialCode": "G1333"
+        }
+      }
+    ]
+
+    this.ticketPrintService.generatePDF(data[0]);
+  }
 }
 
