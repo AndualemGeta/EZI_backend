@@ -229,6 +229,28 @@
   background-color: #cccccc17;
 }
 
+.payment-option-description {
+  font-size: 12px;
+}
+
+.mat-radio-label {
+  margin : 0;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+
+::ng-deep .mat-step-header[aria-selected="true"]  {
+  background-color: #44CF6C;
+  border-radius: 32px;
+  font-weight: 12px;
+}
+
+div.mat-step-label.mat-step-label-active.mat-step-label-selected {
+  color: #FFF;
+}
+
 /*
 :root {
     --blue: #1e90ff;
