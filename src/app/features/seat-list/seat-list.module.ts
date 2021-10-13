@@ -8,6 +8,7 @@ import { AppCommonModule} from "src/app/app.common.module";
 import { Material2Module } from "src/app/material2.module";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import {Ng2TelInputModule} from 'ng2-tel-input';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +17,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
     Material2Module,
     FlexLayoutModule,
     HeaderModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, Ng2TelInputModule
   ],
   declarations: [SeatListComponent],
   exports: [SeatListComponent],

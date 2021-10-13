@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { TicketPrintService } from 'src/app/Service/ticket-print.service';
+import {MatStepper} from '@angular/material/stepper';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -46,10 +47,18 @@ export class SeatListComponent  {
   agentId: string;
   routeState;
   reserveRegisterForm: FormGroup;
+  awashOtpForm : FormGroup;
   disableReservebutton: boolean;
   loading: boolean;
   paymentMethod : string="TeleBirr";
   accountId : string = "";
+  debitAccount : string = "";
+  awashOtp : string;
+  awashPhoneNumber : string;
+
+  reservation: any;
+  // Only required when not passing the id in methods
+  @ViewChild('stepper') private myStepper: MatStepper;
 
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
@@ -81,8 +90,14 @@ export class SeatListComponent  {
       tickets: new FormArray([]),
       accountId: ['', []],
       paymentMethod : ['TeleBirr', Validators.required],
-      seatNumber:[this.cart.selectedSeats]
+      seatNumber:[this.cart.selectedSeats],
+      debitAccount : ['',[]]
      });
+
+    this.awashOtpForm = this._formBuilder.group({
+      phoneNumber : ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      otp : ['', Validators.required]
+    });
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
@@ -318,7 +333,18 @@ onSubmit() {
     this.newPassanger.paymentProviderCode = 'TeleBirr';
     this.newPassanger.accountId = null;
   }
-  this.reserveSeat(this.newPassanger);
+  if(this.paymentMethod == "AwashOtp"){
+    this.newPassanger.paymentMethodCode = 'Electronic';
+    this.newPassanger.paymentProviderCode = 'AwashOtp';
+    this.newPassanger.accountId = null;
+    this.newPassanger.debitAccount = this.dynamicForm.getRawValue().debitAccount;
+    if(this.newPassanger.debitAccount == ''){
+      this.showMessage("Please enter your awash bank account");
+      return false;
+    }
+    console.log(this.newPassanger);
+  }
+   this.reserveSeat(this.newPassanger);
   }
   onReset() {
     this.dynamicForm.reset();
@@ -343,10 +369,13 @@ onSubmit() {
 
   changeGender(Value) {
     if(Value=="BankTransfer"){
-      this.paymentMethod == 'BankTransfer';
+      this.paymentMethod = 'BankTransfer';
     }
-    else{
-      this.paymentMethod == 'TeleBirr';
+    else if(Value=='TeleBirr'){
+      this.paymentMethod = 'TeleBirr';
+    }
+    else if(Value == 'AwashOtp'){
+      this.paymentMethod = 'AwashOtp';
     }
   }
 reserveSeat(data){
@@ -355,18 +384,25 @@ reserveSeat(data){
     (res) => {
       this.iserror = false;
        this.responseDialog = true;
-       this.dynamicForm.reset();
+       // this.dynamicForm.reset();
       this.display = false;
       this.disableSubmit = false;
       this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
       this.loading = false;
       if(data['paymentMethodCode'] == "Electronic" && data["paymentProviderCode"] == "TeleBirr"){
-          window.open(res["paymentDetails"],"_self")
+          window.open(res["paymentDetails"],"_self");
+        this.dynamicForm.reset();
+      }
+      else if(data['paymentMethodCode'] == 'Electronic' && data['paymentProviderCode'] == 'AwashOtp'){
+        console.log(res);
+        this.reservation = res;
+        this.myStepper.next();
       }
       else{
 
       //  this.printData(res);
         this.router.navigate(["home"]);
+        this.dynamicForm.reset();
       }
       },
     (error) => {
@@ -411,8 +447,41 @@ BackToTripList(){
   );
   //this.router.navigate(["trip-list"]);
 }
-printData(selectedData) {
-  this.printService.generateSinglePassengerTicketPDF(selectedData);
-}
+  printData(selectedData) {
+    this.printService.generateSinglePassengerTicketPDF(selectedData);
+  }
+
+  confirmOtp() {
+    var values = this.awashOtpForm.getRawValue();
+    console.log(values);
+    var data = {
+      billCode : this.reservation.billCode,
+      reservationId : this.reservation.reservationId,
+      otp : values.otp,
+      phoneNumber : values.phoneNumber
+    }
+
+    this.loading = true;
+    this.eziService.confirmAwashOtp(data).subscribe((res) => {
+      this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
+      this.loading = false;
+      this.router.navigate(["home"]);
+
+    },(error) => {
+      this.iserror = true;
+      this.responseTitle = 'Error!!!';
+      this.responseDialog = true;
+      this.responseMesssage = '';
+      this.responseStyle = 'error';
+      this.disableSubmit = false;
+      for (const [key, value] of Object.entries(error)) {
+        this.responseMesssage = this.responseMesssage + value;
+      }
+      this.display = false;
+      this.loading = false;
+      this.showMessage(this.responseMesssage);
+    })
+  }
+
 }
 

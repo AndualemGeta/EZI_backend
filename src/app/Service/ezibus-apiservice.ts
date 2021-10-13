@@ -19,9 +19,9 @@ export class EziBusService {
   ) {
   }
 
-   baseurl =
-     "https://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
-  // baseurl = 'http://localhost:5000'; /*url to communicate real data base */
+   // baseurl =
+   //   "https://ezibusapidev.leapfrogtechafrica.com"; /*url to communicate real data base */
+  baseurl = 'http://localhost:5000'; /*url to communicate real data base */
   // baseurl = "http://localhost:5000";
   operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
 
@@ -153,6 +153,24 @@ export class EziBusService {
       .catch((item) => {
         return false;
       });;
+  }
+
+  confirmAwashOtp(data){
+    let url = `/api/public/confirmAwashOtpPayment`;
+    return this.postApiService(url,data).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError((error) => {
+        let errorMsg;
+        if (error.error instanceof ErrorEvent) {
+          errorMsg = "Error:" + error.error.message;
+        } else {
+          errorMsg = this.getServerErrorMessage(error);
+        }
+        return throwError(errorMsg);
+      })
+    );
   }
 
 

@@ -119,7 +119,7 @@
 .test{
     background-color: blue;
   }
-  
+
   .my-panel .ui-panel-titlebar {
     background: blue
   }
@@ -128,7 +128,7 @@
     max-width: 500px;
     width: 100%;
   }
-  
+
   .full-width {
     width: 100%;
   }
@@ -138,18 +138,18 @@
   }
 
   .mat-back-button-color{
-    background-color:  #1D7874; 
+    background-color:  #1D7874;
      color: #fff;
      margin-right: 25px;
 
   }
   .mat-reset-button-color{
-    background-color:  #559CAD; 
+    background-color:  #559CAD;
      color: #fff;
      margin-right: 25px;
 
   }
-  
+
   .mat-back {
     background-color: #C0C0C0;
     color: #404040;
@@ -158,24 +158,24 @@
     margin-left: 10%;
     margin-bottom: 5%;
   }
-  
+
   body {
     background-color: #f4f4f4;
   }
-  
+
   .reserve-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     background-color: #f4f4f4;
   }
-  
+
   .trip-detail-property {
     font-size: 16px;
     font-family: yrsa;
     font-weight: 600;
   }
-  
+
   .trip-detail-value {
     font-size: 16px;
     font-family: yrsa;
@@ -183,47 +183,51 @@
   .trip-detail-item {
     margin-top: 10px;
   }
-  
+
   .trip-detail-title{
     font-family: yrsa;
     font-size: 25px;
     font-weight: bold;
   }
-  
+
   .reserved-trip-detail {
     margin-right :10px;
   }
-  
+
   .reserve-form {
     margin : 50px;
-    
+
   }
   mat-label {
     font-family: yrsa;
-  
+
   }
-  
+
   .input {
     font-family: yrsa;
   }
-  
+
   .trip-result-icon {
     color :  #5cb85c;
     margin-bottom: 15px;
     font-size: 25px;
     margin-right: 10px;
-  
+
   }
-  
+
   .trip-summery-icon {
     color :  #5cb85c;
     margin-left: 15px;
     font-size: 10px;
     margin-right: 10px;
-  
-  }
-  
 
+  }
+
+.row {
+  padding: 2%;
+  border-radius: 15px;
+  background-color: #cccccc17;
+}
 
 /*
 :root {
@@ -270,7 +274,7 @@
 {
     background-color: white;
     border: 0;
-    
+
 }
 .seat-available
 {
@@ -288,7 +292,7 @@
 .seat-unavailable
 {
     color: var(--seat-unavailable-color);
-    background-color: var(--seat-unavailable-bg); 
+    background-color: var(--seat-unavailable-bg);
     font-weight: bolder;
     border: 1px solid var(--seat-unavailable-color);
 }
@@ -329,7 +333,7 @@
   box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
   display: inline-flex;
   width: 102%;
-  
+
   h5
   {
     font-weight: bold;
@@ -340,7 +344,7 @@
     width: 100%;
     padding: 0;
     margin: 0;
-    button 
+    button
     {
         width: 100%;
         height: 100%;
@@ -357,7 +361,7 @@
 }
 .row-label
 {
-    color:black ; 
+    color:black ;
     background-color:white;
     min-width: 20px;
     font-weight: bolder;

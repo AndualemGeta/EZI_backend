@@ -10,16 +10,17 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @NgModule({
     imports: [
         CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
        HttpClientModule, MatIconModule,
-      MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,Material2Module
+      MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,Material2Module, Ng2TelInputModule
     ] ,
     exports: [CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
       HttpClientModule, MatIconModule,
-      MatDialogModule,MatProgressSpinnerModule, MatSnackBarModule],
+      MatDialogModule,MatProgressSpinnerModule, MatSnackBarModule, Ng2TelInputModule],
     declarations: []
 })
 export class AppCommonModule {
