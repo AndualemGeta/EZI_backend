@@ -10,11 +10,23 @@
         <a mat-list-item [routerLink]="" (click)="scroll('contact')">Contact</a>
     </mat-nav-list>
     <span class="navigation-spacer"></span>
-    <a href="tel:9293"><mat-icon class="header-icon">phone</mat-icon></a>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>language</mat-icon>
+        <span>English</span>
+         </button>
+      <button mat-menu-item>
+        <mat-icon>language</mat-icon>
+        <span>Amharic</span>
+      </button>
+      </mat-menu>
+     <a href="tel:9293"><mat-icon class="header-icon">phone</mat-icon></a>
     9293
    <!--<button mat-mini-fab color="primary" matTooltip="Call and reserve seat" [matTooltipPosition]="'left'"><mat-icon>phone</mat-icon></button>-->
     </mat-toolbar>
-  
   <mat-sidenav-container class="navigation-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
