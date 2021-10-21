@@ -12,13 +12,14 @@ import {MatIcon, MatIconModule} from '@angular/material/icon';
 import { TooltipModule  } from 'ngx-bootstrap/tooltip';
 import { DatePipe } from "@angular/common";
 import {AppCommonModule} from './app.common.module';
+import {TranslateModule} from '@ngx-translate/core';
 @NgModule({
   declarations: [
     AppComponent,
     ContactDialogComponent
 
   ],
-  imports: [ BrowserModule, AppCommonModule, BrowserAnimationsModule,AppRoutingModule,TooltipModule.forRoot() ],
+  imports: [ BrowserModule, AppCommonModule, BrowserAnimationsModule,AppRoutingModule,TooltipModule.forRoot(), TranslateModule.forRoot() ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ ContactDialogComponent ],
