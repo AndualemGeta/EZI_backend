@@ -232,7 +232,7 @@ export class SeatListComponent  {
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
       if(this.cart.selectedSeats.length>=3){
-       this.showMessage("You Can not reserve more than 3 seats");
+       this.showMessage("You Can not reserve more than 3 seats if you want more Call 9293");
         return false;
             }
       seatObject.status = "booked";

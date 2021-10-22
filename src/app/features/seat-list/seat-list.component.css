@@ -250,6 +250,10 @@
 div.mat-step-label.mat-step-label-active.mat-step-label-selected {
   color: #FFF;
 }
+.bootom-action-btn{
+  margin: 5px;
+  width: 100px;
+}
 
 /*
 :root {
