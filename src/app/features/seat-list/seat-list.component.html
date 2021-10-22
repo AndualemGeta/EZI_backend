@@ -1,11 +1,13 @@
 <app-header></app-header>
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper #stepper>
-    <mat-step label="Please Select Seat number" state="seat">
+    <mat-step  state="seat">
+    
+     <ng-template matStepLabel  >Please Select Seat number</ng-template>
       <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
-            <mat-card style="height: 500px; width:80%;" >
+            <mat-card style="height: 500px; width:90%;" >
               <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
@@ -47,8 +49,9 @@
             </mat-card>
           </div>
         </div>
+
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-          <mat-card style="height: 500px; width:80%;">
+          <mat-card style="height: 500px; width:90%;">
             <div class="trip-detail-title">Select A Seat</div>
             <div *ngFor="let seatrow of seatmap">
               <div class="col-12 pricing-label"
@@ -75,7 +78,7 @@
         </div>
         <!-- *ngIf="cart?.selectedSeats?.length > 0" -->
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-card style="height: 500px; width:80%;" >
+          <mat-card style="height: 500px; width:90%;" >
             <div class="trip-detail-item">
               <i class="material-icons trip-result-icon">summarize</i>
               <span class="trip-detail-property">Total Selected Seat : </span>
@@ -110,7 +113,7 @@
       <mat-step label="Fill out Passenger Information" state="info">
         <div class="row ">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
-            <mat-card style="height: 380px; width:80%;">
+            <mat-card style="height: 400px; width:90%;">
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">summarize</i>
                 <span class="trip-detail-property">Total Selected Seat : </span>
@@ -134,7 +137,7 @@
           </div>
 
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="card">
+            <div class="card" style="height: 400px; width:90%;">
               <div *ngFor="let ticket of t.controls;let i = index" class="list-group list-group-flush">
                 <div class="list-group-item">
                   <div class="trip-detail-item">
@@ -184,7 +187,7 @@
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">
-              <mat-card style="height: 530px; width:80%;">
+              <mat-card style="height: 530px; width:90%;">
                 <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
@@ -234,7 +237,7 @@
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-            <mat-card >
+            <mat-card style="width:90%;">
               <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS &nbsp; <span
                 class="trip-detail-property">    {{ routeState.departureLocation}}
                 To {{routeState.arrivalLocation}}</span> &nbsp;&nbsp; <span
@@ -293,12 +296,12 @@
               &nbsp; &nbsp;&nbsp;
               <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
               <div class="action-buttons card-footer text-center" *ngIf="!loading">
-                <button mat-button matStepperPrevious mat-flat-button color="back-button-color">Back</button>
-                <button mat-button (click)="stepper.reset()" mat-flat-button color="accent" color="reset-button-color">
+                <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">Back</button>
+                <button class="reserve-action-btn" mat-button (click)="stepper.reset()" mat-flat-button color="accent" color="reset-button-color">
                   Reset
-                </button>&nbsp;
+                </button>
                 <button mat-button (click)="onSubmit()" mat-flat-button [disabled]="this.dynamicForm.invalid"
-                        color="success" style="margin:2px ;" >Reserve
+                        color="success" class="reserve-action-btn" >Reserve
                 </button>
 
               </div>

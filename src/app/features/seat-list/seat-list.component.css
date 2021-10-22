@@ -252,9 +252,11 @@ div.mat-step-label.mat-step-label-active.mat-step-label-selected {
 }
 .bootom-action-btn{
   margin: 5px;
-  width: 100px;
+  width: 90px;
 }
-
+.reserve-action-btn{
+  margin: 5px;
+}
 /*
 :root {
     --blue: #1e90ff;
