@@ -155,6 +155,16 @@ export class EziBusService {
       });;
   }
 
+  getReservationData(billCode){
+    let url = `/api/public/getReservationData/${billCode}`;
+    return this.getApiService(url).then((data) => {
+      return data;
+    })
+      .catch((item) => {
+        return false;
+      });
+  }
+
   confirmAwashOtp(data){
     let url = `/api/public/confirmAwashOtpPayment`;
     return this.postApiService(url,data).pipe(

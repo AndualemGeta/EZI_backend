@@ -263,7 +263,9 @@
               <p class="trip-detail-title">Choose Payment Option</p>
               <mat-radio-group formControlName="paymentMethod" aria-label="Select an option"
                                [(ngModel)]="paymentMethod">
-                <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">Pay Using Tele Birr
+                <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">
+                  <img mat-card-image src="../../../assets/img/telebirr.png" id="telebirr-paymentoption-logo" style="width: 100px; margin-right: 10px">
+                  Pay Using Tele Birr
                 </mat-radio-button>&nbsp;
 
                 <p class="payment-option-description">Use telebirr mobile application to complete the payment</p>
