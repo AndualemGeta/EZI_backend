@@ -22,10 +22,7 @@
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
     "@ngx-translate/core": "^13.0.0",
-<<<<<<< HEAD
     "@ngx-translate/http-loader": "^6.0.0",
-=======
->>>>>>> b9dd33ab88a792cf31ea193301005d2c607a89cf
     "aos": "^2.3.4",
     "bootstrap": "^4.5.3",
     "core-js": "^2.5.4",
