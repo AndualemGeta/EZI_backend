@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { SE } from './componenet/directives/scroll.directive';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,10 +24,11 @@ export class AppComponent {
 
   private _mobileQueryListener: () => void;
 
-  constructor(@Inject(DOCUMENT) private document: Document, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+  constructor(@Inject(DOCUMENT) private document: Document,private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)',);
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    translate.setDefaultLang('en');
   }
   ngOnInit(){
     AOS.init();

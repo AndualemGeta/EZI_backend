@@ -27,10 +27,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
 
-  imports: [MatExpansionModule,MatRadioModule,MatStepperModule,TextFieldModule,MatGridListModule,MatAutocompleteModule,MatSnackBarModule,MatMenuModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
+  imports: [MatMenuModule,MatExpansionModule,MatRadioModule,MatStepperModule,TextFieldModule,MatGridListModule,MatAutocompleteModule,MatSnackBarModule,MatMenuModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
             MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatTabsModule,
             MatTableModule, MatFormFieldModule, MatInputModule, MatDialogModule,MatDatepickerModule, MatChipsModule],
-  exports: [MatExpansionModule,MatRadioModule,MatStepperModule,TextFieldModule,MatGridListModule,MatAutocompleteModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
+  exports: [MatMenuModule,MatExpansionModule,MatRadioModule,MatStepperModule,TextFieldModule,MatGridListModule,MatAutocompleteModule,MatButtonModule, MatCheckboxModule, MatCardModule, MatDividerModule, MatIconModule, 
             MatSidenavModule, MatToolbarModule, MatListModule, MatTooltipModule, MatTabsModule,
             MatTableModule, MatFormFieldModule, MatInputModule, MatDialogModule,MatDatepickerModule,MatSelectModule, MatChipsModule]
 })
