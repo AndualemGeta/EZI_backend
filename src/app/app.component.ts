@@ -5,6 +5,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { SE } from './componenet/directives/scroll.directive';
 import { TranslateService } from '@ngx-translate/core';
+import { SessionService } from './Service/SessionService';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,12 +24,22 @@ export class AppComponent {
 	mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
+ 
 
-  constructor(@Inject(DOCUMENT) private document: Document,private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+  constructor(@Inject(DOCUMENT) private document: Document,private sessionService: SessionService ,private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)',);
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    translate.setDefaultLang('en');
+    
+    translate.setDefaultLang("am");
+    var language = this.sessionService.getItem("local-language");
+    if (language != null && language.length > 0) {
+      // the lang to use, if the lang isn't available, it will use the current loader to get them
+      translate.use(language);
+    } else {
+      this.sessionService.setItem("local-language", "am");
+    }
+
   }
   ngOnInit(){
     AOS.init();

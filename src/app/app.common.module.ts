@@ -11,14 +11,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {Ng2TelInputModule} from 'ng2-tel-input';
-
+import { LanguageModule } from "src/app/shared/module/language.module";
 @NgModule({
     imports: [
         CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
        HttpClientModule, MatIconModule,
       MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,Material2Module, Ng2TelInputModule
     ] ,
-    exports: [CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
+    exports: [LanguageModule,CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
       HttpClientModule, MatIconModule,
       MatDialogModule,MatProgressSpinnerModule, MatSnackBarModule, Ng2TelInputModule],
     declarations: []

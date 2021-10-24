@@ -7,6 +7,8 @@ import { MatDialog,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialo
 import { DOCUMENT } from '@angular/common';
 import * as AOS from 'aos';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
+import { TranslateService } from '@ngx-translate/core';
+import { SessionService } from 'src/app/Service/SessionService';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,8 +19,8 @@ export class HomeComponent implements OnDestroy {
   cities: any[];
   Trip: any;
 accounts:any[];
-
-  contactFabButton: any;
+locale: string;
+contactFabButton: any;
   bodyelement: any;
   sidenavelement: any;
  
@@ -29,8 +31,8 @@ accounts:any[];
 	mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
-
-  constructor(@Inject(DOCUMENT)  document: Document,private eziService: EziBusService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+  constructor(@Inject(DOCUMENT)  document: Document,private sessionService: SessionService,
+  public translate: TranslateService, private eziService: EziBusService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -40,6 +42,8 @@ accounts:any[];
     AOS.init();
     this.getAllBankAccounts();
     this.getAllLocations();  
+    this.locale = this.sessionService.getItem("local-language");
+    console.log(this.locale);
   }
 
 
