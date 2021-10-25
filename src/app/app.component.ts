@@ -30,14 +30,13 @@ export class AppComponent {
     this.mobileQuery = media.matchMedia('(max-width: 600px)',);
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    
-    translate.setDefaultLang("am");
+    translate.setDefaultLang("en");
     var language = this.sessionService.getItem("local-language");
     if (language != null && language.length > 0) {
       // the lang to use, if the lang isn't available, it will use the current loader to get them
       translate.use(language);
     } else {
-      this.sessionService.setItem("local-language", "am");
+      this.sessionService.setItem("local-language", "en");
     }
 
   }

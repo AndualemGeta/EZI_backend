@@ -2,16 +2,16 @@
     <div class="container">
 		      <div class="contact-section contact-heading mat-typography" fxLayout="column" fxLayoutAlign="center center">
 		            <div>
-		            <h2 class="section-header">Contact Us</h2>
+		            <h2 class="section-header"> {{"contactUsHeader"|translate}}</h2>
 		            </div>
 		            <div>
-			        <h3 class="contact-font-type" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">We would love to hear from you. Please get in touch!.</h3>
+			        <h3 class="contact-font-type" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}"> {{"contactInvitationWord"|translate}}</h3>
 			        </div>
 		        </div>
 				<form class="formwidth" (ngSubmit)="onSubmit()">
 				  <div class="contact-form" [ngStyle.xs]="{'padding-left': '50px', 'padding-right': '50px'}" [ngStyle.sm]="{'padding-left': '100px', 'padding-right': '100px'}" [ngStyle.md]="{'padding-left': '150px', 'padding-right': '150px'}" [ngStyle.lg]="{'padding-left': '200px', 'padding-right': '200px'}">
 				  	  <mat-form-field appearance="outline" color="accent">
-					  	<mat-label>Please enter your name </mat-label>
+					  	<mat-label> {{"contactNameRequest"|translate}}  </mat-label>
 					    <input matInput placeholder="Name"
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="nameFormControl.hasError('required')">
@@ -19,7 +19,7 @@
 					    </mat-error>
 					  </mat-form-field>
 					  <mat-form-field appearance="outline" color="accent">
-					  	<mat-label>Please enter your phone </mat-label>
+					  	<mat-label> {{"contactPhoneRequest"|translate}} </mat-label>
 					    <input matInput placeholder="Phone"
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="phoneFormControl.hasError('required')">
@@ -28,7 +28,7 @@
 					  </mat-form-field>
 
 					  <mat-form-field appearance="outline" color="accent">
-					  	<mat-label>Please enter your email </mat-label>
+					  	<mat-label>{{"contactEmailRequest"|translate}} </mat-label>
 					    <input matInput placeholder="Email"
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -43,7 +43,7 @@
 
 
 					  <mat-form-field  appearance="outline" color="accent">
-						<mat-label>Please enter your Comment </mat-label>
+						<mat-label>  {{"contactCommentRequest"|translate}} </mat-label>
 						<textarea matInput
 								  cdkTextareaAutosize
 								  #autosize="cdkTextareaAutosize"
@@ -56,7 +56,7 @@
 					  <br>
 
 					  <div fxLayout="row" fxLayoutAlign="center center">
-					    <button mat-raised-button color="" type="submit" class="contact-button">Send</button>
+					    <button mat-raised-button color="" type="submit" class="contact-button">{{"send"|translate}}</button>
 					   </div>
 
 				  </div>

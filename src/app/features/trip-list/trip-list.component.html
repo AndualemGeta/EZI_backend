@@ -4,10 +4,10 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
        <mat-card class="search-trip-form">
         <mat-form-field appearance="fill">
-          <mat-label>Departure</mat-label>
+          <mat-label>{{"departure"|translate}}</mat-label>
           <mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
             <mat-option *ngFor="let city of cities" [value]="city.locationId">
-            {{city.name}}
+            {{city.name|translate}}
             </mat-option>
           </mat-select>
           </mat-form-field>
@@ -16,22 +16,22 @@
 						</span>
               &nbsp;
               <mat-form-field appearance="fill">
-                <mat-label>Destination</mat-label>
+                <mat-label>{{"destination"|translate}}</mat-label>
                 <mat-select formControlName="destination" [(ngModel)]="selectedDestination">
                 <mat-option *ngFor="let city of cities" [value]="city.locationId">
-                  {{city.name}}
+                  {{city.name|translate}}
                 </mat-option>
                 </mat-select>
               </mat-form-field>
                 &nbsp;
               <mat-form-field style="margin-top: 1.3%;">
-                <mat-label>Trip Date</mat-label>
+                <mat-label>{{"tripDate"|translate}}</mat-label>
                 <input type="date" matInput [ngModel] ="now | date:'yyyy-MM-dd'"  formControlName="tripDate">
               </mat-form-field>
               &nbsp;
               <div style="margin-top: 2.5%;margin-left: 1%;">
               <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
-              <a *ngIf="!loading" class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">Search</a>
+              <a *ngIf="!loading" class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">{{"search"|translate}}</a>
             </div>
            </mat-card>
      </form>
@@ -57,15 +57,15 @@
           <i class="material-icons trip-result-icon">
             place
           </i> <br/>
-         <div class="trip-detail-property"> Departure - Destination </div>  <br/>
-         <div class="trip-detail-value"> {{trip.departureLocation}} - {{trip.arrivalLocation}} </div>
+         <div class="trip-detail-property">{{"departure"|translate}}- {{"destination"|translate}} </div>  <br/>
+         <div class="trip-detail-value"> {{trip.departureLocation|translate}} - {{trip.arrivalLocation |translate}} </div>
         </div>
 
         <div class="trip-detail-item">
           <i class="material-icons trip-result-icon">
             airline_seat_recline_normal
           </i> <br/>
-          <div class="trip-detail-property">Seat Available</div> <br/>
+          <div class="trip-detail-property">{{"seatAvailable"| translate}}</div> <br/>
           <div class="trip-detail-value">{{trip.availableSeats.length}}</div>
         </div>
 
@@ -73,7 +73,7 @@
           <i class="material-icons trip-result-icon">
            watch_later
           </i> <br/>
-          <div class="trip-detail-property">Departure Time  </div><br/>
+          <div class="trip-detail-property">{{"departureTime"|translate}}  </div><br/>
             <div class="trip-detail-value">{{trip.departureTime|date:'MMM d, y, h:mm:ss a'	}}</div>
         </div>
 
@@ -81,8 +81,8 @@
           <i class="material-icons trip-result-icon">
             payments
           </i> <br/>
-          <div class="trip-detail-property">{{trip.price}} Birr</div> <br/>
-           <a class="heading-button-right success" mat-flat-button color="success" (click)="ReserveSeat(trip)">Reserve</a>
+          <div class="trip-detail-property">{{trip.price}} {{"birr"|translate}}</div> <br/>
+           <a class="heading-button-right success" mat-flat-button color="success" (click)="ReserveSeat(trip)">{{"reserve"|translate}}</a>
         </div>
        </div>
      </div>

@@ -88,6 +88,7 @@ export class SeatListComponent  {
     paymentTypeCode: 'Electronic',
   }
   ngOnInit(): void {
+    this.loading=false;
     this.dynamicForm  =this._formBuilder.group({
       tickets: new FormArray([]),
       accountId: ['', []],

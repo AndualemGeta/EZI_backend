@@ -2,48 +2,47 @@
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper #stepper>
     <mat-step  state="seat">
-    
-     <ng-template matStepLabel  >Please Select Seat number</ng-template>
+     <ng-template matStepLabel > {{"selectSeatInstruction"|translate}}</ng-template>
       <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
             <mat-card style="height: 500px; width:90%;" >
-              <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
+        <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
-                <span class="trip-detail-property">Trip Date :</span>:
+                <span class="trip-detail-property">{{"tripDate"|translate}} :</span>:
                 <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">place</i>
-                <span class="trip-detail-property">Route</span>:
-                <span class="trip-detail-value">{{ routeState.departureLocation}}
-                  To {{routeState.arrivalLocation}}</span>
+                <span class="trip-detail-property">{{"route"|translate}}</span>:
+                <span class="trip-detail-value">{{ routeState.departureLocation |translate}}
+                  - {{routeState.arrivalLocation |translate}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">business</i>
-                <span class="trip-detail-property">Departure Station:</span>:
+                <span class="trip-detail-property">{{"departureStation"|translate}}:</span>:
                 <span class="trip-detail-value">{{routeState.departureStation}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">business</i>
-                <span class="trip-detail-property">Arrival Station:</span>:
+                <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>:
                 <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">
                   watch_later
-                </i> <span class="trip-detail-property"> Departure Time</span>:
+                </i> <span class="trip-detail-property">{{"departureTime"|translate}}</span>:
                 <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">call</i>
-                <span class="trip-detail-property">Departure Support Phone</span>:
+                <span class="trip-detail-property">{{"departureSupportPhone"|translate}}</span>:
                 <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">payments</i>
-                <span class="trip-detail-property">Price:</span>:
+                <span class="trip-detail-property">{{"price"|translate}}:</span>:
                 <span class="trip-detail-value">{{ routeState.price}} ETB</span>
               </div>
             </mat-card>
@@ -52,7 +51,7 @@
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
           <mat-card style="height: 500px; width:90%;">
-            <div class="trip-detail-title">Select A Seat</div>
+            <div class="trip-detail-title">{{"selectASeat"|translate}}</div>
             <div *ngFor="let seatrow of seatmap">
               <div class="col-12 pricing-label"
                    *ngIf="seatChartConfig?.showRowWisePricing && seatrow.seatPricingInformation != ''">{{seatrow.seatPricingInformation}}</div>
@@ -81,28 +80,28 @@
           <mat-card style="height: 500px; width:90%;" >
             <div class="trip-detail-item">
               <i class="material-icons trip-result-icon">summarize</i>
-              <span class="trip-detail-property">Total Selected Seat : </span>
+              <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
               <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
             </div>
 
             <div class="trip-detail-item">
               <i class="material-icons trip-result-icon">payments</i>
-              <span class="trip-detail-property">Total Amount: </span>
+              <span class="trip-detail-property">{{"totalAmount"|translate}}: </span>
               <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
             </div>
 
             <div class="trip-detail-item">
               <i class="material-icons trip-result-icon">event_seat</i>
-              <span class="trip-detail-property">Selected Seat: </span>
+              <span class="trip-detail-property">{{"selectedSeat"|translate}}: </span>
               <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats" class="badge badge-primary">
               {{seatLabel}}</span>
             </div>
             <div class="col-lg-12">
               <button type="button" mat-button (click)="BackToTripList()" color="back-button-color" mat-button
-                      class="bootom-action-btn">Back
+                      class="bootom-action-btn">{{"back"|translate}}
               </button>
               <button [disabled]="cart?.selectedSeats?.length == 0" type="button" mat-button matStepperNext mat-button
-                      color="success" class="bootom-action-btn" >Book Now
+                      color="success" class="bootom-action-btn" >{{"bookNow"|translate}}
               </button>
             </div>
           </mat-card>
@@ -110,61 +109,61 @@
       </div><!--end of page-->
     </mat-step>
     <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-      <mat-step label="Fill out Passenger Information" state="info">
+      <mat-step  state="info">
+        <ng-template matStepLabel > {{"fillPassengerInfoInstruction"|translate}} </ng-template>
         <div class="row ">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <mat-card style="height: 400px; width:90%;">
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">summarize</i>
-                <span class="trip-detail-property">Total Selected Seat : </span>
+                <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
                 <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
               </div>
 
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">payments</i>
-                <span class="trip-detail-property">Total Amount: </span>
+                <span class="trip-detail-property">{{"totalAmount"|translate}}: </span>
                 <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
               </div>
 
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event_seat</i>
-                <span class="trip-detail-property">Selected Seat: </span>
+                <span class="trip-detail-property">{{"selectedSeat"|translate}}: </span>
                 <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats"
                       class="badge badge-primary">
                   {{seatLabel}}</span>
               </div>
             </mat-card>
           </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="card" style="height: 400px; width:90%;">
+           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="card" style="width:90%;">
               <div *ngFor="let ticket of t.controls;let i = index" class="list-group list-group-flush">
                 <div class="list-group-item">
                   <div class="trip-detail-item">
                     <i class="material-icons trip-result-icon">person</i>
-                    <span class="trip-detail-property">Passenger {{i + 1}} </span>
+                    <span class="trip-detail-property">{{"passenger"|translate}} {{i + 1}} </span>
                     <span style="float: right;">
                         <span class="material-icons trip-result-icon">event_seat</span>
-                          <span class="trip-detail-property">Seat {{this.cart.selectedSeats[i]}}</span>
+                          <span class="trip-detail-property">{{"seat"|translate}} {{this.cart.selectedSeats[i]}}</span>
                         </span>
                   </div>
                   <div [formGroup]="ticket" class="form-row">
                     <div class="form-group col-10">
                       <mat-form-field class="full-width">
-                        <mat-label>Full Name</mat-label>
+                        <mat-label>{{"fullName"|translate}}</mat-label>
                         <input matInput placeholder="Full Name" name="fname" formControlName="name" required>
                       </mat-form-field>
                     </div>
                     <div class="form-group col-10">
                       <mat-form-field class="full-width">
-                        <mat-label>Phone Number</mat-label>
+                        <mat-label>{{"phoneNumber"|translate}}</mat-label>
                         <input matInput formControlName="phone" placeholder="Phone Number" name="address" maxlength="10"
                                required>
                       </mat-form-field>
                     </div>
                     <div class="form-group col-10">
                       <mat-form-field class="full-width">
-                        <mat-label>Luggage Weight</mat-label>
+                        <mat-label>{{"luggageWeight"|translate}}</mat-label>
                         <input type="number" matInput placeholder="Luggage Weight" formControlName="laggage">
                       </mat-form-field>
                     </div>
@@ -173,9 +172,8 @@
               </div>
               <div class="card-footer text-center">
                 <div>
-                  <button mat-button matStepperPrevious color="back-button-color" class="bootom-action-btn">Back</button>
-                  <button mat-flat-button [disabled]="this.dynamicForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">Proceed
-                    To Pay
+                  <button mat-button matStepperPrevious color="back-button-color" class="bootom-action-btn">{{"back"|translate}}</button>
+                  <button mat-flat-button [disabled]="this.dynamicForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">{{"proceedToPay"|translate}}
                   </button>
                 </div>
               </div>
@@ -183,54 +181,55 @@
           </div>
         </div>
       </mat-step>
-      <mat-step label="Select Payment Options" state="payment">
+      <mat-step state="payment">
+        <ng-template matStepLabel > {{"selectPaymentItruction"|translate}}</ng-template>
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">
               <mat-card style="height: 530px; width:90%;">
-                <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
+                <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
-                  <span class="trip-detail-property">Trip Date :</span>:
-                  <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+                  <span class="trip-detail-property"> {{"tripDate"|translate}} :</span>:
+                  <span class="trip-detail-value">{{routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">place</i>
-                  <span class="trip-detail-property">Route</span>:
-                  <span class="trip-detail-value">{{ routeState.departureLocation}}
-                    To {{routeState.arrivalLocation}}</span>
+                  <span class="trip-detail-property">{{"route"|translate}}</span>:
+                  <span class="trip-detail-value">{{routeState.departureLocation| translate}}
+                    - {{routeState.arrivalLocation|translate}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">business</i>
-                  <span class="trip-detail-property">Departure Station:</span>:
+                  <span class="trip-detail-property">{{"departureStation"|translate}}:</span>:
                   <span class="trip-detail-value">{{routeState.departureStation}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">business</i>
-                  <span class="trip-detail-property">Arrival Station:</span>:
+                  <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>:
                   <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">
                     watch_later
-                  </i> <span class="trip-detail-property"> Departure Time</span>:
+                  </i> <span class="trip-detail-property"> {{"departureTime"|translate}}</span>:
                   <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">call</i>
-                  <span class="trip-detail-property">Departure Support Phone</span>:
+                  <span class="trip-detail-property">{{"departureSupportPhone"|translate}}</span>:
                   <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event_seat</i>
-                  <span class="trip-detail-property">Selected Seat: </span>
+                  <span class="trip-detail-property"> {{"selectASeat"|translate}}: </span>
                   <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats"
                         class="badge badge-primary">
-                  {{seatLabel}}</span>
+                               {{seatLabel}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">payments</i>
-                  <span class="trip-detail-property">Total Price: </span>
+                  <span class="trip-detail-property"> {{"totalAmount"|translate}} : </span>
                   <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
                 </div>
               </mat-card>
@@ -238,46 +237,45 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
             <mat-card style="width:90%;">
-              <div class="trip-detail-title"> {{ routeState.operator | uppercase }} BUS &nbsp; <span
-                class="trip-detail-property">    {{ routeState.departureLocation}}
-                To {{routeState.arrivalLocation}}</span> &nbsp;&nbsp; <span
+              <div class="trip-detail-title"> {{routeState.operator | uppercase }} BUS &nbsp; <span
+                class="trip-detail-property">  {{routeState.departureLocation |translate}}
+                - {{routeState.arrivalLocation |translate}}</span> &nbsp;&nbsp; <span
                 class="trip-detail-property">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}  </span></div>
               <div class="trip-detail-item">
               </div>
               <div class="trip-detail-item">
-                <span class="trip-detail-property">Total Selected Seat : </span>
+                <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
                 <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
-
-                &nbsp; &nbsp; <span class="trip-detail-property">Total Amount: </span>
+                &nbsp; &nbsp; <span class="trip-detail-property">{{"totalAmount"|translate}}: </span>
                 <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
               </div>
               <div class="trip-detail-item">
-
               </div>
-
               <div class="trip-detail-item">
-                <span class="trip-detail-property">Selected Seat: </span>
+                <span class="trip-detail-property"> {{"selectedSeat"|translate}}: </span>
                 <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats"
                       class="badge badge-primary">
                   {{seatLabel}}</span>
               </div>
-              <p class="trip-detail-title">Choose Payment Option</p>
+              <p class="trip-detail-title"> {{"choosPaymentOption"| translate}}</p>
               <mat-radio-group formControlName="paymentMethod" aria-label="Select an option"
                                [(ngModel)]="paymentMethod">
-                <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')">
+                <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')"> &nbsp;
                   <img mat-card-image src="../../../assets/img/telebirr.png" id="telebirr-paymentoption-logo" style="width: 100px; margin-right: 10px">
-                  Pay Using telebirr
                 </mat-radio-button>&nbsp;
-
                 <p class="payment-option-description">Use telebirr mobile application to complete the payment</p>
-                <mat-radio-button value="AwashOtp" (change)="changeGender('AwashOtp')"> Awash Bank One Time Payment
-                  Method
+                <mat-radio-button value="AwashOtp" (change)="changeGender('AwashOtp')"> &nbsp;
+                  <img mat-card-image src="../../../assets/img/awashbankPayment.png" id="telebirr-paymentoption-logo" style="width: 100px; margin: 10px">   
+                 
                 </mat-radio-button>
-                <p class="payment-option-description">The due amount will be deducted from your account at Awash Bank.</p>
-
-                <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> Pay At Bank Branch
+                <p class="payment-option-description">
+                  Awash Bank One Time Payment Method The due amount will be deducted from your account at Awash Bank.</p>
+                <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
+                  <img mat-card-image src="../../../assets/img/bankBranch.png" id="telebirr-paymentoption-logo" style="width: 70px; margin: 10px">   
+                 
+                 
                 </mat-radio-button>
-                <p class="payment-option-description">You can deposit to our bank account at any branch. </p>
+                <p class="payment-option-description"> Pay At Bank Branch You can deposit to our bank account at any branch. </p>
               </mat-radio-group>
               <mat-form-field appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
@@ -286,74 +284,72 @@
                               [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-option>
                 </mat-select>
               </mat-form-field>
-
               <mat-form-field appearnace="fill" class="full-width" *ngIf="paymentMethod == 'AwashOtp'">
                 <mat-label>Awash Bank Account</mat-label>
                 <input matInput placeholder="Enter Your Awash Bank Account Number" formControlName="debitAccount"
                        [(ngModel)]="debitAccount">
               </mat-form-field>
-
+          
               &nbsp; &nbsp;&nbsp;
               <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
+              
               <div class="action-buttons card-footer text-center" *ngIf="!loading">
-                <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">Back</button>
+                <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>
                 <button class="reserve-action-btn" mat-button (click)="stepper.reset()" mat-flat-button color="accent" color="reset-button-color">
-                  Reset
+                 {{"reset"|translate}}
                 </button>
                 <button mat-button (click)="onSubmit()" mat-flat-button [disabled]="this.dynamicForm.invalid"
-                        color="success" class="reserve-action-btn" >Reserve
+                        color="success" class="reserve-action-btn" >{{"reserve"|translate}}
                 </button>
-
               </div>
-
-
             </mat-card>
-
           </div>
         </div>
       </mat-step>
     </form>
-      <mat-step label="Payment Instruction" state="paymentInstruction">
+<!--step 3-->
+      <mat-step  state="paymentInstruction">
+        <ng-template matStepLabel > {{"PaymentInstruction"|translate}}</ng-template>
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">
               <mat-card >
-                <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus Trip Detail</div>
+                <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
-                  <span class="trip-detail-property">Trip Date :</span>:
+                  <span class="trip-detail-property">{{"tripDate"|translate}} :</span>:
                   <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">place</i>
-                  <span class="trip-detail-property">Route</span>:
-                  <span class="trip-detail-value">{{ routeState.departureLocation}}
-                    To {{routeState.arrivalLocation}}</span>
+                  <span class="trip-detail-property">{{"route"|translate}}</span>:
+                  <span class="trip-detail-value">{{ routeState.departureLocation |translate}}
+                    To {{routeState.arrivalLocation|translate}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">business</i>
-                  <span class="trip-detail-property">Departure Station:</span>:
+                  <span class="trip-detail-property">{{"departureStation"|translate}}:</span>:
                   <span class="trip-detail-value">{{routeState.departureStation}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">business</i>
-                  <span class="trip-detail-property">Arrival Station:</span>:
+                  <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>:
                   <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">
                     watch_later
-                  </i> <span class="trip-detail-property"> Departure Time</span>:
+                  </i> <span class="trip-detail-property"> {{"departureTime"|translate}}</span>:
                   <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">call</i>
-                  <span class="trip-detail-property">Departure Support Phone</span>:
+                  <span class="trip-detail-property">{{"departureSupportPhone"|translate}}</span>:
                   <span class="trip-detail-value">{{routeState.departureLocationPhone}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event_seat</i>
-                  <span class="trip-detail-property">Selected Seat: </span>
+                  <span class="trip-detail-property">{{"selectedSeat"|translate}}: </span>
                   <span class="trip-detail-value" *ngFor="let seatLabel of cart.selectedSeats"
                         class="badge badge-primary">
                   {{seatLabel}}</span>
@@ -361,7 +357,7 @@
 
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">payments</i>
-                  <span class="trip-detail-property">Total Price: </span>
+                  <span class="trip-detail-property">{{"totalAmount"|translate}}: </span>
                   <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
                 </div>
               </mat-card>
@@ -370,15 +366,12 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
             <mat-card >
-
               <p class="trip-detail-title">Payment Instruction</p>
               <div  *ngIf="paymentMethod == 'AwashOtp'">
                 <p>Dear Customer, You will receive an One Time Payment (OTP) code from Awash Bank through SMS. To complete the reservation,
                 please enter the Otp code and your phone number below. </p>
 
                 <form [formGroup]="awashOtpForm" >
-
-
                   <mat-form-field appearnace="fill" class="full-width" >
                     <mat-label>Awash OTP</mat-label>
                     <input matInput placeholder="Enter OTP Code" formControlName="otp"
@@ -404,35 +397,19 @@
                     >This is an invalid phone number.
                     </mat-error>
                   </mat-form-field>
-
                 </form>
-
                 &nbsp; &nbsp;&nbsp;
                 <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
                 <div class="action-buttons" *ngIf="!loading">
-
                   <button mat-button (click)="confirmOtp()" mat-flat-button [disabled]="this.awashOtpForm.invalid"
                           color="success" style="margin:2px ;" matStepperNext>Confirm Otp
                   </button>
                 </div>
-
               </div>
-
-
-
-
-
-
-
-
-
             </mat-card>
-
           </div>
         </div>
       </mat-step>
-
-
     <ng-template matStepperIcon="seat">
       <mat-icon>event_seat</mat-icon>
     </ng-template>

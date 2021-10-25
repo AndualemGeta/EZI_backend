@@ -15,15 +15,13 @@ import { SessionService } from 'src/app/Service/SessionService';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnDestroy {
-
-  cities: any[];
-  Trip: any;
+cities: any[];
+Trip: any;
 accounts:any[];
 locale: string;
 contactFabButton: any;
   bodyelement: any;
   sidenavelement: any;
- 
   isActive = false;
   isActivefadeInDown = true;
   fixedTolbar = true;
@@ -61,9 +59,7 @@ contactFabButton: any;
       });
     }
 
-
   public detectScroll(event: any) {
-
     if (event.header) {
       this.isActive = false;
       this.isActivefadeInDown = true;
@@ -85,30 +81,36 @@ contactFabButton: any;
   }
 
   setToggleOn(){
-
     this.bodyelement = document.getElementById('nglpage');
     this.bodyelement.classList.add("scrollOff");
     this.contactFabButton = document.getElementById('contact-fab-button');
     this.contactFabButton.style.display = "none";
-    
   }
 
   setToggleOff(){
-    
     this.bodyelement = document.getElementById('nglpage');
     this.bodyelement.classList.remove("scrollOff");
     this.contactFabButton = document.getElementById('contact-fab-button');
     this.contactFabButton.removeAttribute("style");
-
   }
-
-
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   
 scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
+}
+ChangeLanguage(lang) {
+  this.locale = lang;
+  if (
+    this.locale == undefined ||
+    this.locale == null ||
+    this.locale.length == 0
+  ) {
+    this.locale = "en";
+  }
+  this.translate.use(this.locale);
+  this.sessionService.setItem("local-language", this.locale);
 }
 
 }

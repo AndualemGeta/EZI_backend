@@ -12,17 +12,29 @@ import {MatIcon, MatIconModule} from '@angular/material/icon';
 import { TooltipModule  } from 'ngx-bootstrap/tooltip';
 import { DatePipe } from "@angular/common";
 import {AppCommonModule} from './app.common.module';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http,"./assets/i18n/");
+}
 @NgModule({
   declarations: [
     AppComponent,
     ContactDialogComponent
 
   ],
-  imports: [ BrowserModule, AppCommonModule, BrowserAnimationsModule,AppRoutingModule,TooltipModule.forRoot(), TranslateModule.forRoot() ],
+  imports: [ BrowserModule, AppCommonModule, BrowserAnimationsModule,AppRoutingModule,TooltipModule.forRoot(), 
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),],
   providers: [DatePipe],
+  exports: [TranslateModule],
   bootstrap: [AppComponent],
-  entryComponents: [ ContactDialogComponent ],
+  entryComponents: [ContactDialogComponent ],
 
 })
 export class AppModule { }

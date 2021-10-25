@@ -1,24 +1,25 @@
 <mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
     <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon class="header-icon">menu</mat-icon></button>
     <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')"><img height="100%" src="assets/img/ezibus.ico" ></a>
-    <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" >EZI BUS</span>    
+    <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" > {{'ezibus'|translate}} </span>    
     <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
        <!-- <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
-        <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">Travel information</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">Payment</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('contact')">Contact {{"title"|translate}} </a>
+        <a mat-list-item [routerLink]="" (click)="scroll('information')" > {{'partner'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{"contact"|translate}} </a>
     </mat-nav-list>
     <span class="navigation-spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>language</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5px;">
+      <mat-icon class="header-icon">language</mat-icon>
+      <span>{{'language'|translate}}</span>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>language</mat-icon>
+    <mat-menu  #menu="matMenu">
+      <button mat-menu-item (click)="ChangeLanguage('en')">
+        <mat-icon >language</mat-icon>
         <span>English</span>
          </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="ChangeLanguage('am')">
         <mat-icon>language</mat-icon>
         <span>Amharic</span>
       </button>
@@ -33,10 +34,10 @@
        <mat-nav-list>
         <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
         <!--<a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
-        <a mat-list-item [routerLink]="" (click)="scroll('information')" >Partners</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">Travel information</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">Payment</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('contact')">Contact</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('information')" >{{'partner'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{'contact'|translate}}</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content nglp-scroll (onScroll)="detectScroll($event)">

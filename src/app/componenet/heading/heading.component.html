@@ -2,20 +2,20 @@
 	<div class="container">
 	<div class="heading-section" fxLayout="column" fxLayoutAlign="center center">
 	<div [class.animated]="isHeading" [class.fadeInLeft]="isHeading">
-	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px', 'color' : '#0B3954'}">EZI BUS </h1>
+	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px', 'color' : '#0B3954'}">{{'ezibus'|translate}}</h1>
 	        </div>
 			<mat-card class="search-form"search-section>
 	        <div [class.animated]="isSubheading" [class.fadeInRight]="isSubheading">
-	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">Search Your Trip Now </h2>
+	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">{{'searchTripNow'|translate}} </h2>
 	        </div>
 	        <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="isHeadingBtn" [class.fadeIn]="isHeadingBtn" [class.heading-btn]="isHeadingBtn">
 				<div class="example-container" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
 					<form [formGroup]="form">
 						<mat-form-field appearance="fill">
-						<mat-label>Departure</mat-label>
+						<mat-label>{{"departure"|translate}}</mat-label>
 						<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
 						  <mat-option *ngFor="let city of cities"  [value]="city.locationId">
-							{{city.name}}
+							{{city.name |translate}}
 						  </mat-option>
 						</mat-select>
 					  </mat-form-field>
@@ -24,21 +24,21 @@
 						</span>
 								&nbsp;
 								<mat-form-field appearance="fill">
-								  <mat-label>Destination</mat-label>
+								  <mat-label>{{'destination'|translate}}</mat-label>
 								  <mat-select formControlName="destination" [(ngModel)]="selectedDestination">
 									<mat-option *ngFor="let city of cities" [(value)]="city.locationId">
-									  {{city.name}}
+									  {{city.name |translate}}
 									</mat-option>
 								  </mat-select>
 								</mat-form-field>
 								  &nbsp;
 
 								<mat-form-field>
-								  <mat-label>Trip Date</mat-label>
+								  <mat-label>{{'tripDate'|translate}}</mat-label>
 								  <input type="date" matInput placeholder="Trip Date" formControlName="tripDate" [ngModel] ="now | date:'yyyy-MM-dd'">
 								</mat-form-field>
 								&nbsp;
-							<a class="heading-button-right" mat-flat-button (click)="searchResult()"  color="success">Search</a>
+							<a class="heading-button-right" mat-flat-button (click)="searchResult()"  color="success">{{"search"|translate}}</a>
                           </form>
 					</div>
 	    	</div>
