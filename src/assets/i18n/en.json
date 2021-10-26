@@ -40,7 +40,8 @@
      "selectSeatInstruction":"Please Select Seat number",
      "fillPassengerInfoInstruction":"Fill out Passenger Information",
      "selectPaymentItruction":"Select Payment Options",
-     "PaymentItruction":"Payment Instruction",
+     "PaymentInstruction":"Payment Instruction",
+    
      "seatAvailable":"Seat Available",
      "departureTime":"Departure Time",
      "birr":"Birr",

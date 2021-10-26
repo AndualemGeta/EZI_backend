@@ -2,7 +2,9 @@
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper #stepper>
     <mat-step  state="seat">
-     <ng-template matStepLabel > {{"selectSeatInstruction"|translate}}</ng-template>
+      <ng-template matStepLabel>
+        <span fxShow="false" fxShow.gt-xs="true">{{"selectSeatInstruction"|translate}}</span>
+       </ng-template>
       <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
@@ -110,7 +112,9 @@
     </mat-step>
     <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
       <mat-step  state="info">
-        <ng-template matStepLabel > {{"fillPassengerInfoInstruction"|translate}} </ng-template>
+        <ng-template  matStepLabel >
+          <span fxShow="false" fxShow.gt-xs="true"> {{"fillPassengerInfoInstruction"|translate}} </span>  
+        </ng-template>
         <div class="row ">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <mat-card style="height: 400px; width:90%;">
@@ -182,7 +186,9 @@
         </div>
       </mat-step>
       <mat-step state="payment">
-        <ng-template matStepLabel > {{"selectPaymentItruction"|translate}}</ng-template>
+        <ng-template matStepLabel >
+          <span fxShow="false" fxShow.gt-xs="true"> {{"selectPaymentItruction"|translate}} </span> 
+        </ng-template>
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">
@@ -270,12 +276,15 @@
                 </mat-radio-button>
                 <p class="payment-option-description">
                   Awash Bank One Time Payment Method The due amount will be deducted from your account at Awash Bank.</p>
-                <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
+                  <span *ngIf="cart.selectedSeats.length <= 3">
+                  <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
                   <img mat-card-image src="../../../assets/img/bankBranch.png" id="telebirr-paymentoption-logo" style="width: 70px; margin: 10px">   
-                 
-                 
                 </mat-radio-button>
-                <p class="payment-option-description"> Pay At Bank Branch You can deposit to our bank account at any branch. </p>
+                <p class="payment-option-description">  {{cart.selectedSeats.length}}Pay At Bank Branch You can deposit to our bank account at any branch. </p>
+              </span>
+              <span *ngIf="cart.selectedSeats.length >3" style="background-color:rgb(148, 158, 145);">
+               <p> If you want to reserve seat and pay at Bank Branch maximum seat allowed is 3!!! </p>
+              </span>
               </mat-radio-group>
               <mat-form-field appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
@@ -309,7 +318,9 @@
     </form>
 <!--step 3-->
       <mat-step  state="paymentInstruction">
-        <ng-template matStepLabel > {{"PaymentInstruction"|translate}}</ng-template>
+        <ng-template matStepLabel >
+           <span fxShow="false" fxShow.gt-xs="true">{{"PaymentInstruction"|translate}}</span>
+          </ng-template>
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">

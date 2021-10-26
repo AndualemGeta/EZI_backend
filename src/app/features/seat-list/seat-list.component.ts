@@ -232,10 +232,10 @@ export class SeatListComponent  {
   }
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
-      if(this.cart.selectedSeats.length>=3){
-       this.showMessage("You Can not reserve more than 3 seats if you want more Call 9293");
-        return false;
-            }
+      // if(this.cart.selectedSeats.length>=3){
+      //  this.showMessage("You Can not reserve more than 3 seats if you want more Call 9293");
+      //   return false;
+      //       }
       seatObject.status = "booked";
       this.cart.selectedSeats.push(seatObject.seatNo);
       this.cart.seatstoStore.push(seatObject.key);
