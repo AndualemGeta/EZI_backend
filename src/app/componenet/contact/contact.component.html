@@ -8,59 +8,45 @@
 			        <h3 class="contact-font-type" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}"> {{"contactInvitationWord"|translate}}</h3>
 			        </div>
 		        </div>
-				<form class="formwidth" (ngSubmit)="onSubmit()">
+				<form class="formwidth" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
 				  <div class="contact-form" [ngStyle.xs]="{'padding-left': '50px', 'padding-right': '50px'}" [ngStyle.sm]="{'padding-left': '100px', 'padding-right': '100px'}" [ngStyle.md]="{'padding-left': '150px', 'padding-right': '150px'}" [ngStyle.lg]="{'padding-left': '200px', 'padding-right': '200px'}">
 				  	  <mat-form-field appearance="outline" color="accent">
 					  	<mat-label> {{"contactNameRequest"|translate}}  </mat-label>
-					    <input matInput placeholder="Name"
-					           [errorStateMatcher]="matcher">
+					    <input matInput placeholder="Name" required
+					           [errorStateMatcher]="matcher" formControlName="name">
 					    <mat-error *ngIf="nameFormControl.hasError('required')">
-					      Name is <strong>required</strong>
+					      Name is required
 					    </mat-error>
 					  </mat-form-field>
 					  <mat-form-field appearance="outline" color="accent">
 					  	<mat-label> {{"contactPhoneRequest"|translate}} </mat-label>
-					    <input matInput placeholder="Phone"
+					    <input type="tel" matInput placeholder="Phone" formControlName="phone" required
 					           [errorStateMatcher]="matcher">
 					    <mat-error *ngIf="phoneFormControl.hasError('required')">
-					      Phone is <strong>required</strong>
+					      Phone is required
 					    </mat-error>
 					  </mat-form-field>
-
 					  <mat-form-field appearance="outline" color="accent">
 					  	<mat-label>{{"contactEmailRequest"|translate}} </mat-label>
-					    <input matInput placeholder="Email"
+						  <input type="email" matInput  formControlName="email" required
 					           [errorStateMatcher]="matcher">
-					    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-					      Please enter a valid email address
-					    </mat-error>
+							   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+								Please enter a valid email address
+							  </mat-error>
 					    <mat-error *ngIf="emailFormControl.hasError('required')">
-					      Email is <strong>required</strong>
+					      Email is required
 					    </mat-error>
 					  </mat-form-field>
-
 					  <br>
-
-
 					  <mat-form-field  appearance="outline" color="accent">
 						<mat-label>  {{"contactCommentRequest"|translate}} </mat-label>
-						<textarea matInput
-								  cdkTextareaAutosize
-								  #autosize="cdkTextareaAutosize"
-								  cdkAutosizeMinRows="5"
-								  cdkAutosizeMaxRows="8"></textarea>
+						<textarea matInput  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="8" formControlName="comment" required ></textarea>
 					  </mat-form-field>
-
-
-
 					  <br>
-
 					  <div fxLayout="row" fxLayoutAlign="center center">
-					    <button mat-raised-button color="" type="submit" class="contact-button">{{"send"|translate}}</button>
+					    <button [disabled]="this.contactForm.invalid || submitted"  mat-raised-button class="contact-button" type="submit" >{{"send"|translate}}</button>
 					   </div>
-
 				  </div>
-
 				</form>
 	</div>
 </section>

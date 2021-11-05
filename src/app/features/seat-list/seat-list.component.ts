@@ -106,6 +106,7 @@ export class SeatListComponent  {
     this.getAllBankAccounts();
     this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
     this.routeState = this.routeStateService.getCurrent().data;
+    console.log(this.routeState);
       this.selectedTrip=this.routeState;
     this.seatConfig = [
       {

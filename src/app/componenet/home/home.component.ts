@@ -41,7 +41,6 @@ contactFabButton: any;
     this.getAllBankAccounts();
     this.getAllLocations();  
     this.locale = this.sessionService.getItem("local-language");
-    console.log(this.locale);
   }
 
 
