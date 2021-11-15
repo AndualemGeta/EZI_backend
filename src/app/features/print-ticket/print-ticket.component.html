@@ -1,1 +1,36 @@
-<p>Loading Ticket</p>
+<section id="heading" class="mat-typography">
+  <div class="container">
+    <div class="heading-section"  >
+
+      <mat-card class="search-form"search-section>
+
+        <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="true" [class.fadeIn]="true" [class.heading-btn]="true">
+          <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">
+            Dear Customer, Thank You for using Ezi Bus
+
+          </h2>
+        </div>
+          <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="true" [class.fadeIn]="true" [class.heading-btn]="true">
+            <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">
+              Click the download button to download your ticket
+
+            </h2>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="true" [class.fadeIn]="true" [class.heading-btn]="true">
+            <a class="heading-button-right" mat-flat-button (click)="generatePdf()"  color="success">Download Ticket</a>
+
+          </div>
+
+
+        <div  fxShow="true" fxShow.gt-xs="false">
+          <img src="../../../assets/img/helpline-0016.png" width="100%" height="20%" >
+          <!-- <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">For more information call us on <a href="tel:9293" ><mat-icon>phone</mat-icon><span style="font-size: 60px;">9293</span> </a> </h2> -->
+        </div>
+
+        <div  fxShow="false" fxShow.gt-xs="true">
+          <img src="../../../assets/img/helpline-0016.png" width="300" height="130" >
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</section>

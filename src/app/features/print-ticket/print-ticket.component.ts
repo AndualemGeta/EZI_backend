@@ -18,6 +18,9 @@ export class PrintTicketComponent implements OnInit {
   ngOnInit(): void {
     var code =  this._Activatedroute.snapshot.paramMap.get("billCode");
     this.billCode = code;
+  }
+
+  generatePdf(){
     this.eziService.getReservationData(this.billCode).then((data) => {
       this.reservation = data;
       if(data.reservationStatus == 2){
@@ -26,9 +29,6 @@ export class PrintTicketComponent implements OnInit {
         })
       }
     })
-  
-
-    
   }
 
 }

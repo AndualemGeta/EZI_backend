@@ -20,7 +20,9 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 
   imports: [
     CommonModule,
-    PrintTicketRoutingModule
+    PrintTicketRoutingModule,
+    AppCommonModule,
+    Material2Module
   ],
   exports : [
     PrintTicketComponent
