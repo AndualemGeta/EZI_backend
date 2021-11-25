@@ -6,13 +6,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { SE } from './componenet/directives/scroll.directive';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from './Service/SessionService';
+import { Meta,Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ezibus';
+ // title = 'ezibus';
   contactFabButton: any;
   bodyelement: any;
   sidenavelement: any;
@@ -26,7 +27,7 @@ export class AppComponent {
   private _mobileQueryListener: () => void;
  
 
-  constructor(@Inject(DOCUMENT) private document: Document,private sessionService: SessionService ,private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+  constructor(@Inject(DOCUMENT) private document: Document,private meta: Meta, private title: Title,private sessionService: SessionService ,private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)',);
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -39,7 +40,19 @@ export class AppComponent {
       this.sessionService.setItem("local-language", "en");
     }
 
+    this.meta.addTags([
+      {name: 'description', content: 'Online Bus ticket '},
+      {name: 'author', content: 'Ezi bus'},
+      {name: 'keywords', content: 'bus ethiopia,bus ticket Ethiopia,online bus ticket,bus ticket,ethioian bus,bus'}
+    ]);
+    this.setTitle('EZIBUS');
+
   }
+  public setTitle( PageTitle: string) {
+    this.title.setTitle(PageTitle);
+    }
+
+
   ngOnInit(){
     AOS.init();
     }
