@@ -156,67 +156,104 @@ export class TicketPrintService {
         decoration: "underline",
       },
       {
-        text: `Trip : ${response.schedule.displayName}`,
-        alignment: "left",
-        fontSize: 12,
-        margin: [0, 3, 0, 0],
-      },
-      {
-        text: `Departure Station : ${response.schedule.departureStation}`,
-        alignment: "left",
-        fontSize: 12,
-        margin: [0, 3, 0, 0],
-      },
-      {
-        text: `Departure Time : ${this.convertDateFormat(response.schedule.departureTime)}`,
-        alignment: "left",
-        fontSize: 12,
-        margin: [0, 3, 0, 0],
-      },
-      {
-        text: `Arrival Station : ${response.schedule.arrivalStation}`, 
-        alignment: "left",
-        fontSize: 12,
-        margin: [0, 3, 0, 0],
-      },
-     
-      {
         columns: [
           [
-            
             {
-              text: `Passanger :  ${response.passenger.fullName}`, 
+              text: `Trip / የጉዞ መስመር `,
+              alignment: "left",
               fontSize: 12,
-              margin: [0, 6, 0, 0],
+              margin: [0, 3, 0, 0],
             },
-           
+      
             {
-              text: `Phone Number፡ ${response.passenger.phoneNumber}`,
+              text: `${response.schedule.displayName}`,
+              alignment: "left",
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Departure Station / መድረሻ ጣቢያ `,
+              alignment: "left",
               fontSize: 12,
               margin: [0, 3, 0, 0],
             },
             {
-              text: `Bus :  ${response.schedule.busPlateNumber}`,
+              text: `${response.schedule.departureStation}`,
+              alignment: "left",
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Departure Time / መነሻ ስዓት`,
+              alignment: "left",
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `${this.convertDateFormat(response.schedule.departureTime)}`,
+              alignment: "left",
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Arrival Station / መድረሻ ጣቢያ `, 
+              alignment: "left",
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `${response.schedule.arrivalStation}`, 
+              alignment: "left",
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            
+          ],
+          [
+            {
+              text: `Passanger / የመንገደኛ ስም  `, 
+              fontSize: 12,
+              margin: [0, 6, 0, 0],
+            },
+
+            {
+              text: `${response.passenger.fullName}`, 
+              fontSize: 9,
+              margin: [0, 6, 0, 0],
+            },
+           
+            {
+              text: `Phone Number/ ስልክ`,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+
+
+            {
+              text: `${response.passenger.phoneNumber}`,
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Bus / የጎን ቁጥር `,
                fontSize: 12,
                margin: [0, 3, 0, 0],
              },
-          ],
-          [
-           
+
+             {
+              text: `${response.schedule.busPlateNumber}`,
+               fontSize: 9,
+               margin: [0, 3, 0, 0],
+             },
             {
-              text: `Seat Number ፡ ${response.seatNumber}`,
+              text: `Seat Number / የወንበር ቁጥር  ${response.seatNumber}`,
               fontSize: 12,
               margin: [0, 6, 0, 0],
             },
             {
-              text: `Agent Serial No :${response.serial.serialNo} `,
-              fontSize: 12,
-              margin: [0, 3, 0, 0],
-            },
-            {
-              text: `Print ID :${response.ticketId} `,
-              fontSize: 12,
-              margin: [0, 3, 0, 0],
+              // text: `Print ID / የትኬት ቁጥር :${response.ticketId} `,
+              // fontSize: 12,
+              // margin: [0, 3, 0, 0],
             },
           ],
         ],
@@ -239,43 +276,74 @@ export class TicketPrintService {
         columns: [
           [
             {
-              text: `Bill Code ፡ ${response.billCode}`,
+              text: `Bill Code / የቢል ኮድ  `,
               fontSize: 12,
               margin: [0, 3, 0, 0],
             },
             
             {
-              text: `Bank ፡${response.account.bankName}`,
-              fontSize: 12,
-              margin: [0, 3, 0, 0],
-            },
-           
-            {
-              text: `Bank Account Number ፡ ${response.account.accountNumber}`,
-              fontSize: 12,
+              text: ` ${response.billCode}`,
+              fontSize: 9,
               margin: [0, 3, 0, 0],
             },
             {
-              text: `Account Holder Name ፡ ${response.account.accountHolderName}`,
+              text: `Bank / ባንክ`,
               fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `${response.account.bankName}`,
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Bank Account Number/ የባንክ ሂሳብ ቁጥር `,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+
+            {
+              text: `${response.account.accountNumber}`,
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Account Holder Name / መለያ ያዥ ስም `,
+              fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+
+            {
+              text: `${response.account.accountHolderName}`,
+              fontSize: 9,
               margin: [0, 3, 0, 0],
             },
           ],
           [
 
             {
-              text: `Price ፡ ${response.totalPrice}`,
+              text: `Price/ የብር መጠን  ${response.totalPrice}`,
               fontSize: 12,
               margin: [0, 3, 0, 0],
             },
             {
-              text: `Payment Type ፡ ${response.paymentTypeCode}`,
+              text: `Payment Type / የክፍያ ዓይነት `,
               fontSize: 12,
               margin: [0, 3, 0, 0],
             },
             {
-              text: `Valid Until : ${this.convertDateFormat(response.expirationTime)} `,
+              text: ` ${response.paymentTypeCode}`,
+              fontSize: 9,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `Valid Until / የሚያገለግለው እስከ `,
               fontSize: 12,
+              margin: [0, 3, 0, 0],
+            },
+            {
+              text: `${this.convertDateFormat(response.expirationTime)} `,
+              fontSize: 9,
               margin: [0, 3, 0, 0],
             },
             {
@@ -288,8 +356,8 @@ export class TicketPrintService {
       {
         text: `Please Pay At any ${response.account.bankName} Branch Before ${this.convertDateFormat(response.expirationTime)}!!!`,
         bold: true,
-        fontSize: 18,
-        alignment: "left",
+        fontSize: 13,
+        alignment: "center",
         margin: [0, 0, 0, 30],
       },
     ];
@@ -344,6 +412,6 @@ export class TicketPrintService {
         margin: [0, 0, 0, 10],
       },
     };
-    pdfMake.createPdf(docDefinition).print();
+    pdfMake.createPdf(docDefinition).open();
   }
 }

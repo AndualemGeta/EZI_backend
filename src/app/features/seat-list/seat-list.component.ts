@@ -106,7 +106,6 @@ export class SeatListComponent  {
     this.getAllBankAccounts();
     this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
     this.routeState = this.routeStateService.getCurrent().data;
-    console.log(this.routeState);
       this.selectedTrip=this.routeState;
     this.seatConfig = [
       {
@@ -346,7 +345,6 @@ onSubmit() {
       this.showMessage("Please enter your awash bank account");
       return false;
     }
-    console.log(this.newPassanger);
   }
    this.reserveSeat(this.newPassanger);
   }
@@ -386,10 +384,9 @@ reserveSeat(data){
     this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
-    // console.log(res);
       this.iserror = false;
        this.responseDialog = true;
-       // this.dynamicForm.reset();
+       this.dynamicForm.reset();
       this.display = false;
       this.disableSubmit = false;
       this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
@@ -399,7 +396,6 @@ reserveSeat(data){
         this.dynamicForm.reset();
       }
       else if(data['paymentMethodCode'] == 'Electronic' && data['paymentProviderCode'] == 'AwashOtp'){
-        console.log(res);
         this.reservation = res;
         this.myStepper.next();
       }
@@ -428,7 +424,6 @@ reserveSeat(data){
 
 
 selectCheckBox(targetType) {
-  console.log(targetType);
   // If the checkbox was already checked, clear the currentlyChecked variable
   // if(this.currentlyChecked === targetType) {
   //   this.currentlyChecked = CheckBoxType.NONE;
@@ -457,7 +452,6 @@ printData(selectedData) {
 
   confirmOtp() {
     var values = this.awashOtpForm.getRawValue();
-    console.log(values);
     var data = {
       billCode : this.reservation.billCode,
       reservationId : this.reservation.reservationId,
@@ -467,7 +461,7 @@ printData(selectedData) {
 
     this.loading = true;
     this.eziService.confirmAwashOtp(data).subscribe((res) => {
-      console.log(res);
+     
       this.showMessage('You have successfully reserved a trip. You will receive SMS shortly. ');
       this.loading = false;
       if(res.length > 0){
@@ -492,9 +486,7 @@ printData(selectedData) {
       this.showMessage(this.responseMesssage);
     })
   }
-
-
-  testPrint(){
+   testPrint(){
     var data = [
       {
         "transactionId": "6ddf6eb4-a882-4524-a14e-08d98e2a6e45",
@@ -590,8 +582,7 @@ printData(selectedData) {
         }
       }
     ]
-
     this.ticketPrintService.generatePDF(data[0]);
-  }
+   }
 }
 
