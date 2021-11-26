@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 const appRoutes: Routes = [
   
   {
-    path: "home",
+    path: "book-bus-tickets-in-ethiopia",
     loadChildren: () =>
       import("src/app/componenet/home/home.module").then((m) => m.HomeModule),
   },
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   },
     {
     path: "",
-    redirectTo: "home",
+    redirectTo: "book-bus-tickets-in-ethiopia",
     pathMatch: "full",
   },
   {

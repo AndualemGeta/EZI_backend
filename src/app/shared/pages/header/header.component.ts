@@ -66,7 +66,7 @@ scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
 }
 gotoHome(){
-  this.router.navigate(["home"]);
+  this.router.navigate(["book-bus-tickets-in-ethiopia"]);
   //this.location.back();
 }
 }

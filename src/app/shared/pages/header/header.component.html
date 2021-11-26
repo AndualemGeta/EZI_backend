@@ -1,6 +1,6 @@
 <mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
     <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="gotoHome()" ><mat-icon class="header-icon">arrow_back</mat-icon></button>
-    <a class="logo" fxShow="false" href="/home" (click)="gotoHome()" fxShow.gt-xs="true"><img height="100%" src="assets/img/ezibus.ico" ></a>
+    <a class="logo" fxShow="false" href="/book-bus-tickets-in-ethiopia" (click)="gotoHome()" fxShow.gt-xs="true"><img height="100%" src="assets/img/ezibus.ico" ></a>
     <span style="color: #f4f5f6;">{{'ezibus'|translate}}</span>    
     <span class="navigation-spacer"></span>
     <a href="tel:9293"><mat-icon class="header-icon">phone</mat-icon></a>

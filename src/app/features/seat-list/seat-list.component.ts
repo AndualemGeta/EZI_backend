@@ -401,7 +401,7 @@ reserveSeat(data){
       }
       else{
        this.printData(res);
-       this.router.navigate(["home"]);
+       this.router.navigate(["book-bus-tickets-in-ethiopia"]);
         this.dynamicForm.reset();
       }
       },
@@ -469,7 +469,7 @@ printData(selectedData) {
           this.ticketPrintService.generatePDF(passData);
         })
       }
-      // this.router.navigate(["home"]);
+      // this.router.navigate(["book-bus-tickets-in-ethiopia"]);
 
     },(error) => {
       this.iserror = true;
