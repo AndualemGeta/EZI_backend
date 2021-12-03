@@ -43,10 +43,9 @@ export class AppComponent {
     this.meta.addTags([
       {name: 'description', content: 'Online Bus ticket '},
       {name: 'author', content: 'Ezi bus'},
-      {name: 'keywords', content: 'bus ethiopia,bus ticket Ethiopia,online bus ticket,bus ticket,ethioian bus,bus'}
+      {name: 'keywords', content: 'buying bus tickets online Ethiopia,regional bus tickets,bus tickets Ethiopia,bus ticket Ethiopia,online bus ticket,bus ticket,ethioian bus,bus'}
     ]);
     this.setTitle('EZIBUS');
-
   }
   public setTitle( PageTitle: string) {
     this.title.setTitle(PageTitle);
