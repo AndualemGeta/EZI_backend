@@ -28,6 +28,16 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import("src/app/information/terms/terms.module").then((m) => m.TermsModule),
   },
+  {
+    path: "how-to-buy-bus-ticket-online",
+    loadChildren: () =>
+      import("src/app/information/how-to-book/how-to-book.module").then((m) => m.HowToBookModule),
+  },
+  {
+    path: "home",
+    redirectTo: "book-bus-tickets-in-ethiopia",
+    pathMatch: "full",
+  },
     {
     path: "",
     redirectTo: "book-bus-tickets-in-ethiopia",
