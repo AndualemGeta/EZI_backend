@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 const appRoutes: Routes = [
-  
   {
     path: "book-bus-tickets-in-ethiopia",
     loadChildren: () =>
@@ -24,14 +23,19 @@ const appRoutes: Routes = [
       import("src/app/features/trip-list/trip-list.module").then((m) => m.TripListModule),
   },
   {
-    path: "termsof-service",
+    path: "ezibus/termsof-service",
     loadChildren: () =>
       import("src/app/information/terms/terms.module").then((m) => m.TermsModule),
   },
   {
-    path: "how-to-buy-bus-ticket-online",
+    path: "ezibus/how-to-buy-bus-ticket-online",
     loadChildren: () =>
       import("src/app/information/how-to-book/how-to-book.module").then((m) => m.HowToBookModule),
+  },
+  {
+    path: "ezibus/frequently-asked-questions",
+    loadChildren: () =>
+      import("src/app/information/faq/faq.module").then((m) => m.FaqModule),
   },
   {
     path: "home",

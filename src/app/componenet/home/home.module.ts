@@ -22,7 +22,8 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
     Material2Module,
     FlexLayoutModule,
     HowItWorkModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, 
+    ReactiveFormsModule
   ],
   declarations: [HomeComponent,HeadingComponent,AboutComponent,InformationComponent,TravelInformationComponent,PaymentOptionComponent,ContactComponent,FooterComponent]
 })
