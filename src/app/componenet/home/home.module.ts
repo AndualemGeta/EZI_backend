@@ -7,7 +7,7 @@ import { Material2Module } from "src/app/material2.module";
 import { HeadingComponent } from 'src/app/componenet/heading/heading.component';
 import {FooterComponent} from "src/app/componenet/footer/footer.component";
 import { AboutComponent } from 'src/app/componenet/about/about.component';
-import { InformationComponent } from "src/app/componenet/information/information.component";
+import { InformationComponent } from "src/app/componenet/partners/partners.component";
 import { TravelInformationComponent } from 'src/app/componenet/TravelInformation/travel-information.component';
 import { PaymentOptionComponent } from 'src/app/componenet/paymentOption/payment-option.component';
 import { ContactComponent } from 'src/app/componenet/contact/contact.component';

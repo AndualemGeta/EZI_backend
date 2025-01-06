@@ -1,0 +1,74 @@
+.partner-section {
+  background-color:#fff;
+  transition-duration: 1s;
+  margin-top: 0px;
+  margin-bottom:0px;
+  text-align: center;;
+}
+
+.partner-heading {
+  font-size: 2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Card Styles */
+.partner-card {
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Description Styles */
+.partner-description {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.partner-description h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.partner-description p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  text-align: left;
+}
+.partner-description ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+}
+
+.partner-description ul li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.partner-description ul li i {
+  color: #007bff;
+  margin-right: 10px;
+  font-size: 1.2rem; /* Adjust the icon size for consistency */
+}
+
+/* Image Styles */
+.partner-image {
+  flex: 1;
+  text-align: center;
+}
+
+.partner-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
