@@ -9,6 +9,8 @@ import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { Location } from '@angular/common'
 import {Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { SessionService } from 'src/app/Service/SessionService';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,7 +19,7 @@ import {Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 
-
+  locale: string;
   contactFabButton: any;
   bodyelement: any;
   sidenavelement: any;
@@ -26,8 +28,8 @@ export class HeaderComponent implements OnInit {
   fixedTolbar = true;
   mobileQuery: MediaQueryList;
  private _mobileQueryListener: () => void;
- constructor(@Inject(DOCUMENT)  document: Document,private eziService: EziBusService,private router: Router,
-  changeDetectorRef: ChangeDetectorRef,
+ constructor(@Inject(DOCUMENT)  document: Document,private sessionService: SessionService,private eziService: EziBusService,private router: Router,
+  changeDetectorRef: ChangeDetectorRef,public translate: TranslateService,
    media: MediaMatcher, 
    public dialog: MatDialog,
    private routeStateService: RouteStateService,
@@ -40,6 +42,7 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(){
     AOS.init();
+    this.locale = this.sessionService.getItem("local-language");
   }
 
   openDialog(): void {
@@ -68,5 +71,18 @@ scroll(id:any) {
 gotoHome(){
   this.router.navigate(["book-bus-tickets-in-ethiopia"]);
   //this.location.back();
+}
+
+ChangeLanguage(lang) {
+  this.locale = lang;
+  if (
+    this.locale == undefined ||
+    this.locale == null ||
+    this.locale.length == 0
+  ) {
+    this.locale = "en";
+  }
+  this.translate.use(this.locale);
+  this.sessionService.setItem("local-language", this.locale);
 }
 }

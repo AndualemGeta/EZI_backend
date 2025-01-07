@@ -5,12 +5,49 @@
 		<!-- <p class="subheading">{{'ezibus2Title' | translate}}</p> -->
 	  </div>
 	</div>
-	 <div id="form-section" class="bottom">
+	 <div id="form-section" class="">
 	  <div class="form-container">
-		<input type="text" placeholder="Departure" class="form-input" />
-		<input type="text" placeholder="Destination" class="form-input" />
-		<input type="date" placeholder="Trip Date" class="form-input" />
-		<button class="search-button">Search</button>
+		<form [formGroup]="form" class="search-widget">
+			<div class="input-group">
+			  <mat-form-field appearance="fill" class="input-field">
+				<mat-label>{{ "departure" | translate }}</mat-label>
+				<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
+				  <mat-option *ngFor="let city of cities" [value]="city.locationId">
+					{{ city.name | translate }}
+				  </mat-option>
+				</mat-select>
+			  </mat-form-field>
+			  &nbsp;
+			  <span (click)="ExchangeTrip()" class="content-icon material-icons exchange-icon">
+				sync_alt
+			  </span>
+			  &nbsp;
+			  <mat-form-field appearance="fill" class="input-field">
+				<mat-label>{{ "destination" | translate }}</mat-label>
+				<mat-select formControlName="destination" [(ngModel)]="selectedDestination">
+				  <mat-option *ngFor="let city of cities" [value]="city.locationId">
+					{{ city.name | translate }}
+				  </mat-option>
+				</mat-select>
+			  </mat-form-field>
+			  &nbsp;  &nbsp; &nbsp;
+			  <mat-form-field class="input-field">
+				<mat-label>{{ "tripDate" | translate }}</mat-label>
+				<input
+				  type="date"
+				  matInput
+				  placeholder="Trip Date"
+				  formControlName="tripDate"
+				  [ngModel]="now | date: 'yyyy-MM-dd'"
+				/>
+			  </mat-form-field>
+			  &nbsp;&nbsp;  &nbsp; &nbsp; 
+			  
+			  <button  mat-flat-button color="success" (click)="searchResult()">
+				{{ "search" | translate }}
+			  </button>
+			</div>
+		  </form>
 	  </div> 
 	</div>
   </section>
