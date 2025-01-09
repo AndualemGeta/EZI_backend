@@ -30,6 +30,9 @@ export class HeadingComponent implements OnInit {
   newLine: any = {};
   cities: any[];
   myControl = new FormControl();
+  rotationAngle = 0;
+
+  isModalOpen = false;
   ngOnInit() {
    this.selectedDeparture ="ba8fcf90-31de-420f-68ac-08d8a643ea62";
    this.selectedDestination ="8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
@@ -40,6 +43,14 @@ export class HeadingComponent implements OnInit {
        });
     this.getAllLocations();
     this.getAllBankAccounts();
+  }
+
+  openCityModal() {
+    this.isModalOpen = true;
+  }
+  selectCity(city) {
+    this.selectedDeparture = city;
+    this.isModalOpen = false;
   }
 
 searchResult(){
@@ -68,7 +79,14 @@ getAllBankAccounts() {
     this.accounts = response;
   });
 }
+
 ExchangeTrip(){
+  const icon = document.querySelector('.exchange-icon') as HTMLElement;
+    if (icon) {
+      this.rotationAngle += 180;
+      // icon.classList.toggle('rotate');
+      icon.style.transform = `rotate(${this.rotationAngle}deg)`;
+    }
    let departure =this.selectedDeparture;
    this.selectedDeparture=this.selectedDestination;
    this.selectedDestination=departure;

@@ -49,16 +49,57 @@
   z-index: 3;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
-.search-widget
-{
-background-color: rgba(255, 255, 255, 0.9);
-margin-right: 2px;
-width: 100%;
-}
-.form-container {
+.search-widget {
   display: flex;
   gap: 10px;
-} 
+  background-color: rgba(255, 255, 255, 0.9);
+}  
+
+#form-section {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
+.exchange-icon {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; 
+}
 
+@media (max-width: 768px) {
+  .exchange-icon {
+    transform: rotate(90deg);
+  }
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-field {
+  width: 100%;
+}
+.search-button{
+  background-color:green;
+  color: #ffffff;
+  
+}
+.exchange-icon-container{
+  color:green;
+}

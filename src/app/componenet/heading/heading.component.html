@@ -1,64 +1,68 @@
-<section id="landing-page">
-	<div id="heading" class="top">
+<section id="landing-page" class="top">
+	<div id="heading">
 	  <div class="text-container">
 		<!-- <h1 class="main-heading">{{'ezibus' | translate}}</h1> -->
 		<!-- <p class="subheading">{{'ezibus2Title' | translate}}</p> -->
 	  </div>
 	</div>
-	 <div id="form-section" class="">
-	  <div class="form-container">
-		<form [formGroup]="form" class="search-widget">
+	<div id="form-section" class="">
+	  <div class="search-widget">
+		<form [formGroup]="form">
 			<div class="input-group">
-			  <mat-form-field appearance="fill" class="input-field">
-				<mat-label>{{ "departure" | translate }}</mat-label>
-				<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
-				  <mat-option *ngFor="let city of cities" [value]="city.locationId">
-					{{ city.name | translate }}
-				  </mat-option>
-				</mat-select>
-			  </mat-form-field>
-			  &nbsp;
-			  <span (click)="ExchangeTrip()" class="content-icon material-icons exchange-icon">
-				sync_alt
-			  </span>
-			  &nbsp;
-			  <mat-form-field appearance="fill" class="input-field">
-				<mat-label>{{ "destination" | translate }}</mat-label>
-				<mat-select formControlName="destination" [(ngModel)]="selectedDestination">
-				  <mat-option *ngFor="let city of cities" [value]="city.locationId">
-					{{ city.name | translate }}
-				  </mat-option>
-				</mat-select>
-			  </mat-form-field>
-			  &nbsp;  &nbsp; &nbsp;
-			  <mat-form-field class="input-field">
-				<mat-label>{{ "tripDate" | translate }}</mat-label>
-				<input
-				  type="date"
-				  matInput
-				  placeholder="Trip Date"
-				  formControlName="tripDate"
-				  [ngModel]="now | date: 'yyyy-MM-dd'"
-				/>
-			  </mat-form-field>
-			  &nbsp;&nbsp;  &nbsp; &nbsp; 
-			  
-			  <button  mat-flat-button color="success" (click)="searchResult()">
-				{{ "search" | translate }}
-			  </button>
+			  <div class="row">
+				<div class="col-lg-3 col-md-6 col-12">
+				  <mat-form-field appearance="fill" class="input-field">
+					<mat-label>{{ "departure" | translate }}</mat-label>
+					<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
+					  <mat-option *ngFor="let city of cities" [value]="city.locationId">
+						{{ city.name | translate }}
+					  </mat-option>
+					</mat-select>
+				  </mat-form-field>
+				</div>
+		  
+				<div class="col-lg-1 col-md-1 col-1 d-none d-sm-block align-self-center ">
+				  <span (click)="ExchangeTrip()" class="content-icon exchange-icon-container material-icons exchange-icon">
+					sync_alt
+				  </span>
+				</div>
+		  
+				<div class="col-lg-3 col-md-6 col-12">
+				  <mat-form-field appearance="fill" class="input-field">
+					<mat-label>{{ "destination" | translate }}</mat-label>
+					<mat-select formControlName="destination" [(ngModel)]="selectedDestination">
+					  <mat-option *ngFor="let city of cities" [value]="city.locationId">
+						{{ city.name | translate }}
+					  </mat-option>
+					</mat-select>
+				  </mat-form-field>
+				</div>
+		  
+				<div class="col-lg-3 col-md-6 col-12 align-self-center">
+				  <mat-form-field appearance="fill" class="input-field">
+					<mat-label>{{ "tripDate" | translate }}</mat-label>
+					<input
+					  type="date"
+					  matInput
+					  placeholder="Trip Date"
+					  formControlName="tripDate"
+					  [ngModel]="now | date: 'yyyy-MM-dd'"
+					/>
+				  </mat-form-field>
+				</div>
+		  
+				<div class="col-lg-2 col-md-6 col-12 align-self-center">
+				  <button mat-flat-button  (click)="searchResult()" class="search-button">
+					{{ "search" | translate }}
+				  </button>
+				</div>
+			  </div>
 			</div>
 		  </form>
-	  </div> 
+		  
+	  </div>
 	</div>
-  </section>
-  
-  
-  
-  
-  
-
-
-
+  </section> 
 
 
 	<!-- <div class="landing-section">

@@ -98,3 +98,29 @@
 
 }
 
+.card {
+width: 100%;
+  background: linear-gradient(135deg, #4ff621, #ff1900); /* Magical gradient */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 170px;  /* Ensure equal height */
+  margin-bottom: 1rem;  /* Add margin between cards */
+  }
+
+  .card-title {
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .card {
+      min-height: auto;  /* Adjust for smaller screens */
+      margin-bottom: 0.5rem;  /* Reduced margin for smaller screens */
+    }
+  }
