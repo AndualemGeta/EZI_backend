@@ -15,6 +15,7 @@ export class HeadingComponent implements OnInit {
   isSubheading = true;
   isHeadingBtn = true;
    now=new Date();
+   currentMonthIndex: number = 0;
   constructor(private routeStateService: RouteStateService, private router: Router,
     private fb: FormBuilder,
     private eziService: EziBusService) { }
@@ -31,15 +32,14 @@ export class HeadingComponent implements OnInit {
   cities: any[];
   myControl = new FormControl();
   rotationAngle = 0;
-
-  isModalOpen = false;
-  
-  towns: string[] = ['Springfield', 'Gotham', 'Metropolis', 'Smallville'];
-  dropdownVisible = { departure: false, destination: false };
- 
+  dropdownVisible = { departure: false, destination: false, date: false };
+  selectedDate: Date | null = null;
+  months: { startDate: Date; weeks: Date[][] }[] = [];
+  weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  availableDates: Date[] = [];
   ngOnInit() {
-   this.selectedDeparture ="ba8fcf90-31de-420f-68ac-08d8a643ea62";
-   this.selectedDestination ="8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
+  //  this.selectedDeparture ="acd5118e-c32a-422b-5618-08dc2f3fba36";
+  //  this.selectedDestination ="f28dd0f3-9d56-40d3-8aa2-bab909217887";
    this.form = this.fb.group({
       departure: [this.selectedDeparture, Validators.required],
       destination: [this.selectedDestination, Validators.required],
@@ -47,34 +47,59 @@ export class HeadingComponent implements OnInit {
        });
     this.getAllLocations();
     this.getAllBankAccounts();
-  }
- 
-  
-  selectCity(city) {
-    this.selectedDeparture = city;
-    this.isModalOpen = false;
+    this.generateMonths();
+
     
   }
-
-
-searchResult(){
-  let searchData={
-    destination:this.form.controls.destination.value,
-    departure:this.form.controls.departure.value,
-    tripDate:this.form.controls.tripDate.value
-  };
  
-  this.routeStateService.add(
-    "user-list",
-    "/trip-list",
-    searchData,
-    false
-  );
- }
+  generateMonths() {
+    const today = new Date();
+    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    
+    for (let i = 0; i < 3; i++) {
+      const monthStartDate = new Date(today.getFullYear(), today.getMonth() + i, 1);
+      const monthEndDate = new Date(today.getFullYear(), today.getMonth() + i + 1, 0);
+  
+      // Start of the calendar view (from the Monday before the 1st)
+      const calendarStartDate = new Date(monthStartDate);
+      calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
+  
+      // End of the calendar view (to the Sunday after the last day)
+      const calendarEndDate = new Date(monthEndDate);
+      calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
+  
+      const weeks: Date[][] = [];
+      let currentWeek: Date[] = [];
+  
+      for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
+        currentWeek.push(new Date(d));
+        if (currentWeek.length === 7) {
+          weeks.push(currentWeek);
+          currentWeek = [];
+        }
+      }
+  
+      this.months.push({ startDate: monthStartDate, weeks });
+    }
+  }
+  
+  navigateMonth(direction: number): void {
+    this.currentMonthIndex += direction; 
+    // Ensure the index stays within bounds
+    if (this.currentMonthIndex < 0) {
+      this.currentMonthIndex = this.months.length - 1; // Wrap to the last month
+    } else if (this.currentMonthIndex >= this.months.length) {
+      this.currentMonthIndex = 0; // Wrap to the first month
+    }
+  }
+  getCityNameById(cityId: string): string {
+    const city = this.cities.find(c => c.locationId === cityId);
+    return city ? city.name : '';
+  }
  getAllLocations() {
   this.eziService.getAllLocations().then((value) => {
-  
-    this.cities = value;
+   this.cities = value;
+   console.log(this.cities);
   });
 }
 
@@ -88,31 +113,50 @@ ExchangeTrip(){
   const icon = document.querySelector('.exchange-icon') as HTMLElement;
     if (icon) {
       this.rotationAngle += 180;
-      // icon.classList.toggle('rotate');
       icon.style.transform = `rotate(${this.rotationAngle}deg)`;
     }
-   let departure =this.selectedDeparture;
-   this.selectedDeparture=this.selectedDestination;
-   this.selectedDestination=departure;
+   const temp = this.selectedDeparture;
+    this.selectedDeparture = this.selectedDestination;
+    this.selectedDestination = temp;
+    this.form.controls.departure.setValue(this.selectedDeparture);
+    this.form.controls.destination.setValue(this.selectedDestination);
   }
-onSubmit(){
-  this.form.controls.destination.value;
-  this.form.controls.departure.value;
-  this.form.controls.tripDate.value;
-}
 
-toggleDropdown(type: 'departure' | 'destination'): void {
+  toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
   this.dropdownVisible[type] = !this.dropdownVisible[type];
 }
 
-selectTown(type: 'departure' | 'destination', town: string): void {
+selectTown(type: 'departure' | 'destination'| 'date', town: string): void {
   if (type === 'departure') {
     this.selectedDeparture = town;
   } else {
     this.selectedDestination = town;
   }
   this.dropdownVisible[type] = false;
+  this.form.controls[type].setValue(town);
 }
+
+selectDate(date: Date) {
+  this.selectedDate = date;
+  this.form.controls.tripDate.setValue(date.toISOString().split('T')[0]); // Set value in ISO format
+  this.toggleDropdown('date');
+}
+
+searchResult(){
+  const searchData = {
+    destination: this.form.controls.destination.value,
+    departure: this.form.controls.departure.value,
+    tripDate: this.form.controls.tripDate.value,
+  };
+  this.routeStateService.add(
+    "user-list",
+    "/trip-list",
+    searchData,
+    false
+  );
+ }
+
+
 }
 
 

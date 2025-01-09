@@ -8,170 +8,231 @@
 	<div id="form-section" class="">
 	  <div class="search-widget">
 		<form [formGroup]="form">
-			<div class="input-group">
-			  <div class="row">
-				<div class="col-lg-3 col-md-6 col-12">
-				  <mat-form-field appearance="fill" class="input-field">
-					<mat-label>{{ "departure" | translate }}</mat-label>
-					<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
-					  <mat-option *ngFor="let city of cities" [value]="city.locationId">
-						{{ city.name | translate }}
-					  </mat-option>
-					</mat-select>
-				  </mat-form-field>
-				</div>
-		  
-				<div class="col-lg-1 col-md-1 col-1 d-none d-sm-block align-self-center ">
-				  <span (click)="ExchangeTrip()" class="content-icon exchange-icon-container material-icons exchange-icon">
-					sync_alt
-				  </span>
-				</div>
-		  
-				<div class="col-lg-3 col-md-6 col-12">
-				  <mat-form-field appearance="fill" class="input-field">
-					<mat-label>{{ "destination" | translate }}</mat-label>
-					<mat-select formControlName="destination" [(ngModel)]="selectedDestination">
-					  <mat-option *ngFor="let city of cities" [value]="city.locationId">
-						{{ city.name | translate }}
-					  </mat-option>
-					</mat-select>
-				  </mat-form-field>
-				</div>
-		  
-				<div class="col-lg-3 col-md-6 col-12 align-self-center">
-				  <mat-form-field appearance="fill" class="input-field">
-					<mat-label>{{ "tripDate" | translate }}</mat-label>
-					<input
-					  type="date"
-					  matInput
-					  placeholder="Trip Date"
-					  formControlName="tripDate"
-					  [ngModel]="now | date: 'yyyy-MM-dd'"
-					/>
-				  </mat-form-field>
-				</div>
-		  
-				<div class="col-lg-2 col-md-6 col-12 align-self-center">
+			  <div class="row form-input">
+				<div class="col-lg-3 col-md-6 col-12 position-relative">
+					<div class="form-group">
+					  <label for="departureInput">{{ "departure" | translate }}</label>
+					  <input
+						type="text"
+						id="departureInput"
+						class="form-control"
+						formControlName="departure"
+						placeholder="{{ 'Select a departure town' | translate }}"
+						[value]="getCityNameById(selectedDeparture)"
+						readonly
+						(click)="toggleDropdown('departure')"
+					  />
+					</div>
+					<div
+					  *ngIf="dropdownVisible.departure"
+					  class="dropdown-menu show w-100"
+					  style="position: absolute; z-index: 1000; overflow-y: auto;"
+						 >
+					  <ul class="list-group">
+						<li
+						  *ngFor="let city of cities"
+						  class="list-group-item list-group-item-action"
+						  (click)="selectTown('departure', city.locationId)"
+							>
+						  <i class="bi bi-geo-alt custom-icon"></i> {{ city.name | translate }}
+						  <br>
+						  <label>{{city?.stations[0]?.name}}</label> 
+						</li>
+					  </ul>
+					</div>
+				  </div>
+				  
+				  <div class="col-lg-1 col-md-1 col-1 d-none d-sm-block align-self-center ">
+					<span (click)="ExchangeTrip()" class="content-icon exchange-icon-container material-icons exchange-icon">
+					  sync_alt
+					</span>
+				  </div>
+
+				<div class="col-lg-3 col-md-6 col-12 position-relative">
+					<div class="form-group">
+					  <label for="destinationInput">{{ "destination" | translate }}</label>
+					  <input
+						type="text"
+						id="destinationInput"
+						class="form-control"
+						formControlName="destination"
+						placeholder="{{ 'Select a destination town' | translate }}"
+						[value]="getCityNameById(selectedDestination)"
+						readonly
+						(click)="toggleDropdown('destination')"
+					  />
+					</div>
+					<div
+					  *ngIf="dropdownVisible.destination"
+					  class="dropdown-menu show w-100"
+					  style="position: absolute; z-index: 1000; overflow-y: auto;"
+					>
+					  <ul class="list-group">
+						<li
+						  *ngFor="let city of cities"
+						  class="list-group-item list-group-item-action"
+						  (click)="selectTown('destination', city.locationId)"
+						>
+						  <i class="bi bi-geo-alt custom-icon"></i> {{ city.name | translate }}
+						 <br>
+						 <label>{{city?.stations[0]?.name}}</label> 
+						  
+
+						</li>
+					  </ul>
+					</div>
+				  </div>
+				<!-- <div class="col-lg-3 col-md-6 col-12 position-relative">
+					<div class="form-group">
+					  <label for="tripDateInput">{{ "tripDate" | translate }}</label>
+					  <input
+						type="text"
+						id="tripDateInput"
+						class="form-control"
+						formControlName="tripDate"
+						placeholder="{{ 'Select a trip date' | translate }}"
+						[value]="selectedDate | date: 'yyyy-MM-dd'"
+						readonly
+						(click)="toggleDropdown('date')"
+					  />
+					</div>
+					<div
+					  *ngIf="dropdownVisible.date"
+					  class="dropdown-menu show w-100"
+					  style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
+					>
+					  <ul class="list-group">
+						<li
+						  *ngFor="let date of availableDates"
+						  class="list-group-item list-group-item-action"
+						  (click)="selectDate(date)"
+						>
+						  {{ date | date: 'yyyy-MM-dd' }}
+						</li>
+					  </ul>
+					</div>
+				  </div> -->
+				  
+				  
+
+				  <div class="col-lg-4 col-md-6 col-12 position-relative">
+					<!-- Date Input Field -->
+					<div class="form-group">
+					  <label for="dateInput">{{ "Trip Date" | translate }}</label>
+					  <input
+						type="text"
+						id="dateInput"
+						class="form-control"
+						formControlName="tripDate"
+						[value]="selectedDate ? (selectedDate | date: 'yyyy-MM-dd') : ''"
+						readonly
+						placeholder="{{ 'Select a trip date' | translate }}"
+						(click)="toggleDropdown('date')"
+					  />
+					</div>
+				  
+					<!-- Date Dropdown -->
+					<div
+					  *ngIf="dropdownVisible.date"
+					  class="dropdown-menu show w-100"
+					  style="position: absolute; z-index: 1000; overflow-y: auto;"
+					>
+					  <!-- Month Navigation -->
+					  <div class="month-navigation d-flex justify-content-between align-items-center mb-3">
+						<button class="btn btn-light" (click)="navigateMonth(-1)">
+						  <i class="bi bi-chevron-left"></i>
+						</button>
+						<div class="text-center">
+						  <strong>{{ months[currentMonthIndex].startDate | date: 'MMMM yyyy' }}</strong>
+						</div>
+						<button class="btn btn-light" (click)="navigateMonth(1)">
+						  <i class="bi bi-chevron-right"></i>
+						</button>
+					  </div>
+				  
+					  <!-- Calendar -->
+					  <div *ngIf="months[currentMonthIndex]" class="month-container">
+						<div class="weekday-header d-flex justify-content-between">
+						  <span *ngFor="let day of weekdays" class="weekday">{{ day }}</span>
+						</div>
+						<div class="weeks-container">
+						  <div *ngFor="let week of months[currentMonthIndex].weeks" class="week-row d-flex">
+							<span
+							  *ngFor="let date of week"
+							  class="date-item flex-fill text-center"
+							  [ngClass]="{ 
+								'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
+								'selected': selectedDate?.getTime() === date.getTime()
+							  }"
+							  (click)="selectDate(date)"
+							>
+							  {{ date.getDate() }}
+							</span>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  
+				<div class="col-lg-1 col-md-6 col-12 align-self-center">
 				  <button mat-flat-button  (click)="searchResult()" class="search-button">
 					{{ "search" | translate }}
 				  </button>
 				</div>
 			  </div>
-			</div>
-		  </form>
-		  
-
-	  </div>
-	  <div class="row">
-		<!-- Departure Dropdown -->
 		
-		<!-- Destination Dropdown -->
-		<!-- <div class="col-lg-3 col-md-6 col-12 position-relative">
-		  <div class="form-group">
-			<label for="destinationInput">Destination</label>
-			<input
-			  type="text"
-			  id="destinationInput"
-			  class="form-control"
-			  placeholder="Select a destination town"
-			  [value]="selectedDestination"
-			  readonly
-			  (click)="toggleDropdown('destination')"
-			/>
-		  </div>
-		  <div
-			*ngIf="dropdownVisible.destination"
-			class="dropdown-menu show w-100"
-			style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
-		  >
-			<ul class="list-group">
-			  <li
-				*ngFor="let town of towns"
-				class="list-group-item list-group-item-action"
-				(click)="selectTown('destination', town)"
-			  >
-				<i class="bi bi-geo-alt custom-icon"></i> {{ town }}
-			  </li>
-			</ul>
-		  </div>
-		</div> -->
-	  
-		<div class="col-lg-3 col-md-6 col-12 position-relative">
-			<div class="form-group">
-			  <label for="departureInput">{{ "departure" | translate }}</label>
-			  <input
-				type="text"
-				id="departureInput"
-				class="form-control"
-				placeholder="{{ 'Select a departure town' | translate }}"
-				[value]="selectedDeparture"
-				readonly
-				(click)="toggleDropdown('departure')"
-			  />
-			</div>
-			<div
-			  *ngIf="dropdownVisible.departure"
-			  class="dropdown-menu show w-100"
-			  style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
-			>
-			  <ul class="list-group">
-				<li
-				  *ngFor="let city of cities"
-				  class="list-group-item list-group-item-action"
-				  (click)="selectTown('departure', city.name)"
-				>
-				  <i class="bi bi-geo-alt custom-icon"></i> {{ city.name | translate }}
-				</li>
-			  </ul>
-			</div>
-		  </div>
-		  
-		<div class="col-lg-3 col-md-6 col-12 position-relative">
-			<div class="form-group">
-			  <label for="destinationInput">{{ "destination" | translate }}</label>
-			  <input
-				type="text"
-				id="destinationInput"
-				class="form-control"
-				placeholder="{{ 'Select a destination town' | translate }}"
-				[value]="selectedDestination"
-				readonly
-				(click)="toggleDropdown('destination')"
-			  />
-			</div>
-			<div
-			  *ngIf="dropdownVisible.destination"
-			  class="dropdown-menu show w-100"
-			  style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
-			>
-			  <ul class="list-group">
-				<li
-				  *ngFor="let city of cities"
-				  class="list-group-item list-group-item-action"
-				  (click)="selectTown('destination', city.name)"
-				>
-				  <i class="bi bi-geo-alt custom-icon"></i> {{ city.name | translate }}
-				</li>
-			  </ul>
-			</div>
-		  </div>
-		  
-	
-	</div>
-	  
-
-
-
-
-	</div>
-	
-
-	  
-	  
-	  
+		  </form>
+	  </div>  
+	</div>	  
   </section> 
 
 
+<!-- 
+  <div class="col-lg-3 col-md-6 col-12 position-relative">
+	<div class="form-group">
+	  <label for="tripDateInput">{{ "tripDate" | translate }}</label>
+	  <input
+		type="text"
+		id="tripDateInput"
+		class="form-control"
+		formControlName="tripDate"
+		placeholder="{{ 'Select a trip date' | translate }}"
+		[value]="selectedDate | date: 'yyyy-MM-dd'"
+		readonly
+		(click)="toggleDropdown('date')"
+	  />
+	</div>
+	<div
+	  *ngIf="dropdownVisible.date"
+	  class="dropdown-menu show w-100"
+	  style="position: absolute; z-index: 1000;"
+	>
+	  <div class="horizontal-scroll">
+		<div *ngFor="let month of months" class="month-container">
+		 
+		  <div class="dropdown-header text-center bg-light p-2">
+			<strong>{{ month.startDate | date: 'MMMM yyyy' }}</strong>
+		  </div>
+	
+		  <div class="weekday-header d-flex justify-content-between text-center">
+			<span *ngFor="let day of weekdays" class="flex-grow-1">{{ day }}</span>
+		  </div>
+	
+		  <ul class="list-group dates-container">
+			<li
+			  *ngFor="let date of month.dates"
+			  class="list-group-item list-group-item-action"
+			  (click)="selectDate(date)"
+			>
+			  <div class="d-flex justify-content-between">
+				<span>{{ date | date: 'dd' }}</span>
+			  </div>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+	</div>
+  </div> -->
 	<!-- <div class="landing-section">
 	  <div class="content-container">
 		
