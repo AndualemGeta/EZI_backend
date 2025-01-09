@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
@@ -33,6 +33,10 @@ export class HeadingComponent implements OnInit {
   rotationAngle = 0;
 
   isModalOpen = false;
+  
+  towns: string[] = ['Springfield', 'Gotham', 'Metropolis', 'Smallville'];
+  dropdownVisible = { departure: false, destination: false };
+ 
   ngOnInit() {
    this.selectedDeparture ="ba8fcf90-31de-420f-68ac-08d8a643ea62";
    this.selectedDestination ="8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
@@ -44,14 +48,14 @@ export class HeadingComponent implements OnInit {
     this.getAllLocations();
     this.getAllBankAccounts();
   }
-
-  openCityModal() {
-    this.isModalOpen = true;
-  }
+ 
+  
   selectCity(city) {
     this.selectedDeparture = city;
     this.isModalOpen = false;
+    
   }
+
 
 searchResult(){
   let searchData={
@@ -97,4 +101,20 @@ onSubmit(){
   this.form.controls.tripDate.value;
 }
 
+toggleDropdown(type: 'departure' | 'destination'): void {
+  this.dropdownVisible[type] = !this.dropdownVisible[type];
 }
+
+selectTown(type: 'departure' | 'destination', town: string): void {
+  if (type === 'departure') {
+    this.selectedDeparture = town;
+  } else {
+    this.selectedDestination = town;
+  }
+  this.dropdownVisible[type] = false;
+}
+}
+
+
+
+

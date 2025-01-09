@@ -60,8 +60,115 @@
 			</div>
 		  </form>
 		  
+
 	  </div>
+	  <div class="row">
+		<!-- Departure Dropdown -->
+		
+		<!-- Destination Dropdown -->
+		<!-- <div class="col-lg-3 col-md-6 col-12 position-relative">
+		  <div class="form-group">
+			<label for="destinationInput">Destination</label>
+			<input
+			  type="text"
+			  id="destinationInput"
+			  class="form-control"
+			  placeholder="Select a destination town"
+			  [value]="selectedDestination"
+			  readonly
+			  (click)="toggleDropdown('destination')"
+			/>
+		  </div>
+		  <div
+			*ngIf="dropdownVisible.destination"
+			class="dropdown-menu show w-100"
+			style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
+		  >
+			<ul class="list-group">
+			  <li
+				*ngFor="let town of towns"
+				class="list-group-item list-group-item-action"
+				(click)="selectTown('destination', town)"
+			  >
+				<i class="bi bi-geo-alt custom-icon"></i> {{ town }}
+			  </li>
+			</ul>
+		  </div>
+		</div> -->
+	  
+		<div class="col-lg-3 col-md-6 col-12 position-relative">
+			<div class="form-group">
+			  <label for="departureInput">{{ "departure" | translate }}</label>
+			  <input
+				type="text"
+				id="departureInput"
+				class="form-control"
+				placeholder="{{ 'Select a departure town' | translate }}"
+				[value]="selectedDeparture"
+				readonly
+				(click)="toggleDropdown('departure')"
+			  />
+			</div>
+			<div
+			  *ngIf="dropdownVisible.departure"
+			  class="dropdown-menu show w-100"
+			  style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
+			>
+			  <ul class="list-group">
+				<li
+				  *ngFor="let city of cities"
+				  class="list-group-item list-group-item-action"
+				  (click)="selectTown('departure', city.name)"
+				>
+				  <i class="bi bi-geo-alt custom-icon"></i> {{ city.name | translate }}
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		  
+		<div class="col-lg-3 col-md-6 col-12 position-relative">
+			<div class="form-group">
+			  <label for="destinationInput">{{ "destination" | translate }}</label>
+			  <input
+				type="text"
+				id="destinationInput"
+				class="form-control"
+				placeholder="{{ 'Select a destination town' | translate }}"
+				[value]="selectedDestination"
+				readonly
+				(click)="toggleDropdown('destination')"
+			  />
+			</div>
+			<div
+			  *ngIf="dropdownVisible.destination"
+			  class="dropdown-menu show w-100"
+			  style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
+			>
+			  <ul class="list-group">
+				<li
+				  *ngFor="let city of cities"
+				  class="list-group-item list-group-item-action"
+				  (click)="selectTown('destination', city.name)"
+				>
+				  <i class="bi bi-geo-alt custom-icon"></i> {{ city.name | translate }}
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		  
+	
 	</div>
+	  
+
+
+
+
+	</div>
+	
+
+	  
+	  
+	  
   </section> 
 
 
