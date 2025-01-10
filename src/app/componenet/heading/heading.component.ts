@@ -56,7 +56,7 @@ export class HeadingComponent implements OnInit {
     const today = new Date();
     const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 13; i++) {
       const monthStartDate = new Date(today.getFullYear(), today.getMonth() + i, 1);
       const monthEndDate = new Date(today.getFullYear(), today.getMonth() + i + 1, 0);
   
@@ -99,7 +99,6 @@ export class HeadingComponent implements OnInit {
  getAllLocations() {
   this.eziService.getAllLocations().then((value) => {
    this.cities = value;
-   console.log(this.cities);
   });
 }
 

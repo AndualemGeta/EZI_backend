@@ -52,11 +52,10 @@
 .search-widget {
   display: flex;
   gap: 3px;
-  background-color: rgba(255, 255, 255, 0.9);
-  
+   background-color: rgba(255, 255, 255, 0.9); 
 }  
 .form-input{
-  margin-left: 3%;
+   margin-left: 3%; 
 }
 .exchange-icon {
   cursor: pointer;
@@ -85,6 +84,19 @@
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
+}
+
+.geo-icon {
+  margin-right: 10px;
+  color: #024c05;
+  font-weight: bolder;
+}
+.location-station {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  font-size: 0.6rem;
+  color: rgb(9, 9, 28);
 }
 
 .list-group-item {
@@ -128,54 +140,65 @@
 .flex-grow-1 {
   flex-grow: 1;
 }
-
 /* Month Container */
 .month-container {
-  margin-bottom: 20px;
+  margin: 0 auto; /* Centers the calendar */
+  max-width: 100%; /* Prevents overflow */
+  padding: 10px; /* Adds inner spacing */
+  /* background: #fff; */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
 }
 
 /* Weekday Header */
 .weekday-header {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-weight: bold;
+  grid-template-columns: repeat(7, 1fr); /* Equal column widths */
+  gap: 5px;
   margin-bottom: 10px;
 }
 
+/* Weekday Item */
 .weekday {
-  padding: 5px;
+  text-align: center;
+  padding: 3px;
 }
 
-/* Weeks Container */
+/* Week Rows */
 .weeks-container {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
-/* Week Row */
 .week-row {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  gap: 5px;
-  margin-bottom: 5px;
+  grid-template-columns: repeat(7, 1fr); /* Equal columns */
+  gap: 5px; /* Adds space between dates */
 }
 
-/* Date Item */
+/* Date Items */
 .date-item {
-  padding: 8px;
-  cursor: pointer;
+  width: 30px; /* Fixed size */
+  /* height: 40px; */
+  line-height: 40px;
   border-radius: 50%;
-  transition: background-color 0.2s;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
 }
+
 .date-item:hover {
-  background-color: #f0f0f0;
+  background-color: #2b6098;
+  color: #fff;
 }
+
 .date-item.selected {
-  background-color: #007bff;
-  color: white;
+  background-color: #2b6098;
+  color: #fff;
 }
+
 .text-muted {
   color: #ccc;
 }
