@@ -17,7 +17,7 @@
 						id="departureInput"
 						class="form-control"
 						formControlName="departure"
-						placeholder="{{ 'Select a departure town' | translate }}"
+						placeholder="{{ 'Select a departure' | translate }}"
 						[value]="getCityNameById(selectedDeparture)"
 						readonly
 						(click)="toggleDropdown('departure')"
@@ -26,7 +26,7 @@
 					<div
 					  *ngIf="dropdownVisible.departure"
 					  class="dropdown-menu show w-100"
-					  style="position: absolute; z-index: 1000; overflow-y: auto;"
+					  style="position: absolute; z-index: 1000; overflow-y: auto; width: 400px;"
 						 >
 					  <ul class="list-group">
 						<li
@@ -34,9 +34,13 @@
 						  class="list-group-item list-group-item-action"
 						  (click)="selectTown('departure', city.locationId)"
 							>
-							<i class="bi bi-geo-alt geo-icon"></i> {{ city.name | translate }}
-							<br>
-							<label class="location-station">{{city?.stations[0]?.name}}</label> 
+							<div class="location-container">
+								<i class="bi bi-geo-alt geo-icon"></i>
+								<div class="location-details">
+									<span class="city-name">{{ city.name | translate }}</span>
+									<span class="location-station">{{ city?.stations[0]?.name }}</span>
+								</div>
+							</div>
 						</li>
 					  </ul>
 					</div>
@@ -54,7 +58,7 @@
 						id="destinationInput"
 						class="form-control"
 						formControlName="destination"
-						placeholder="{{ 'Select a destination town' | translate }}"
+						placeholder="{{ 'Select a destination' | translate }}"
 						[value]="getCityNameById(selectedDestination)"
 						readonly
 						(click)="toggleDropdown('destination')"
@@ -71,9 +75,13 @@
 						  class="list-group-item list-group-item-action"
 						  (click)="selectTown('destination', city.locationId)"
 						>
-						  <i class="bi bi-geo-alt geo-icon"></i> {{ city.name | translate }}
-						 <br>
-						 <label class="location-station">{{city?.stations[0]?.name}}</label>
+						<div class="location-container">
+							<i class="bi bi-geo-alt geo-icon"></i>
+							<div class="location-details">
+								<span class="city-name">{{ city.name | translate }}</span>
+								<span class="location-station">{{ city?.stations[0]?.name }}</span>
+							</div>
+						</div>
 						</li>
 					  </ul>
 					</div>
