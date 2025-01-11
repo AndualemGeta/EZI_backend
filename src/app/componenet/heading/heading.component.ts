@@ -52,7 +52,6 @@ export class HeadingComponent implements OnInit, OnDestroy {
     this.getAllLocations();
     this.getAllBankAccounts();
     this.generateMonths();
-
     document.addEventListener('click', this.documentClickHandler.bind(this));
   }
 
@@ -78,14 +77,11 @@ export class HeadingComponent implements OnInit, OnDestroy {
   }
   generateMonths() {
     const today = new Date();
-
     for (let i = 0; i < 13; i++) {
       const monthStartDate = new Date(today.getFullYear(), today.getMonth() + i, 1);
       const monthEndDate = new Date(today.getFullYear(), today.getMonth() + i + 1, 0);
-
       const calendarStartDate = new Date(monthStartDate);
       calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
-
       const calendarEndDate = new Date(monthEndDate);
       calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
 
@@ -99,7 +95,6 @@ export class HeadingComponent implements OnInit, OnDestroy {
           currentWeek = [];
         }
       }
-
       this.months.push({ startDate: monthStartDate, weeks });
     }
   }
@@ -113,17 +108,22 @@ export class HeadingComponent implements OnInit, OnDestroy {
     }
   }
 
+  getAllLocations() {
+    this.eziService.getAllLocations().then(value => {
+      this.cities = value;
+      if (this.selectedDeparture) {
+        this.form.controls.departure.setValue(this.getCityNameById(this.selectedDeparture));
+      }
+    });
+  }
+  
+
   getCityNameById(cityId: string): string {
     const city = this.cities.find(c => c.locationId === cityId);
     return city ? city.name : '';
   }
 
-  getAllLocations() {
-    this.eziService.getAllLocations().then(value => {
-      this.cities = value;
-    });
-  }
-
+ 
   getAllBankAccounts() {
     this.eziService.getOperatorAccounts().then(response => {
       this.accounts = response;
@@ -145,6 +145,7 @@ export class HeadingComponent implements OnInit, OnDestroy {
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
     this.dropdownVisible[type] = !this.dropdownVisible[type];
+
   }
 
   selectTown(type: 'departure' | 'destination' | 'date', town: string): void {
@@ -154,20 +155,21 @@ export class HeadingComponent implements OnInit, OnDestroy {
       this.selectedDestination = town;
     }
     this.dropdownVisible[type] = false;
-    this.form.controls[type].setValue(town);
+   // this.form.controls[type].setValue(town);
+    
   }
 
   selectDate(date: Date) {
     this.selectedDate = date;
-    this.form.controls.tripDate.setValue(date.toISOString().split('T')[0]);
+    // this.form.controls.tripDate.setValue(date.toISOString().split('T')[0]);
     this.toggleDropdown('date');
   }
 
   searchResult() {
     const searchData = {
-      destination: this.form.controls.destination.value,
-      departure: this.form.controls.departure.value,
-      tripDate: this.form.controls.tripDate.value,
+      departure: this.selectedDeparture,
+      destination:this.selectedDestination ,
+      tripDate: this.selectedDate,
     };
     this.routeStateService.add(
       "user-list",

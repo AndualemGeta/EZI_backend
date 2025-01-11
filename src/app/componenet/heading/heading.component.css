@@ -37,12 +37,12 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-#form-section {
+.form-section {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 136%;
+  height: 136vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,15 +52,22 @@
 
 .search-widget {
   display: flex;
-  gap: 3px;
+   gap: 3px;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
 .form-input {
-  margin-left: 3%;
+   margin:2vh;
+}
+
+label {
+  display: block; /* Ensure the label spans the width of the input */
+  margin-bottom: 0; /* Remove default margin */
+  padding-bottom: 5px; /* Optional: Add some spacing for readability */
 }
 
 .exchange-icon {
+  color: green;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
@@ -69,17 +76,17 @@
   .exchange-icon {
     transform: rotate(90deg);
   }
+.search-button {
+  font-size: 14px;
+    margin: 0px;
+  }
 }
 
 .search-button {
-  background-color: green;
-  color: #ffffff;
-  margin-left: 0px;
+  font-size: 14px;
+   margin-top: 5vh; 
 }
 
-.exchange-icon-container {
-  color: green;
-}
 
 .location-container {
   display: flex;
@@ -207,3 +214,68 @@
   font-size: 16px;
   cursor: pointer;
 }
+
+/* Styling for input container with geo icon */
+.input-icon-container {
+  position: relative;
+  border: 1px solid rgba(58, 150, 12, 0.74); /* Add single border */
+  border-radius: 4px; /* Optional: Adds rounded corners */
+  padding: 5px; /* Adds inner padding for better spacing */
+  margin-top: -5px; /* Remove the gap by bringing the container closer to the label */
+}
+
+/* Adjusted geo icon styling */
+.geo-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #007bff; /* Customize the color of the icon */
+}
+
+/* Styling for the input field inside the container */
+.decorated-input {
+  padding-left: 30px; /* Adjust padding to make room for the icon */
+  border: none; /* Remove the default border of the input */
+  outline: none; /* Remove outline on focus */
+  color:rgb(45, 46, 46); /* Customize the text color */
+  width: 100%; /* Ensure input takes the full width of the container */
+  background: transparent; /* Match the background with container */
+}
+
+/* Add hover and focus styles for the container */
+.input-icon-container:hover,
+.input-icon-container:focus-within {
+  border-color:rgb(58, 243, 147); /* Darker blue on hover or focus */
+  box-shadow: 0 0 5px rgba(35, 247, 7, 0.5); /* Add subtle glow */
+}
+
+
+.search-button-container {
+  position: relative;
+  background-color: #28a745;
+  border-radius: 4px; /* Optional: Adds rounded corners */
+  padding: 5px; /* Adds inner padding for better spacing */
+  margin-top: -5px; /* Remove the gap by bringing the container closer to the label */
+}
+
+.search-input-button {
+  background-color: #28a745; /* Match the "btn-success" green */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 6px 12px; /* Match padding of buttons */
+  font-size: 14px; /* Match font size */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-align: center; /* Center the text */
+  display: inline-block; /* Inline block behavior */
+  height: auto; /* Ensure it doesn't stretch vertically */
+}
+
+.search-input-button:hover {
+  background-color: #218838; /* Darken on hover (like btn-success hover) */
+}
+
+
+
