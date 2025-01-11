@@ -2,10 +2,10 @@
     background-color: #e5e5e5;
     width: 100%;
     justify-content: center;
-    
-}
-    .about-heading{
-    padding-bottom: 30px;
+  }
+
+  .about-heading{
+    padding-bottom: 10px;
   }
 
   .about-title{
@@ -15,6 +15,7 @@
 
   .about-heading h2{
     font-size: 32px;
+    margin: 0%;
   }
 
   .about-heading h3{
@@ -30,7 +31,7 @@
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 100px;  /* Preferred icon size */
+    font-size: 30px;  /* Preferred icon size */
    /* display: inline-block;*/
     line-height: 1;
     text-transform: none;
@@ -55,23 +56,24 @@
    background-color: rgb(230, 236, 236);
    box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.3); 
    /* 
-   box-shadow: 0 0 98px rgba(0,0,0,0.1);
+    box-shadow: 0 0 98px rgba(0,0,0,0.1);
    -moz-box-shadow: 10px -10px rgba(0,0,0,0.6);
    -webkit-box-shadow: 10px -10px rgba(0,0,0,0.6); 
    -o-box-shadow: 10px -10px rgba(0,0,0,0.6);  */
    border-radius:50px;
   }
+
   .how-it-work-contents {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
     justify-content: center;
     }
+
   .how-it-work-sub-content{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
   }
   .sub-content-detail{
   width :250px;
@@ -80,17 +82,19 @@
   text-align: center;
   justify-content: center;
   }
+
   .sub-content-detail-property{
     width: 75%;
     float: center;    
   }
+
   .sub-content-detail-icon{
     font-size: 50px;
     width: 50%; 
     flex-wrap: wrap;
-  justify-content: center !important;
-  
+    justify-content: center !important;
   }
+
   .sub-content-detail-title{
     font-size: 25px;
     font-weight: bold;
@@ -98,16 +102,21 @@
     font-family: yrsa !important;
     text-align: center;
   }
+
   .sub-content-detail-value{
     font-size: 14px;
     font-family: yrsa !important;
   }
+
+
+
   @media (max-width : 768px) {
     .how-it-work-sub-contents {
       padding: 3%;
     }
   }
   
+
   @media(min-width: 768px){
     .how-it-work-sub-contents {
       margin-left: 10%;
@@ -115,3 +124,15 @@
     }
   }
   
+  
+  .content-title{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;;
+    font-family: yrsa !important;
+    text-align: center;
+  }
+  .content-detail{
+    font-size: 14px;
+    font-family: yrsa !important;
+  }
