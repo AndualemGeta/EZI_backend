@@ -1,16 +1,15 @@
-<section id="contact" data-aos="fade-up" style="background-color: #e5e5e5;" [ngStyle.lt-md]="{'margin-top': '50px', 'margin-bottom': '50px'}">
+<div id="contact" class="contact-page" data-aos="fade-up">
     <div class="container">
-		      <div class="contact-section contact-heading mat-typography" fxLayout="column" fxLayoutAlign="center center">
-		            <div>
-		            <h2 class="section-header"> {{"contactUsHeader"|translate}}</h2>
-		            </div>
-		            <div>
+		        <div class="contact-section" fxLayout="column" fxLayoutAlign="center center">
+		            <h2> {{"contactUsHeader"|translate}}</h2>
 			        <h3 class="contact-font-type" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}"> {{"contactInvitationWord"|translate}}</h3>
-			        </div>
 		        </div>
+
 				<form class="formwidth" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-				  <div class="contact-form" [ngStyle.xs]="{'padding-left': '50px', 'padding-right': '50px'}" [ngStyle.sm]="{'padding-left': '100px', 'padding-right': '100px'}" [ngStyle.md]="{'padding-left': '150px', 'padding-right': '150px'}" [ngStyle.lg]="{'padding-left': '200px', 'padding-right': '200px'}">
-				  	  <mat-form-field appearance="outline" color="accent">
+				  
+				<div class="contact-form" [ngStyle.xs]="{'padding-left': '50px', 'padding-right': '50px'}" [ngStyle.sm]="{'padding-left': '100px', 'padding-right': '100px'}" [ngStyle.md]="{'padding-left': '150px', 'padding-right': '150px'}" [ngStyle.lg]="{'padding-left': '200px', 'padding-right': '200px'}">
+				  	  
+					<mat-form-field appearance="outline" color="accent">
 					  	<mat-label> {{"contactNameRequest"|translate}}  </mat-label>
 					    <input matInput placeholder="Name" required
 					           [errorStateMatcher]="matcher" formControlName="name">
@@ -42,11 +41,12 @@
 						<mat-label>  {{"contactCommentRequest"|translate}} </mat-label>
 						<textarea matInput  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="8" formControlName="comment" required ></textarea>
 					  </mat-form-field>
-					  <br>
 					  <div fxLayout="row" fxLayoutAlign="center center">
 					    <button [disabled]="this.contactForm.invalid || submitted"  mat-raised-button class="contact-button" type="submit" >{{"send"|translate}}</button>
 					   </div>
-				  </div>
+				     </div>
+
+
 				</form>
 	</div>
-</section>
+</div>

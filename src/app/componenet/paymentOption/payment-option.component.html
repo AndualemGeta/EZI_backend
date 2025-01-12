@@ -1,28 +1,23 @@
-<section id="payment-option" style="background-color: #fff;" data-aos="zoom-in-up" [ngStyle.lt-md]="{'margin-top': '50px', 'margin-bottom': '50px'}">
+<div id="payment-option" class="payment-option" data-aos="zoom-in-up">
     <div class="container">
-		      <div class="blog-section blog-heading mat-typography" fxLayout="column" fxLayoutAlign="center center">
-		            <div>
+	<div class="payment-option-body">
+		        <div class="header-section" fxLayout="column" fxLayoutAlign="center center">
 		            <h2 class="section-header"> {{'paymentOptionsHeader'|translate}}</h2>
-		            </div>
-		            <div>
 			        <h3 class="payment-options-subheader">
 					   {{"paymentOfferHeader"|translate}}
-						
-						</h3>
-						<p style="font-family: yrsa; font-size: large;">
-							{{"paymentListHeader"|translate}}
-						
+					</h3>
+					<p style="font-family: yrsa; font-size: large;">
+						{{"paymentListHeader"|translate}}
 					</p>
-					</div>
 		        </div>
 		
 				<div class="row">
-					<div class="col-lg-4 col-md-6 col-12">
+					<div class="col-lg-4 col-md-6 col-12 ">
 					  <div class="card">
 						<h1 class="card-title">Mobile payment</h1>
 					  </div>
 					</div>
-					<div class="col-lg-4 col-md-6 col-12">
+					<div class="col-lg-4 col-md-6 col-12 ">
 					  <div class="card">
 						<h1 class="card-title">Bank Transfer</h1>
 					  </div>
@@ -32,7 +27,9 @@
 						<h1 class="card-title">M-Pesa</h1>
 					  </div>
 					</div>
-				  </div>
+				</div>
+
+
 				  
 		<!--
 		<div class="portfolio-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="150px" fxLayoutGap.sm="8px">
@@ -117,4 +114,5 @@
 				</div>
 			-->
     </div>
-</section>
+    </div>
+</div>

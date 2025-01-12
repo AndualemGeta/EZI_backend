@@ -6,7 +6,7 @@
     <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
        <!-- <a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
        <a mat-list-item [routerLink]="" (click)="scroll('landing-page')" > {{'home'|translate}}</a>
-       <a mat-list-item [routerLink]="" (click)="scroll('information')" > {{'partner'|translate}}</a>
+       <a mat-list-item [routerLink]="" (click)="scroll('partners')" > {{'partner'|translate}}</a>
         <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
         <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
         <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{"contact"|translate}} </a>
@@ -14,7 +14,7 @@
     <span class="navigation-spacer"></span>
     <button fxShow="false" fxShow.gt-xs="true" mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5%;">
       <mat-icon class="header-icon">language</mat-icon>
-      <span>{{'language'|translate}}</span>
+      <span style="color: white;">{{'language'|translate}}</span>
     </button>
     <mat-menu  #menu="matMenu">
       <button mat-menu-item (click)="ChangeLanguage('en')">
@@ -35,8 +35,8 @@
                  [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
        <mat-nav-list>
         <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
-        <!--<a mat-list-item [routerLink]="" fragment="about" (click)="scroll('about')" >About</a> -->
-        <a mat-list-item [routerLink]="" (click)="scroll('information')" >{{'partner'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('landing-page')" >{{'home'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('partners')" >{{'partner'|translate}}</a>
         <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
         <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
         <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{'contact'|translate}}</a>

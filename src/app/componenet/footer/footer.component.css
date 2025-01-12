@@ -1,17 +1,17 @@
 /*footer*/
-.col_white_amrc { color:#FFF;}
+.col_white_amrc { color:#1c1717;}
 footer { width:100%; 
-	background: url('../../../assets/img/partners/footer-bg.jpg') no-repeat center center / cover;
+	background: url('../../../assets/img/bg/footer-bg.jpg') no-repeat center center / cover;
 	background-color:#263238;
 	 min-height:250px; padding:10px 0px 10px 0px ; 
 	 justify-content: center;}
 .pt2 { padding-top:40px ; margin-bottom:20px ;}
-footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
+footer p { font-size:13px; color:#111010; padding-bottom:0px; margin-bottom:8px;}
 .mb10 { padding-bottom:15px ;}
 .footer_ul_amrc { margin:0px ; list-style-type:none ; font-size:14px; padding:0px 0px 10px 0px ; }
 .footer_ul_amrc li {padding:0px 0px 5px 0px;}
-.footer_ul_amrc li a{ color:#CCC;}
-.footer_ul_amrc li a:hover{ color:#fff; text-decoration:none;}
+.footer_ul_amrc li a{ color:#131212;}
+.footer_ul_amrc li a:hover{ color:#100f0f; text-decoration:none;}
 .fleft { float:left;}
 .padding-right { padding-right:10px; }
 

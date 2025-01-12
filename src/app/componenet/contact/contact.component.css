@@ -1,11 +1,17 @@
+.contact-page{
+ background: url('../../../assets/img/bg/contact-bg.jpg') no-repeat center center / cover;
+ margin: 0px;
+ padding: 10px;
+}
 .contact-section{
   text-align: center;
+  padding: 20px;
 }
 
-.contact-heading{
-  padding-bottom: 30px;
+.contact-font-type, mat-label, input {
+  font-family: yrsa;
+  font-size: 18px;
 }
-
 .contact-heading h2{
   font-size: 32px;
 }
@@ -31,8 +37,7 @@
   color: #0B3954;
   font-family: "Yu Gothic UI";
   font-weight: bold;
+  width: 50%;
 }
 
-.contact-font-type, mat-label, input {
-  font-family: yrsa;
-}
+

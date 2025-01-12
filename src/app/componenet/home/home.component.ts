@@ -96,9 +96,21 @@ contactFabButton: any;
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   
-scroll(id:any) {
-    document.getElementById(id)?.scrollIntoView();
+// scroll(id:any) {
+//     document.getElementById(id)?.scrollIntoView();
+// }
+
+scroll(id: string) {
+  const element = document.getElementById(id);
+  if (element) {
+    const headerHeight = document.querySelector('.navigation-toolbar')?.clientHeight || 0;
+    const yOffset = -headerHeight; // Offset to avoid the header covering the title
+    const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
 }
+
 ChangeLanguage(lang) {
   this.locale = lang;
   if (

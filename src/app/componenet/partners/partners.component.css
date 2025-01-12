@@ -2,15 +2,16 @@
   background: url('../../../assets/img/partners/p-bg.jpg') no-repeat center center / cover;
   background-color:#fff;
   transition-duration: 1s;
-  margin-top: 0px;
-  margin-bottom:0px;
-  text-align: center;;
+  margin: 0px;
+  text-align: center;
+  padding: 10px;
 }
 
 .partner-heading {
   font-size: 2rem;
   color: #333;
   font-weight: bold;
+  padding: 20px;
 }
 
 /* Card Styles */

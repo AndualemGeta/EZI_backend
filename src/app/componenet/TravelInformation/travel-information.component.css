@@ -1,13 +1,11 @@
-table {
-  width: 100%;
-}
-
-tr.mat-footer-row {
-  font-weight: bold;
+.travel-info{
+  background-color: #e5e5e5;
+  margin: 0px;
 }
 
 .pricing-heading{
-  padding-bottom: 30px;
+  text-align: center;
+  padding: 30px;
 }
 
 .pricing-heading h2{
@@ -18,8 +16,13 @@ tr.mat-footer-row {
   font-size: 22px;
 }
 
-.pricing-section{
-  text-align: center;
+
+table {
+  width: 100%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
 }
 
 .locationlist{
