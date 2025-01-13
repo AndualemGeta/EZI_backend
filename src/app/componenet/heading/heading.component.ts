@@ -43,6 +43,9 @@ export class HeadingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.selectedDeparture ="acd5118e-c32a-422b-5618-08dc2f3fba36";
+    this.selectedDestination ="f28dd0f3-9d56-40d3-8aa2-bab909217887";
+   
     this.form = this.fb.group({
       departure: [this.selectedDeparture, Validators.required],
       destination: [this.selectedDestination, Validators.required],
@@ -111,9 +114,6 @@ export class HeadingComponent implements OnInit, OnDestroy {
   getAllLocations() {
     this.eziService.getAllLocations().then(value => {
       this.cities = value;
-      if (this.selectedDeparture) {
-        this.form.controls.departure.setValue(this.getCityNameById(this.selectedDeparture));
-      }
     });
   }
   
@@ -158,8 +158,10 @@ export class HeadingComponent implements OnInit, OnDestroy {
    // this.form.controls[type].setValue(town);
     
   }
-
+ 
   selectDate(date: Date) {
+    
+   
     this.selectedDate = date;
     // this.form.controls.tripDate.setValue(date.toISOString().split('T')[0]);
     this.toggleDropdown('date');

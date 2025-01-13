@@ -1,9 +1,8 @@
 
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, Inject, OnInit, HostListener } from '@angular/core';
-import { SE } from 'src/app/componenet/directives/scroll.directive';
 import { ContactDialogComponent } from  'src/app/componenet/contact-dialog/contact-dialog.component';
-import { MatDialog,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 import * as AOS from 'aos';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
