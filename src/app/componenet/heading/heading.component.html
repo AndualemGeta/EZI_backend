@@ -20,7 +20,7 @@
 						  class="form-control decorated-input"
 						  formControlName="departure"
 						  placeholder="{{ 'Select a departure' | translate }}"
-						  [value]="getCityNameById(selectedDeparture)"
+						  [value]="getCityNameById(selectedDeparture) | translate"
 						  readonly
 						  (click)="toggleDropdown('departure')"
 						/>
@@ -64,7 +64,7 @@
 					class="form-control decorated-input"
 					formControlName="destination"
 					placeholder="{{ 'Select a destination' | translate }}"
-					[value]="getCityNameById(selectedDestination)"
+					[value]="getCityNameById(selectedDestination) | translate"
 					readonly
 					(click)="toggleDropdown('destination')"
 				/>

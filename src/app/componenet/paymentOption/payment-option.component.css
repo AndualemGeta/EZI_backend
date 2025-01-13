@@ -102,7 +102,7 @@
 
 .card {
   width: 100%;
-  background: linear-gradient(135deg, hsl(0, 100%, 98%), #626466); /* Magical gradient */
+  background: linear-gradient(135deg, hsl(0, 16%, 76%), #68a9f3); /* Magical gradient */
   color: white;
   display: flex;
   justify-content: center;

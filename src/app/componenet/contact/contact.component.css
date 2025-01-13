@@ -31,13 +31,33 @@
   width: 100%;
 }
 
-.contact-button{
-  border-color: green;
-  border-radius: 4px;
-  color: #0B3954;
-  font-family: "Yu Gothic UI";
-  font-weight: bold;
+.contact-button {
+  background-color: green;
+  color: white;
   width: 50%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: darkgreen;
+  transform: scale(1.05);
+}
+
+.contact-button:focus {
+  outline: none; /* Remove default browser focus outline */
+}
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 

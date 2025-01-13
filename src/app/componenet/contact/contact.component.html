@@ -41,12 +41,16 @@
 						<mat-label>  {{"contactCommentRequest"|translate}} </mat-label>
 						<textarea matInput  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="8" formControlName="comment" required ></textarea>
 					  </mat-form-field>
+					  
 					  <div fxLayout="row" fxLayoutAlign="center center">
-					    <button [disabled]="this.contactForm.invalid || submitted"  mat-raised-button class="contact-button" type="submit" >{{"send"|translate}}</button>
-					   </div>
+						<div *ngIf="contactForm.invalid && submitted" class="error-message" fxLayoutAlign="center center">
+						<span>Please ensure all fields are correctly filled before submitting.</span>
+						  </div>
+						<button class="contact-button" (click)="onSubmit()">
+						  {{"send" | translate}}
+						</button>
+					  </div>
 				     </div>
-
-
 				</form>
 	</div>
 </div>

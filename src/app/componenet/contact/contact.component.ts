@@ -60,6 +60,9 @@ newCmmment={
 
   onSubmit() {
     this.submitted = true;
+    if (this.contactForm.invalid) {
+      return; // Show the error message and stop the submission
+    }
     this.newCmmment.name=this.contactForm.controls.name.value;
     this.newCmmment.phone=this.contactForm.controls.phone.value;
     this.newCmmment.email=this.contactForm.controls.email.value;
