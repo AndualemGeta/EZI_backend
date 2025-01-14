@@ -1,204 +1,30 @@
 <div id="travel-info" class="travel-info aos-init-animate " data-aos="fade-up">
-      <div class="container">
+    <div class="container">
     	<div class="pricing-heading" fxLayout="column" fxLayoutAlign="center center">
           <h2 class="section-header">{{"travelInfoHeading"|translate}}</h2>
           <div>
 	        <h3  class="travel-info-font" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}"> {{"ourDestinations"|translate}} </h3>
 	        </div>
 		</div>
-           <div class="locationlist" fxLayout="column" fxLayoutAlign="center center">
 
-			  <mat-chip-list>
-				  <mat-chip *ngFor="let destination of destinations">{{destination |translate}}</mat-chip>
-			  </mat-chip-list>
-
+		
+				
+		<div class="row">
+			<div class="col-md-4 mb-3" *ngFor="let availableRoute of availableRoutes">
+			  <div class="p-3 border rounded">
+				<strong>{{ availableRoute.departureLocationName | translate }}</strong> →
+				<strong>{{ availableRoute.arrivalLocationName | translate }}</strong>
+				<span *ngIf="availableRoute.passThroughLocationName">
+				  (via {{ availableRoute.passThroughLocationName | translate }})
+				</span>
+				<div class="mt-2">
+				  <button class="btn btn-primary" (click)="bookRoute(availableRoute)">Book Now</button>
+				</div>
+			  </div>
 			</div>
+		  </div>
+		  
+	
 
-<!--		<mat-tab-group matTabNavBar color="accent">-->
-
-<!--		  <mat-tab label="Addis Ababa">-->
-
-<!--		  	<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--			  &lt;!&ndash; Item Column &ndash;&gt;-->
-<!--			  <ng-container matColumnDef="item">-->
-<!--			    <th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			    <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--			    -->
-<!--			  </ng-container>-->
-
-<!--			  &lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--			  <ng-container matColumnDef="cost">-->
-<!--			    <th mat-header-cell *matHeaderCellDef> Distance </th>-->
-<!--			    <td mat-cell *matCellDef="let specification"> {{specification.cost |number}} KM </td>-->
-<!--			    -->
-<!--			  </ng-container>-->
-
-<!--			  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--			  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--			-->
-
-<!--			</table>-->
-
-<!--		  </mat-tab>-->
-
-<!--		 -->
-<!--		  <mat-tab label="Adama">-->
-<!--		  	-->
-<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="item">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--			  -->
-<!--			</ng-container>-->
-
-<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="cost">-->
-<!--			  <th mat-header-cell *matHeaderCellDef>Distance </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} </td>-->
-<!--			 -->
-<!--			</ng-container>-->
-
-<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--			-->
-
-<!--		  </table>-->
-
-<!--		</mat-tab>-->
-
-<!--		<mat-tab label="BahirDar">-->
-<!--			-->
-<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="item">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--			  -->
-<!--			</ng-container>-->
-
-<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="cost">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | currency}} </td>-->
-<!--			 -->
-<!--			</ng-container>-->
-
-<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--			-->
-
-<!--		  </table>-->
-
-<!--		</mat-tab>-->
-
-<!--		<mat-tab label="DireDawa">-->
-<!--			-->
-<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="item">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--			  -->
-<!--			</ng-container>-->
-
-<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="cost">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} </td>-->
-<!--			  -->
-<!--			</ng-container>-->
-
-<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--		-->
-
-<!--		  </table>-->
-
-<!--		</mat-tab>-->
-
-<!--		-->
-
-<!--		-->
-
-<!--		<mat-tab label="JigJiga">-->
-<!--			-->
-<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="item">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--		  -->
-<!--			</ng-container>-->
-<!--  -->
-<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="cost">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>-->
-<!--		  -->
-<!--			</ng-container>-->
-<!--  -->
-<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--		   -->
-<!--  -->
-<!--		  </table>-->
-<!--  -->
-<!--		</mat-tab>-->
-
-<!--		<mat-tab label="Hawssa">-->
-<!--			-->
-<!--			<table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--			&lt;!&ndash; Item Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="item">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--		  -->
-<!--			</ng-container>-->
-<!--  -->
-<!--			&lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--			<ng-container matColumnDef="cost">-->
-<!--			  <th mat-header-cell *matHeaderCellDef> Distance </th>-->
-<!--			  <td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>-->
-<!--		  -->
-<!--			</ng-container>-->
-<!--  -->
-<!--			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--		   -->
-<!--  -->
-<!--		  </table>-->
-<!--  -->
-<!--		</mat-tab>-->
-
-
-<!--		<mat-tab label="Mekele">-->
-<!--			-->
-<!--		  <table mat-table [dataSource]="specifications" class="mat-elevation-z8">-->
-<!--		  &lt;!&ndash; Item Column &ndash;&gt;-->
-<!--		  <ng-container matColumnDef="item">-->
-<!--			<th mat-header-cell *matHeaderCellDef> Destination </th>-->
-<!--			<td mat-cell *matCellDef="let specification"> {{specification.item}} </td>-->
-<!--		-->
-<!--		  </ng-container>-->
-
-<!--		  &lt;!&ndash; Cost Column &ndash;&gt;-->
-<!--		  <ng-container matColumnDef="cost">-->
-<!--			<th mat-header-cell *matHeaderCellDef> Distance </th>-->
-<!--			<td mat-cell *matCellDef="let specification"> {{specification.cost | number}} KM </td>-->
-<!--		-->
-<!--		  </ng-container>-->
-
-<!--		  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--		  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--		 -->
-
-<!--		</table>-->
-
-<!--	  </mat-tab>-->
-
-
-
-<!--		</mat-tab-group>-->
-	</div>
+    </div>
 </div>

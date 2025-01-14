@@ -182,6 +182,17 @@ export class EziBusService {
       });
   }
 
+
+  getAvailableRoutes(){
+    let url = `/api/lines`;
+    return this.getApiService(url).then((data) => {
+      return data;
+    })
+      .catch((item) => {
+        return false;
+      });
+  }
+
   confirmAwashOtp(data){
     let url = `/api/public/confirmAwashOtpPayment`;
     return this.postApiService(url,data).pipe(

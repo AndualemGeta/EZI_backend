@@ -17,34 +17,15 @@
 }
 
 
-table {
-  width: 100%;
-}
 
-tr.mat-footer-row {
-  font-weight: bold;
-}
 
-.locationlist{
-  position:relative;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 
-}
 
-mat-chip{
-  font-size: 22px;
-  color: #0B3954;
-  font-family: "Yu Gothic UI";
-}
-.portfolio-row{
-  padding: 25px;
-}
 
-mat-chip, .travel-info-font {
-  font-family: yrsa !important;
-}
+
+
+
+
+
 
 
