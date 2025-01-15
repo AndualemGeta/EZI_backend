@@ -57,6 +57,9 @@ constructor(private routeStateService: RouteStateService, private router: Router
     });
   }
  getSearchResult(departure,destination,tripDate) {
+
+  console.log(departure,destination,tripDate);
+  
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
     this.route = response;
        if(this.route.length==0){
@@ -69,6 +72,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
     });
   }
   onSubmit(){
+
     this.loading=true;
     let departure=this.form.controls.departure.value;
     let destination=this.form.controls.destination.value;

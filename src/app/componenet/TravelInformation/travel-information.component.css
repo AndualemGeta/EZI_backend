@@ -1,6 +1,7 @@
 .travel-info{
   background-color: #e5e5e5;
   margin: 0px;
+ 
 }
 
 .pricing-heading{
@@ -15,6 +16,43 @@
 .pricing-heading h3{
   font-size: 22px;
 }
+
+.routes-body{
+  padding: 5px;
+}
+.routes-container {
+  display: flex;
+  overflow-x: auto; /* Allow scrolling */
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  white-space: nowrap; /* Prevent wrapping of items */
+  scrollbar-width: none;
+}
+
+.routes-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.card {
+  width: 18rem;
+  min-height: 150px;
+  transition: transform 0.3s ease-in-out;
+  border: none;
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.btn-outline-primary {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+
 
 
 
