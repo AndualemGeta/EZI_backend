@@ -1,0 +1,201 @@
+.form-input {
+    margin: 2vh;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .exchange-icon {
+    color: green;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .exchange-icon.active {
+    transform: rotate(180deg);
+  }
+  
+  .input-icon-container {
+    position: relative;
+    border: 1px solid rgba(58, 150, 12, 0.74);
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: -5px;
+  }
+  
+  .geo-input-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #007bff;
+  }
+  
+  .decorated-input {
+    padding-left: 30px;
+    border: none;
+    outline: none;
+    color: rgb(45, 46, 46);
+    width: 100%;
+    background: transparent;
+  }
+  
+  .input-icon-container:hover,
+  .input-icon-container:focus-within {
+    border-color: rgb(58, 243, 147);
+    box-shadow: 0 0 5px rgba(35, 247, 7, 0.5);
+  }
+  
+  .search-button-container {
+    position: relative;
+    background-color: #28a745;
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: -5px;
+  }
+  
+  .search-input-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    height: auto;
+  }
+  
+  .search-input-button:hover {
+    background-color: #218838;
+  }
+  
+  .search-widget {
+    display: flex;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .location-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .geo-icon {
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  
+  .location-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .city-name {
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+  }
+  
+  .location-station {
+    font-size: 0.6rem;
+    color: #666;
+  }
+  
+  .text-muted {
+    color: #ccc;
+  }
+  
+  .search-button {
+    font-size: 14px;
+    margin-top: 5vh;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-content-between {
+    justify-content: space-between;
+  }
+  
+  .flex-grow-1 {
+    flex-grow: 1;
+  }
+  
+  .weekday-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .weekday {
+    text-align: center;
+    padding: 3px;
+  }
+  
+  .date-item {
+    width: 30px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.3s ease-in-out;
+  }
+  
+  .date-item:hover {
+    background-color: #2b6098;
+    color: #fff;
+  }
+  
+  .date-item.selected {
+    background-color: #2b6098;
+    color: #fff;
+  }
+  
+  .date-item.active {
+    transform: rotateY(180deg);
+  }
+  
+  .month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .month-navigation .text-center {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .exchange-icon {
+    color: green;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .exchange-icon.active {
+    transform: rotate(180deg);
+  }
+  
+  @media (max-width: 768px) {
+    .exchange-icon {
+      transform: rotate(90deg);
+    }
+    .search-button {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+  

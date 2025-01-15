@@ -1,4 +1,5 @@
 <app-header></app-header>
+
 <div class="trip-list-page">
   <div fxLayout="column" fxLayoutAlign="center">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -35,7 +36,13 @@
             </div>
            </mat-card>
      </form>
-
+     <app-search-form 
+     [departureinput]="selectedDeparture"
+     [destinationinput]="selectedDestination"
+     [tripDateinput]="selectedDate"
+     [customSearchFunction]="onSubmit()">
+   </app-search-form>
+   
      <div *ngIf="loading" style="text-align:center; margin: 60px;">
        <img src="../../../assets/img/searching.gif">
       </div>

@@ -13,11 +13,12 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
-
+import {SearchFormModule} from 'src/app/shared/forms/search-form/search-form.module';
 @NgModule({
   imports: [
     CommonModule,
     HeaderModule,
+    SearchFormModule,
     TripListRoutingModule,
     FlexLayoutModule,
     AppCommonModule,

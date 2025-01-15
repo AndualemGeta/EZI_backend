@@ -26,7 +26,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
   form: FormGroup;
   searchResultmessage="No Trip Found, Please select another date";
   routeState;
-  now:Date=new Date();
+  selectedDate:Date=new Date();
   seatNo: any;
   AvailableSeat: any[];
   accounts: any[];
@@ -36,13 +36,14 @@ constructor(private routeStateService: RouteStateService, private router: Router
   newLine: any = {};
   cities: any[];
   route:any=[];
+  now: Date = new Date();
   ngOnInit(): void {
     this.loading=false;
     this.routeState = this.routeStateService.getCurrent().data;
     this.getAllLocations();
     this.selectedDeparture =this.routeState.departure ? this.routeState.departure:"ba8fcf90-31de-420f-68ac-08d8a643ea62";
     this.selectedDestination =this.routeState.destination ? this.routeState.destination:"8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
-    this.now=this.routeState.tripDate;
+    this.selectedDate=this.routeState.tripDate;
      this.form = this.fb.group({
       departure: ['', Validators.required],
       destination: ['', Validators.required],
@@ -57,7 +58,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
     });
   }
  getSearchResult(departure,destination,tripDate) {
-
   console.log(departure,destination,tripDate);
   
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
@@ -72,7 +72,8 @@ constructor(private routeStateService: RouteStateService, private router: Router
     });
   }
   onSubmit(){
-
+    console.log("welcome *************");
+console.log(this.form.controls.tripDate.value);
     this.loading=true;
     let departure=this.form.controls.departure.value;
     let destination=this.form.controls.destination.value;

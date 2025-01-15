@@ -1,53 +1,53 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component,Input, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { formatDate } from 'src/app/utils/date-utils';
-@Component({
-  selector: 'app-heading',
-  templateUrl: './heading.component.html',
-  styleUrls: ['./heading.component.css']
-})
 
-export class HeadingComponent implements OnInit, OnDestroy {
+@Component({
+  selector: 'app-search-form',
+  templateUrl: './search-form.component.html',
+  styleUrls: ['./search-form.component.css']
+})
+export class SearchFormComponent implements OnInit, OnDestroy {
+  @Input() departureinput: string = 'acd5118e-c32a-422b-5618-08dc2f3fba36';
+  @Input() destinationinput: string = 'f28dd0f3-9d56-40d3-8aa2-bab909217887';
+  @Input() tripDateinput: Date = new Date();
+  @Input() searchFunction: Function;
+  
   form: FormGroup;
+  selectedDeparture: any;
+  selectedDestination: any;
+  selectedDate: Date | null = null;
   isHeading = true;
   isSubheading = true;
   isHeadingBtn = true;
   currentMonthIndex: number = 0;
-  routeState:any;
-  selectedDeparture: any;
-  selectedDestination: any;
+  routeState: any;
   seatNo: any;
   AvailableSeat: any[] = [];
   accounts: any[] = [];
   selectedTrip: any;
   agentId: string;
-  responseStyle:any;
+  responseStyle: any;
   newLine: any = {};
   cities: any[] = [];
-  now:Date=new Date();
-  myControl = new FormControl();
+  now: Date = new Date();
   rotationAngle = 0;
   dropdownVisible = { departure: false, destination: false, date: false };
-  selectedDate: Date | null = null;
   months: { startDate: Date; weeks: Date[][] }[] = [];
   weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   availableDates: Date[] = [];
-
   constructor(
-    private routeStateService: RouteStateService,
     private fb: FormBuilder,
     private eziService: EziBusService,
-   
   ) {}
 
-
-
   ngOnInit() {
-    this.selectedDeparture ="acd5118e-c32a-422b-5618-08dc2f3fba36";
-    this.selectedDestination ="f28dd0f3-9d56-40d3-8aa2-bab909217887";
-    this.selectedDate = this.getMidnightDate(new Date());
+    this.selectedDeparture = this.departureinput;
+    this.selectedDestination = this.destinationinput;
+    // this.selectedDate = this.tripDateinput;
     this.form = this.fb.group({
       departure: [this.selectedDeparture, Validators.required],
       destination: [this.selectedDestination, Validators.required],
@@ -57,7 +57,6 @@ export class HeadingComponent implements OnInit, OnDestroy {
     this.getAllLocations();
     this.getAllBankAccounts();
     this.generateMonths();
-    
     document.addEventListener('click', this.documentClickHandler.bind(this));
   }
 
@@ -67,23 +66,25 @@ export class HeadingComponent implements OnInit, OnDestroy {
 
   documentClickHandler(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-  
+
     // Check if the click is outside of the dropdowns
     const isClickOutsideDropdown =
       !target.closest('.dropdown-menu') && 
       !target.closest('#departureInput') && 
       !target.closest('#destinationInput') && 
       !target.closest('#dateInput');
-  
+
     if (isClickOutsideDropdown) {
       this.dropdownVisible.departure = false;
       this.dropdownVisible.destination = false;
       this.dropdownVisible.date = false;
     }
   }
+
   getMidnightDate(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
+
   generateMonths() {
     const today = new Date();
     for (let i = 0; i < 13; i++) {
@@ -122,14 +123,12 @@ export class HeadingComponent implements OnInit, OnDestroy {
       this.cities = value;
     });
   }
-  
 
   getCityNameById(cityId: string): string {
     const city = this.cities.find(c => c.locationId === cityId);
     return city ? city.name : '';
   }
 
- 
   getAllBankAccounts() {
     this.eziService.getOperatorAccounts().then(response => {
       this.accounts = response;
@@ -151,7 +150,6 @@ export class HeadingComponent implements OnInit, OnDestroy {
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
     this.dropdownVisible[type] = !this.dropdownVisible[type];
-
   }
 
   selectTown(type: 'departure' | 'destination' | 'date', town: string): void {
@@ -161,34 +159,11 @@ export class HeadingComponent implements OnInit, OnDestroy {
       this.selectedDestination = town;
     }
     this.dropdownVisible[type] = false;
-   // this.form.controls[type].setValue(town);
-    
   }
- 
+
   selectDate(date: Date) {
     this.selectedDate = this.getMidnightDate(date);
     this.toggleDropdown('date');
   }
 
-  searchResult() {
-    const searchData = {
-      departure: this.selectedDeparture,
-      destination:this.selectedDestination,
-      tripDate: this.selectedDate 
-  ? formatDate(this.selectedDate) 
-  : formatDate(new Date()),
-    };
-    this.routeStateService.add(
-      "user-list",
-      "/trip-list",
-      searchData,
-      false
-    );
-  }
- 
 }
-
-
-
-
-

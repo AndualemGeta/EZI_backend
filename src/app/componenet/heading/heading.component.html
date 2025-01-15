@@ -103,12 +103,12 @@
 					type="text"
 					id="dateInput"
 					class="form-control decorated-input"
-					formControlName="tripDate"
-					[value]="selectedDate ? (selectedDate | date: 'MMM d, y') : ''"
+					[value]="selectedDate ? (selectedDate | date: 'MMM d, y') : (now | date: 'MMM d, y')"
 					readonly
 					placeholder="{{ 'Select a trip date' | translate }}"
 					(click)="toggleDropdown('date')"
-				/>
+					/>
+
 				</div>
 			</div>
 			
@@ -154,6 +154,9 @@
 				</div>
 			</div>
 			</div>
+
+
+			
 			
 			<div class="col-lg-2 col-md-6 col-12">
 				<div class="form-group">
