@@ -44,11 +44,11 @@ constructor(private routeStateService: RouteStateService, private router: Router
     this.selectedDeparture =this.routeState.departure ? this.routeState.departure:"ba8fcf90-31de-420f-68ac-08d8a643ea62";
     this.selectedDestination =this.routeState.destination ? this.routeState.destination:"8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
     this.selectedDate=this.routeState.tripDate;
-     this.form = this.fb.group({
-      departure: ['', Validators.required],
-      destination: ['', Validators.required],
-      tripDate: ['', Validators.required]
-  });
+  //    this.form = this.fb.group({
+  //     departure: ['', Validators.required],
+  //     destination: ['', Validators.required],
+  //     tripDate: ['', Validators.required]
+  // });
   this.loading=true;
   this.getSearchResult(this.routeState.departure,this.routeState.destination,this.routeState.tripDate);
   }
@@ -56,6 +56,13 @@ constructor(private routeStateService: RouteStateService, private router: Router
     this.eziService.getAllLocations().then((value) => {
       this.cities = value;
     });
+  }
+  get formattedDate(): Date {
+    return new Date(this.selectedDate);
+  }
+  set formattedDate(value: Date) {
+    // Update the selectedDate when the formattedDate changes
+    this.selectedDate = new Date(value);
   }
  getSearchResult(departure,destination,tripDate) {
   console.log(departure,destination,tripDate);
@@ -94,6 +101,12 @@ console.log(this.form.controls.tripDate.value);
    this.getSearchResult(departure,destination,tripDate);
   }
 }
+searchtrip(): void {
+  console.log("Check function");
+  console.log( this.selectedDeparture, this.selectedDestination, this.selectedDate);
+}
+
+
 ReserveSeat(element){
   this.routeStateService.add(
     "user-list",

@@ -1,6 +1,6 @@
-import { Component,Input, OnInit, OnDestroy } from '@angular/core';
+import { Component,Input, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { formatDate } from 'src/app/utils/date-utils';
@@ -14,7 +14,30 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() departureinput: string = 'acd5118e-c32a-422b-5618-08dc2f3fba36';
   @Input() destinationinput: string = 'f28dd0f3-9d56-40d3-8aa2-bab909217887';
   @Input() tripDateinput: Date = new Date();
-  @Input() searchFunction: Function;
+
+  @Output() departureinputChange = new EventEmitter<string>();
+  @Output() destinationinputChange = new EventEmitter<string>();
+  @Output() tripDateinputChange = new EventEmitter<Date>();
+
+  updateDeparture(newValue: string): void {
+    this.departureinput = newValue;
+    this.departureinputChange.emit(newValue);
+  }
+
+  updateDestination(newValue: string): void {
+    this.destinationinput = newValue;
+    this.destinationinputChange.emit(newValue);
+  }
+
+  updateTripDate(newDate: Date): void {
+    this.tripDateinput = newDate;
+    this.tripDateinputChange.emit(newDate);
+  }
+  @Output() searchFunction = new EventEmitter<void>();
+
+  onSearch(): void {
+    this.searchFunction.emit(); // Emit the event
+  }
   
   form: FormGroup;
   selectedDeparture: any;
@@ -47,7 +70,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.selectedDeparture = this.departureinput;
     this.selectedDestination = this.destinationinput;
-    // this.selectedDate = this.tripDateinput;
+    this.selectedDate = this.tripDateinput;
     this.form = this.fb.group({
       departure: [this.selectedDeparture, Validators.required],
       destination: [this.selectedDestination, Validators.required],

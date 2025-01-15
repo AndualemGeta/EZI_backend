@@ -35,14 +35,15 @@
               <a *ngIf="!loading" class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">{{"search"|translate}}</a>
             </div>
            </mat-card>
-     </form>
-     <app-search-form 
+     </form> 
+    <app-search-form 
      [departureinput]="selectedDeparture"
      [destinationinput]="selectedDestination"
-     [tripDateinput]="selectedDate"
-     [customSearchFunction]="onSubmit()">
-   </app-search-form>
+     [tripDateinput]="formattedDate"
+     (searchFunction)="searchtrip()">
+   </app-search-form> 
    
+
      <div *ngIf="loading" style="text-align:center; margin: 60px;">
        <img src="../../../assets/img/searching.gif">
       </div>
