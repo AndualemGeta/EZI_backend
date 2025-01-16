@@ -2,7 +2,7 @@
 
 <div class="trip-list-page">
   <div fxLayout="column" fxLayoutAlign="center">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- <form [formGroup]="form">
        <mat-card class="search-trip-form">
         <mat-form-field appearance="fill">
           <mat-label>{{"departure"|translate}}</mat-label>
@@ -35,16 +35,19 @@
               <a *ngIf="!loading" class="heading-button-right search-button" mat-flat-button (click)="onSubmit()"  color="success">{{"search"|translate}}</a>
             </div>
            </mat-card>
-     </form> 
+     </form>  -->
+  
+    <div class="search-trip-content"> 
     <app-search-form 
-     [departureinput]="selectedDeparture"
-     [destinationinput]="selectedDestination"
-     [tripDateinput]="formattedDate"
+     [(departureinput)]="selectedDeparture"
+     [(destinationinput)]="selectedDestination"
+     [(tripDateinput)]="formattedDate"
+     [(loading)]="loading"
      (searchFunction)="searchtrip()">
    </app-search-form> 
-   
+  </div>
 
-     <div *ngIf="loading" style="text-align:center; margin: 60px;">
+     <div *ngIf="loading" style="text-align:center; margin: 6%;">
        <img src="../../../assets/img/searching.gif">
       </div>
  <div class="trip-list-body" *ngIf="!loading">

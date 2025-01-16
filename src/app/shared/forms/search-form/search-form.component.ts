@@ -3,42 +3,49 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
-import { formatDate } from 'src/app/utils/date-utils';
+import { customDateFormat } from 'src/app/utils/date-utils';
+
 
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.css']
 })
+
 export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() departureinput: string = 'acd5118e-c32a-422b-5618-08dc2f3fba36';
   @Input() destinationinput: string = 'f28dd0f3-9d56-40d3-8aa2-bab909217887';
   @Input() tripDateinput: Date = new Date();
-
+  @Input() loading: boolean = false;
+  @Output() loadingChange = new EventEmitter<boolean>();
   @Output() departureinputChange = new EventEmitter<string>();
   @Output() destinationinputChange = new EventEmitter<string>();
   @Output() tripDateinputChange = new EventEmitter<Date>();
 
   updateDeparture(newValue: string): void {
+    this.selectedDeparture = newValue;
     this.departureinput = newValue;
     this.departureinputChange.emit(newValue);
   }
 
   updateDestination(newValue: string): void {
+    this.selectedDestination = newValue;
     this.destinationinput = newValue;
     this.destinationinputChange.emit(newValue);
   }
 
-  updateTripDate(newDate: Date): void {
-    this.tripDateinput = newDate;
-    this.tripDateinputChange.emit(newDate);
+  updateTripDate(date: Date): void {
+    this.selectedDate = this.getMidnightDate(date);
+    this.tripDateinput = this.getMidnightDate(date);
+    this.tripDateinputChange.emit(this.getMidnightDate(date));
   }
   @Output() searchFunction = new EventEmitter<void>();
 
   onSearch(): void {
-    this.searchFunction.emit(); // Emit the event
+    this.loading = true; 
+    this.searchFunction.emit();
+    this.loadingChange.emit(this.loading);
   }
-  
   form: FormGroup;
   selectedDeparture: any;
   selectedDestination: any;
@@ -68,6 +75,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.loading=false;
     this.selectedDeparture = this.departureinput;
     this.selectedDestination = this.destinationinput;
     this.selectedDate = this.tripDateinput;
@@ -102,10 +110,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       this.dropdownVisible.destination = false;
       this.dropdownVisible.date = false;
     }
-  }
-
-  getMidnightDate(date: Date): Date {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
   generateMonths() {
@@ -167,8 +171,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const temp = this.selectedDeparture;
     this.selectedDeparture = this.selectedDestination;
     this.selectedDestination = temp;
-    this.form.controls.departure.setValue(this.selectedDeparture);
-    this.form.controls.destination.setValue(this.selectedDestination);
   }
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
@@ -177,15 +179,22 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   selectTown(type: 'departure' | 'destination' | 'date', town: string): void {
     if (type === 'departure') {
-      this.selectedDeparture = town;
+      this.updateDeparture(town);
+      this.dropdownVisible[type] = false;
     } else {
-      this.selectedDestination = town;
+      this.updateDestination(town);
+      this.dropdownVisible[type] = false;
     }
     this.dropdownVisible[type] = false;
+    
+  }
+
+  getMidnightDate(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
   selectDate(date: Date) {
-    this.selectedDate = this.getMidnightDate(date);
+    this.updateTripDate(date);
     this.toggleDropdown('date');
   }
 

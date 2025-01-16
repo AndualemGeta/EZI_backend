@@ -1,7 +1,7 @@
 import { Component, OnInit,HostListener } from '@angular/core';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
-import { formatDate } from 'src/app/utils/date-utils';
+import { customDateFormat } from 'src/app/utils/date-utils';
 @Component({
   selector: 'app-travel-information',
   templateUrl: './travel-information.component.html',
@@ -55,7 +55,7 @@ export class TravelInformationComponent implements OnInit {
     const searchData = {
       departure: route.departureLocationId,
       destination:route.arrivalLocationId,
-      tripDate:  formatDate(new Date()),
+      tripDate:  customDateFormat(new Date()),
     };
     this.routeStateService.add(
       "user-list",

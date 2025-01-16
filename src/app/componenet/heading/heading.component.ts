@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
-import { formatDate } from 'src/app/utils/date-utils';
+import { customDateFormat } from 'src/app/utils/date-utils';
 @Component({
   selector: 'app-heading',
   templateUrl: './heading.component.html',
@@ -175,8 +175,8 @@ export class HeadingComponent implements OnInit, OnDestroy {
       departure: this.selectedDeparture,
       destination:this.selectedDestination,
       tripDate: this.selectedDate 
-  ? formatDate(this.selectedDate) 
-  : formatDate(new Date()),
+  ? customDateFormat(this.selectedDate) 
+  : customDateFormat(new Date()),
     };
     this.routeStateService.add(
       "user-list",

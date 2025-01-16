@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import {formatDate} from '@angular/common';
+import { customDateFormat } from 'src/app/utils/date-utils';
 export interface PeriodicElement {
   name: string;
   position: string;
@@ -57,6 +58,7 @@ constructor(private routeStateService: RouteStateService, private router: Router
       this.cities = value;
     });
   }
+
   get formattedDate(): Date {
     return new Date(this.selectedDate);
   }
@@ -66,44 +68,47 @@ constructor(private routeStateService: RouteStateService, private router: Router
   }
  getSearchResult(departure,destination,tripDate) {
   console.log(departure,destination,tripDate);
-  
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
     this.route = response;
        if(this.route.length==0){
         this.searchResultmessage="No Trip Found, Please select another date";
        }
-       this.loading=false;
+     this.loading=false;
     },(error) => {
       this.searchResultmessage="No Trip Found, Please select another date";
       this.loading=false;
     });
   }
-  onSubmit(){
-    console.log("welcome *************");
-console.log(this.form.controls.tripDate.value);
-    this.loading=true;
-    let departure=this.form.controls.departure.value;
-    let destination=this.form.controls.destination.value;
-    let tripDate=this.form.controls.tripDate.value;
-    let tDate=formatDate(tripDate,'yyyy-MM-dd', 'en-US');
-    let today=formatDate(new Date(),'yyyy-MM-dd', 'en-US');
-    if(departure==""||destination==""){
-      this.route=[];
-      this.searchResultmessage="Please select Departure and Destination";
-      this.loading=false;
-    }
-    else if (today>tDate) {
-       this.route=[];
-       this.searchResultmessage="Please select future Date";
-       this.loading=false;
-    }
-  else{
-   this.getSearchResult(departure,destination,tripDate);
-  }
-}
+
+
+//   onSubmit(){
+//     console.log("welcome *************");
+// console.log(this.form.controls.tripDate.value);
+//     this.loading=true;
+//     let departure=this.form.controls.departure.value;
+//     let destination=this.form.controls.destination.value;
+//     let tripDate=this.form.controls.tripDate.value;
+//     let tDate=formatDate(tripDate,'yyyy-MM-dd', 'en-US');
+//     let today=formatDate(new Date(),'yyyy-MM-dd', 'en-US');
+//     if(departure==""||destination==""){
+//       this.route=[];
+//       this.searchResultmessage="Please select Departure and Destination";
+//       this.loading=false;
+//     }
+//     else if (today>tDate) {
+//        this.route=[];
+//        this.searchResultmessage="Please select future Date";
+//        this.loading=false;
+//     }
+//   else{
+//    this.getSearchResult(departure,destination,tripDate);
+//   }
+// }
 searchtrip(): void {
-  console.log("Check function");
-  console.log( this.selectedDeparture, this.selectedDestination, this.selectedDate);
+this.loading=true;
+ let d=customDateFormat(new Date(this.selectedDate))
+  console.log(d);
+  this.getSearchResult(this.selectedDeparture,this.selectedDestination,d);
 }
 
 

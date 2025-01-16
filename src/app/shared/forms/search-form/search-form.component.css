@@ -1,5 +1,6 @@
 .form-input {
     margin: 2vh;
+    background-color: rgba(255, 255, 255, 0.9);
   }
   
   label {
@@ -7,6 +8,10 @@
     margin-bottom: 5px;
   }
   
+  
+  .list-group-item {
+    cursor: pointer;
+  }
   .exchange-icon {
     color: green;
     cursor: pointer;
@@ -17,6 +22,9 @@
     transform: rotate(180deg);
   }
   
+  .form-control {
+    cursor: pointer;
+  }
   .input-icon-container {
     position: relative;
     border: 1px solid rgba(58, 150, 12, 0.74);
