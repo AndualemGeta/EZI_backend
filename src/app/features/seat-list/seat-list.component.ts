@@ -78,12 +78,14 @@ export class SeatListComponent  {
     registrationDate: new Date(),
     updatedAt: new Date(),
     scheduleId: "",
-    accountId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    accountId: "1963145d-c0b4-4cb0-62fc-08dc46bf0a7f",
+    //"3fa85f64-5717-4562-b3fc-2c963f66afa6",
     paymentMethodCode: "",
     paymentProviderCode: "",
     debitAccount: "",
     passengers: [],
-    bookedById: "DE937EB1-F20A-44E5-451C-08D8A705F255",
+    bookedById:"a4853181-acaa-4238-2dca-08dc46be1bd8",
+    // "DE937EB1-F20A-44E5-451C-08D8A705F255",
     statusCode: 'Reserved',
     paymentTypeCode: 'Electronic',
   }
@@ -104,7 +106,7 @@ export class SeatListComponent  {
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
-    this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
+    this.agentId = "a4853181-acaa-4238-2dca-08dc46be1bd8";
     this.routeState = this.routeStateService.getCurrent().data;
       this.selectedTrip=this.routeState;
     this.seatConfig = [
@@ -382,6 +384,7 @@ onSubmit() {
   }
 reserveSeat(data){
     this.loading = true;
+    console.log(data);
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
       this.iserror = false;
@@ -406,6 +409,7 @@ reserveSeat(data){
       }
       },
     (error) => {
+      console.log(error);
       this.iserror = true;
       this.responseTitle = 'Error!!!';
       this.responseDialog = true;

@@ -22,8 +22,8 @@ export class EziBusService {
    baseurl ="https://ezibusapi.ezi-tech.com"; /*url to communicate real data base */
   // baseurl = 'http://localhost:5000'; /*url to communicate real data base */
   // baseurl = "http://localhost:5000";
-  operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
-
+  // operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
+  operatorId ='a1ceb086-3757-416c-3cbb-08dc46bbea6a';
   getApiService(url): any {
     // this.user = this.sessionService.getItem("currentUser");
     return this.http
