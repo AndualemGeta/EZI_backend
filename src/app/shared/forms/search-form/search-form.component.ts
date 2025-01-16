@@ -1,6 +1,5 @@
 import { Component,Input, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { customDateFormat } from 'src/app/utils/date-utils';
@@ -41,10 +40,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
   @Output() searchFunction = new EventEmitter<void>();
 
-  onSearch(): void {
-    this.loading = true; 
-    this.searchFunction.emit();
+  onSearch(): void { 
     this.loadingChange.emit(this.loading);
+    this.searchFunction.emit();
   }
   form: FormGroup;
   selectedDeparture: any;
@@ -171,6 +169,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const temp = this.selectedDeparture;
     this.selectedDeparture = this.selectedDestination;
     this.selectedDestination = temp;
+    this.updateDeparture(this.selectedDeparture);
+    this.updateDestination(this.selectedDestination);
   }
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {

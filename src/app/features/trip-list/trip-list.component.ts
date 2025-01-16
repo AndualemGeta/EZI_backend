@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
@@ -18,14 +18,14 @@ export interface PeriodicElement {
 })
 export class TripListComponent implements OnInit {
 constructor(private routeStateService: RouteStateService, private router: Router,
-  private fb: FormBuilder,
+  private cdr: ChangeDetectorRef,
   private eziService: EziBusService,
   ) { }
   selectedDeparture:any;
   selectedDestination:any;
   loading:boolean;
-  form: FormGroup;
-  searchResultmessage="No Trip Found, Please select another date";
+  // form: FormGroup;
+  searchResultmessage="No Trip Found,on this date Please select another date";
   routeState;
   selectedDate:Date=new Date();
   seatNo: any;
@@ -41,17 +41,12 @@ constructor(private routeStateService: RouteStateService, private router: Router
   ngOnInit(): void {
     this.loading=false;
     this.routeState = this.routeStateService.getCurrent().data;
+    this.selectedDeparture =this.routeState.departure || "ba8fcf90-31de-420f-68ac-08d8a643ea62";
+    this.selectedDestination =this.routeState.destination || "8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
+    this.selectedDate=this.routeState.tripDate|| new Date();
+    this.loading=true;
     this.getAllLocations();
-    this.selectedDeparture =this.routeState.departure ? this.routeState.departure:"ba8fcf90-31de-420f-68ac-08d8a643ea62";
-    this.selectedDestination =this.routeState.destination ? this.routeState.destination:"8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
-    this.selectedDate=this.routeState.tripDate;
-  //    this.form = this.fb.group({
-  //     departure: ['', Validators.required],
-  //     destination: ['', Validators.required],
-  //     tripDate: ['', Validators.required]
-  // });
-  this.loading=true;
-  this.getSearchResult(this.routeState.departure,this.routeState.destination,this.routeState.tripDate);
+    this.getSearchResult(this.routeState.departure,this.routeState.destination,this.routeState.tripDate);
   }
     getAllLocations() {
     this.eziService.getAllLocations().then((value) => {
@@ -62,12 +57,27 @@ constructor(private routeStateService: RouteStateService, private router: Router
   get formattedDate(): Date {
     return new Date(this.selectedDate);
   }
+
   set formattedDate(value: Date) {
-    // Update the selectedDate when the formattedDate changes
     this.selectedDate = new Date(value);
   }
- getSearchResult(departure,destination,tripDate) {
-  console.log(departure,destination,tripDate);
+
+  getSearchResult(departure,destination,tripDate) {
+  if(departure==""||destination==""){
+    this.route=[];
+    this.searchResultmessage="Please select Departure and Destination";
+    this.loading=false;
+    this.cdr.detectChanges();
+    return;
+  }
+  else if (this.compareDates(new Date(tripDate))) {
+    this.route=[];
+    this.searchResultmessage="Please select a future date";
+    this.loading=false;
+    this.cdr.detectChanges();
+    return;
+  }
+
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
     this.route = response;
        if(this.route.length==0){
@@ -78,39 +88,13 @@ constructor(private routeStateService: RouteStateService, private router: Router
       this.searchResultmessage="No Trip Found, Please select another date";
       this.loading=false;
     });
-  }
+ }
 
-
-//   onSubmit(){
-//     console.log("welcome *************");
-// console.log(this.form.controls.tripDate.value);
-//     this.loading=true;
-//     let departure=this.form.controls.departure.value;
-//     let destination=this.form.controls.destination.value;
-//     let tripDate=this.form.controls.tripDate.value;
-//     let tDate=formatDate(tripDate,'yyyy-MM-dd', 'en-US');
-//     let today=formatDate(new Date(),'yyyy-MM-dd', 'en-US');
-//     if(departure==""||destination==""){
-//       this.route=[];
-//       this.searchResultmessage="Please select Departure and Destination";
-//       this.loading=false;
-//     }
-//     else if (today>tDate) {
-//        this.route=[];
-//        this.searchResultmessage="Please select future Date";
-//        this.loading=false;
-//     }
-//   else{
-//    this.getSearchResult(departure,destination,tripDate);
-//   }
-// }
 searchtrip(): void {
-this.loading=true;
- let d=customDateFormat(new Date(this.selectedDate))
-  console.log(d);
-  this.getSearchResult(this.selectedDeparture,this.selectedDestination,d);
+  this.loading = true;
+  let tripDate=customDateFormat(new Date(this.selectedDate));
+  this.getSearchResult(this.selectedDeparture,this.selectedDestination,tripDate);
 }
-
 
 ReserveSeat(element){
   this.routeStateService.add(
@@ -121,10 +105,10 @@ ReserveSeat(element){
   );
   }
 
-
-  ExchangeTrip(){
-    let departure =this.selectedDeparture;
-    this.selectedDeparture=this.selectedDestination;
-    this.selectedDestination=departure;
-   }
+compareDates(tripDate: Date): boolean {
+    let tripDay = formatDate(tripDate, 'yyyy-MM-dd', 'en-US');
+    let today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    return today > tripDay;
 }
+}
+
