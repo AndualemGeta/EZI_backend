@@ -9,7 +9,7 @@
      
     <button fxShow="false" fxShow.gt-xs="true" mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5%;">
       <mat-icon class="header-icon">language</mat-icon>
-      <span>{{'language'|translate}}</span>
+      <span style="color: #f4f5f6">{{'language'|translate}}</span>
     </button>
     <mat-menu  #menu="matMenu">
       <button mat-menu-item (click)="ChangeLanguage('en')">

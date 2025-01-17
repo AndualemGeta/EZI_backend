@@ -1,7 +1,9 @@
 .travel-info{
-  background-color: #e5e5e5;
+  background: url('../../../assets/img/bg/travel.jpg') no-repeat center center / cover;
+  width: 100%;
+  justify-content: center;
   margin: 0px;
- 
+  padding: 20px;
 }
 
 .pricing-heading{

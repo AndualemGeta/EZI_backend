@@ -1,12 +1,20 @@
 .contact-page{
- background: url('../../../assets/img/bg/contact-bg.png') no-repeat center center / cover;
+ background: url('../../../assets/img/bg/contact-bg.jpg') no-repeat center center / cover;
  margin: 0px;
- padding: 10px;
+ /* padding: 10px; */
+ 
+}
+.contact-page-container{
+  /* background: rgba(255, 255, 255, 0.67); */
+  padding: 10px;
+  margin: 0px;
+ 
 }
 .contact-section{
   text-align: center;
   padding: 20px;
 }
+
 
 .contact-font-type, mat-label, input {
   font-family: yrsa;
@@ -25,6 +33,7 @@
   flex-direction: column;
   padding-left: 300px;
   padding-right: 300px;
+ 
 }
 
 .contact-form > * {

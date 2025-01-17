@@ -1,7 +1,7 @@
 /*footer*/
 .col_white_amrc { color:#1c1717;}
 footer { width:100%; 
-	background: url('../../../assets/img/bg/footer-bg.jpg') no-repeat center center / cover;
+	background: url('../../../assets/img/bg/footer.gif') no-repeat center center / cover;
 	background-color:#263238;
 	 min-height:250px; padding:10px 0px 10px 0px ; 
 	 justify-content: center;}

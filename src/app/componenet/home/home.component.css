@@ -33,8 +33,9 @@ html {
    bottom: 0;
    left: 0;
    right: 0;
-   /*background-color: rgb(255,255,255);*/
-   background-color: #44CF6C;
+   
+   background: url('../../../assets/img/bg/header.jpg') no-repeat center center / cover;
+   /* background-color: #44CF6C; */
    font-family: yrsa;
    height: 64px;
  }

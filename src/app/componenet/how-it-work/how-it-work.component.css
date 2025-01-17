@@ -1,5 +1,7 @@
 .how-it-work-body{
-    background-color: #e5e5e5;
+  background: url('../../../assets/img/bg/how.jpg') no-repeat center center / cover;
+  /* background-color:#fff; */
+    
     width: 100%;
     justify-content: center;
   }
