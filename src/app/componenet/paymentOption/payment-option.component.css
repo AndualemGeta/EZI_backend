@@ -105,21 +105,21 @@
 
 .card {
   width: 100%;
-  background: linear-gradient(135deg, hsl(0, 16%, 76%), #68a9f3); /* Magical gradient */
-  color: white;
+  color: rgba(3, 1, 155, 0.782);
+  background: url('../../../assets/img/partners/3.jpg') no-repeat center center / cover;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center;  */
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(3, 1, 155, 0.782);
   min-height: 170px;  /* Ensure equal height */
   margin: 1rem;  /* Add margin between cards */
   }
 
   .card-title {
     margin: 0;
-    text-align: center;
+    text-align:left;
   }
   /* Responsive adjustments */
   @media (max-width: 768px) {

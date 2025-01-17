@@ -20,7 +20,7 @@
 }
 
 .routes-body{
-  padding: 5px;
+  padding: 1px;
 }
 .routes-container {
   display: flex;
@@ -34,10 +34,12 @@
   display: none; /* Safari and Chrome */
 }
 .card {
-  width: 18rem;
-  min-height: 150px;
+  width: 40rem;
+  min-height: 200px;
   transition: transform 0.3s ease-in-out;
-  border: none;
+  border: solid 1px;
+  color:rgb(8, 0, 65);
+  background: url('../../../assets/img/bg/travel-info.jpg') no-repeat center center / cover;
 }
 
 .card-title {
@@ -47,7 +49,11 @@
 .card:hover {
   transform: scale(1.05);
 }
-
+.card-text{
+  color:rgb(8, 0, 65);
+  font-size: 100%;
+  font-weight: bold;
+}
 .btn-outline-primary {
   border-radius: 50%;
   width: 40px;
