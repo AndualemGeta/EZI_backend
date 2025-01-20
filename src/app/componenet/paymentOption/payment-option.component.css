@@ -10,85 +10,7 @@
 }
 .payment-option-body{
   padding: 10px;
-  margin-bottom: 3px;
 }
-.header-section{
-  text-align: center;
-  padding: 30px;
-}
-
-.header-section h2{
-  font-size: 32px;
-}
-
-.header-section h3{
-  font-size: 22px;
-}
-.mat-card{
-	padding: 0;
-	height: 200px;
-	margin-top: 30px;
-}
-
-.mat-card-image {
-	margin: 0;
-}
-
-.mat-card-content {
-	padding: 10px;
-}
-
-.mat-card-content a {
-	color: inherit;
-}
-
-.item {
-	margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.owl-nav .my-but{
-	background-color: red;
-}
-.img-center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 150px;
-
-}
-.lion-img-center {
-	display: block;
-	margin: auto;
-	margin-top: 0px;
-    height: 130px;
-
-}
-.telebirr-img-center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 100px;
-
-}
-.abyssinia-img-center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 200px;
-
-}
-.portfolio-row {
-	margin-top: 25px;
-}
-
-.mat-headline {
-	text-align: center;
-	font-family: "Yu Gothic UI";
-	font-weight: bold;
-	font-size: 22px;
-}
-
 .payment-options-header{
 	font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -107,14 +29,14 @@
   width: 100%;
   color: rgba(3, 1, 155, 0.782);
   background: url('../../../assets/img/partners/3.jpg') no-repeat center center / cover;
-  display: flex;
-  justify-content: center;
-  /* align-items: center;  */
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(3, 1, 155, 0.782);
-  min-height: 170px;  /* Ensure equal height */
-  margin: 1rem;  /* Add margin between cards */
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   }
 
   .card-title {

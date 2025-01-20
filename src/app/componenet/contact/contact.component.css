@@ -10,7 +10,12 @@
   text-align: center;
   padding: 20px;
 }
+.contact-content{
+  width: 100%;
+  /* display: flex;   */
 
+  /* justify-content: center; */
+}
 
 .contact-font-type, mat-label, input {
   font-family: yrsa;
