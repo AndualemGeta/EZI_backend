@@ -1,67 +1,65 @@
 <div id="contact" class="contact-page" data-aos="zoom-in-up">
 	<div class="contact-page-container">
-    <div class="container">
+   
 		        <div class="contact-section" fxLayout="column" fxLayoutAlign="center center">
 		            <h2> {{"contactUsHeader"|translate}}</h2>
 			        <h3 class="contact-font-type" [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}"> {{"contactInvitationWord"|translate}}</h3>
 		        </div>
-				<div class="row" >
-					<div class="col-lg-6 col-md-6 col-12">
-						<div class="map-container">
+				  <div class="d-flex flex-wrap">
+					<div class="row w-100">
+					  <div class="col-lg-8 col-md-8 col-12">
 						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7880.773484657779!2d38.75375210067506!3d9.02844003587186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b855d4cb2718b%3A0xef48e982ea0c864f!2sEzibus!5e0!3m2!1sen!2set!4v1737178138866!5m2!1sen!2set" width="100%" height="501" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-					</div>
-					</div>
-					<div class="col-lg-6 col-md-6 col-12">
-				<form class="formwidth" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-				  
-				<div class="contact-form" >
-				  	  
-					<mat-form-field appearance="outline" color="accent">
-					  	<mat-label> {{"contactNameRequest"|translate}}  </mat-label>
-					    <input matInput placeholder="Name" required
-					           [errorStateMatcher]="matcher" formControlName="name">
-					    <mat-error *ngIf="nameFormControl.hasError('required')">
-					      Name is required
-					    </mat-error>
-					  </mat-form-field>
-					  <mat-form-field appearance="outline" color="accent">
-					  	<mat-label> {{"contactPhoneRequest"|translate}} </mat-label>
-					    <input type="tel" matInput placeholder="Phone" formControlName="phone" required
-					           [errorStateMatcher]="matcher">
-					    <mat-error *ngIf="phoneFormControl.hasError('required')">
-					      Phone is required
-					    </mat-error>
-					  </mat-form-field>
-					  <mat-form-field appearance="outline" color="accent">
-					  	<mat-label>{{"contactEmailRequest"|translate}} </mat-label>
-						  <input type="email" matInput  formControlName="email" required
-					           [errorStateMatcher]="matcher">
-							   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-								Please enter a valid email address
-							  </mat-error>
-					    <mat-error *ngIf="emailFormControl.hasError('required')">
-					      Email is required
-					    </mat-error>
-					  </mat-form-field>
-					  <br>
-					  <mat-form-field  appearance="outline" color="accent">
-						<mat-label>  {{"contactCommentRequest"|translate}} </mat-label>
-						<textarea matInput  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="8" formControlName="comment" required ></textarea>
-					  </mat-form-field>
-					  
-					  <div fxLayout="row" fxLayoutAlign="center center">
-						<div *ngIf="contactForm.invalid && submitted" class="error-message" fxLayoutAlign="center center">
-						<span>Please ensure all fields are correctly filled before submitting.</span>
-						  </div>
-						<button class="contact-button" (click)="onSubmit()">
-						  {{"send" | translate}}
-						</button>
 					  </div>
-				     </div>
-				</form>
-			</div>
-
-		</div>
-	</div>
+					  <div class="col-lg-4 col-md-4 col-12">
+						<form class="formwidth" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+				  
+							<div class="contact-form" >
+									
+								<mat-form-field appearance="outline" color="accent">
+									  <mat-label> {{"contactNameRequest"|translate}}  </mat-label>
+									<input matInput placeholder="Name" required
+										   [errorStateMatcher]="matcher" formControlName="name">
+									<mat-error *ngIf="nameFormControl.hasError('required')">
+									  Name is required
+									</mat-error>
+								  </mat-form-field>
+								  <mat-form-field appearance="outline" color="accent">
+									  <mat-label> {{"contactPhoneRequest"|translate}} </mat-label>
+									<input type="tel" matInput placeholder="Phone" formControlName="phone" required
+										   [errorStateMatcher]="matcher">
+									<mat-error *ngIf="phoneFormControl.hasError('required')">
+									  Phone is required
+									</mat-error>
+								  </mat-form-field>
+								  <mat-form-field appearance="outline" color="accent">
+									  <mat-label>{{"contactEmailRequest"|translate}} </mat-label>
+									  <input type="email" matInput  formControlName="email" required
+										   [errorStateMatcher]="matcher">
+										   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+											Please enter a valid email address
+										  </mat-error>
+									<mat-error *ngIf="emailFormControl.hasError('required')">
+									  Email is required
+									</mat-error>
+								  </mat-form-field>
+								  <br>
+								  <mat-form-field  appearance="outline" color="accent">
+									<mat-label>  {{"contactCommentRequest"|translate}} </mat-label>
+									<textarea matInput  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="8" formControlName="comment" required ></textarea>
+								  </mat-form-field>
+								  
+								  <div fxLayout="row" fxLayoutAlign="center center">
+									<div *ngIf="contactForm.invalid && submitted" class="error-message" fxLayoutAlign="center center">
+									<span>Please ensure all fields are correctly filled before submitting.</span>
+									  </div>
+									<button class="contact-button" (click)="onSubmit()">
+									  {{"send" | translate}}
+									</button>
+								  </div>
+								 </div>
+							</form>
+					  </div>
+					</div>
+				  </div>
 </div>
 </div>

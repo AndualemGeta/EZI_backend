@@ -1,16 +1,10 @@
 .contact-page{
  background: url('../../../assets/img/bg/contact-bg.jpg') no-repeat center center / cover;
  margin: 0px;
- /* padding: 10px; */
- 
- 
 }
 .contact-page-container{
-  /* background: rgba(255, 255, 255, 0.67); */
-  padding: 1px;
-  margin: 0px;
+  padding: 5px;
   width: 100%;
- 
 }
 .contact-section{
   text-align: center;
@@ -44,7 +38,7 @@
   background-color: hsl(210, 36%, 96%); 
   border-radius: 10px; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  max-width: 470px;  
+  /* max-width: 470px;   */
   font-family: 'Arial', sans-serif; 
   color: hsl(210, 22%, 30%); 
 }
