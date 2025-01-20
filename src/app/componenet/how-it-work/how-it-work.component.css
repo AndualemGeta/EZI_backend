@@ -1,68 +1,8 @@
 .how-it-work-body{
   background: url('../../../assets/img/bg/how.jpg') no-repeat center center / cover;
   /* background-color:#fff; */
-    
-    width: 100%;
-    justify-content: center;
-  }
-
-  .about-heading{
-    padding-bottom: 10px;
-  }
-
-  .about-title{
-    font-family: yrsa;
-    color: #0B3954;
-  }
-
-  .about-heading h2{
-    font-size: 32px;
-    margin: 0%;
-  }
-
-  .about-heading h3{
-    font-size: 22px;
-  }
-
-  .about-text{
-    text-align: center;
-    font-family: yrsa !important;
-  }
-
-  .material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 30px;  /* Preferred icon size */
-   /* display: inline-block;*/
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    /*
-    direction: ltr;
-     Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Support for IE. #00ff03;*/
-    font-feature-settings: 'liga';
-    color:green;
-
-   /*border: solid 1px #555;*/
-   background-color: rgb(230, 236, 236);
-   box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.3); 
-   /* 
-    box-shadow: 0 0 98px rgba(0,0,0,0.1);
-   -moz-box-shadow: 10px -10px rgba(0,0,0,0.6);
-   -webkit-box-shadow: 10px -10px rgba(0,0,0,0.6); 
-   -o-box-shadow: 10px -10px rgba(0,0,0,0.6);  */
-   border-radius:50px;
+  width: 100%;
+  justify-content: center;
   }
 
   .how-it-work-contents {
@@ -70,6 +10,7 @@
     flex-wrap: wrap;
     text-align: center;
     justify-content: center;
+    padding: 1px;
     }
 
   .how-it-work-sub-content{
@@ -77,56 +18,18 @@
   flex-wrap: wrap;
   justify-content: center;
   }
-  .sub-content-detail{
-  width :250px;
-  margin: 6px;
-  float: center;
-  text-align: center;
-  justify-content: center;
-  }
+ 
+.card{
+  margin: 5px;
+  padding: 5px; /* More spacious padding */
+  background-color: hsl(210, 36%, 96%); /* Light blue shade for a soft appearance */
+  border: 1px solid hsl(210, 36%, 85%); /* Subtle border color */
+  border-radius: 10px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  font-family: 'Arial', sans-serif; /* Clean and modern font */
+  color: hsl(210, 22%, 30%); /* Text color for good contrast */
+}
 
-  .sub-content-detail-property{
-    width: 75%;
-    float: center;    
-  }
-
-  .sub-content-detail-icon{
-    font-size: 50px;
-    width: 50%; 
-    flex-wrap: wrap;
-    justify-content: center !important;
-  }
-
-  .sub-content-detail-title{
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 20px;;
-    font-family: yrsa !important;
-    text-align: center;
-  }
-
-  .sub-content-detail-value{
-    font-size: 14px;
-    font-family: yrsa !important;
-  }
-
-
-
-  @media (max-width : 768px) {
-    .how-it-work-sub-contents {
-      padding: 3%;
-    }
-  }
-  
-
-  @media(min-width: 768px){
-    .how-it-work-sub-contents {
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-  }
-  
-  
   .content-title{
     font-size: 25px;
     font-weight: bold;
