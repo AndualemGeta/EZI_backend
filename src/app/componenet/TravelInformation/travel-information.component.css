@@ -5,7 +5,10 @@
   margin: 0px;
   padding: 20px;
 }
-
+.container-content{
+  padding: 0px;
+  margin: 0px;
+}
 .pricing-heading{
   text-align: center;
   padding: 30px;
@@ -19,46 +22,63 @@
   font-size: 22px;
 }
 
-.routes-body{
-  padding: 1px;
+.routes-body {
+  padding:1px;
 }
+
 .routes-container {
+  flex-grow: 1;
   display: flex;
-  overflow-x: auto; /* Allow scrolling */
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  white-space: nowrap; /* Prevent wrapping of items */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
   scrollbar-width: none;
+  padding: 0 1rem;
 }
 
 .routes-container::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
 }
+
 .card {
-  width: 40rem;
-  min-height: 200px;
+  width: 18rem;
+  min-height: 160px;
   transition: transform 0.3s ease-in-out;
   border: solid 1px;
-  color:rgb(8, 0, 65);
+   color: rgb(8, 0, 65); 
   background: url('../../../assets/img/bg/travel-info.jpg') no-repeat center center / cover;
+  margin: 0 0.3rem; /* Add consistent margin */
+}
+
+.card:hover {
+  transform: scale(1.01);
+  border: solid 1px;
+  color: rgb(8, 0, 65); 
 }
 
 .card-title {
   font-size: 1.25rem;
 }
 
-.card:hover {
-  transform: scale(1.05);
-}
-.card-text{
-  color:rgb(8, 0, 65);
+.card-text {
+  color: rgb(8, 0, 65);
   font-size: 100%;
   font-weight: bold;
 }
+
 .btn-outline-primary {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.scroll-btn {
+  flex-shrink: 0;
+}
+
 
 
 

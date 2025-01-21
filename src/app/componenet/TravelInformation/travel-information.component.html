@@ -1,5 +1,5 @@
 <div id="travel-info" class="travel-info aos-init-animate " data-aos="fade-up">
-    <div class="containerr">
+    <div class="container-content">
     	<div class="pricing-heading" fxLayout="column" fxLayoutAlign="center center">
           <h2 class="section-header">{{"travelInfoHeading"|translate}}</h2>
           <div>
@@ -8,51 +8,50 @@
 		</div>
 
 		<div class="row routes-body align-items-center">
-			<div class="col-1">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+			  <!-- Left Scroll Button -->
 			  <button
-				class="btn btn-outline-primary"
+				class="btn btn-outline-primary scroll-btn"
 				[disabled]="currentPage === 1"
 				(click)="scroll(-1)">
 				<i class="bi bi-chevron-left"></i>
 			  </button>
-			</div>
 		  
-			<div class="col-10">
-				<div class="d-flex flex-row overflow-auto gap-3 justify-content-start routes-container">
-				  <div
-					class="card shadow flex-shrink-0"
-					*ngFor="let route of availableRoutes; let index = index"
-					[ngStyle]="{'background-color': getCardColor(index), 'width': '18rem'}">
-					<div class="card-body d-flex flex-column" style="height: 100%;">
-					  <h6 class="card-title  d-flex align-items-center">
-						{{ route.departureLocationName | translate }}
-						<i class="bi bi-arrow-right mx-2"></i>
-						{{ route.arrivalLocationName | translate }}
-					  </h6>
-					  <p class="card-text">
-						<span *ngIf="route.passThroughLocationName">
-						  (via {{ route.passThroughLocationName | translate }})
-						</span>
-					  </p>
-					  <div class="mt-auto"> <!-- This ensures the button stays at the bottom -->
-						<button class="btn btn-light" (click)="bookRoute(route)">
-						  <i class="bi bi-bookmark-check"></i> Book Now
-						</button>
-					  </div>
+			  <!-- Cards Container -->
+			  <div class="d-flex flex-row overflow-auto routes-container">
+				<div
+				  class="card flex-shrink-0"
+				  *ngFor="let route of availableRoutes; let index = index">
+				  <div class="card-body d-flex flex-column" >
+					<h6 class="card-title d-flex align-items-center">
+					  {{ route.departureLocationName | translate }}
+					  <i class="bi bi-arrow-right mx-2"></i>
+					  {{ route.arrivalLocationName | translate }}
+					</h6>
+					<p class="card-text">
+					  <span *ngIf="route.passThroughLocationName">
+						(via {{ route.passThroughLocationName | translate }})
+					  </span>
+					</p>
+					<div class="mt-auto">
+					  <button class="btn btn-light" (click)="bookRoute(route)">
+						<i class="bi bi-bookmark-check"></i> Book Now
+					  </button>
 					</div>
 				  </div>
 				</div>
 			  </div>
 		  
-			<div class="col-1">
+			  <!-- Right Scroll Button -->
 			  <button
-				class="btn btn-outline-primary"
+				class="btn btn-outline-primary scroll-btn"
 				[disabled]="currentPage === totalPages"
 				(click)="scroll(1)">
 				<i class="bi bi-chevron-right"></i>
 			  </button>
 			</div>
 		  </div>
+		  
 		  
 		  
 		  

@@ -1,12 +1,14 @@
 .partner-section {
   background: url('../../../assets/img/partners/partner.gif') no-repeat center center / cover;
-  /* background-color:#fff; */
   transition-duration: 1s;
   margin: 0px;
   text-align: center;
-  padding: 10px;
+  padding: 3px;
 }
-
+.container-content {
+  padding: 0px 10px;
+  margin:  2px;
+}
 .partner-heading {
   font-size: 2rem;
   color: #333;
@@ -76,7 +78,6 @@
 }
 
 .partner-image img {
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
-  border-radius: 10px;
 }
