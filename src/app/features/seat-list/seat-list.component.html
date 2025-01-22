@@ -12,8 +12,8 @@
         <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
-                <span class="trip-detail-property">{{"tripDate"|translate}} :</span>:
-                <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+                <span class="trip-detail-property">{{"tripDate"|translate}} :</span>
+                <span class="trip-detail-value">{{ routeState.tripDate | date:"MMM dd, Y"}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">place</i>
@@ -243,19 +243,18 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
             <mat-card style="width:90%;">
-              <div class="trip-detail-title"> {{routeState.operator | uppercase }} BUS &nbsp; <span
-                class="trip-detail-property">  {{routeState.departureLocation |translate}}
-                - {{routeState.arrivalLocation |translate}}</span> &nbsp;&nbsp; <span
-                class="trip-detail-property">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}  </span></div>
-              <div class="trip-detail-item">
-              </div>
-              <div class="trip-detail-item">
-                <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
+              <div class="trip-detail-title"> 
+                {{routeState.operator | uppercase }} BUS 
+                 <p class="trip-detail-property"> 
+                   {{routeState.departureLocation |translate}} - {{routeState.arrivalLocation |translate}}
+                  </p> 
+                <p class="trip-detail-property">{{ routeState.tripDate|date:"MMM dd, Y"}} </p>
+                <p class="trip-detail-property">{{"totalSelectedSeat"|translate}} : 
                 <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
-                &nbsp; &nbsp; <span class="trip-detail-property">{{"totalAmount"|translate}}: </span>
+              </p>
+                 <p class="trip-detail-property">{{"totalAmount"|translate}}: 
                 <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
-              </div>
-              <div class="trip-detail-item">
+              </p>
               </div>
               <div class="trip-detail-item">
                 <span class="trip-detail-property"> {{"selectedSeat"|translate}}: </span>
@@ -266,25 +265,28 @@
               <p class="trip-detail-title"> {{"choosPaymentOption"| translate}}</p>
               <mat-radio-group formControlName="paymentMethod" aria-label="Select an option"
                                [(ngModel)]="paymentMethod">
-                <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')"> &nbsp;
-                  <img mat-card-image src="../../../assets/img/telebirr.png" id="telebirr-paymentoption-logo" style="width: 100px; margin-right: 10px">
-                </mat-radio-button>&nbsp;
-                <p class="payment-option-description">Use telebirr mobile application to complete the payment</p>
-                <mat-radio-button value="AwashOtp" (change)="changeGender('AwashOtp')"> &nbsp;
-                  <img mat-card-image src="../../../assets/img/awashbankPayment.png" id="telebirr-paymentoption-logo" style="width: 100px; margin: 10px">   
-                 
+              <span *ngIf="cart.selectedSeats.length <= 3">
+                <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
+                    <img mat-card-image src="../../../assets/img/paymentoption/bank.png" id="telebirr-paymentoption-logo" style="width: 70px; margin: 10px">   
                 </mat-radio-button>
-                <p class="payment-option-description">
-                  Awash Bank One Time Payment Method The due amount will be deducted from your account at Awash Bank.</p>
-                  <span *ngIf="cart.selectedSeats.length <= 3">
-                  <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
-                  <img mat-card-image src="../../../assets/img/bankBranch.png" id="telebirr-paymentoption-logo" style="width: 70px; margin: 10px">   
-                </mat-radio-button>
-                <p class="payment-option-description"> Pay At Bank Branch You can deposit to our bank account at any branch. </p>
-              </span>
-              <span *ngIf="cart.selectedSeats.length >3" style="background-color:rgb(148, 158, 145);">
-               <p> If you want to reserve seat and pay at Bank Branch maximum seat allowed is 3!!! </p>
-              </span>
+                  <p class="payment-option-description"> Pay At Bank Branch You can deposit to our bank account at any branch. </p>
+                          </span>
+                  <span *ngIf="cart.selectedSeats.length >3" style="background-color:rgb(148, 158, 145);">
+                      <p> If you want to reserve seat and pay at Bank Branch maximum seat allowed is 3!!! </p>
+                  </span>
+
+                <!-- <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')"> &nbsp;
+                  <img mat-card-image src="../../../assets/img/paymentoption/telebirr.png" id="telebirr-paymentoption-logo" style="width: 100px; margin-right: 10px">
+                </mat-radio-button>&nbsp; 
+                
+                <p class="payment-option-description">Use telebirr mobile application to complete the payment</p> -->
+                
+                 <!-- <mat-radio-button value="AwashOtp" (change)="changeGender('AwashOtp')"> &nbsp;
+                  <img mat-card-image src="../../../assets/img/paymentoption/mpesa.png" id="telebirr-paymentoption-logo" style="width: 100px; margin: 10px">   
+                </mat-radio-button> -->
+
+                <!-- <p class="payment-option-description">
+                  Use Mpesa mobile application to complete the payment.</p> -->
               </mat-radio-group>
               <mat-form-field appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
@@ -293,6 +295,7 @@
                               [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-option>
                 </mat-select>
               </mat-form-field>
+
               <mat-form-field appearnace="fill" class="full-width" *ngIf="paymentMethod == 'AwashOtp'">
                 <mat-label>Awash Bank Account</mat-label>
                 <input matInput placeholder="Enter Your Awash Bank Account Number" formControlName="debitAccount"
@@ -325,11 +328,12 @@
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">
               <mat-card >
-                <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
+                <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus</div>
+                <div class="trip-detail-title"> {{"tripDetail"|translate}}</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
                   <span class="trip-detail-property">{{"tripDate"|translate}} :</span>:
-                  <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+                  <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM dd,Y"}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">place</i>
@@ -375,7 +379,7 @@
             </div>
 
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
             <mat-card >
               <p class="trip-detail-title">Payment Instruction</p>
               <div  *ngIf="paymentMethod == 'AwashOtp'">
@@ -418,7 +422,7 @@
                 </div>
               </div>
             </mat-card>
-          </div>
+          </div> 
         </div>
       </mat-step>
     <ng-template matStepperIcon="seat">

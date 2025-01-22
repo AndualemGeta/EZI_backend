@@ -42,9 +42,10 @@ export class HeadingComponent implements OnInit, OnDestroy {
    
   ) {}
 
-
-
   ngOnInit() {
+    this.getAllLocations();
+    this.getAllBankAccounts();
+    this.generateMonths();
     this.selectedDeparture ="acd5118e-c32a-422b-5618-08dc2f3fba36";
     this.selectedDestination ="f28dd0f3-9d56-40d3-8aa2-bab909217887";
     this.selectedDate = this.getMidnightDate(new Date());
@@ -52,12 +53,7 @@ export class HeadingComponent implements OnInit, OnDestroy {
       departure: [this.selectedDeparture, Validators.required],
       destination: [this.selectedDestination, Validators.required],
       tripDate: [this.selectedDate, Validators.required],
-    });
-
-    this.getAllLocations();
-    this.getAllBankAccounts();
-    this.generateMonths();
-    
+    }); 
     document.addEventListener('click', this.documentClickHandler.bind(this));
   }
 
@@ -67,8 +63,6 @@ export class HeadingComponent implements OnInit, OnDestroy {
 
   documentClickHandler(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-  
-    // Check if the click is outside of the dropdowns
     const isClickOutsideDropdown =
       !target.closest('.dropdown-menu') && 
       !target.closest('#departureInput') && 
@@ -93,10 +87,8 @@ export class HeadingComponent implements OnInit, OnDestroy {
       calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
       const calendarEndDate = new Date(monthEndDate);
       calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
-
       const weeks: Date[][] = [];
       let currentWeek: Date[] = [];
-
       for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
         currentWeek.push(new Date(d));
         if (currentWeek.length === 7) {
@@ -122,9 +114,11 @@ export class HeadingComponent implements OnInit, OnDestroy {
       this.cities = value;
     });
   }
-  
 
   getCityNameById(cityId: string): string {
+    if (!this.cities || this.cities.length === 0) {
+      return 'Loading...';
+      }
     const city = this.cities.find(c => c.locationId === cityId);
     return city ? city.name : '';
   }

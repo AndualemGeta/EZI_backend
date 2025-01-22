@@ -384,7 +384,6 @@ onSubmit() {
   }
 reserveSeat(data){
     this.loading = true;
-    console.log(data);
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
       this.iserror = false;
@@ -404,12 +403,13 @@ reserveSeat(data){
       }
       else{
        this.printData(res);
-       this.router.navigate(["book-bus-tickets-in-ethiopia"]);
-        this.dynamicForm.reset();
+       this.dynamicForm.reset();
+       this.router.navigate(['/']).then(() => {
+        window.location.reload(); 
+      });
       }
       },
     (error) => {
-      console.log(error);
       this.iserror = true;
       this.responseTitle = 'Error!!!';
       this.responseDialog = true;
