@@ -168,7 +168,7 @@
                     <div class="form-group col-10">
                       <mat-form-field class="full-width">
                         <mat-label>{{"luggageWeight"|translate}}</mat-label>
-                        <input type="number" matInput placeholder="Luggage Weight" formControlName="laggage">
+                        <input type="number" matInput placeholder="Luggage Weight" formControlName="laggage" min="0">
                       </mat-form-field>
                     </div>
                   </div>
@@ -241,7 +241,9 @@
               </mat-card>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+
+
+          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4" >
             <mat-card style="width:90%;">
               <div class="trip-detail-title"> 
                 {{routeState.operator | uppercase }} BUS 

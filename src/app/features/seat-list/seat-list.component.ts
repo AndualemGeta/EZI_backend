@@ -286,7 +286,7 @@ AddNUmberOfPassengers(e) {
           this.t.push(this._formBuilder.group({
               name: ['', Validators.required],
               phone:['', [Validators.required, Validators.pattern(new RegExp("[0-9 ]{10}"))]],
-              laggage: [0, Validators.required],
+              laggage: [0],
           }));
       }
   } else {
