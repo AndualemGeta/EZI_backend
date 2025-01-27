@@ -6,6 +6,7 @@ import { AppCommonModule } from 'src/app//app.common.module';
 import { Material2Module } from "src/app/material2.module";
 import { HeadingComponent } from 'src/app/componenet/heading/heading.component';
 import {FooterComponent} from "src/app/componenet/footer/footer.component";
+import {LandingPageModule} from "src/app/componenet/landing-page/landing-page.module";
 import { AboutComponent } from 'src/app/componenet/about/about.component';
 import { InformationComponent } from "src/app/componenet/partners/partners.component";
 import { TravelInformationComponent } from 'src/app/componenet/TravelInformation/travel-information.component';
@@ -13,6 +14,7 @@ import { PaymentOptionComponent } from 'src/app/componenet/paymentOption/payment
 import { ContactComponent } from 'src/app/componenet/contact/contact.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {HowItWorkModule} from "src/app/componenet/how-it-work/how-it-work.module";
+import {HomeHeaderModule} from "src/app/componenet/home-header/home-header.module";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 @NgModule({
   imports: [
@@ -22,6 +24,8 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
     Material2Module,
     FlexLayoutModule,
     HowItWorkModule,
+    LandingPageModule,
+    HomeHeaderModule,
     FormsModule, 
     ReactiveFormsModule
   ],

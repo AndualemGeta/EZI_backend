@@ -1,0 +1,115 @@
+<div class="header">
+    <nav class="navbar navbar-expand-lg fixed-top nav-bg">
+        <div class="container-fluid">
+            <!-- Navbar Toggler -->
+            <button
+                class="navbar-toggler me-2"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+                <span class="ms-2">{{ 'ezibus' | translate }}</span>
+            </button>
+
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse custom-navbar-collapse mt-2" id="navbarTogglerDemo01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+                    <!-- Brand with Image -->
+                    <li>
+                        <a
+                            class="navbar-brand d-flex align-items-center d-none d-lg-inline-block align-text-top"
+                            href="#"
+                            style="height: 64px;"
+                        >
+                            <img
+                                src="assets/img/ezi-icon.png"
+                                width="85px"
+                                alt="ezibus"
+                                class="d-none d-lg-inline-block align-text-top"
+                            />
+                        </a>
+                    </li>
+                    <!-- Navigation Items -->
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            aria-current="page"
+                            (click)="scroll('landing-page')"
+                        >
+                            <img
+                                src="assets/img/ezi-icon.png"
+                                width="30%"
+                                alt="ezibus"
+                                class="d-inline-block d-lg-none align-text-top"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link active"
+                            (click)="scroll('landing-page')"
+                            >{{ 'home' | translate }}</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="scroll('partners')"
+                            >{{ 'partner' | translate }}</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="scroll('travel-info')"
+                            >{{ 'travel' | translate }}</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="scroll('payment-option')"
+                            >{{ 'payment' | translate }}</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="scroll('contact')"
+                            >{{ 'contact' | translate }}</a
+                        >
+                    </li>
+                </ul>
+                <!-- Search Form -->
+                <div class="dropdown">
+                    <button
+                        type="button"
+                        class="btn dropdown-toggle d-flex align-items-center"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        data-bs-auto-close="outside"
+                    >
+                        <mat-icon class="header-icon">language</mat-icon>
+                        <span style="color: white;" class="ms-2">{{
+                            'language' | translate
+                        }}</span>
+                    </button>
+                    <form class="dropdown-menu p-4">
+                        <button
+                            mat-menu-item
+                            class="d-flex align-items-center mb-2"
+                            (click)="ChangeLanguage('en')"
+                        >
+                            <mat-icon class="me-2">language</mat-icon>
+                            <span>English</span>
+                        </button>
+                        <button
+                            mat-menu-item
+                            class="d-flex align-items-center"
+                            (click)="ChangeLanguage('am')"
+                        >
+                            <mat-icon class="me-2">language</mat-icon>
+                            <span>Amharic</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

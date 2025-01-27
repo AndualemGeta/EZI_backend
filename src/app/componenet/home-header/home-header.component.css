@@ -1,0 +1,51 @@
+.nav-bg{
+  background: url('../../../assets/img/bg/header.jpg') no-repeat center center / cover;
+  font-family: yrsa;
+  height: 64px;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28112, 112, 112, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Ensure pointer cursor on hover for navigation links */
+.nav-link {
+  cursor: pointer;
+}
+
+/* Custom styles for small screens */
+@media (max-width: 991.98px) {
+  .custom-navbar-collapse {
+      position: fixed; /* Fixed to the screen */
+      top: 0;
+      left: 0;
+      width: 25%; /* Cover 25% of the screen width */
+      height: 100%; /* Full height */
+      background-color: #fff; /* Match the navbar background */
+      z-index: 1050; /* Ensure it appears on top */
+      overflow-y: auto; /* Add scrolling if content overflows */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for a clean look */
+      transform: translateX(-100%); /* Initially hidden */
+      transition: transform 0.3s ease-in-out; /* Smooth slide-in effect */
+  }
+
+  .custom-navbar-collapse.show {
+      transform: translateX(0); /* Slide in when toggled */
+  }
+
+  /* Adjust for toggle button */
+  .navbar-toggler {
+      z-index: 1060; /* Ensure toggle button stays on top */
+  }
+}
+
+/* Restore default behavior for large screens */
+@media (min-width: 992px) {
+  .custom-navbar-collapse {
+      position: relative;
+      width: auto; /* Let Bootstrap handle the layout */
+      height: auto; /* Reset height for horizontal layout */
+      transform: none; /* Remove the slide-in effect */
+      box-shadow: none; /* No shadow on large screens */
+  }
+}

@@ -1,372 +1,44 @@
-<section id="landing-page" class="top">
-	<div id="heading">
-	  <div class="text-container">
-		<!-- <h1 class="main-heading">{{'ezibus' | translate}}</h1> -->
-		<!-- <p class="subheading">{{'ezibus2Title' | translate}}</p> -->
-	   </div>
-	  </div>
-	<div class="form-section">
-	<div class="search-widget">
-		<form [formGroup]="form">
-			<div class="row form-input">
-			<div class="col-lg-3 col-md-6 col-12 position-relative">
-					<div class="form-group">
-					  <label for="departureInput">{{ "departure" | translate }}</label>
-					   <div class="input-icon-container">
-						<i class="bi bi-geo-alt geo-input-icon"></i>
-						<input
-						  type="text"
-						  id="departureInput"
-						  class="form-control decorated-input"
-						  formControlName="departure"
-						  placeholder="{{ 'Select a departure' | translate }}"
-						  [value]="getCityNameById(selectedDeparture) | translate"
-						  readonly
-						  (click)="toggleDropdown('departure')"
-						/>
-					  </div>
-					</div>
-					<div
-					  *ngIf="dropdownVisible.departure"
-					  class="dropdown-menu show w-100"
-					  style="position: absolute; z-index: 1000; overflow-y: auto; width: 400px;"
-					>
-					  <ul class="list-group">
-						<li
-						  *ngFor="let city of cities"
-						  class="list-group-item list-group-item-action"
-						  (click)="selectTown('departure', city.locationId)"
-						>
-						  <div class="location-container">
-							<i class="bi bi-geo-alt geo-icon"></i>
-							<div class="location-details">
-							  <span class="city-name">{{ city.name | translate }}</span>
-							  <span class="location-station">{{ city?.stations[0]?.name }}</span>
-							</div>
-						  </div>
-						</li>
-					  </ul>
-					</div>
-			</div>
-			<div class="col-lg-1 col-md-1 col-1 d-none d-sm-block align-self-center">
-				<span (click)="ExchangeTrip()" class="material-icons exchange-icon">
-					  sync_alt
-				</span>
-			</div>
-			<div class="col-lg-3 col-md-6 col-12 position-relative">
-			<div class="form-group">
-				<label for="destinationInput">{{ "destination" | translate }}</label>
-				<div class="input-icon-container">
-				<i class="bi bi-geo-alt geo-input-icon"></i>
-				<input
-					type="text"
-					id="destinationInput"
-					class="form-control decorated-input"
-					formControlName="destination"
-					placeholder="{{ 'Select a destination' | translate }}"
-					[value]="getCityNameById(selectedDestination) | translate"
-					readonly
-					(click)="toggleDropdown('destination')"
-				/>
-				</div>
-			</div>
-			<div
-				*ngIf="dropdownVisible.destination"
-				class="dropdown-menu show w-100"
-				style="position: absolute; z-index: 1000; overflow-y: auto; width: 400px;"
-			>
-				<ul class="list-group">
-				<li
-					*ngFor="let city of cities"
-					class="list-group-item list-group-item-action"
-					(click)="selectTown('destination', city.locationId)"
-				>
-					<div class="location-container">
-					<i class="bi bi-geo-alt geo-icon"></i>
-					<div class="location-details">
-						<span class="city-name">{{ city.name | translate }}</span>
-						<span class="location-station">{{ city?.stations[0]?.name }}</span>
-					</div>
-					</div>
-				</li>
-				</ul>
-			</div>
-			</div>
-				  
-			<div class="col-lg-3 col-md-6 col-12 position-relative">
-			<!-- Date Input Field -->
-			<div class="form-group">
-				<label for="dateInput">{{ "tripDate" | translate }}</label>
-				<div class="input-icon-container">
-				<i class="bi bi-calendar-event geo-input-icon"></i>
-				<input
-					type="text"
-					id="dateInput"
-					class="form-control decorated-input"
-					[value]="selectedDate ? (selectedDate | date: 'MMM d, y') : (now | date: 'MMM d, y')"
-					readonly
-					placeholder="{{ 'Select a trip date' | translate }}"
-					(click)="toggleDropdown('date')"
-					/>
+<mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
+    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon class="header-icon">menu</mat-icon></button>
+    <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')">
+      <img height="80%" src="assets/img/ezi-icon.png" ></a>
+    <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" > {{'ezibus'|translate}} </span>    
+    <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
+      
+<a mat-list-item [routerLink]="" (click)="scroll('landing-page')" > {{'home'|translate}}</a>
+       <a mat-list-item [routerLink]="" (click)="scroll('partners')" > {{'partner'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{"contact"|translate}} </a>
+    </mat-nav-list>
+    <span class="navigation-spacer"></span>
+    <button fxShow="false" fxShow.gt-xs="true" mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5%;">
+      <mat-icon class="header-icon">language</mat-icon>
+      <span style="color: white;">{{'language'|translate}}</span>
+    </button>
+    <mat-menu  #menu="matMenu">
+      <button mat-menu-item (click)="ChangeLanguage('en')">
+        <mat-icon >language</mat-icon>
+        <span>English</span>
+         </button>
+      <button mat-menu-item (click)="ChangeLanguage('am')">
+        <mat-icon>language</mat-icon>
+        <span>Amharic</span>
+      </button>
+      </mat-menu>
+    </mat-toolbar>
 
-				</div>
-			</div>
-			
-			<!-- Date Dropdown -->
-			<div
-				*ngIf="dropdownVisible.date"
-				class="dropdown-menu show"
-				style="position: absolute; z-index: 1000; overflow-y: auto; width: 400px;"
-			>
-				<!-- Month Navigation -->
-				<div class="month-navigation d-flex justify-content-between align-items-center mb-3">
-				<button class="btn btn-light" (click)="navigateMonth(-1)">
-					<i class="bi bi-chevron-left"></i>
-				</button>
-				<div class="text-center">
-					<strong>{{ months[currentMonthIndex].startDate | date: 'MMMM yyyy' }}</strong>
-				</div>
-				<button class="btn btn-light" (click)="navigateMonth(1)">
-					<i class="bi bi-chevron-right"></i>
-				</button>
-				</div>
-			
-				<!-- Calendar -->
-				<div *ngIf="months[currentMonthIndex]" class="month-container">
-				<div class="weekday-header d-flex justify-content-between">
-					<span *ngFor="let day of weekdays" class="weekday">{{ day }}</span>
-				</div>
-				<div class="weeks-container">
-					<div *ngFor="let week of months[currentMonthIndex].weeks" class="week-row d-flex">
-					<span
-						*ngFor="let date of week"
-						class="date-item flex-fill text-center"
-						[ngClass]="{
-						'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
-						'selected': selectedDate?.getTime() === date.getTime()
-						}"
-						(click)="selectDate(date)"
-					>
-						{{ date.getDate() }}
-					</span>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-
-
-			
-			
-			<div class="col-lg-2 col-md-6 col-12">
-				<div class="form-group">
-				  <label for="dateInput"><br></label>
-				  <div class="search-button-container">
-					<!-- <i class="bi bi-search geo-input-icon"></i> -->
-					<input
-					  type="button"
-					  class="form-control search-input-button"
-					  value="{{ 'search' | translate }}"
-					  (click)="searchResult()"
-					/>
-				  </div>
-				</div>
-			  </div>
-			  
-
-
-           </div>
-	    </form>
-	</div>  
-	</div>	  
-</section> 
-
-
-               <!-- 
-				 <div class="col-lg-3 col-md-6 col-12 position-relative">
-					<div class="form-group">
-					  <label for="tripDateInput">{{ "tripDate" | translate }}</label>
-					  <input
-						type="text"
-						id="tripDateInput"
-						class="form-control"
-						formControlName="tripDate"
-						placeholder="{{ 'Select a trip date' | translate }}"
-						[value]="selectedDate | date: 'yyyy-MM-dd'"
-						readonly
-						(click)="toggleDropdown('date')"
-					  />
-					</div>
-					<div
-					  *ngIf="dropdownVisible.date"
-					  class="dropdown-menu show w-100"
-					  style="position: absolute; z-index: 1000; max-height: 200px; overflow-y: auto;"
-					>
-					  <ul class="list-group">
-						<li
-						  *ngFor="let date of availableDates"
-						  class="list-group-item list-group-item-action"
-						  (click)="selectDate(date)"
-						>
-						  {{ date | date: 'yyyy-MM-dd' }}
-						</li>
-					  </ul>
-					</div>
-				  </div> -->
-<!---
-  <div class="col-lg-3 col-md-6 col-12 position-relative">
-	<div class="form-group">
-	  <label for="tripDateInput">{{ "tripDate" | translate }}</label>
-	  <input
-		type="text"
-		id="tripDateInput"
-		class="form-control"
-		formControlName="tripDate"
-		placeholder="{{ 'Select a trip date' | translate }}"
-		[value]="selectedDate | date: 'yyyy-MM-dd'"
-		readonly
-		(click)="toggleDropdown('date')"
-	  />
-	</div>
-	<div
-	  *ngIf="dropdownVisible.date"
-	  class="dropdown-menu show w-100"
-	  style="position: absolute; z-index: 1000;"
-	>
-	  <div class="horizontal-scroll">
-		<div *ngFor="let month of months" class="month-container">
-		 
-		  <div class="dropdown-header text-center bg-light p-2">
-			<strong>{{ month.startDate | date: 'MMMM yyyy' }}</strong>
-		  </div>
-	
-		  <div class="weekday-header d-flex justify-content-between text-center">
-			<span *ngFor="let day of weekdays" class="flex-grow-1">{{ day }}</span>
-		  </div>
-	
-		  <ul class="list-group dates-container">
-			<li
-			  *ngFor="let date of month.dates"
-			  class="list-group-item list-group-item-action"
-			  (click)="selectDate(date)"
-			>
-			  <div class="d-flex justify-content-between">
-				<span>{{ date | date: 'dd' }}</span>
-			  </div>
-			</li>
-		  </ul>
-		</div>
-	  </div>
-	</div>
-  </div> -->
-	<!-- <div class="landing-section">
-	  <div class="content-container">
-		
-		<form [formGroup]="form" class="search-widget">
-		  <div class="input-group">
-			<mat-form-field appearance="fill" class="input-field">
-			  <mat-label>{{ "departure" | translate }}</mat-label>
-			  <mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
-				<mat-option *ngFor="let city of cities" [value]="city.locationId">
-				  {{ city.name | translate }}
-				</mat-option>
-			  </mat-select>
-			</mat-form-field>
+  <mat-sidenav-container class="navigation-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
+       <mat-nav-list>
+        <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
+        <a mat-list-item [routerLink]="" (click)="scroll('landing-page')" >{{'home'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('partners')" >{{'partner'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
+        <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{'contact'|translate}}</a>
+      </mat-nav-list>
+    </mat-sidenav>
+  </mat-sidenav-container>
   
-			<span (click)="ExchangeTrip()" class="content-icon material-icons exchange-icon">
-			  sync_alt
-			</span>
-  
-			<mat-form-field appearance="fill" class="input-field">
-			  <mat-label>{{ "destination" | translate }}</mat-label>
-			  <mat-select formControlName="destination" [(ngModel)]="selectedDestination">
-				<mat-option *ngFor="let city of cities" [value]="city.locationId">
-				  {{ city.name | translate }}
-				</mat-option>
-			  </mat-select>
-			</mat-form-field>
-  
-			<mat-form-field class="input-field">
-			  <mat-label>{{ "tripDate" | translate }}</mat-label>
-			  <input
-				type="date"
-				matInput
-				placeholder="Trip Date"
-				formControlName="tripDate"
-				[ngModel]="now | date: 'yyyy-MM-dd'"
-			  />
-			</mat-form-field>
-		  </div>
-		  <button class="search-button" mat-flat-button color="success" (click)="searchResult()">
-			{{ "search" | translate }}
-		  </button>
-		</form>
-	  </div>
-	</div> -->
-
-<!-- 
-<section id="heading" class="mat-typography">
-	<div class="container">
-	<div class="heading-section" fxLayout="column" fxLayoutAlign="center center">
-	<div [class.animated]="isHeading" [class.fadeInLeft]="isHeading">
-	        <h1 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '32px', 'color' : '#0B3954'}">{{'ezibus'|translate}}</h1>
-	        <h1 [ngStyle.xs]="{'font-size': '12px'}" [ngStyle.sm]="{'font-size': '14px', 'color' : '#0B3954'}"> {{'ezibus2Title'|translate}}  </h1>
-		</div>
-			<mat-card class="search-form"search-section>
-	        <div [class.animated]="isSubheading" [class.fadeInRight]="isSubheading">
-				
-	        <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">{{'searchTripNow'|translate}} </h2>
-	        </div>
-	        <div fxLayout="row" fxLayoutAlign="center center" [class.animated]="isHeadingBtn" [class.fadeIn]="isHeadingBtn" [class.heading-btn]="isHeadingBtn">
-				<div class="example-container" [ngStyle.lt-md]="{'margin-top': '30px', 'margin-bottom': '30px'}">
-					<form [formGroup]="form">
-						<mat-form-field appearance="fill">
-						<mat-label>{{"departure"|translate}}</mat-label>
-						<mat-select formControlName="departure" [(ngModel)]="selectedDeparture">
-						  <mat-option *ngFor="let city of cities"  [value]="city.locationId">
-							{{city.name |translate}}
-						  </mat-option>
-						</mat-select>
-					  </mat-form-field>
-					  <span fxShow="false" fxShow.gt-xs="true" (click)="ExchangeTrip() " class="content-icon material-icons">
-						sync_alt
-						</span>
-								&nbsp;
-								<mat-form-field appearance="fill">
-								  <mat-label>{{'destination'|translate}}</mat-label>
-								  <mat-select formControlName="destination" [(ngModel)]="selectedDestination">
-									<mat-option *ngFor="let city of cities" [(value)]="city.locationId">
-									  {{city.name |translate}}
-									</mat-option>
-								  </mat-select>
-								</mat-form-field>
-								  &nbsp;
-
-								<mat-form-field>
-								  <mat-label>{{'tripDate'|translate}}</mat-label>
-								  <input type="date" matInput placeholder="Trip Date" formControlName="tripDate" [ngModel] ="now | date:'yyyy-MM-dd'">
-								</mat-form-field>
-								&nbsp;
-							<a class="heading-button-right" mat-flat-button (click)="searchResult()"  color="success">{{"search"|translate}}</a>
-                          </form>
-					</div>
-	    	</div>
-        <div  fxShow="true" fxShow.gt-xs="false">
-			<img src="../../../assets/img/helpline-0016.png" width="100%" height="20%" >
-          <h2 [ngStyle.xs]="{'font-size': '18px'}" [ngStyle.sm]="{'font-size': '22px'}">For more information call us on <a href="tel:9293" ><mat-icon>phone</mat-icon><span style="font-size: 60px;">9293</span> </a> </h2>
-        </div>
-		
-		<div  fxShow="false" fxShow.gt-xs="true">
-			 <img src="../../../assets/img/helpline-0016.png" width="300" height="130" > 
-                 </div>
-			</mat-card>
-		
-   </div>
-   <div style="margin-top: 3%;"> 
-	 <img mat-card-image src="assets/img/ezibus-covid-protocol.png" width="100%" height="10%">
-	</div> 
-</div>
-</section>
-
-
- -->

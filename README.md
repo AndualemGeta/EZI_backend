@@ -50,3 +50,9 @@ See [simplest deployment techniques](https://angular.io/guide/deployment) for de
 ## Help Docs
 
 [Help Documentations](https://evgensharyy.github.io/nglp_doc/#helpdocs)
+
+### how to generate components 
+
+```
+ ng generate component landing-page --skip-import
+```

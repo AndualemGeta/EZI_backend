@@ -1,118 +1,108 @@
-#landing-page { position: relative; display: flex; flex-direction: column; height: 100vh;margin: 0; padding: 0; font-family: Arial, sans-serif;}
-#heading { position: relative; height: 100%; background: url('../../../assets/img/bg/ezi-bg.jpeg') no-repeat center center / cover;color: #ffffff; display: flex; align-items: center;}
-.text-container {text-align: center;z-index: 2;}
-.main-heading { font-size: 3rem; font-weight: bold; text-transform: uppercase;margin-bottom: 20px;text-shadow: 2px 2px 4px rgba(12, 12, 12, 0.7);
+html {
+  scroll-behavior: smooth;
 }
+.mat-elevation-z0 {
+    position: relative;
+    z-index: 2;
+ }
 
-.subheading {font-size: 1.5rem;font-weight: 300;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
+ .mat-elevation-z8 {
+    position: relative;
+    z-index: 2;
+ }
 
-.form-section {position: absolute; bottom: 0; left: 0;width: 100%;height: 136vh;display: flex;justify-content: center;align-items: center;box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
-.search-widget { display: flex; gap: 5px;background-color: rgba(255, 255, 255, 0.9);
-}
-.form-input {
-  margin: 2vh;
-}
-label {display: block;margin-bottom: 5px;
-}
+ mat-sidenav{
+   left: 0;
+ }
 
-.exchange-icon {color: green;cursor: pointer;transition: transform 0.3s ease-in-out;
-}
+ mat-sidenav-content {
+   padding: 0px;
+   width: 100%;
+ }
 
-@media (max-width: 768px) {
-  .exchange-icon {
-    transform: rotate(90deg);
+ /* -------------------  NAVIGATION ---------------------------  */
+
+ .navigation-toolbar{
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   background: url('../../../assets/img/bg/header.jpg') no-repeat center center / cover;
+   font-family: yrsa;
+   height: 64px;
+ }
+
+ /* .navigation-fixed{
+   display: flex;
+   flex-direction: row;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+ } */
+
+ .navigation-is-mobile .navigation-toolbar {
+   position: fixed;
+   z-index: 2;
+ }
+
+ h1.navigation-company-name {
+   margin-left: 8px;
+ }
+
+ .navigation-sidenav-container {
+   flex: 1;
   }
-  .search-button { font-size: 14px;margin: 0;
-  }
-}
 
-.search-button {font-size: 14px; margin-top: 5vh; 
-}
-.location-container {display: flex;align-items: center;gap: 1rem;font-family: Arial, sans-serif;color: #333;
-}
-.geo-icon {font-size: 1.5rem; color: #007bff;
-}
-.location-details { display: flex; flex-direction: column;
-}
-.city-name {font-size: 0.75rem;font-weight: bold; margin-bottom: 0.2rem;
-}
-.location-station {font-size: 0.6rem; color: #666;
-}
+ .navigation-is-mobile .navigation-sidenav-container {
+   flex: 1 0 auto;
+ }
 
-.list-group-item {
-  cursor: pointer;
-}
+ .navigation-list{
+   padding: 0;
+   margin-left: 8px;
+ }
 
-.list-group-item:hover {
-  background-color: #f0f0f0;
-}
+ .navigation-list > a {
+   color: #ffeffe;
+   font-weight: bold;
+   font-family: yrsa;
+   font-size: 18px;
+ }
 
-.form-control {
-  cursor: pointer;
-}
-.text-center {
-  text-align: center;
-}
-.d-flex { display: flex;
-}
+ .navigation-spacer {
+   flex: 1 1 auto;
+ }
 
-.justify-content-between {justify-content: space-between;
-}
-.flex-grow-1 {flex-grow: 1;
-}
-.month-container {margin: 0 auto;max-width: 100%;padding: 10px;
-}
-.weekday-header {display: grid;grid-template-columns: repeat(7, 1fr);gap: 5px;margin-bottom: 10px;
-}
+ .navigation-icon {
+   padding: 0 22px;
+ }
 
-.weekday {text-align: center; padding: 3px;
-}
+ .navigation-empty{
+   height: 56px;
+ }
 
-.weeks-container {display: flex;flex-direction: column;gap: 5px;
-}
+ /* -------------------  LOGO ---------------------------  */
+ .logo{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   box-sizing: border-box;
+   padding: 0 16px;
+   position: relative;
+   height: inherit;
+ }
 
-.week-row {display: grid;grid-template-columns: repeat(7, 1fr); gap: 5px;
-}
+ /* -------------------  LPCONTENT ---------------------------  */
 
-.date-item {width: 30px;line-height: 40px;border-radius: 50%;text-align: center;cursor: pointer; transition: background-color 0.2s, color 0.2s;
-}
+ section{
+   margin-top: 0px !important;
+   margin-bottom: 0px !important;
+ }
 
-.date-item:hover { background-color: #2b6098;color: #fff;
-}
-
-.date-item.selected {background-color: #2b6098;color: #fff;
-}
-
-.text-muted {color: #ccc;
-}
-
-.month-navigation {display: flex;justify-content: space-between;align-items: center;
-}
-
-.month-navigation .text-center {flex-grow: 1;text-align: center;
-}
-
-.btn {padding: 5px 10px;font-size: 16px;cursor: pointer;
-}
-.input-icon-container {position: relative;border: 1px solid rgba(58, 150, 12, 0.74);border-radius: 4px;padding: 5px;margin-top: -5px;
-}
-
-.geo-input-icon {position: absolute;top: 50%;left: 10px;transform: translateY(-50%);font-size: 16px;color: #007bff;
-}
-
-.decorated-input { padding-left: 30px;border: none;outline: none;color: rgb(45, 46, 46);width: 100%; background: transparent;
-}
-
-.input-icon-container:hover, .input-icon-container:focus-within { border-color: rgb(58, 243, 147); box-shadow: 0 0 5px rgba(35, 247, 7, 0.5);
-}
-
-.search-button-container {position: relative; background-color: #28a745;border-radius: 4px;padding: 5px;margin-top: -5px;
-}
-
-.search-input-button { background-color: #28a745;color: white;border: none;padding: 6px 12px;font-size: 14px;border-radius: 4px;cursor: pointer;text-align: center;display: inline-block;height: auto;
-}
-.search-input-button:hover {
-  background-color: #218838;
+ .header-icon{
+  font-size: 30px;  
+  font-feature-settings: 'liga';
+  color:#eee; 
+  margin-right: 10px;
 }
