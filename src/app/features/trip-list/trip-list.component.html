@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="trip-list-page">
+<div class="page-content trip-list-page"> 
   <div fxLayout="column" fxLayoutAlign="center">
     <div class="search-trip-content"> 
       <app-search-form 
@@ -10,7 +10,6 @@
         (searchFunction)="searchtrip()">
       </app-search-form> 
     </div> 
-
       <div *ngIf="loading" style="text-align:center; margin: 6%;">
         <img src="../../../assets/img/searching.gif">
       </div>
@@ -55,7 +54,7 @@
             payments
           </i> <br/>
           <div class="trip-detail-property">{{trip.price}} {{"birr"|translate}}</div> <br/>
-           <a class="heading-button-right success" mat-flat-button color="success" (click)="ReserveSeat(trip)">{{"reserve"|translate}}</a>
+           <a class="reserve-btn" mat-flat-button  (click)="ReserveSeat(trip)">{{"reserve"|translate}}</a>
         </div>
        </div>
      </div>

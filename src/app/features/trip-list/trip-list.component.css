@@ -1,47 +1,14 @@
 .trip-list-page {
-  background-color: #f4f4f4;
-  min-height: 100vh;
-}
-
-.search-form{
-  margin-top: 25%;
-}
-
-.search-body{
-    margin-top: 80px;
-    background-color: rgb(255, 253, 253);
+ background-color: #f4f4f4;
+ min-height: 100vh;
 }
 .search-trip-content {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
-  margin: 6%;
-  margin-top:15vh;
-  margin-bottom:3vh;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  }
+   margin: 3% 10% 1% 10%; 
+   justify-content: center; 
+  } 
 
-.search-trip-form {
-  border-radius: 15px;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top:120px;
-  margin-bottom: 0px;
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  justify-content: center;
-  }
-.search-button {
-  height: 35px;
-}
-
-.mat-success {
-  background-color: green;
-  color: #fff;
-  
-}
 .trip-lists{
   padding: 5px;
   margin:5px;
@@ -84,7 +51,10 @@ mat-slider {
 .trip-detail-value {
   font-family: yrsa;
 }
-
+.reserve-btn {
+  background-color: green;
+  color:#fff
+}
 @media (max-width : 768px) {
   .trip-detail-item {
     padding: 3%;

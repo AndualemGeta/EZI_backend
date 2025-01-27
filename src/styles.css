@@ -1,37 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+.page-content {
+  padding-top: 70px;
+}
 .mat-success {
     background-color: green;
     color: #fff;
   }
   
-  .major-contents {
+.major-contents {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
     }
-  .major-sub-contents{
+.major-sub-contents{
   display: flex;
   flex-wrap: wrap;  
 }
-  .major-sub-content-detail{
+.major-sub-content-detail{
   width :250px;
   margin: 6px;
   float: left;
   text-align: left;
   }
-  .content-icon{
+.content-icon{
     font-size: 25px;  
     font-feature-settings: 'liga';
       color:green; 
   }
-  .back-button-color{
+.back-button-color{
     font-size: 25px;  
     font-feature-settings: 'liga';
       color: #1D7874; 
 
   }
-  .section-header{
+.section-header{
     font-family: sans-serif;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;

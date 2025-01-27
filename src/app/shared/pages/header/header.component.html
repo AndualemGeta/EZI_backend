@@ -1,24 +1,48 @@
-<mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
-    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="gotoHome()" ><mat-icon class="header-icon">arrow_back</mat-icon></button>
-    <a class="logo" fxShow="false" href="/book-bus-tickets-in-ethiopia" (click)="gotoHome()" fxShow.gt-xs="true"><img height="80%" src="assets/img/ezi-icon.png" ></a>
-    <span style="color: #f4f5f6;">{{'ezibus-title'|translate}} </span>    
-    <span class="navigation-spacer"></span>
-    <!-- <a href="tel:9293"><mat-icon class="header-icon">phone</mat-icon></a>
-      9293 -->
-
-     
-    <button fxShow="false" fxShow.gt-xs="true" mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5%;">
-      <mat-icon class="header-icon">language</mat-icon>
-      <span style="color: #f4f5f6">{{'language'|translate}}</span>
+<mat-toolbar
+  class="navigation-toolbar"
+  [class.navigation-is-mobile]="mobileQuery.matches"
+  [class.mat-elevation-z0]="!isActive"
+  [class.mat-elevation-z8]="isActive"
+  [class.animated-header]="!isActivefadeInDown"
+  [class.fadeInDown]="!isActivefadeInDown"
+  [class.navigation-fixed]="!fixedTolbar"
+>
+  <button
+    fxShow="true"
+    fxShow.gt-xs="false"
+    mat-icon-button
+    (click)="gotoHome()"
+  >
+    <mat-icon class="header-icon">arrow_back</mat-icon>
+  </button>
+  <a
+    class="logo"
+    fxShow="false"
+    href="/book-bus-tickets-in-ethiopia"
+    (click)="gotoHome()"
+    fxShow.gt-xs="true"
+    ><img height="80%" src="assets/img/ezi-icon.png" /></a
+  >
+  <span style="color: #f4f5f6;">{{ 'ezibus-title' | translate }}</span>
+  <span class="navigation-spacer"></span>
+  <button
+    fxShow="false"
+    fxShow.gt-xs="true"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    style="margin-right: 5%;"
+  >
+    <mat-icon class="header-icon">language</mat-icon>
+    <span style="color: #f4f5f6">{{ 'language' | translate }}</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="ChangeLanguage('en')">
+      <mat-icon>language</mat-icon>
+      <span>English</span>
     </button>
-    <mat-menu  #menu="matMenu">
-      <button mat-menu-item (click)="ChangeLanguage('en')">
-        <mat-icon >language</mat-icon>
-        <span>English</span>
-         </button>
-      <button mat-menu-item (click)="ChangeLanguage('am')">
-        <mat-icon>language</mat-icon>
-        <span>Amharic</span>
-      </button>
-      </mat-menu>
-    </mat-toolbar>
+    <button mat-menu-item (click)="ChangeLanguage('am')">
+      <mat-icon>language</mat-icon>
+      <span>Amharic</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

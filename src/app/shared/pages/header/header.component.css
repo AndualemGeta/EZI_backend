@@ -14,15 +14,11 @@ html {
    
    mat-sidenav{
      left: 0;
-     /*width: 50%*/
    }
    
    mat-sidenav-content {
      padding: 0px;
      width: 100%;
-     /*background: linear-gradient(rgb(207, 214, 210),rgb(158, 156, 156));
-     background-image: url("src/assets/img/gihion.jpg");*/
-     /*background-size: cover;*/
    }
    
    /* -------------------  NAVIGATION ---------------------------  */
@@ -30,21 +26,15 @@ html {
    .navigation-toolbar{
     position: fixed;
      top: 0;
-     bottom: 0;
      left: 0;
      right: 0;
+     height: 64px;
      background: url('../../../../assets/img/bg/header.jpg') no-repeat center center / cover;
-     
+     z-index: 2;
    }
    
    .navigation-fixed{
-     display: flex;
-     flex-direction: row;
-     position: fixed;
-     top: 0;
-     bottom: 0;
-     left: 0;
-     right: 0;
+    height: 64px;
    }
    
    .navigation-is-mobile .navigation-toolbar {
@@ -125,3 +115,5 @@ html {
     color:#eee; 
      margin-right: 10px;
   }
+
+  
