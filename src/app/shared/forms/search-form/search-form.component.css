@@ -9,9 +9,28 @@
     margin-bottom: 5px;
   }
   
+  .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    width: 400px;
+    max-height: 320px; /* Adjust height as needed */
+    overflow-y: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE/Edge */
+    border: 0;
+  }
   
+  .dropdown-menu::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+  }
+
   .list-group-item {
     cursor: pointer;
+    border-top: 0;
+    border-bottom: 0.5px solid #b8f3c6;
+    border-radius:0;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   .exchange-icon {
     color: green;
@@ -57,6 +76,8 @@
     border-color: rgb(58, 243, 147);
     box-shadow: 0 0 5px rgba(35, 247, 7, 0.5);
   }
+  
+ 
   
   .search-button-container {
     position: relative;

@@ -146,7 +146,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   getAllLocations() {
     this.eziService.getAllLocations().then(value => {
       this.cities = value;
+    }).catch(error => {
+      console.error('Error fetching locations:', error);
     });
+    
   }
 
   getCityNameById(cityId: string): string {
