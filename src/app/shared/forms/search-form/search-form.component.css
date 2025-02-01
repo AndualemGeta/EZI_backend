@@ -2,7 +2,7 @@
     margin: 2vh;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.9);
-  }
+  } 
   
   label {
     display: block;
@@ -32,6 +32,7 @@
     margin-left: 5px;
     margin-right: 5px;
   }
+
   .list-group-item:hover {
     background-color: #f0f0f0;
   }
@@ -40,11 +41,12 @@
 .decorated-input::placeholder {
   color: rgba(0, 0, 0, 0.5);
 }
-  .exchange-icon {
+
+.exchange-icon {
     color: green;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
-  }
+}
   
   .exchange-icon.active {
     transform: rotate(180deg);
@@ -73,11 +75,11 @@
 }
 
 /* Active dropdown state */
-.input-icon-container input[type="text"]:focus-within,
-.input-icon-container:hover {
-  border-color: rgb(58, 243, 147);  /* Hover effect */
-  box-shadow: 0 0 5px rgba(35, 247, 7, 0.5);  /* Hover shadow */
-}
+/* .input-icon-container input[type="text"]:focus-within, */
+/* .input-icon-container:hover { */
+  /* border-color: rgb(58, 243, 147);  Hover effect */
+  /* box-shadow: 0 0 5px rgba(35, 247, 7, 0.5);  Hover shadow */
+/* } */
   
   .geo-input-icon {
     position: absolute;

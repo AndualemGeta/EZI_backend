@@ -17,6 +17,7 @@ export class LandingPageComponent implements OnInit {
   isHeadingBtn = true;
   currentMonthIndex: number = 0;
   routeState:any;
+  loading:boolean=false;
   selectedDeparture: any;
   selectedDestination: any;
   seatNo: any;
@@ -62,6 +63,14 @@ export class LandingPageComponent implements OnInit {
     document.removeEventListener('click', this.documentClickHandler);
   }
 
+
+  get formattedDate(): Date {
+    return new Date(this.selectedDate);
+  }
+
+  set formattedDate(value: Date) {
+    this.selectedDate = new Date(value);
+  }
   documentClickHandler(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     const isClickOutsideDropdown =

@@ -92,6 +92,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.generateMonths();
     document.addEventListener('click', this.documentClickHandler.bind(this));
     this.filteredCities = [...this.cities];
+    this.updateTripDate(this.selectedDate);
   }
 
   ngOnDestroy() {
@@ -215,18 +216,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.dropdownVisible[type] = true; // Ensure dropdown stays open
   }
   
-  
-  
-
   getMidnightDate(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
 
-
   selectDate(date: Date) {
     this.updateTripDate(date);
-    this.toggleDropdown('date');
+    this.dropdownVisible['date'] = false;
   }
-
 }
