@@ -44,6 +44,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.loadingChange.emit(this.loading);
     this.searchFunction.emit();
   }
+
+  filteredCities: any[] = [];
+  departureSearch: string = '';
+  destinationSearch: string = '';
   form: FormGroup;
   selectedDeparture: any;
   selectedDestination: any;
@@ -87,6 +91,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.getAllBankAccounts();
     this.generateMonths();
     document.addEventListener('click', this.documentClickHandler.bind(this));
+    this.filteredCities = [...this.cities];
   }
 
   ngOnDestroy() {
@@ -146,11 +151,12 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   getAllLocations() {
     this.eziService.getAllLocations().then(value => {
       this.cities = value;
+      this.filteredCities = [...this.cities]; // Initialize filtered list
     }).catch(error => {
       console.error('Error fetching locations:', error);
     });
-    
   }
+  
 
   getCityNameById(cityId: string): string {
     const city = this.cities.find(c => c.locationId === cityId);
@@ -177,7 +183,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
-    this.dropdownVisible[type] = !this.dropdownVisible[type];
+    console.log("toggleDropdown",this.dropdownVisible[type]);
+    this.filteredCities = [...this.cities];
+    // this.dropdownVisible[type] = !this.dropdownVisible[type];
+    this.dropdownVisible[type] = true; 
+    // console.log("toggleDropdown",this.dropdownVisible[type]);
   }
 
   selectTown(type: 'departure' | 'destination' | 'date', town: string): void {
@@ -191,10 +201,28 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.dropdownVisible[type] = false;
     
   }
+  
+  
+  filterCities(searchText: string, type: 'departure' | 'destination') {
+    if (!searchText) {
+      this.filteredCities = [...this.cities]; // Show all cities if no input
+    } else {
+      this.filteredCities = this.cities.filter(city =>
+        city.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+  
+    this.dropdownVisible[type] = true; // Ensure dropdown stays open
+  }
+  
+  
+  
 
   getMidnightDate(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
+
+
 
   selectDate(date: Date) {
     this.updateTripDate(date);

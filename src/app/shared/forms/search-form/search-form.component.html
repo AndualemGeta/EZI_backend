@@ -6,31 +6,37 @@
         <label for="departureInput">{{ "departure" | translate }}</label>
         <div class="input-icon-container">
           <i class="bi bi-geo-alt geo-input-icon"></i>
+          <!-- Departure Input -->
           <input
-            type="text"
-            id="departureInput"
-            class="form-control decorated-input"
-            [(ngModel)]="selectedDeparture"
-            placeholder="{{ 'Select a departure' | translate }}"
-            [value]="getCityNameById(selectedDeparture) | translate"
-            readonly
-            (click)="toggleDropdown('departure')"
-          />
+  type="text"
+  id="departureInput"
+  class="form-control decorated-input"
+  [(ngModel)]="selectedDeparture"
+  readonly
+  placeholder="Select a departure"
+  [value]="getCityNameById(selectedDeparture) | translate"
+  (click)="toggleDropdown('departure')"
+/>
         </div>
       </div>
-      <div
-        *ngIf="dropdownVisible.departure"
-        class="dropdown-menu show w-100">
+      <div *ngIf="dropdownVisible.departure" class="dropdown-menu show w-100">
         <ul class="list-group">
-          <li
-            *ngFor="let city of cities"
-            class="list-group-item"
-            (click)="selectTown('departure', city.locationId)"
-          >
+          <li class="list-group-item">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search departure..."
+              (input)="filterCities($event.target.value, 'departure')"
+            />
+          </li>
+      
+          <!-- Display filtered cities -->
+          <li *ngFor="let city of filteredCities" class="list-group-item"
+          (click)="selectTown('departure', city.locationId)">
             <div class="location-container">
               <i class="bi bi-geo-alt geo-icon"></i>
               <div class="location-details">
-                <span class="city-name">{{ city.name | translate }}</span>
+                <span class="city-name">{{ city.name }}</span>
                 <span class="location-station">{{ city?.stations[0]?.name }}</span>
               </div>
             </div>
@@ -54,36 +60,43 @@
         <div class="input-icon-container">
           <i class="bi bi-geo-alt geo-input-icon"></i>
           <input
-            type="text"
-            id="destinationInput"
-            class="form-control decorated-input"
-            [(ngModel)]="selectedDestination"
-            placeholder="{{ 'Select a destination' | translate }}"
-            [value]="getCityNameById(selectedDestination) | translate"
-            readonly
-            (click)="toggleDropdown('destination')"
-          />
+          type="text"
+          id="destinationInput"
+          class="form-control decorated-input"
+          [(ngModel)]="selectedDestination"
+          placeholder="Select a destination"
+          readonly
+          [value]="getCityNameById(selectedDestination) | translate"
+          (click)="toggleDropdown('destination')"
+        />
         </div>
       </div>
-      <div
-        *ngIf="dropdownVisible.destination"
-        class="dropdown-menu show w-100">
+      <div *ngIf="dropdownVisible.destination" class="dropdown-menu show w-100">
         <ul class="list-group">
-          <li
-            *ngFor="let city of cities"
-            class="list-group-item"
-            (click)="selectTown('destination', city.locationId)"
-              >
+          <!-- Filter input inside the dropdown -->
+          <li class="list-group-item">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search destination..."
+              (input)="filterCities($event.target.value, 'destination')"
+            />
+          </li>
+
+          <!-- List of filtered cities -->
+          <li *ngFor="let city of filteredCities" class="list-group-item"
+          (click)="selectTown('destination', city.locationId)">
             <div class="location-container">
               <i class="bi bi-geo-alt geo-icon"></i>
               <div class="location-details">
-                <span class="city-name">{{ city.name | translate }}</span>
+                <span class="city-name">{{ city.name }}</span>
                 <span class="location-station">{{ city?.stations[0]?.name }}</span>
               </div>
             </div>
           </li>
         </ul>
       </div>
+      
     </div>
 
     <div class="col-lg-3 col-md-6 col-12 position-relative">
