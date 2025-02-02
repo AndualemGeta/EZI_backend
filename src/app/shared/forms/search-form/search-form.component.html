@@ -152,9 +152,10 @@
 						'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
 						'selected': selectedDate?.getTime() === date.getTime()
 						}"
-						(click)="selectDate(date)"
+						(click)="!isPastDate(date) && selectDate(date)"
+            [disabled]="isPastDate(date)"
 					>
-						{{ date.getDate() }}
+            {{ date.getDate()}}
 					</span>
 					</div>
 				</div>

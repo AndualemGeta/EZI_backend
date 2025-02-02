@@ -23,6 +23,11 @@ const appRoutes: Routes = [
       import("src/app/features/trip-list/trip-list.module").then((m) => m.TripListModule),
   },
   {
+    path: "book-result",
+    loadChildren: () =>
+      import("src/app/features/reservation-result/reservation-result.module").then((m) => m.ReservationResultModule),
+  },
+  {
     path: "ezibus/termsof-service",
     loadChildren: () =>
       import("src/app/information/terms/terms.module").then((m) => m.TermsModule),

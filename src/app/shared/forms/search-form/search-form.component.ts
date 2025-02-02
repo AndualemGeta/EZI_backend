@@ -141,12 +141,17 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   navigateMonth(direction: number): void {
+    if(this.currentMonthIndex==0 && direction<=0){
+      this.currentMonthIndex = 0;    
+     }
+     else{
     this.currentMonthIndex += direction;
     if (this.currentMonthIndex < 0) {
       this.currentMonthIndex = this.months.length - 1;
     } else if (this.currentMonthIndex >= this.months.length) {
       this.currentMonthIndex = 0;
     }
+  }
   }
 
   getAllLocations() {
@@ -184,10 +189,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
-    console.log("toggleDropdown",this.dropdownVisible[type]);
     this.filteredCities = [...this.cities];
-    // this.dropdownVisible[type] = !this.dropdownVisible[type];
-    this.dropdownVisible[type] = true; 
+    this.dropdownVisible[type] = !this.dropdownVisible[type];
+    // this.dropdownVisible[type] = true; 
     // console.log("toggleDropdown",this.dropdownVisible[type]);
   }
 
@@ -225,4 +229,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.updateTripDate(date);
     this.dropdownVisible['date'] = false;
   }
+
+  isPastDate(date: Date): boolean {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to midnight
+    return date < today; // Disable past dates
+  }
+  
 }

@@ -74,13 +74,24 @@
   padding-left: 30px;
 }
 
+#departureInput, 
+#destinationInput, 
+#dateInput {
+    cursor: pointer !important;
+}
+
+
 /* Active dropdown state */
-/* .input-icon-container input[type="text"]:focus-within, */
-/* .input-icon-container:hover { */
-  /* border-color: rgb(58, 243, 147);  Hover effect */
-  /* box-shadow: 0 0 5px rgba(35, 247, 7, 0.5);  Hover shadow */
-/* } */
-  
+/* .input-icon-container input[type="text"]:focus-within, 
+.input-icon-container:hover { 
+   border-color: rgb(58, 243, 147); 
+   box-shadow: 0 0 5px rgba(35, 247, 7, 0.5); 
+   
+} */
+
+.location-input{
+  cursor: pointer;
+}
   .geo-input-icon {
     position: absolute;
     top: 50%;
@@ -118,6 +129,7 @@
     text-align: center;
     display: inline-block;
     height: auto;
+    cursor: pointer !important;
   }
   
   .search-input-button:hover {
@@ -197,8 +209,9 @@
   }
   
   .date-item {
-    width: 30px;
+    width: 5px;
     line-height: 40px;
+    padding: 5px;
     border-radius: 50%;
     text-align: center;
     cursor: pointer;
@@ -206,8 +219,7 @@
   }
   
   .date-item:hover {
-    background-color: #2b6098;
-    color: #fff;
+    border: #28a745 solid 1px;
   }
   
   .date-item.selected {

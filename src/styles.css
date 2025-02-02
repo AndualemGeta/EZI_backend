@@ -42,3 +42,14 @@
       text-transform: uppercase;
       font-size: 30px;
   }
+
+  input {
+    position: relative;
+    z-index: 2 !important;
+    cursor: text !important;
+  }
+  
+  mat-form-field {
+    background: white !important;
+  }
+  

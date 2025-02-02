@@ -1,0 +1,55 @@
+<app-header></app-header>
+<div class="page-content">
+    <div class="container">
+        <div class="card">
+          <!-- Header -->
+          <div class="header-card">
+            <img src="assets/img/ezi-circle.png" alt="Ezibus Logo" class="logo">
+            <h5>Ezi Bus Electronic Reservation</h5>
+            <h5>{{ reservation.transactions[0]?.schedule?.operator }} Bus </h5>
+          </div>
+          <!-- Reservation Details -->
+          <div class="reservation-card">
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Trip:</strong> {{ reservation.transactions[0]?.schedule?.departureLocation }} → 
+                   {{ reservation.transactions[0]?.schedule?.arrivalLocation }}</p>
+                <p><strong>Departure:</strong> {{ reservation.transactions[0]?.schedule?.departureTime | date:'medium' }}</p>
+                <p><strong>Departure Station:</strong> {{ reservation.transactions[0]?.schedule?.departureStation }}</p>
+                <p><strong>Arrival Station:</strong> {{ reservation.transactions[0]?.schedule?.arrivalStation }}</p>
+                <p><strong>Bus Number:</strong> {{ reservation.transactions[0]?.schedule?.busSideNumber }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Passenger:</strong> {{ reservation.transactions[0]?.passenger?.fullName }}</p>
+                <p><strong>Phone:</strong> {{ reservation.transactions[0]?.passenger?.phoneNumber }}</p>
+                <p><strong>Seat Number:</strong> {{ reservation.transactions[0]?.seatNumber }}</p>
+              </div>
+              <hr>
+              <div class="col-md-6">
+                <p><strong>Bill Code:</strong> {{ reservation.billCode }}</p>
+                <p><strong>Bank:</strong> {{ reservation.account?.bankName }}</p>
+                <p><strong>Bank Account Number:</strong> {{ reservation.account?.accountNumber }}</p>
+                <p><strong>Account Holder Name:</strong> {{ reservation.account?.accountHolderName }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Price:</strong> {{ reservation.totalPrice }} ETB</p>
+                <p><strong>Payment Type:</strong> {{ reservation.paymentTypeCode }}</p>
+                <p><strong>Valid Until:</strong> {{ reservation.expirationTime | date:'medium' }}</p>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Footer -->
+          <div class="footer-card">
+            <p> <i> Please pay at any {{ reservation.account?.bankName }} bank branch before {{ reservation.expirationTime | date:'medium' }} </i></p>
+          </div>
+          <!-- Buttons -->
+          <div class="button-group">
+            <button mat-raised-button class="green-button"  (click)="printData()">Print</button>
+            <button mat-raised-button class="home-button" routerLink="/" aria-label="Go to Home">Home</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+

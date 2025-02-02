@@ -12,10 +12,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { LanguageModule } from "src/app/shared/module/language.module";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
     imports: [
         CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
-       HttpClientModule, MatIconModule,
+       HttpClientModule, MatIconModule, MatFormFieldModule,
+       MatInputModule,
       MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,Material2Module, Ng2TelInputModule
     ] ,
     exports: [LanguageModule,CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,

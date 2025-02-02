@@ -56,11 +56,9 @@ export class SeatListComponent  {
   debitAccount : string = "";
   awashOtp : string;
   awashPhoneNumber : string;
-
   reservation: any;
   // Only required when not passing the id in methods
   @ViewChild('stepper') private myStepper: MatStepper;
-
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
   constructor(private routeStateService: RouteStateService, private router: Router,
@@ -383,7 +381,7 @@ onSubmit() {
     }
   }
 reserveSeat(data){
-    this.loading = true;
+  this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
     (res) => {
       this.iserror = false;
@@ -402,11 +400,14 @@ reserveSeat(data){
         this.myStepper.next();
       }
       else{
-       this.printData(res);
-       this.dynamicForm.reset();
-       this.router.navigate(['/']).then(() => {
-        window.location.reload(); 
-      });
+      //  this.printData(res);
+      //  this.dynamicForm.reset();
+       this.routeStateService.add(
+        "user-list",
+        "/book-result",
+        res,
+        false
+      );
       }
       },
     (error) => {
@@ -436,6 +437,7 @@ selectCheckBox(targetType) {
    this.currentlyChecked = targetType;
   // console.log(this.currentlyChecked);
 }
+
 BackToTripList(){
   let searchData={
     destination:this.routeState.arrivalLocationId,

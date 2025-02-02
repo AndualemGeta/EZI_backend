@@ -1,0 +1,101 @@
+/* Center the entire card */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+    width: 80%;
+  }
+  
+  /* Watermark styling */
+  .card::before {
+    content: "Ezi Bus Technology";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.05); /* Light transparent color */
+    white-space: nowrap;
+    pointer-events: none; /* Ensure it doesn't interfere with interactions */
+  }
+  
+  /* Header and footer styling */
+  .header-card, .footer-card {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    text-transform: capitalize;
+    
+  }
+  
+  .logo {
+    width: 50px;  /* Adjust size as needed */
+    height: 50px; /* Make height equal to width to keep it circular */
+    border-radius: 50%;  /* Makes the image circular */
+    /* object-fit: cover;   Ensures the image scales correctly within the circle */
+    background-color: white; /* White background to highlight the circle */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a soft shadow to emphasize the circle */
+  }
+  
+  
+  /* Spacing for the reservation details */
+  .reservation-card {
+    margin: 20px 0;
+    text-align: left;
+  }
+  
+  /* Button styling */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .button-group button {
+    padding: 8px 40px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  /* your-component.component.css */
+.green-button {
+  background-color: green;
+  color: white; /* Adjust text color for better contrast */
+}
+.home-button {
+  background-color: rgb(160, 161, 160);
+  color: white; /* Adjust text color for better contrast */
+}
+
+.footer-card p {
+  font-size: 16px; /* Slightly larger font size for emphasis */
+  color: #2e8b57; /* Green color for the important message */
+  padding: 10px; /* Adds padding around the text for spacing */
+  animation: highlightText 1.5s ease-in-out infinite alternate; /* Pulsing animation */
+}
+
+@keyframes highlightText {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
