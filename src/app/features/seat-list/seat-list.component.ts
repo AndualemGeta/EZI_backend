@@ -17,6 +17,14 @@ enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
   }]
 })
 export class SeatListComponent  {
+   paymentOptions = [
+    { name: 'cbe', img: '../../../assets/img/paymentoption/cbe.png' },
+    { name: 'telebirr', img: '../../../assets/img/paymentoption/telebirr.png' },
+    { name: 'mpesa', img: '../../../assets/img/paymentoption/mpesa.png'},
+    { name: 'awash', img: '../../../assets/img/paymentoption/awash.png'},
+    { name: 'amole', img: '../../../assets/img/paymentoption/amole.png'  },
+    { name: 'hellocash', img: '../../../assets/img/paymentoption/hello-cash.png'},
+  ];
   responseDialog: boolean;
   iserror: boolean;
   disableSubmit: boolean;
@@ -455,6 +463,48 @@ BackToTripList(){
 printData(selectedData) {
   this.printService.generatePassengerTicketPDF(selectedData);
 }
+ 
+selectPayment(paymentName: string){
+  this.submitted = true;
+  if (this.dynamicForm.invalid) {
+    this.showMessage("Please fill all passenger information first");
+    return;
+  }
+  this.newPassanger.passengers=[];
+  this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
+  let v=this.dynamicForm.value;
+  if (v.tickets.length<=0) {
+    this.showMessage("Please select seat first");
+    return;
+  }
+  for(let i=0;i<v.tickets.length;i++){
+    let newPassengerData={
+    charges: this.selectedTrip.price,
+     discount: 0,
+     seatNumber: this.cart.selectedSeats[i],
+     luggageWeight: 0,
+     pickupLocation: "mexico shebelie",
+     passenger: {
+       phoneNumber: v.tickets[i].phone,
+       fullName: v.tickets[i].name,
+       gender: "Male",
+       age: 0
+     }
+    }
+    this.newPassanger.passengers.push(newPassengerData);
+    }
+  this.newPassanger.paymentProviderCode =  paymentName;
+  this.newPassanger.paymentMethodCode = 'Electronic';
+ console.log(this.newPassanger);
+  this.routeStateService.add(
+    "user-list",
+    "/book-result",
+    this.newPassanger,
+    false
+  );
+  
+  }
+
 
   confirmOtp() {
     var values = this.awashOtpForm.getRawValue();

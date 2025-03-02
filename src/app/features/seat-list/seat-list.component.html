@@ -265,6 +265,17 @@
                   {{seatLabel}}</span>
               </div>
               <p class="trip-detail-title"> {{"choosPaymentOption"| translate}}</p>
+
+<div class="row">
+  <div class="col-md-12" >
+        <img *ngFor="let payment of paymentOptions" class="payment-option-list" 
+             [src]="payment.img" 
+             (click)="selectPayment(payment.name)" 
+             [alt]="payment.name" 
+             [class.clicked]="payment.clicked">
+    </div>
+</div>
+
               <mat-radio-group formControlName="paymentMethod" aria-label="Select an option"
                                [(ngModel)]="paymentMethod">
               <span *ngIf="cart.selectedSeats.length <= 3">
