@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="page-content container-fluid">
+   <div class="row">
+      <div class="col-md-6 col-lg-4"></div>
+      <div class="col-md-6 col-lg-4">
+         <form (ngSubmit)="submitPhoneNumber()">
+            <label for="phone">Enter Phone Number:</label>
+            <input type="text" id="phone" [(ngModel)]="phoneNumber" name="phone" class="form-control" required>
+            <button type="submit" class="btn btn-primary mt-2">Next</button>
+         </form>
+      </div>
+      <div class="col-md-6 col-lg-4"></div>
+   </div>
+</div>

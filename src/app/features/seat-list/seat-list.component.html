@@ -185,6 +185,7 @@
           </div>
         </div>
       </mat-step>
+
       <mat-step state="payment">
         <ng-template matStepLabel >
           <span fxShow="false" fxShow.gt-xs="true"> {{"selectPaymentItruction"|translate}} </span> 
@@ -266,7 +267,7 @@
               </div>
               <p class="trip-detail-title"> {{"choosPaymentOption"| translate}}</p>
 
-<div class="row">
+  <div class="row">
   <div class="col-md-12" >
         <img *ngFor="let payment of paymentOptions" class="payment-option-list" 
              [src]="payment.img" 
@@ -276,9 +277,8 @@
     </div>
 </div>
 
-              <mat-radio-group formControlName="paymentMethod" aria-label="Select an option"
-                               [(ngModel)]="paymentMethod">
-              <span *ngIf="cart.selectedSeats.length <= 3">
+              <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
+              <!-- <span *ngIf="cart.selectedSeats.length <= 3">
                 <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
                     <img mat-card-image src="../../../assets/img/paymentoption/bank.png" id="telebirr-paymentoption-logo" style="width: 70px; margin: 10px">   
                 </mat-radio-button>
@@ -286,7 +286,7 @@
                           </span>
                   <span *ngIf="cart.selectedSeats.length >3" style="background-color:rgb(148, 158, 145);">
                       <p> If you want to reserve seat and pay at Bank Branch maximum seat allowed is 3!!! </p>
-                  </span>
+                  </span> -->
 
                 <!-- <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')"> &nbsp;
                   <img mat-card-image src="../../../assets/img/paymentoption/telebirr.png" id="telebirr-paymentoption-logo" style="width: 100px; margin-right: 10px">
@@ -301,19 +301,19 @@
                 <!-- <p class="payment-option-description">
                   Use Mpesa mobile application to complete the payment.</p> -->
               </mat-radio-group>
-              <mat-form-field appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
+              <!-- <mat-form-field appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
                 <mat-label>Select Bank Account</mat-label>
                 <mat-select formControlName="accountId" [(ngModel)]="accountId">
                   <mat-option *ngFor="let account of accounts"
                               [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
 
-              <mat-form-field appearnace="fill" class="full-width" *ngIf="paymentMethod == 'AwashOtp'">
+              <!-- <mat-form-field appearnace="fill" class="full-width" *ngIf="paymentMethod == 'AwashOtp'">
                 <mat-label>Awash Bank Account</mat-label>
                 <input matInput placeholder="Enter Your Awash Bank Account Number" formControlName="debitAccount"
                        [(ngModel)]="debitAccount">
-              </mat-form-field>
+              </mat-form-field> -->
           
               &nbsp; &nbsp;&nbsp;
               <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
@@ -390,7 +390,6 @@
                 </div>
               </mat-card>
             </div>
-
           </div>
 
            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">

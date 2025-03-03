@@ -1,3 +1,4 @@
+import { PaymentPhoneRoutingModule } from 'src/app/features/payment-phone/payment-phone.routing';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 const appRoutes: Routes = [
@@ -21,6 +22,11 @@ const appRoutes: Routes = [
     path: "trip-list",
     loadChildren: () =>
       import("src/app/features/trip-list/trip-list.module").then((m) => m.TripListModule),
+  },
+  {
+    path: "procced-to-payment",
+    loadChildren: () =>
+      import("src/app/features/payment-phone/payment-phone.module").then((m) => m.PaymentPhoneModule),
   },
   {
     path: "book-result",
