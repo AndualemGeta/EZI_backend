@@ -3,12 +3,25 @@
    <div class="row">
       <div class="col-md-6 col-lg-4"></div>
       <div class="col-md-6 col-lg-4">
-         <form (ngSubmit)="submitPhoneNumber()">
+         <img [src]="getSelectedImage()" alt="Payment Option" class="img-fluid" *ngIf="getSelectedImage()">
+         <form #phoneForm="ngForm" (ngSubmit)="submitPhoneNumber()">
             <label for="phone">Enter Phone Number:</label>
-            <input type="text" id="phone" [(ngModel)]="phoneNumber" name="phone" class="form-control" required>
-            <button type="submit" class="btn btn-primary mt-2">Next</button>
+            <input type="text" 
+                   id="phone" 
+                   [(ngModel)]="phoneNumber" 
+                   name="phone" 
+                   class="form-control" 
+                   required
+                   pattern="^[0-9]{10}$"
+                   #phoneInput="ngModel">
+            <div *ngIf="phoneInput.invalid && phoneInput.touched" class="text-danger">
+               <small *ngIf="phoneInput.errors?.required">Phone number is required.</small>
+               <small *ngIf="phoneInput.errors?.pattern">Enter a valid phone number (10 digits, optional).</small>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2" [disabled]="phoneForm.invalid">Next</button>
          </form>
       </div>
       <div class="col-md-6 col-lg-4"></div>
    </div>
 </div>
+

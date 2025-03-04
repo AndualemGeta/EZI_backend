@@ -19,6 +19,7 @@ export class PaymentPhoneComponent implements OnInit {
     responseTitle:string;
     routeState;
     reservation;
+    selectedPayment: string = 'CBE';
     phoneNumber: string = '';	
     ArifPaycreateSessionData = {
       cancelUrl: "https://ezibus.leapfrogtechafrica.com/book-bus-tickets-in-ethiopia",
@@ -29,7 +30,7 @@ export class PaymentPhoneComponent implements OnInit {
       notifyUrl: "https://leapfrogtechafrica.com/",
       successUrl: "https://www.ezipublic.ezi-tech.com/book-bus-tickets-in-ethiopia",
       paymentMethods: [],
-      expireDate: "2025-02-01T03:45:27",
+      expireDate: "",
       items: [
         {
           name: "EZI BUS",
@@ -49,6 +50,15 @@ export class PaymentPhoneComponent implements OnInit {
       lang: "EN"
     };
 
+
+    paymentOptions = [
+      { name: 'CBE', img: '../../../assets/img/paymentoption/cbe.png' },
+      { name: 'TELEBIRR', img: '../../../assets/img/paymentoption/telebirr.png' },
+      { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png'},
+      { name: 'AWASH', img: '../../../assets/img/paymentoption/awash.png'},
+      { name: 'AMOLE', img: '../../../assets/img/paymentoption/amole.png'  },
+      { name: 'HELLOCASH', img: '../../../assets/img/paymentoption/hello-cash.png'},
+    ];
    constructor(private routeStateService: RouteStateService, private router: Router,
     private eziService: EziBusService, private paymentService: PaymentService, private _snackBar : MatSnackBar,
     ) { }
@@ -56,8 +66,7 @@ export class PaymentPhoneComponent implements OnInit {
   ngOnInit(): void {
     this.routeState = this.routeStateService.getCurrent().data;
     this.reservation=this.routeState;
-    console.log(this.reservation);
-    console.log(this.reservation.passengers);
+    this.selectedPayment=this.reservation.PaymentOption;
   }
   showMessage(message){
     this._snackBar.open(message,"OK");
@@ -148,5 +157,11 @@ export class PaymentPhoneComponent implements OnInit {
     }));
   }
 
+   // Default selection
+
+getSelectedImage(): string {
+  const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
+  return option ? option.img : '';
+}
 
 }

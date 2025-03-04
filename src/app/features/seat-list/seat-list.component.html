@@ -317,15 +317,8 @@
           
               &nbsp; &nbsp;&nbsp;
               <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
-              
               <div class="action-buttons card-footer text-center" *ngIf="!loading">
-                <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>
-                <button class="reserve-action-btn" mat-button (click)="stepper.reset()" mat-flat-button color="accent" color="reset-button-color">
-                 {{"reset"|translate}}
-                </button>
-                <button mat-button (click)="onSubmit()" mat-flat-button [disabled]="this.dynamicForm.invalid"
-                        color="success" class="reserve-action-btn" >{{"reserve"|translate}}
-                </button>
+                <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
               </div>
             </mat-card>
           </div>
