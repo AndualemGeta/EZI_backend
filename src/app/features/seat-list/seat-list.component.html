@@ -243,7 +243,6 @@
             </div>
           </div>
 
-
           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4" >
             <mat-card style="width:90%;">
               <div class="trip-detail-title"> 
@@ -276,47 +275,6 @@
              [class.clicked]="payment.clicked">
     </div>
 </div>
-
-              <mat-radio-group formControlName="paymentMethod" aria-label="Select an option" [(ngModel)]="paymentMethod">
-              <!-- <span *ngIf="cart.selectedSeats.length <= 3">
-                <mat-radio-button value="BankTransfer" (change)="changeGender('BankTransfer')"> 
-                    <img mat-card-image src="../../../assets/img/paymentoption/bank.png" id="telebirr-paymentoption-logo" style="width: 70px; margin: 10px">   
-                </mat-radio-button>
-                  <p class="payment-option-description"> Pay At Bank Branch You can deposit to our bank account at any branch. </p>
-                          </span>
-                  <span *ngIf="cart.selectedSeats.length >3" style="background-color:rgb(148, 158, 145);">
-                      <p> If you want to reserve seat and pay at Bank Branch maximum seat allowed is 3!!! </p>
-                  </span> -->
-
-                <!-- <mat-radio-button [checked]="true" value="TeleBirr" (change)="changeGender('TeleBirr')"> &nbsp;
-                  <img mat-card-image src="../../../assets/img/paymentoption/telebirr.png" id="telebirr-paymentoption-logo" style="width: 100px; margin-right: 10px">
-                </mat-radio-button>&nbsp; 
-                
-                <p class="payment-option-description">Use telebirr mobile application to complete the payment</p> -->
-                
-                 <!-- <mat-radio-button value="AwashOtp" (change)="changeGender('AwashOtp')"> &nbsp;
-                  <img mat-card-image src="../../../assets/img/paymentoption/mpesa.png" id="telebirr-paymentoption-logo" style="width: 100px; margin: 10px">   
-                </mat-radio-button> -->
-
-                <!-- <p class="payment-option-description">
-                  Use Mpesa mobile application to complete the payment.</p> -->
-              </mat-radio-group>
-              <!-- <mat-form-field appearance="fill" class="full-width" *ngIf="paymentMethod == 'BankTransfer'">
-                <mat-label>Select Bank Account</mat-label>
-                <mat-select formControlName="accountId" [(ngModel)]="accountId">
-                  <mat-option *ngFor="let account of accounts"
-                              [value]="account.reservationBankAccountsId">{{account.bankName}}  {{account.accountNumber}}</mat-option>
-                </mat-select>
-              </mat-form-field> -->
-
-              <!-- <mat-form-field appearnace="fill" class="full-width" *ngIf="paymentMethod == 'AwashOtp'">
-                <mat-label>Awash Bank Account</mat-label>
-                <input matInput placeholder="Enter Your Awash Bank Account Number" formControlName="debitAccount"
-                       [(ngModel)]="debitAccount">
-              </mat-form-field> -->
-          
-              &nbsp; &nbsp;&nbsp;
-              <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
               <div class="action-buttons card-footer text-center" *ngIf="!loading">
                 <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
               </div>
@@ -384,49 +342,30 @@
               </mat-card>
             </div>
           </div>
-
            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-            <mat-card >
+            <mat-card class="center-content" >
               <p class="trip-detail-title">Payment Instruction</p>
-              <div  *ngIf="paymentMethod == 'AwashOtp'">
-                <p>Dear Customer, You will receive an One Time Payment (OTP) code from Awash Bank through SMS. To complete the reservation,
-                please enter the Otp code and your phone number below. </p>
-
-                <form [formGroup]="awashOtpForm" >
-                  <mat-form-field appearnace="fill" class="full-width" >
-                    <mat-label>Awash OTP</mat-label>
-                    <input matInput placeholder="Enter OTP Code" formControlName="otp"
-                           [(ngModel)]="awashOtp">
-                  </mat-form-field>
-
-                  <mat-form-field appearance="outline">
-                    <input
-                      matInput
-                      ng2TelInput
-                      [ng2TelInputOptions]="{initialCountry: 'et', autoHideDialCode : false, separateDialCode : true, preferredCountries : ['et']
-                       , nationalMode : false, allowDropdown : false
-                       }"
-
-                      formControlName="phoneNumber"
-
-                    />
-                    <mat-error
-                      *ngIf="
-    !awashOtpForm.get('phoneNumber').valid &&
-    awashOtpForm.get('phoneNumber').updateOn
-    "
-                    >This is an invalid phone number.
-                    </mat-error>
-                  </mat-form-field>
-                </form>
-                &nbsp; &nbsp;&nbsp;
-                <mat-spinner *ngIf="loading" diameter="20" color="accent"></mat-spinner>
-                <div class="action-buttons" *ngIf="!loading">
-                  <button mat-button (click)="confirmOtp()" mat-flat-button [disabled]="this.awashOtpForm.invalid"
-                          color="success" style="margin:2px ;" matStepperNext>Confirm Otp
-                  </button>
+              <img [src]="getSelectedImage()" alt="Payment Option" class="selected-payment-img" *ngIf="getSelectedImage()">
+              <form #phoneForm="ngForm" (ngSubmit)="submitPhoneNumber()">
+                <label for="phone">Please Enter Your {{this.selectedPayment}} Payment Phone Number:</label>
+                <input type="text" 
+                       id="phone" 
+                       [(ngModel)]="phoneNumber" 
+                       name="phone" 
+                       class="form-control" 
+                       required
+                       pattern="^[0-9]{10}$"
+                       #phoneInput="ngModel">
+                <div *ngIf="phoneInput.invalid && phoneInput.touched" class="text-danger">
+                   <small *ngIf="phoneInput.errors?.required">Phone number is required.</small>
+                   <small *ngIf="phoneInput.errors?.pattern">Enter a valid phone number (10 digits only).</small>
                 </div>
-              </div>
+                <div class="action-buttons card-footer text-center" *ngIf="!loading">
+                  <br>
+                  <button type="submit" mat-flat-button [disabled]="phoneForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">{{"proceedToPay"|translate}}</button> 
+                  <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
+                </div>
+             </form>
             </mat-card>
           </div> 
         </div>

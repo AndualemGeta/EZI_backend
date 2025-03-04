@@ -69,3 +69,16 @@
 .payment-option-list:hover {
   animation: blink 0.7s infinite; /* Apply the blink effect */
 }
+
+.selected-payment-img {
+  width: 80%;
+  height: 200px; /* Fix the incorrect 'Px' */
+  margin: 10px auto;
+  display: block;
+}
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

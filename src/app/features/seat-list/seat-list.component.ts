@@ -3,11 +3,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
+import { PaymentService } from 'src/app/Service/Payment-service';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 import {MatStepper} from '@angular/material/stepper';
 import {PassengerTicketPrintService} from '../../Service/passenger-ticket-print.service';
+import {PAYMENT_OPTIONS,ArifPaycreateSessionData} from '../../utils/constants';
+import { Observable } from 'rxjs';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -17,14 +20,10 @@ enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
   }]
 })
 export class SeatListComponent  {
-   paymentOptions = [
-    { name: 'CBE', img: '../../../assets/img/paymentoption/cbe.png' },
-    { name: 'TELEBIRR', img: '../../../assets/img/paymentoption/telebirr.png' },
-    { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png'},
-    { name: 'AWASH', img: '../../../assets/img/paymentoption/awash.png'},
-    { name: 'AMOLE', img: '../../../assets/img/paymentoption/amole.png'  },
-    { name: 'HELLOCASH', img: '../../../assets/img/paymentoption/hello-cash.png'},
-  ];
+  @ViewChild('stepper') stepper!: MatStepper; 
+   paymentOptions = PAYMENT_OPTIONS;
+   ArifPaycreateSessionData = ArifPaycreateSessionData;
+   selectedPayment: string = 'CBE';
   responseDialog: boolean;
   iserror: boolean;
   disableSubmit: boolean;
@@ -34,6 +33,7 @@ export class SeatListComponent  {
    seatConfig: any = null;
    submitted:boolean;
    seatmap = [];
+   phoneNumber: string = '';	
    seatChartConfig = {
     showRowsLabel: false,
     showRowWisePricing: false,
@@ -69,7 +69,7 @@ export class SeatListComponent  {
   @ViewChild('stepper') private myStepper: MatStepper;
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
-  constructor(private routeStateService: RouteStateService, private router: Router,
+  constructor(private routeStateService: RouteStateService,private paymentService: PaymentService, private router: Router,
     private _formBuilder: FormBuilder,
     private eziService: EziBusService,
     private _snackBar : MatSnackBar,
@@ -437,6 +437,27 @@ reserveSeat(data){
   );
 }
 
+reserveMultipleSeat(data): Promise<{ success: boolean; data?: any; error?: any }> {
+  this.loading = true;
+  console.log("recived", data);
+  return new Promise((resolve) => {
+    this.eziService.reserveMultiple(data).subscribe(
+      (res) => {
+        console.log("Reservation Successful:", res);
+        resolve({ success: true, data: res });
+      },
+      (error) => {
+        console.error("Reservation Failed:", error);
+        this.loading = false;
+        let errorMessage = "";
+        for (const value of Object.values(error)) {
+          errorMessage += value;
+        }
+        resolve({ success: false, error: errorMessage });
+      }
+    );
+  });
+}
 
 selectCheckBox(targetType) {
   // If the checkbox was already checked, clear the currentlyChecked variable
@@ -467,6 +488,7 @@ printData(selectedData) {
 }
  
 selectPayment(paymentName: string){
+  this.selectedPayment=paymentName;
   this.submitted = true;
   if (this.dynamicForm.invalid) {
     this.showMessage("Please fill all passenger information first");
@@ -500,16 +522,106 @@ selectPayment(paymentName: string){
   this.newPassanger.paymentProviderCode =  "TeleBirr";
   this.newPassanger.PaymentOption=paymentName; 
   this.newPassanger.paymentMethodCode = 'Electronic';
-  this.routeStateService.add(
-    "user-list",
-    "/procced-to-payment",
-    this.newPassanger,
-    false
-  );
+  this.stepper.next();
+  // this.routeStateService.add(
+  //   "user-list",
+  //   "/procced-to-payment",
+  //   this.newPassanger,
+  //   false
+  // );
   
   }
 
+  getSelectedImage(): string {
+    const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
+    return option ? option.img : '';
+  }
 
+  submitPhoneNumber() {
+    const updatedItems = this.generateUpdatedItems(this.newPassanger.passengers);
+    if (this.phoneNumber) {
+      this. ArifPaycreateSessionData.phone = "251" + this.phoneNumber.substring(1);
+      this.ArifPaycreateSessionData.expireDate = this.getExpireDate();
+      this.ArifPaycreateSessionData.paymentMethods=[this.newPassanger.PaymentOption]
+      this.ArifPaycreateSessionData.items = updatedItems;
+      this.ArifPaycreateSessionData.beneficiaries[0].amount =this.newPassanger.totalPrice;
+      console.log(this. ArifPaycreateSessionData);
+      this.ArifPaycreateSessionData.nonce=(Math.floor(Math.random() * 900000000000) + 1000000000).toString();
+      this.reserveMultipleSeat(this.newPassanger).then((result) => {
+        if (result.success) {
+          console.log("Reservation Successful:", result.data);
+        } else {
+          console.error("Reservation Failed:", result.error);
+        }
+      });
+      
+     // this.handleCheckoutResult(this.ArifPaycreateSessionData);
+      // Navigate to the next page and pass the phone number as a query parameter
+      //this.reserveSeat(this.reservation);
+    }
+  }
+  
+ handleCheckoutResult(data) {
+    this.checkoutSession(data).subscribe(
+      (res) => {
+        this.iserror = false;
+        this.responseDialog = true;
+        this.loading = false;
+
+        // Register the response data in the database
+        // this.registerPayment(res.data).subscribe(() => {
+        //   console.log('Payment registered successfully.');
+
+        //   // Redirect after successful registration
+        //   if (!res.error && res.data?.paymentUrl) {
+        //     window.location.href = res.data.paymentUrl;
+        //   }
+        // });
+        if (!res.error && res.data?.paymentUrl) {
+          window.location.href = res.data.paymentUrl;
+        }
+
+      },
+      (error) => {
+        console.log(error);
+        this.iserror = true;
+        this.responseTitle = 'Error!!!';
+        this.responseDialog = true;
+        this.responseMesssage = '';
+        this.responseStyle = 'error';
+        this.disableSubmit = false;
+
+        for (const [key, value] of Object.entries(error)) {
+          this.responseMesssage = this.responseMesssage + value;
+        }
+
+        this.loading = false;
+        this.showMessage(this.responseMesssage);
+      }
+    );
+}
+
+
+  checkoutSession(data): Observable<any> {
+    return this.paymentService.createSession(data, this.selectedPayment);
+}
+
+
+   getExpireDate = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 10); 
+    return now.toISOString(); 
+  };
+
+ generateUpdatedItems(passengerData: any[]) {
+    return passengerData.map((data) => ({
+      name: data?.passenger?.fullName|| "EZI BUS",
+      quantity: 1,
+      price: data?.charges - data?.discount|| 0, // Adjust price based on discount
+      description: `Seat: ${data.seatNumber}, Pickup: ${data.pickupLocation}`,
+      image: "https://ezibus.leapfrogtechafrica.com/assets/img/ezi-icon.png"
+    }));
+  }
   // confirmOtp() {
   //   var values = this.awashOtpForm.getRawValue();
   //   var data = {

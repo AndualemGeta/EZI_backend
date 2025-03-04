@@ -5,7 +5,8 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-
+import {cbe_url,telebirr_url,mpesa_url,amole_url,awash_url,hellocash_url } from '../utils/constants';
+import { get } from 'jquery';
 @Injectable({
   providedIn: 'root',
 })
@@ -62,9 +63,9 @@ export class PaymentService {
       },
     });
   }
-
-  createSession(data){
-    let url = `/api/checkout/session`;
+  
+  createSession(data,paymentMethod){
+    let url=this.getPaymentUrl(paymentMethod);
     return this.postApiService(url,data).pipe(
       map((data: any) => {
         return data;
@@ -80,6 +81,22 @@ export class PaymentService {
       })
     );
   }
+
+  private getPaymentUrl(paymentMethod){
+    if(paymentMethod=='CBE'){
+      return cbe_url;
+  }
+  else if(paymentMethod=='MPESSA'){
+    return mpesa_url;   }
+    else if(paymentMethod=='TELEBIRR'){
+      return telebirr_url;   }
+      else if(paymentMethod=='AMOLE'){      
+        return amole_url;   }
+        else if(paymentMethod=='AWASH'){      
+          return awash_url;   }
+          else if(paymentMethod=='HELLOCASH'){      
+            return hellocash_url;   }
+}
   private getServerErrorMessage(error: HttpErrorResponse): any {
     switch (error.status) {
       case 400: {

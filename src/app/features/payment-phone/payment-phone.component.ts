@@ -4,6 +4,8 @@ import { RouteStateService } from 'src/app/Service/route-state.service';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { PaymentService } from 'src/app/Service/Payment-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {PAYMENT_OPTIONS,ArifPaycreateSessionData} from '../../utils/constants';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-payment-phone',
   templateUrl: './payment-phone.component.html',
@@ -21,44 +23,8 @@ export class PaymentPhoneComponent implements OnInit {
     reservation;
     selectedPayment: string = 'CBE';
     phoneNumber: string = '';	
-    ArifPaycreateSessionData = {
-      cancelUrl: "https://ezibus.leapfrogtechafrica.com/book-bus-tickets-in-ethiopia",
-      phone: "",
-      email: "telebirrTest@gmail.com",
-      nonce:'' ,
-      errorUrl: "https://leapfrogtechafrica.com/about-us.html",
-      notifyUrl: "https://leapfrogtechafrica.com/",
-      successUrl: "https://www.ezipublic.ezi-tech.com/book-bus-tickets-in-ethiopia",
-      paymentMethods: [],
-      expireDate: "",
-      items: [
-        {
-          name: "EZI BUS",
-          quantity: 1,
-          price: 2,
-          description: "EZI BUS SYSTEM",
-          image: "https://ezibus.leapfrogtechafrica.com/assets/img/ezi-icon.png"
-        }
-      ],
-      beneficiaries: [
-        {
-          accountNumber: "01320811436100",
-          bank: "AWINETAA",
-          amount: 0.0
-        }
-      ],
-      lang: "EN"
-    };
-
-
-    paymentOptions = [
-      { name: 'CBE', img: '../../../assets/img/paymentoption/cbe.png' },
-      { name: 'TELEBIRR', img: '../../../assets/img/paymentoption/telebirr.png' },
-      { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png'},
-      { name: 'AWASH', img: '../../../assets/img/paymentoption/awash.png'},
-      { name: 'AMOLE', img: '../../../assets/img/paymentoption/amole.png'  },
-      { name: 'HELLOCASH', img: '../../../assets/img/paymentoption/hello-cash.png'},
-    ];
+    ArifPaycreateSessionData = ArifPaycreateSessionData;
+    paymentOptions = PAYMENT_OPTIONS;
    constructor(private routeStateService: RouteStateService, private router: Router,
     private eziService: EziBusService, private paymentService: PaymentService, private _snackBar : MatSnackBar,
     ) { }
@@ -73,7 +39,6 @@ export class PaymentPhoneComponent implements OnInit {
   }
 
   submitPhoneNumber() {
-    console.log(this.phoneNumber);
     const updatedItems = this.generateUpdatedItems(this.reservation.passengers);
     if (this.phoneNumber) {
       this. ArifPaycreateSessionData.phone = "251" + this.phoneNumber.substring(1);
@@ -83,7 +48,7 @@ export class PaymentPhoneComponent implements OnInit {
       this.ArifPaycreateSessionData.beneficiaries[0].amount =this.reservation.totalPrice;
       console.log(this. ArifPaycreateSessionData);
       this.ArifPaycreateSessionData.nonce=(Math.floor(Math.random() * 900000000000) + 1000000000).toString();
-      this.checkoutSession(this.ArifPaycreateSessionData);
+      this.handleCheckoutResult(this.ArifPaycreateSessionData);
       // Navigate to the next page and pass the phone number as a query parameter
       //this.reserveSeat(this.reservation);
     }
@@ -114,16 +79,27 @@ export class PaymentPhoneComponent implements OnInit {
     );
   }
 
-  checkoutSession(data){
-    this.loading = true;
-    this.paymentService.createSession(data).subscribe(
+  handleCheckoutResult(data) {
+    this.checkoutSession(data).subscribe(
       (res) => {
-        console.log(res.data);
         this.iserror = false;
-         this.responseDialog = true;
-         this.loading = false;
-         this.routeStateService.add("user-list","/book-result",res,false);
-        },
+        this.responseDialog = true;
+        this.loading = false;
+
+        // Register the response data in the database
+        // this.registerPayment(res.data).subscribe(() => {
+        //   console.log('Payment registered successfully.');
+
+        //   // Redirect after successful registration
+        //   if (!res.error && res.data?.paymentUrl) {
+        //     window.location.href = res.data.paymentUrl;
+        //   }
+        // });
+        if (!res.error && res.data?.paymentUrl) {
+          window.location.href = res.data.paymentUrl;
+        }
+
+      },
       (error) => {
         console.log(error);
         this.iserror = true;
@@ -132,14 +108,22 @@ export class PaymentPhoneComponent implements OnInit {
         this.responseMesssage = '';
         this.responseStyle = 'error';
         this.disableSubmit = false;
+
         for (const [key, value] of Object.entries(error)) {
           this.responseMesssage = this.responseMesssage + value;
         }
+
         this.loading = false;
         this.showMessage(this.responseMesssage);
       }
     );
-  }
+}
+
+
+  checkoutSession(data): Observable<any> {
+    return this.paymentService.createSession(data, this.selectedPayment);
+}
+
 
    getExpireDate = () => {
     const now = new Date();
@@ -158,7 +142,6 @@ export class PaymentPhoneComponent implements OnInit {
   }
 
    // Default selection
-
 getSelectedImage(): string {
   const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
   return option ? option.img : '';
