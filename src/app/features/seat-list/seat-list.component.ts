@@ -20,7 +20,7 @@ enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
   }]
 })
 export class SeatListComponent  {
-  @ViewChild('stepper') stepper!: MatStepper; 
+ @ViewChild('stepper') private myStepper: MatStepper;
    paymentOptions = PAYMENT_OPTIONS;
    ArifPaycreateSessionData = ArifPaycreateSessionData;
    selectedPayment: string = 'CBE';
@@ -66,7 +66,7 @@ export class SeatListComponent  {
   awashPhoneNumber : string;
   reservation: any;
   // Only required when not passing the id in methods
-  @ViewChild('stepper') private myStepper: MatStepper;
+ 
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
   constructor(private routeStateService: RouteStateService,private paymentService: PaymentService, private router: Router,
@@ -522,7 +522,7 @@ selectPayment(paymentName: string){
   this.newPassanger.paymentProviderCode =  "TeleBirr";
   this.newPassanger.PaymentOption=paymentName; 
   this.newPassanger.paymentMethodCode = 'Electronic';
-  this.stepper.next();
+  this.myStepper.next();
   // this.routeStateService.add(
   //   "user-list",
   //   "/procced-to-payment",
@@ -537,83 +537,76 @@ selectPayment(paymentName: string){
     return option ? option.img : '';
   }
 
-  submitPhoneNumber() {
+  async submitPhoneNumber() {
     const updatedItems = this.generateUpdatedItems(this.newPassanger.passengers);
+    const paymentPhone = "251" + this.phoneNumber.substring(1);
     if (this.phoneNumber) {
-      this. ArifPaycreateSessionData.phone = "251" + this.phoneNumber.substring(1);
+      this. ArifPaycreateSessionData.phone = paymentPhone;
       this.ArifPaycreateSessionData.expireDate = this.getExpireDate();
       this.ArifPaycreateSessionData.paymentMethods=[this.newPassanger.PaymentOption]
       this.ArifPaycreateSessionData.items = updatedItems;
       this.ArifPaycreateSessionData.beneficiaries[0].amount =this.newPassanger.totalPrice;
-      console.log(this. ArifPaycreateSessionData);
       this.ArifPaycreateSessionData.nonce=(Math.floor(Math.random() * 900000000000) + 1000000000).toString();
-      this.reserveMultipleSeat(this.newPassanger).then((result) => {
-        if (result.success) {
-          console.log("Reservation Successful:", result.data);
-        } else {
-          console.error("Reservation Failed:", result.error);
-        }
-      });
+      console.log(this.newPassanger);
+      // this.reserveMultipleSeat(this.newPassanger).then((result) => {
+      //   if (result.success) {
+      //     console.log("Reservation Successful:", result.data);
+      //   } else {
+      //     console.error("Reservation Failed:", result.error);
+      //   }
+      // });
       
-     // this.handleCheckoutResult(this.ArifPaycreateSessionData);
+    await this.handleCheckoutResult(this.ArifPaycreateSessionData,paymentPhone);
       // Navigate to the next page and pass the phone number as a query parameter
       //this.reserveSeat(this.reservation);
     }
   }
   
- handleCheckoutResult(data) {
-    this.checkoutSession(data).subscribe(
-      (res) => {
-        this.iserror = false;
-        this.responseDialog = true;
-        this.loading = false;
+  async handleCheckoutResult(data: any, phoneNumber: string) {
+    try {
+      this.loading = true;
+      const res = await this.checkoutSession(data).toPromise();
 
-        // Register the response data in the database
-        // this.registerPayment(res.data).subscribe(() => {
-        //   console.log('Payment registered successfully.');
-
-        //   // Redirect after successful registration
-        //   if (!res.error && res.data?.paymentUrl) {
-        //     window.location.href = res.data.paymentUrl;
-        //   }
-        // });
-        if (!res.error && res.data?.paymentUrl) {
-          window.location.href = res.data.paymentUrl;
-        }
-
-      },
-      (error) => {
-        console.log(error);
-        this.iserror = true;
-        this.responseTitle = 'Error!!!';
-        this.responseDialog = true;
-        this.responseMesssage = '';
-        this.responseStyle = 'error';
-        this.disableSubmit = false;
-
-        for (const [key, value] of Object.entries(error)) {
-          this.responseMesssage = this.responseMesssage + value;
-        }
-
-        this.loading = false;
-        this.showMessage(this.responseMesssage);
-      }
-    );
-}
-
+      console.log(res.data.sessionId);
+      const cbeData = {
+        sessionId: res.data.sessionId,
+        phoneNumber: phoneNumber,
+        password: "cbe123"
+      };
+      console.log(cbeData);
+      const paymentOption="CBE";
+      const cbeResponse = await this.paymentService.directPaymentCheckout(cbeData,paymentOption);
+      console.log(cbeResponse);
+      // Uncomment if you need to register the payment
+      // await this.registerPayment(res.data).toPromise();
+  
+      this.loading = false;
+    } catch (error) {
+      console.error(error);
+      this.iserror = true;
+      this.responseTitle = 'Error!!!';
+      this.responseDialog = true;
+      this.responseMesssage = Object.values(error).join(' ') || 'Unknown error';
+      this.responseStyle = 'error';
+      this.disableSubmit = false;
+      this.loading = false;
+      this.showMessage(this.responseMesssage);
+    }
+  }
+  
 
   checkoutSession(data): Observable<any> {
     return this.paymentService.createSession(data, this.selectedPayment);
-}
+  }
 
 
-   getExpireDate = () => {
+  getExpireDate = () => {
     const now = new Date();
     now.setMinutes(now.getMinutes() + 10); 
     return now.toISOString(); 
-  };
+  }
 
- generateUpdatedItems(passengerData: any[]) {
+  generateUpdatedItems(passengerData: any[]) {
     return passengerData.map((data) => ({
       name: data?.passenger?.fullName|| "EZI BUS",
       quantity: 1,

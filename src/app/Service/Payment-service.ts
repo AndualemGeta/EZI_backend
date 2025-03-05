@@ -82,6 +82,41 @@ export class PaymentService {
     );
   }
 
+  directPaymentCheckout(data,paymentMethod){
+    let url=`/checkout/${paymentMethod}/direct/transfer`;
+    return this.postApiService(url,data).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError((error) => {
+        let errorMsg;
+        if (error.error instanceof ErrorEvent) {
+          errorMsg = "Error:" + error.error.message;
+        } else {
+          errorMsg = this.getServerErrorMessage(error);
+        }
+        return throwError(errorMsg);
+      })
+    );
+  }
+  directPaymentVerifyOTP(data,paymentMethod){
+    let url=`/api/checkout/${paymentMethod}/direct/verifyOTP`;
+    return this.postApiService(url,data).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError((error) => {
+        let errorMsg;
+        if (error.error instanceof ErrorEvent) {
+          errorMsg = "Error:" + error.error.message;
+        } else {
+          errorMsg = this.getServerErrorMessage(error);
+        }
+        return throwError(errorMsg);
+      })
+    );
+  }
+
   private getPaymentUrl(paymentMethod){
     if(paymentMethod=='CBE'){
       return cbe_url;
