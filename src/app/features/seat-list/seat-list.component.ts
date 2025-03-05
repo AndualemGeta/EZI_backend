@@ -9,7 +9,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 import {MatStepper} from '@angular/material/stepper';
 import {PassengerTicketPrintService} from '../../Service/passenger-ticket-print.service';
-import {PAYMENT_OPTIONS,ArifPaycreateSessionData} from '../../utils/constants';
+import {newPassanger,PAYMENT_OPTIONS,ArifPaycreateSessionData} from '../../utils/constants';
 import { Observable } from 'rxjs';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
@@ -76,27 +76,12 @@ export class SeatListComponent  {
     private printService: TicketPrintService,
               private  ticketPrintService : PassengerTicketPrintService
     ) { }
+
     isLinear = false;
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
     dynamicForm: FormGroup;
-    newPassanger={
-    registrationDate: new Date(),
-    updatedAt: new Date(),
-    scheduleId: "",
-    accountId: "1963145d-c0b4-4cb0-62fc-08dc46bf0a7f",
-    //"3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    paymentMethodCode: "",
-    paymentProviderCode: "",
-    debitAccount: "",
-    passengers: [],
-    bookedById:"a4853181-acaa-4238-2dca-08dc46be1bd8",
-    // "DE937EB1-F20A-44E5-451C-08D8A705F255",
-    statusCode: 'Reserved',
-    paymentTypeCode: 'Electronic',
-    PaymentOption: '',
-    totalPrice:0
-  }
+    newPassanger=newPassanger;
   ngOnInit(): void {
     this.loading=false;
     this.dynamicForm  =this._formBuilder.group({
@@ -378,18 +363,7 @@ onSubmit() {
       this.accounts = response;
     });
   }
-
-  changeGender(Value) {
-    if(Value=="BankTransfer"){
-      this.paymentMethod = 'BankTransfer';
-    }
-    else if(Value=='TeleBirr'){
-      this.paymentMethod = 'TeleBirr';
-    }
-    else if(Value == 'AwashOtp'){
-      this.paymentMethod = 'AwashOtp';
-    }
-  }
+  
 reserveSeat(data){
   this.loading = true;
   this.eziService.reserveMultiple(data).subscribe(
@@ -437,7 +411,7 @@ reserveSeat(data){
   );
 }
 
-reserveMultipleSeat(data): Promise<{ success: boolean; data?: any; error?: any }> {
+async reserveMultipleSeat(data): Promise<{ success: boolean; data?: any; error?: any }> {
   this.loading = true;
   console.log("recived", data);
   return new Promise((resolve) => {
@@ -537,7 +511,7 @@ selectPayment(paymentName: string){
     return option ? option.img : '';
   }
 
-  async submitPhoneNumber() {
+  async proceedToPay() {
     const updatedItems = this.generateUpdatedItems(this.newPassanger.passengers);
     const paymentPhone = "251" + this.phoneNumber.substring(1);
     if (this.phoneNumber) {
@@ -548,15 +522,16 @@ selectPayment(paymentName: string){
       this.ArifPaycreateSessionData.beneficiaries[0].amount =this.newPassanger.totalPrice;
       this.ArifPaycreateSessionData.nonce=(Math.floor(Math.random() * 900000000000) + 1000000000).toString();
       console.log(this.newPassanger);
-      // this.reserveMultipleSeat(this.newPassanger).then((result) => {
-      //   if (result.success) {
-      //     console.log("Reservation Successful:", result.data);
-      //   } else {
-      //     console.error("Reservation Failed:", result.error);
-      //   }
-      // });
+     
+      await this.reserveMultipleSeat(this.newPassanger).then((result) => {
+        if (result.success) {
+          console.log("Reservation Successful:", result.data);
+        } else {
+          console.error("Reservation Failed:", result.error);
+        }
+      });
       
-    await this.handleCheckoutResult(this.ArifPaycreateSessionData,paymentPhone);
+    //await this.handleCheckoutResult(this.ArifPaycreateSessionData,paymentPhone);
       // Navigate to the next page and pass the phone number as a query parameter
       //this.reserveSeat(this.reservation);
     }

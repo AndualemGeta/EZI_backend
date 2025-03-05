@@ -346,7 +346,7 @@
             <mat-card class="center-content" >
               <p class="trip-detail-title">Payment Instruction</p>
               <img [src]="getSelectedImage()" alt="Payment Option" class="selected-payment-img" *ngIf="getSelectedImage()">
-              <form #phoneForm="ngForm" (ngSubmit)="submitPhoneNumber()">
+              <form #phoneForm="ngForm" (ngSubmit)="proceedToPay()">
                 <label for="phone">Please Enter Your {{this.selectedPayment}} Payment Phone Number:</label>
                 <input type="text" 
                        id="phone" 
@@ -363,7 +363,7 @@
                 <div class="action-buttons card-footer text-center" *ngIf="!loading">
                   <br>
                   <button type="submit" mat-flat-button [disabled]="phoneForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">{{"proceedToPay"|translate}}</button> 
-                  <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
+                  <button mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
                 </div>
              </form>
             </mat-card>
