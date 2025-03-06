@@ -1,0 +1,46 @@
+.otp-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .otp-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .otp-container p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  #otp-input {
+    font-size: 18px;
+    padding: 10px;
+    width: 200px;
+    margin: 10px 0;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .btn-primary {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #45a049;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+  }
+  

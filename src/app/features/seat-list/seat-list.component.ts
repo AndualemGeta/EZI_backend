@@ -550,13 +550,10 @@ selectPayment(paymentName: string){
           );
         }
       else{
-        console.log("PaymentCheckout instruction");
-          console.log(res);
-          // Uncomment if you need to register the payment
           // await this.registerPayment(res.data).toPromise();
           this.routeStateService.add(
             "user-list",
-            "/payment-instructions",
+            "/payment-otp-confirmation",
             res,
             false
           );
@@ -571,10 +568,6 @@ selectPayment(paymentName: string){
           false
         );
       }
-    
-
-    
-
       this.loading = false;
     } catch (error) {
       console.error(error);

@@ -30,9 +30,21 @@ const appRoutes: Routes = [
   },
 
   {
-    path: "payment-instructions",
+    path: "payment-otp-confirmation",
     loadChildren: () =>
-      import("src/app/payment-responses/success-page/success-page.component").then((m) => m.SuccessPageComponent),
+      import("src/app/payment-responses/otp-confirmation/otp-confirmation.module").then((m) => m.OtpConfirmationModule),
+  },
+
+  {
+    path: "payment-confirmation",
+    loadChildren: () =>
+      import("src/app/payment-responses/confirm-payment/confirm-payment.module").then((m) => m.ConfirmPaymentModule),
+  },
+
+  {
+    path: "payment-success",
+    loadChildren: () =>
+      import("src/app/payment-responses/success-page/success-page.module").then((m) => m.SuccessPageModule),
   },
   {
     path: "book-result",
