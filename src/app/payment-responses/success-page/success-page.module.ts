@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReservationResultComponent } from 'src/app/features/reservation-result/reservation-result.component';
-import { ReservationResultRoutingModule } from 'src/app/features/reservation-result/reservation-result.routing';
+import { SuccessPageComponent } from 'src/app/payment-responses/success-page/success-page.component';
+import { SuccessPageRoutingModule } from 'src/app/payment-responses/success-page/success-page.routing';
 import { HttpClient } from '@angular/common/http';
 import {HeaderModule} from"src/app/shared/pages/header/header.module";
 import { AppCommonModule} from "src/app/app.common.module";
@@ -12,15 +12,15 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 @NgModule({
   imports: [
     CommonModule,
-    ReservationResultRoutingModule,
+    SuccessPageRoutingModule,
     AppCommonModule,
     Material2Module,
     FlexLayoutModule,
     HeaderModule,
     FormsModule, ReactiveFormsModule, Ng2TelInputModule
   ],
-  declarations: [ReservationResultComponent],
-  exports: [ReservationResultComponent],
+  declarations: [SuccessPageComponent],
+  exports: [SuccessPageComponent],
 })
 
-export class ReservationResultModule {}
+export class SuccessPageModule {}

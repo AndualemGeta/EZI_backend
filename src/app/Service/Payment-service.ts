@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import {cbe_url,telebirr_url,mpesa_url,amole_url,awash_url,hellocash_url } from '../utils/constants';
+import {ArifPaymentUrls} from '../utils/constants';
 import { get } from 'jquery';
 @Injectable({
   providedIn: 'root',
@@ -82,23 +82,44 @@ export class PaymentService {
     );
   }
 
-  directPaymentCheckout(data,paymentMethod){
-    let url=`/checkout/${paymentMethod}/direct/transfer`;
-    return this.postApiService(url,data).pipe(
-      map((data: any) => {
-        return data;
-      }),
-      catchError((error) => {
-        let errorMsg;
-        if (error.error instanceof ErrorEvent) {
-          errorMsg = "Error:" + error.error.message;
-        } else {
-          errorMsg = this.getServerErrorMessage(error);
-        }
-        return throwError(errorMsg);
+  directPaymentCheckout(data: any, paymentMethod: string) {
+    const paymentType = paymentMethod?.toLowerCase(); // Ensure `paymentMethod` is not null/undefined
+    const url = `/checkout/${paymentType}/direct/transfer`;
+    return this.postApiService(url, data).pipe(
+      tap(response => console.log("Response:", response)), // More concise logging
+      catchError(error => {
+        console.error("Error:", error);
+        const errorMsg = error.error instanceof ErrorEvent
+          ? `Error: ${error.error.message}`
+          : this.getServerErrorMessage(error);
+        return throwError(() => new Error(errorMsg)); // Use `throwError` correctly
       })
     );
   }
+  
+
+  // directPaymentCheckout(data,paymentMethod){
+  //   const paymentType = paymentMethod.toLowerCase();
+  //   let url=`/checkout/${paymentType}/direct/transfer`;
+  //   console.log(url);
+  //   return this.postApiService(url,data).pipe(
+  //     map((data: any) => {
+  //       console.log("data",data);
+  //       return data;
+  //     }),
+  //     catchError((error) => {
+  //       console.log("error",error);
+  //       let errorMsg;
+  //       if (error.error instanceof ErrorEvent) {
+  //         errorMsg = "Error:" + error.error.message;
+  //       } else {
+  //         errorMsg = this.getServerErrorMessage(error);
+  //       }
+  //       return throwError(errorMsg);
+  //     })
+  //   );
+  // }
+
   directPaymentVerifyOTP(data,paymentMethod){
     let url=`/api/checkout/${paymentMethod}/direct/verifyOTP`;
     return this.postApiService(url,data).pipe(
@@ -106,31 +127,28 @@ export class PaymentService {
         return data;
       }),
       catchError((error) => {
-        let errorMsg;
-        if (error.error instanceof ErrorEvent) {
-          errorMsg = "Error:" + error.error.message;
-        } else {
-          errorMsg = this.getServerErrorMessage(error);
+        console.error("Error details:", error);
+        let errorMsg = 'An unexpected error occurred.';
+        if (error?.error instanceof ErrorEvent) {
+          errorMsg = `Error: ${error.error.message}`;
+        } else if (error?.status) {
+          errorMsg = `Server error ${error.status}: ${this.getServerErrorMessage(error)}`;
         }
-        return throwError(errorMsg);
+        return throwError(() => new Error(errorMsg));
       })
     );
   }
 
-  private getPaymentUrl(paymentMethod){
-    if(paymentMethod=='CBE'){
-      return cbe_url;
+  private getPaymentUrl(paymentMethod: string): string | null {
+    switch (paymentMethod) {
+      case 'CBE': return ArifPaymentUrls.CBE;;
+      case 'MPESSA': return ArifPaymentUrls.MPESSA;
+      case 'TELEBIRR': return ArifPaymentUrls.TELEBIRR;
+      case 'AMOLE': return ArifPaymentUrls.AMOLE;
+      case 'AWASH': return ArifPaymentUrls.AWASH;
+      case 'HELLOCASH': return ArifPaymentUrls.HELLOCASH;
+      default: return ArifPaymentUrls.CBE; // Default case for unknown payment methods
   }
-  else if(paymentMethod=='MPESSA'){
-    return mpesa_url;   }
-    else if(paymentMethod=='TELEBIRR'){
-      return telebirr_url;   }
-      else if(paymentMethod=='AMOLE'){      
-        return amole_url;   }
-        else if(paymentMethod=='AWASH'){      
-          return awash_url;   }
-          else if(paymentMethod=='HELLOCASH'){      
-            return hellocash_url;   }
 }
   private getServerErrorMessage(error: HttpErrorResponse): any {
     switch (error.status) {
@@ -159,3 +177,7 @@ export class PaymentService {
   }
 
 }
+function tap(arg0: (response: any) => void): import("rxjs").OperatorFunction<any, unknown> {
+  throw new Error('Function not implemented.');
+}
+

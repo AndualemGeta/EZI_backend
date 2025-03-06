@@ -28,6 +28,12 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import("src/app/features/payment-phone/payment-phone.module").then((m) => m.PaymentPhoneModule),
   },
+
+  {
+    path: "payment-instructions",
+    loadChildren: () =>
+      import("src/app/payment-responses/success-page/success-page.component").then((m) => m.SuccessPageComponent),
+  },
   {
     path: "book-result",
     loadChildren: () =>

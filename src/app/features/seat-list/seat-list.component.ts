@@ -9,7 +9,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 import {MatStepper} from '@angular/material/stepper';
 import {PassengerTicketPrintService} from '../../Service/passenger-ticket-print.service';
-import {newPassanger,PAYMENT_OPTIONS,ArifPaycreateSessionData} from '../../utils/constants';
+import {ReservationBody,setPaymentDetails,PAYMENT_OPTIONS,ArifPaycreateSessionData,arifPayCheckoutBbody} from '../../utils/constants';
 import { Observable } from 'rxjs';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
@@ -23,6 +23,7 @@ export class SeatListComponent  {
  @ViewChild('stepper') private myStepper: MatStepper;
    paymentOptions = PAYMENT_OPTIONS;
    ArifPaycreateSessionData = ArifPaycreateSessionData;
+   paymentProviderDetail: any;
    selectedPayment: string = 'CBE';
   responseDialog: boolean;
   iserror: boolean;
@@ -81,7 +82,7 @@ export class SeatListComponent  {
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
     dynamicForm: FormGroup;
-    newPassanger=newPassanger;
+    newPassanger=ReservationBody;
   ngOnInit(): void {
     this.loading=false;
     this.dynamicForm  =this._formBuilder.group({
@@ -352,13 +353,13 @@ onSubmit() {
     this.t.reset();
   }
 
-  getAllLocations() {
+getAllLocations() {
     this.eziService.getAllLocations().then((value) => {
       this.cities = value;
     });
   }
 
-  getAllBankAccounts() {
+getAllBankAccounts() {
     this.eziService.getOperatorAccounts().then((response) => {
       this.accounts = response;
     });
@@ -413,15 +414,12 @@ reserveSeat(data){
 
 async reserveMultipleSeat(data): Promise<{ success: boolean; data?: any; error?: any }> {
   this.loading = true;
-  console.log("recived", data);
   return new Promise((resolve) => {
     this.eziService.reserveMultiple(data).subscribe(
       (res) => {
-        console.log("Reservation Successful:", res);
         resolve({ success: true, data: res });
       },
       (error) => {
-        console.error("Reservation Failed:", error);
         this.loading = false;
         let errorMessage = "";
         for (const value of Object.values(error)) {
@@ -463,6 +461,7 @@ printData(selectedData) {
  
 selectPayment(paymentName: string){
   this.selectedPayment=paymentName;
+  this.paymentProviderDetail=setPaymentDetails(paymentName);
   this.submitted = true;
   if (this.dynamicForm.invalid) {
     this.showMessage("Please fill all passenger information first");
@@ -493,24 +492,12 @@ selectPayment(paymentName: string){
     }
     this.newPassanger.passengers.push(newPassengerData);
     }
-  this.newPassanger.paymentProviderCode =  "TeleBirr";
+  this.newPassanger.paymentProviderCode = this.paymentProviderDetail.paymentProviderCode || null ;
   this.newPassanger.PaymentOption=paymentName; 
-  this.newPassanger.paymentMethodCode = 'Electronic';
+  this.newPassanger.paymentMethodCode =  this.paymentProviderDetail.paymentMethodCode;
   this.myStepper.next();
-  // this.routeStateService.add(
-  //   "user-list",
-  //   "/procced-to-payment",
-  //   this.newPassanger,
-  //   false
-  // );
+  }
   
-  }
-
-  getSelectedImage(): string {
-    const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
-    return option ? option.img : '';
-  }
-
   async proceedToPay() {
     const updatedItems = this.generateUpdatedItems(this.newPassanger.passengers);
     const paymentPhone = "251" + this.phoneNumber.substring(1);
@@ -521,19 +508,16 @@ selectPayment(paymentName: string){
       this.ArifPaycreateSessionData.items = updatedItems;
       this.ArifPaycreateSessionData.beneficiaries[0].amount =this.newPassanger.totalPrice;
       this.ArifPaycreateSessionData.nonce=(Math.floor(Math.random() * 900000000000) + 1000000000).toString();
-      console.log(this.newPassanger);
-     
-      await this.reserveMultipleSeat(this.newPassanger).then((result) => {
-        if (result.success) {
-          console.log("Reservation Successful:", result.data);
-        } else {
-          console.error("Reservation Failed:", result.error);
-        }
-      });
+      await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
       
-    //await this.handleCheckoutResult(this.ArifPaycreateSessionData,paymentPhone);
-      // Navigate to the next page and pass the phone number as a query parameter
-      //this.reserveSeat(this.reservation);
+      // const result = await this.reserveMultipleSeat(this.newPassanger);
+      // if (result.success) {
+      //   this.ArifPaycreateSessionData.nonce = result.data.reservationId;
+      //  this.ArifPaycreateSessionData.beneficiaries[0].amount=result.data.totalPrice;
+      //   await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
+      // } else {
+      //   console.error("Reservation Failed:", result.error);
+      // }
     }
   }
   
@@ -541,20 +525,56 @@ selectPayment(paymentName: string){
     try {
       this.loading = true;
       const res = await this.checkoutSession(data).toPromise();
+       if(!res.error){
+        const checkingOutData = arifPayCheckoutBbody(this.selectedPayment, res.data, phoneNumber);
+      if (["","AWASH", "AMOLE", "HELLOCASH"].includes(this.selectedPayment)){
+          const PaymentCheckout = await this.paymentService.directPaymentCheckout(checkingOutData,this.selectedPayment);
+          console.log("PaymentCheckout");
+          console.log(PaymentCheckout);
+          this.routeStateService.add(
+            "user-list",
+            "/book-result",
+            res,
+            false
+          );
+        }
+      else if(this.selectedPayment == "CBE"){
+          const PaymentCheckout = await this.paymentService.directPaymentCheckout(checkingOutData,this.selectedPayment);
+          console.log("PaymentCheckout");
+          console.log(PaymentCheckout);
+          this.routeStateService.add(
+            "user-list",
+            "/book-result",
+            res,
+            false
+          );
+        }
+      else{
+        console.log("PaymentCheckout instruction");
+          console.log(res);
+          // Uncomment if you need to register the payment
+          // await this.registerPayment(res.data).toPromise();
+          this.routeStateService.add(
+            "user-list",
+            "/payment-instructions",
+            res,
+            false
+          );
+        }
+     
+      }
+      else{
+        this.routeStateService.add(
+          "user-list",
+          "/book-result",
+          res,
+          false
+        );
+      }
+    
 
-      console.log(res.data.sessionId);
-      const cbeData = {
-        sessionId: res.data.sessionId,
-        phoneNumber: phoneNumber,
-        password: "cbe123"
-      };
-      console.log(cbeData);
-      const paymentOption="CBE";
-      const cbeResponse = await this.paymentService.directPaymentCheckout(cbeData,paymentOption);
-      console.log(cbeResponse);
-      // Uncomment if you need to register the payment
-      // await this.registerPayment(res.data).toPromise();
-  
+    
+
       this.loading = false;
     } catch (error) {
       console.error(error);
@@ -569,7 +589,6 @@ selectPayment(paymentName: string){
     }
   }
   
-
   checkoutSession(data): Observable<any> {
     return this.paymentService.createSession(data, this.selectedPayment);
   }
@@ -589,6 +608,11 @@ selectPayment(paymentName: string){
       description: `Seat: ${data.seatNumber}, Pickup: ${data.pickupLocation}`,
       image: "https://ezibus.leapfrogtechafrica.com/assets/img/ezi-icon.png"
     }));
+  }
+
+  getSelectedImage(): string {
+    const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
+    return option ? option.img : '';
   }
   // confirmOtp() {
   //   var values = this.awashOtpForm.getRawValue();

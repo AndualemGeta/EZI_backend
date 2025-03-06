@@ -1,11 +1,13 @@
-export const cbe_url = '/api/checkout/session';
-export const mpesa_url = '/api/checkout/mpesa/transfer/direct';
-export const telebirr_url = '/api/checkout/telebirr-ussd/transfer/direct';
-export const awash_url = '/api/checkout/session';
-export const amole_url = '/api/checkout/session';
-export const hellocash_url = '/api/checkout/session';
+export const ArifPaymentUrls: Record<string, string> = {
+  CBE: '/api/checkout/session',
+  MPESSA: '/api/checkout/mpesa/transfer/direct',
+  TELEBIRR_USSD: '/api/checkout/telebirr-ussd/transfer/direct',
+  AWASH: '/api/checkout/session',
+  AMOLE: '/api/checkout/session',
+  HELLOCASH: '/api/checkout/session',
+};
 
-export const  newPassanger={
+export const ReservationBody={
   registrationDate: new Date(),
   updatedAt: new Date(),
   scheduleId: "",
@@ -23,17 +25,15 @@ export const  newPassanger={
   totalPrice:0
 }
 
-
 export const PAYMENT_OPTIONS = [
     { name: 'CBE', img: '../../../assets/img/paymentoption/cbe.png' },
-    { name: 'TELEBIRR', img: '../../../assets/img/paymentoption/telebirr.png' },
+    { name: 'TELEBIRR_USSD', img: '../../../assets/img/paymentoption/telebirr.png' },
     { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png' },
     { name: 'AWASH', img: '../../../assets/img/paymentoption/awash.png' },
     { name: 'AMOLE', img: '../../../assets/img/paymentoption/amole.png' },
     { name: 'HELLOCASH', img: '../../../assets/img/paymentoption/hello-cash.png' },
   ];
   
-
   export const ArifPaycreateSessionData = {
     cancelUrl: "https://ezibus.leapfrogtechafrica.com/book-bus-tickets-in-ethiopia",
     phone: "",
@@ -63,3 +63,60 @@ export const PAYMENT_OPTIONS = [
     lang: "EN"
   };
 
+
+
+  export const setPaymentDetails = (paymentMethod: string) => {
+    const paymentDetails = {
+      paymentMethodCode: '',
+      paymentProviderCode: '',
+      accountId: '',
+      debitAccount: ''
+    };
+  
+    switch (paymentMethod) {
+      case 'BankTransfer':
+        paymentDetails.paymentMethodCode = 'BankTransfer';
+        break;
+      case 'TeleBirr':
+        paymentDetails.paymentMethodCode = 'Electronic';
+        paymentDetails.paymentProviderCode = 'TeleBirr';
+        break;
+  
+      case 'AwashOtp':
+        paymentDetails.paymentMethodCode = 'Electronic';
+        paymentDetails.paymentProviderCode = 'AwashOtp';
+        break;
+      default:
+        paymentDetails.paymentMethodCode = 'BankTransfer';
+    }
+  
+    return paymentDetails;
+  };
+  
+
+  export const arifPayCheckoutBbody = (paymentMethod: string,data: any,phoneNumber) => {
+    const CheckoutBbody = 
+      {
+        "sessionId": data.sessionId,
+        "phoneNumber": phoneNumber,
+        "password":""
+    }
+    switch (paymentMethod) {
+      case 'CBE':
+          CheckoutBbody.password = 'cbe123';
+          break;
+      case 'AWASH':
+          CheckoutBbody.password = '1234';
+          break;
+  
+      case 'AMOLE':
+          CheckoutBbody.password = 'amole123';
+          break;
+      case 'HELLOCASH':
+          CheckoutBbody.password = '1234';
+            break;
+      default:
+        CheckoutBbody.password = '1234';
+    }
+    return CheckoutBbody;
+  };
