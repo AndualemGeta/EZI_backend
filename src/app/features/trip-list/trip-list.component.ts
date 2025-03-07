@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import {formatDate} from '@angular/common';
 import { customDateFormat } from 'src/app/utils/date-utils';
+
 export interface PeriodicElement {
   name: string;
   position: string;
@@ -17,7 +18,7 @@ export interface PeriodicElement {
   styleUrls: ['./trip-list.component.css']
 })
 export class TripListComponent implements OnInit {
-constructor(private routeStateService: RouteStateService, private router: Router,
+constructor(private routeStateService: RouteStateService, private router: Router, private activatedRoute: ActivatedRoute,
   private cdr: ChangeDetectorRef,
   private eziService: EziBusService,
   ) { }
@@ -38,21 +39,35 @@ constructor(private routeStateService: RouteStateService, private router: Router
   cities: any[];
   route:any=[];
   now: Date = new Date();
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.activatedRoute.params.subscribe(async (params) => {
     this.loading=false;
-    this.routeState = this.routeStateService.getCurrent().data;
-    this.selectedDeparture =this.routeState.departure || "ba8fcf90-31de-420f-68ac-08d8a643ea62";
-    this.selectedDestination =this.routeState.destination || "8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
-    this.selectedDate=this.routeState.tripDate|| new Date();
-    this.loading=true;
-    this.getAllLocations();
-    this.getSearchResult(this.routeState.departure,this.routeState.destination,this.routeState.tripDate);
+    this.routeState = this.routeStateService.getCurrent().data || {};
+    this.selectedDeparture =this.routeState?.departure || "ba8fcf90-31de-420f-68ac-08d8a643ea62";
+    this.selectedDestination =this.routeState?.destination || "8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
+    this.selectedDate=this.routeState?.tripDate || new Date();
+    await this.getAllLocations();
+    await this.getSearchResult(this.selectedDeparture,this.selectedDestination, this.routeState?.tripDate);
+  });
+  
+  
   }
-    getAllLocations() {
-    this.eziService.getAllLocations().then((value) => {
-      this.cities = value;
-    });
+  
+  async ngAfterViewInit(){
+    await this.getAllLocations();
   }
+  async getAllLocations() {
+    try {
+      const value = await this.eziService.getAllLocations();
+      this.cities = value || []; 
+      console.log('Cities loaded:', this.cities);
+    } catch (error) {
+      console.error('Error fetching cities:', error);
+      this.cities = []; // Handle the error by ensuring cities is an array
+    }
+  }
+  
+  
 
   get formattedDate(): Date {
     return new Date(this.selectedDate);
@@ -62,22 +77,21 @@ constructor(private routeStateService: RouteStateService, private router: Router
     this.selectedDate = new Date(value);
   }
 
-  getSearchResult(departure,destination,tripDate) {
+  async getSearchResult(departure,destination,tripDate) {
+   console.log(departure,destination);
   if(departure==""||destination==""){
     this.route=[];
     this.searchResultmessage="Please select Departure and Destination";
-    this.loading=false;
     this.cdr.detectChanges();
     return;
   }
   else if (this.compareDates(new Date(tripDate))) {
     this.route=[];
     this.searchResultmessage="Please select a future date";
-    this.loading=false;
     this.cdr.detectChanges();
     return;
   }
-
+  this.loading=true;
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
     this.route = response;
        if(this.route.length==0){
@@ -85,13 +99,12 @@ constructor(private routeStateService: RouteStateService, private router: Router
        }
      this.loading=false;
     },(error) => {
-      this.searchResultmessage="No Trip Found, Please select another date";
+      this.searchResultmessage="some thing went wrong Please try again";
       this.loading=false;
     });
  }
 
 searchtrip(): void {
-  this.loading = true;
   let tripDate=customDateFormat(new Date(this.selectedDate));
   this.getSearchResult(this.selectedDeparture,this.selectedDestination,tripDate);
 }
@@ -110,5 +123,9 @@ compareDates(tripDate: Date): boolean {
     let today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
     return today > tripDay;
 }
+}
+
+function ngAfterViewInit() {
+  throw new Error('Function not implemented.');
 }
 

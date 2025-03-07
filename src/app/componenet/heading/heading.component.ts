@@ -35,22 +35,23 @@ export class HeadingComponent implements OnInit, OnDestroy {
       this.mobileQuery.addListener(this._mobileQueryListener);
       
     }
-    ngOnInit(){
+    async ngOnInit(): Promise<void>{
       AOS.init();
-      this.getAllBankAccounts();
-      this.getAllLocations();  
+     await this.getAllBankAccounts();
+     await this.getAllLocations();  
       this.locale = this.sessionService.getItem("local-language");
     }
   
   
-      getAllLocations() {
-        this.eziService.getAllLocations().then((value) => {
+    async getAllLocations() {
+     return this.eziService.getAllLocations().then((value) => {
+        this.cities = value || []; 
+      }).catch(() => {
+        this.cities = []; 
+      });
+    }
     
-          this.cities = value;
-        });
-      }
-    
-      getAllBankAccounts() {
+    async getAllBankAccounts() {
         this.eziService.getOperatorAccounts().then((response) => {
       
           this.accounts = response;

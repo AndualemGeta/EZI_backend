@@ -1,3 +1,24 @@
+export const getSeatConfig = (price: number) => [
+  {
+    seat_price: price,
+    seat_map: [
+      { seat_label: "1", layout: "gg_gg" },
+      { seat_label: "2", layout: "gg_gg" },
+      { seat_label: "3", layout: "gg_gg" },
+      { seat_label: "4", layout: "gg_gg" },
+      { seat_label: "5", layout: "gg_gg" },
+      { seat_label: "6", layout: "gg_gg" },
+      { seat_label: "7", layout: "gg_" },
+      { seat_label: "8", layout: "gg_gg" },
+      { seat_label: "9", layout: "gg_gg" },
+      { seat_label: "10", layout: "gg_gg" },
+      { seat_label: "11", layout: "gg_gg" },
+      { seat_label: "12", layout: "gg_gg" },
+      { seat_label: "13", layout: "ggggg" }
+    ]
+  }
+];
+
 export const ArifPaymentUrls: Record<string, string> = {
   CBE: '/api/checkout/session',
   MPESSA: '/api/checkout/mpesa/transfer/direct',
