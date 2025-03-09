@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import {ArifPaymentUrls} from '../utils/constants';
+import {ArifPaymentUrls,arifPayVerifyOtpBankUrl} from '../utils/constants';
 import { get } from 'jquery';
 @Injectable({
   providedIn: 'root',
@@ -121,7 +121,8 @@ export class PaymentService {
   // }
 
   directPaymentVerifyOTP(data,paymentMethod){
-    let url=`/api/checkout/${paymentMethod}/direct/verifyOTP`;
+    let url=arifPayVerifyOtpBankUrl(paymentMethod);
+    console.log(url);
     return this.postApiService(url,data).pipe(
       map((data: any) => {
         return data;

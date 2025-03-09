@@ -141,3 +141,14 @@ export const PAYMENT_OPTIONS = [
     }
     return CheckoutBbody;
   };
+
+  export const arifPayVerifyOtpBankUrl = (paymentMethod: string): string | null => {
+    const urls: Record<string, string> = {
+      HELLOCASH: "https://gateway.arifpay.org/api/checkout/HelloCash/direct/verifyOTP",
+      AWASH: "https://gateway.arifpay.net/api/checkout/awash/direct/verifyOTP",
+      AMOLE: "https://gateway.arifpay.net/api/checkout/Amole/direct/verifyOTP",
+    };
+  
+    return urls[paymentMethod.toUpperCase()] || null; // Return null if the payment method is not found
+  };
+  

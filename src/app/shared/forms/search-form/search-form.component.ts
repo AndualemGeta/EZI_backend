@@ -78,13 +78,14 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loading=false;
-    this.selectedDeparture = this.departureinput;
-    this.selectedDestination = this.destinationinput;
-    this.selectedDate = this.tripDateinput;
+    this.selectedDeparture = this.departureinput ?? '';
+    this.selectedDestination = this.destinationinput ?? '';
+    this.selectedDate = this.tripDateinput ?? new Date();
+
     this.form = this.fb.group({
-      departure: [this.selectedDeparture, Validators.required],
-      destination: [this.selectedDestination, Validators.required],
-      tripDate: [this.selectedDate, Validators.required],
+      departure: [this.selectedDeparture || '', Validators.required],
+      destination: [this.selectedDestination || '', Validators.required],
+      tripDate: [this.selectedDate || new Date(), Validators.required],
     });
 
     this.getAllLocations();
@@ -92,7 +93,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.generateMonths();
     document.addEventListener('click', this.documentClickHandler.bind(this));
     this.filteredCities = [...this.cities];
-    this.updateTripDate(this.selectedDate);
+    if (this.selectedDate) {
+      this.updateTripDate(this.selectedDate);
+    }
   }
 
   ngOnDestroy() {
@@ -168,7 +171,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const city = this.cities.find(c => c.locationId === cityId);
     return city ? city.name : '';
   }
-
+ 
   getAllBankAccounts() {
     this.eziService.getOperatorAccounts().then(response => {
       this.accounts = response;

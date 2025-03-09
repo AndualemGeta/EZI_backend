@@ -39,9 +39,10 @@ constructor(private routeStateService: RouteStateService, private router: Router
   cities: any[];
   route:any=[];
   now: Date = new Date();
+  
   async ngOnInit(): Promise<void> {
+    this.loading=true;
     this.activatedRoute.params.subscribe(async (params) => {
-    this.loading=false;
     this.routeState = this.routeStateService.getCurrent().data || {};
     this.selectedDeparture =this.routeState?.departure || "ba8fcf90-31de-420f-68ac-08d8a643ea62";
     this.selectedDestination =this.routeState?.destination || "8343ac1f-915c-452f-b93e-dd98cd7ca8f9";
@@ -60,7 +61,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
     try {
       const value = await this.eziService.getAllLocations();
       this.cities = value || []; 
-      console.log('Cities loaded:', this.cities);
     } catch (error) {
       console.error('Error fetching cities:', error);
       this.cities = []; // Handle the error by ensuring cities is an array
@@ -78,7 +78,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
   }
 
   async getSearchResult(departure,destination,tripDate) {
-   console.log(departure,destination);
   if(departure==""||destination==""){
     this.route=[];
     this.searchResultmessage="Please select Departure and Destination";

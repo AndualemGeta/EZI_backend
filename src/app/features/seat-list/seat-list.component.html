@@ -110,7 +110,7 @@
         </div>
       </div><!--end of page-->
     </mat-step>
-    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="dynamicForm">
       <mat-step  state="info">
         <ng-template  matStepLabel >
           <span fxShow="false" fxShow.gt-xs="true"> {{"fillPassengerInfoInstruction"|translate}} </span>  

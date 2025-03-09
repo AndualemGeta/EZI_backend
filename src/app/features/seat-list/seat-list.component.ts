@@ -119,60 +119,7 @@ export class SeatListComponent  {
   this.blockSeats(this.ReservedSeats);
   }
 
-  // public processSeatChart(map_data: any[]) {
-  //   if (map_data.length > 0) {
-  //     var seatNoCounter = 1;
-  //     for (let __counter = 0; __counter < map_data.length; __counter++) {
-  //       var row_label = "";
-  //       var item_map = map_data[__counter].seat_map;
-  //        row_label = "Row " + item_map[0].seat_label + " - ";
-  //       if (item_map[item_map.length - 1].seat_label != " ") {
-  //         row_label += item_map[item_map.length - 1].seat_label;
-  //       } else {
-  //         row_label += item_map[item_map.length - 2].seat_label;
-  //       }
-  //       row_label += " : Birr " + map_data[__counter].seat_price;
-  //       item_map.forEach(map_element => {
-  //         var mapObj = {
-  //           seatRowLabel: map_element.seat_label,
-  //           seats: [],
-  //           seatPricingInformation: row_label
-  //         };
-  //         row_label = "";
-  //         var seatValArr = map_element.layout.split("");
-  //         if (this.seatChartConfig.newSeatNoForRow) {
-  //           seatNoCounter = 1; //Reset the seat label counter for new row
-  //         }
-  //         var totalItemCounter = 1;
-  //         seatValArr.forEach(item => {
-  //           var seatObj = {
-  //             key: map_element.seat_label + "_" + totalItemCounter,
-  //             price: map_data[__counter]["seat_price"],
-  //             status: "available"
-  //           };
-
-  //           if (item != "_") {
-  //             seatObj["seatLabel"] =
-  //               map_element.seat_label + " " + seatNoCounter;
-  //             if (seatNoCounter < 10) {
-  //               seatObj["seatNo"] = "0" + seatNoCounter;
-  //             } else {
-  //               seatObj["seatNo"] = "" + seatNoCounter;
-  //             }
-
-  //             seatNoCounter++;
-  //           } else {
-  //             seatObj["seatLabel"] = "";
-  //             seatObj["seatNo"] = "" ;
-  //           }
-  //           totalItemCounter++;
-  //           mapObj["seats"].push(seatObj);
-  //         });
-  //         this.seatmap.push(mapObj);
-  //       });
-  //     }
-  //   }
-  // }
+  
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
       // if(this.cart.selectedSeats.length>=3){
@@ -236,61 +183,61 @@ AddNUmberOfPassengers(e) {
       }
   }
 }
-onSubmit() {
-  this.submitted = true;
-  if (this.dynamicForm.invalid) {
-    this.showMessage("Please fill all passenger information first");
-    return;
-  }
-  this.newPassanger.passengers=[];
-  this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
-  let v=this.dynamicForm.value;
-  if (v.tickets.length<=0) {
-    this.showMessage("Please select seat first");
-    return;
-  }
-  for(let i=0;i<v.tickets.length;i++){
-    let newPassengerData={
-    charges: this.selectedTrip.price,
-     discount: 0,
-     seatNumber: this.cart.selectedSeats[i],
-     luggageWeight: 0,
-     pickupLocation: "mexico shebelie",
-     passenger: {
-       phoneNumber: v.tickets[i].phone,
-       fullName: v.tickets[i].name,
-       gender: "Male",
-       age: 0
-     }
-    }
-    this.newPassanger.passengers.push(newPassengerData);
-    }
-  if(this.paymentMethod == 'BankTransfer'){
-    this.newPassanger.paymentMethodCode = 'BankTransfer'
-    this.newPassanger.accountId = this.accountId;
-    this.newPassanger.paymentProviderCode = null;
-    if(this.newPassanger.accountId==""){
-      this.showMessage("Please select Bank account you want to pay");
-      return false;
-    }
-  }
-  if(this.paymentMethod == 'TeleBirr'){
-    this.newPassanger.paymentMethodCode = 'Electronic';
-    this.newPassanger.paymentProviderCode = 'TeleBirr';
-    this.newPassanger.accountId = null;
-  }
-  if(this.paymentMethod == "AwashOtp"){
-    this.newPassanger.paymentMethodCode = 'Electronic';
-    this.newPassanger.paymentProviderCode = 'AwashOtp';
-    this.newPassanger.accountId = null;
-    this.newPassanger.debitAccount = this.dynamicForm.getRawValue().debitAccount;
-    if(this.newPassanger.debitAccount == ''){
-      this.showMessage("Please enter your awash bank account");
-      return false;
-    }
-  }
-   this.reserveSeat(this.newPassanger);
-  }
+// onSubmit() {
+//   this.submitted = true;
+//   if (this.dynamicForm.invalid) {
+//     this.showMessage("Please fill all passenger information first");
+//     return;
+//   }
+//   this.newPassanger.passengers=[];
+//   this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
+//   let v=this.dynamicForm.value;
+//   if (v.tickets.length<=0) {
+//     this.showMessage("Please select seat first");
+//     return;
+//   }
+//   for(let i=0;i<v.tickets.length;i++){
+//     let newPassengerData={
+//     charges: this.selectedTrip.price,
+//      discount: 0,
+//      seatNumber: this.cart.selectedSeats[i],
+//      luggageWeight: 0,
+//      pickupLocation: "mexico shebelie",
+//      passenger: {
+//        phoneNumber: v.tickets[i].phone,
+//        fullName: v.tickets[i].name,
+//        gender: "Male",
+//        age: 0
+//      }
+//     }
+//     this.newPassanger.passengers.push(newPassengerData);
+//     }
+//   if(this.paymentMethod == 'BankTransfer'){
+//     this.newPassanger.paymentMethodCode = 'BankTransfer'
+//     this.newPassanger.accountId = this.accountId;
+//     this.newPassanger.paymentProviderCode = null;
+//     if(this.newPassanger.accountId==""){
+//       this.showMessage("Please select Bank account you want to pay");
+//       return false;
+//     }
+//   }
+//   if(this.paymentMethod == 'TeleBirr'){
+//     this.newPassanger.paymentMethodCode = 'Electronic';
+//     this.newPassanger.paymentProviderCode = 'TeleBirr';
+//     this.newPassanger.accountId = null;
+//   }
+//   if(this.paymentMethod == "AwashOtp"){
+//     this.newPassanger.paymentMethodCode = 'Electronic';
+//     this.newPassanger.paymentProviderCode = 'AwashOtp';
+//     this.newPassanger.accountId = null;
+//     this.newPassanger.debitAccount = this.dynamicForm.getRawValue().debitAccount;
+//     if(this.newPassanger.debitAccount == ''){
+//       this.showMessage("Please enter your awash bank account");
+//       return false;
+//     }
+//   }
+//    this.reserveSeat(this.newPassanger);
+//   }
   onReset() {
     this.dynamicForm.reset();
     this.t.clear();
@@ -471,21 +418,20 @@ selectPayment(paymentName: string){
     try {
       this.loading = true;
       const res = await this.checkoutSession(data).toPromise();
+     
        if(!res.error){
         const checkingOutData = arifPayCheckoutBbody(this.selectedPayment, res.data, phoneNumber);
-      if (["AWASH", "AMOLE", "HELLOCASH"].includes(this.selectedPayment)){  
-        console.log("PaymentCheckout");
-        // const PaymentCheckout = await this.paymentService.directPaymentCheckout(checkingOutData,this.selectedPayment);
+        if (["AWASH", "AMOLE", "HELLOCASH"].includes(this.selectedPayment)){  
+          // const PaymentCheckout = await this.paymentService.directPaymentCheckout(checkingOutData,this.selectedPayment);
            this.routeStateService.add(
             "user-list",
             "/payment-otp-confirmation",
-            res,
+            {res,paymentMethod:this.selectedPayment,sessionId:checkingOutData.sessionId},
             false
           );
         // console.log(PaymentCheckout);
         }
       else if(this.selectedPayment == "CBE"){
-        console.log("PaymentCheckout");
         // const PaymentCheckout = await this.paymentService.directPaymentCheckout(checkingOutData,this.selectedPayment);
           this.routeStateService.add(
             "user-list",
@@ -523,6 +469,8 @@ selectPayment(paymentName: string){
     }
     // this.loading = false;
   }
+
+
   checkoutSession(data): Observable<any> {
     return this.paymentService.createSession(data, this.selectedPayment);
   }
