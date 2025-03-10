@@ -1,5 +1,6 @@
 import { Component,Input, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { customDateFormat } from 'src/app/utils/date-utils';
@@ -24,12 +25,14 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   updateDeparture(newValue: string): void {
     this.selectedDeparture = newValue;
     this.departureinput = newValue;
+    this.departureName = this.getCityNameById(this.selectedDeparture);
     this.departureinputChange.emit(newValue);
   }
 
   updateDestination(newValue: string): void {
     this.selectedDestination = newValue;
     this.destinationinput = newValue;
+  this.destinationName = this.getCityNameById(this.selectedDestination);
     this.destinationinputChange.emit(newValue);
   }
 
@@ -66,6 +69,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   newLine: any = {};
   cities: any[] = [];
   now: Date = new Date();
+  departureName = '';
+ destinationName = '';
   rotationAngle = 0;
   dropdownVisible = { departure: false, destination: false, date: false };
   months: { startDate: Date; weeks: Date[][] }[] = [];
@@ -74,37 +79,37 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private eziService: EziBusService,
+    private translate: TranslateService,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loading=false;
-    this.selectedDeparture = this.departureinput ?? '';
-    this.selectedDestination = this.destinationinput ?? '';
-    this.selectedDate = this.tripDateinput ?? new Date();
-
+    this.selectedDeparture = this.departureinput || '';
+    this.selectedDestination = this.destinationinput || '';
+    this.selectedDate = this.tripDateinput || new Date();
     this.form = this.fb.group({
-      departure: [this.selectedDeparture || '', Validators.required],
-      destination: [this.selectedDestination || '', Validators.required],
-      tripDate: [this.selectedDate || new Date(), Validators.required],
+      departure: [this.selectedDeparture, Validators.required],
+      destination: [this.selectedDestination, Validators.required],
+      tripDate: [this.selectedDate, Validators.required],
     });
-
-    this.getAllLocations();
-    this.getAllBankAccounts();
+    await this.getAllLocations();
+    await this.getAllBankAccounts();
     this.generateMonths();
-    document.addEventListener('click', this.documentClickHandler.bind(this));
+     document.addEventListener('click', this.documentClickHandler.bind(this));
     this.filteredCities = [...this.cities];
     if (this.selectedDate) {
       this.updateTripDate(this.selectedDate);
     }
+  this.departureName = this.getCityNameById(this.selectedDeparture);
+  this.destinationName = this.getCityNameById(this.selectedDestination);
   }
 
   ngOnDestroy() {
-    document.removeEventListener('click', this.documentClickHandler);
+     document.removeEventListener('click', this.documentClickHandler);
   }
 
   documentClickHandler(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-
     // Check if the click is outside of the dropdowns
     const isClickOutsideDropdown =
       !target.closest('.dropdown-menu') && 
@@ -157,8 +162,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
   }
 
-  getAllLocations() {
-    this.eziService.getAllLocations().then(value => {
+  async getAllLocations() {
+   await this.eziService.getAllLocations().then(value => {
       this.cities = value;
       this.filteredCities = [...this.cities]; // Initialize filtered list
     }).catch(error => {
@@ -168,12 +173,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   
 
   getCityNameById(cityId: string): string {
+    if (!cityId || !this.cities || this.cities.length === 0) return '';
     const city = this.cities.find(c => c.locationId === cityId);
-    return city ? city.name : '';
-  }
+    return this.translate.instant(city.name) || '';
+    }
  
-  getAllBankAccounts() {
-    this.eziService.getOperatorAccounts().then(response => {
+  async getAllBankAccounts() {
+    return await this.eziService.getOperatorAccounts().then(response => {
       this.accounts = response;
     });
   }
@@ -192,13 +198,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
-    this.filteredCities = [...this.cities];
+    // this.filteredCities = [...this.cities];
     this.dropdownVisible[type] = !this.dropdownVisible[type];
     // this.dropdownVisible[type] = true; 
     // console.log("toggleDropdown",this.dropdownVisible[type]);
   }
 
-  selectTown(type: 'departure' | 'destination' | 'date', town: string): void {
+  selectTown(type: 'departure' | 'destination', town: string): void {
     if (type === 'departure') {
       this.updateDeparture(town);
       this.dropdownVisible[type] = false;

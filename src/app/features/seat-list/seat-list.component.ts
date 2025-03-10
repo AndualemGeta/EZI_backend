@@ -402,16 +402,16 @@ selectPayment(paymentName: string){
       this.ArifPaycreateSessionData.items = updatedItems;
       this.ArifPaycreateSessionData.beneficiaries[0].amount =this.newPassanger.totalPrice;
       this.ArifPaycreateSessionData.nonce=(Math.floor(Math.random() * 900000000000) + 1000000000).toString();
-     await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
-      // const result = await this.reserveMultipleSeat(this.newPassanger);
-      // if (result.success) {
-      //     this.ArifPaycreateSessionData.nonce = result.data.reservationId;
-      //     // this.ArifPaycreateSessionData.beneficiaries[0].amount=result.data.totalPrice;
-      //   await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
-      // } else {
-      //   this.showMessage("Seat Reservation Failed. Please try again.");
-      //   console.error("Reservation Failed:", result.error);
-      // }
+    //  await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
+      const result = await this.reserveMultipleSeat(this.newPassanger);
+      if (result.success) {
+          this.ArifPaycreateSessionData.nonce = result.data.reservationId;
+          // this.ArifPaycreateSessionData.beneficiaries[0].amount=result.data.totalPrice;
+        await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
+      } else {
+        this.showMessage("Seat Reservation Failed. Please try again.");
+        console.error("Reservation Failed:", result.error);
+      }
     }
   }
   async handleCheckoutResult(data: any, phoneNumber: string) {

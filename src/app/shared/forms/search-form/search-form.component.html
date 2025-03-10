@@ -14,7 +14,7 @@
   [(ngModel)]="selectedDeparture"
   readonly
   placeholder="Select a departure"
-  [value]="getCityNameById(selectedDeparture) | translate"
+  [value]="departureName"
   (click)="toggleDropdown('departure')"
 />
         </div>
@@ -36,8 +36,8 @@
             <div class="location-container">
               <i class="bi bi-geo-alt geo-icon"></i>
               <div class="location-details">
-                <span class="city-name">{{ city.name }}</span>
-                <span class="location-station">{{ city?.stations[0]?.name }}</span>
+                <span class="city-name">{{ city.name | translate }}</span>
+                <span class="location-station">{{ city?.stations[0]?.name| translate }}</span>
               </div>
             </div>
           </li>
@@ -66,7 +66,7 @@
           [(ngModel)]="selectedDestination"
           placeholder="Select a destination"
           readonly
-          [value]="getCityNameById(selectedDestination) | translate"
+          [value]="destinationName"
           (click)="toggleDropdown('destination')"
         />
         </div>
@@ -89,8 +89,8 @@
             <div class="location-container">
               <i class="bi bi-geo-alt geo-icon"></i>
               <div class="location-details">
-                <span class="city-name">{{ city.name }}</span>
-                <span class="location-station">{{ city?.stations[0]?.name }}</span>
+                <span class="city-name">{{ city.name | translate}}</span>
+                <span class="location-station">{{ city?.stations[0]?.name | translate}}</span>
               </div>
             </div>
           </li>
