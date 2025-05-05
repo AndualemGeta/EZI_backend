@@ -88,8 +88,8 @@ export class ReserveTripComponent implements OnInit {
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
-    this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
-
+   // this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
+    this.agentId='52c2ae4c-ea56-47e3-dee0-08dd8ae8ad79';
     var bankControl = this.reserveRegisterForm.get('accountId');
     this.reserveRegisterForm.get('paymentMethod').valueChanges.subscribe((value) => {
       if(value == 'BankTransfer')

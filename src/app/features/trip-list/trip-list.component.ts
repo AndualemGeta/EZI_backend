@@ -93,6 +93,8 @@ constructor(private routeStateService: RouteStateService, private router: Router
   this.loading=true;
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
     this.route = response;
+    console.log("response",this.route);
+    
        if(this.route.length==0){
         this.searchResultmessage="No Trip Found, Please select another date";
        }

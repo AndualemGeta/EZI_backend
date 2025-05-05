@@ -12,18 +12,16 @@ import { environment } from '../../environments/environment';
 })
 export class EziBusService {
   loading: boolean;
+  baseurl = environment.apiUrl;
+  basicToken = btoa(`${environment.public_user}:${environment.public_password}`);
   constructor(
     private http: HttpClient,
     private router: Router,
     private sessionService: SessionService
   ) {
   }
-
-   baseurl ="https://ezibusapi.ezi-tech.com"; /*url to communicate real data base */
-  // baseurl = 'http://localhost:5000'; /*url to communicate real data base */
-  // baseurl = "http://localhost:5000";
-  // operatorId = 'ede90f84-3c4b-419a-2d71-08d8a67654fd';
-  operatorId ='a1ceb086-3757-416c-3cbb-08dc46bbea6a';
+  // operatorId ='a1ceb086-3757-416c-3cbb-08dc46bbea6a';
+  operatorId ='3e8f594d-b594-449d-f5ee-08dd8ade3cad';
   getApiService(url): any {
     // this.user = this.sessionService.getItem("currentUser");
     return this.http
@@ -31,7 +29,7 @@ export class EziBusService {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: "Basic R2hpb25wdWJsaWM6R0hJT04xMjM0",
+          Authorization: `Basic ${this.basicToken}`,
           'Access-Control-Allow-Headers': '*',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -46,7 +44,7 @@ export class EziBusService {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: "Basic R2hpb25wdWJsaWM6R0hJT04xMjM0",
+        Authorization: `Basic ${this.basicToken}`,
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -59,6 +57,7 @@ export class EziBusService {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: `Basic ${this.basicToken}`,
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -88,8 +87,7 @@ export class EziBusService {
      return data;
     });
   }
-
-
+  
   getOperatorAccounts(){
     let url = `/api/public/bankAccounts/${this.operatorId}`;
     return this.getApiService(url).then((data) => {
@@ -145,6 +143,7 @@ export class EziBusService {
   }
 
   reserveMultiple(data){
+    console.log(data);
     let url = `/api/public/reserveMultiple`;
     return this.postApiService(url,data).pipe(
       map((data: any) => {
@@ -184,7 +183,7 @@ export class EziBusService {
 
 
   getAvailableRoutes(){
-    let url = `/api/lines`;
+    let url = `/api/public/lines`;
     return this.getApiService(url).then((data) => {
       return data;
     })

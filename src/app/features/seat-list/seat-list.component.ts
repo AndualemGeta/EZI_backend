@@ -107,7 +107,8 @@ export class SeatListComponent  {
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
-    this.agentId = "a4853181-acaa-4238-2dca-08dc46be1bd8";
+    //this.agentId = "a4853181-acaa-4238-2dca-08dc46be1bd8";
+    this.agentId='52c2ae4c-ea56-47e3-dee0-08dd8ae8ad79';
     this.seatConfig = getSeatConfig(this.selectedTrip.price);
     processSeatChart(this.seatConfig, this.seatChartConfig, this.seatmap);
     for(let z=1;z<=this.selectedTrip.seatCapacity;z++){
