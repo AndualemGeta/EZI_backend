@@ -76,13 +76,13 @@ export class EziBusService {
   }
 
   searchAllTrip(departureLocationId,arrivalLocationId,tripDate){
-    let url = `​/api/public/saerchAllTrip/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+    let url = `/api/public/saerchAllTrip/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
     return this.getApiService(url).then((data) => {
       return data;
     });
   }
   searchTrip(departureLocationId,arrivalLocationId,tripDate){
-    let url = `​/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+    let url = `/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
     return this.getApiService(url).then((data) => {
      return data;
     });
@@ -142,9 +142,30 @@ export class EziBusService {
     );
   }
 
-  reserveMultiple(data){
+  bookMultipleSeat(data){
     console.log(data);
-    let url = `/api/public/reserveMultiple`;
+    let paymentMethod= "MPESA";
+  let url = `/api/book/online/${paymentMethod}/payment`;
+    return this.postApiService(url,data).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError((error) => {
+        let errorMsg;
+        if (error.error instanceof ErrorEvent) {
+          errorMsg = "Error:" + error.error.message;
+        } else {
+          errorMsg = this.getServerErrorMessage(error);
+        }
+        return throwError(errorMsg);
+      })
+    );
+  }
+
+reserveMultiple(data){
+    console.log(data);
+let paymentMethod= "MPESA";
+    let url = `/api/book/online/${paymentMethod}/payment`;
     return this.postApiService(url,data).pipe(
       map((data: any) => {
         return data;

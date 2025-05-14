@@ -406,9 +406,15 @@ selectPayment(paymentName: string){
     //  await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
       const result = await this.reserveMultipleSeat(this.newPassanger);
       if (result.success) {
-          this.ArifPaycreateSessionData.nonce = result.data.reservationId;
+        this.routeStateService.add(
+            "user-list",
+            "/payment-confirmation",
+            result,
+            false
+          ); 
+        // this.ArifPaycreateSessionData.nonce = result.data.reservationId;
           // this.ArifPaycreateSessionData.beneficiaries[0].amount=result.data.totalPrice;
-        await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
+       // await this.handleCheckoutResult(this.ArifPaycreateSessionData, paymentPhone);
       } else {
         this.showMessage("Seat Reservation Failed. Please try again.");
         console.error("Reservation Failed:", result.error);
