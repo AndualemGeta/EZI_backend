@@ -264,19 +264,18 @@
                       class="badge badge-primary">
                   {{seatLabel}}</span>
               </div>
-              <p class="trip-detail-title"> {{"choosPaymentOption"| translate}}</p>
-
-  <div class="row">
+              
   <div class="col-md-12" >
+    <p class="trip-detail-title"> {{"choosPaymentOption"| translate}}</p>
         <img *ngFor="let payment of paymentOptions" class="payment-option-list" 
              [src]="payment.img" 
              (click)="selectPayment(payment.name)" 
              [alt]="payment.name" 
              [class.clicked]="payment.clicked">
-    </div>
-</div>
-              <div class="action-buttons card-footer text-center" *ngIf="!loading">
+    
+              <div class="action-buttons card-footer" *ngIf="!loading">
                 <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
+              </div>
               </div>
             </mat-card>
           </div>
@@ -347,7 +346,7 @@
               <p class="trip-detail-title">Payment Instruction</p>
               <img [src]="getSelectedImage()" alt="Payment Option" class="selected-payment-img" *ngIf="getSelectedImage()">
               <form #phoneForm="ngForm" (ngSubmit)="proceedToPay()">
-                <label for="phone">Please Enter Your {{this.selectedPayment}} Payment Phone Number:</label>
+                <label for="phone">Please enter your {{this.selectedPayment}} payment phone number</label>
                 <input type="text" 
                        id="phone" 
                        [(ngModel)]="phoneNumber" 
@@ -360,10 +359,15 @@
                    <small *ngIf="phoneInput.errors?.required">Phone number is required.</small>
                    <small *ngIf="phoneInput.errors?.pattern">Enter a valid phone number (10 digits only).</small>
                 </div>
-                <div class="action-buttons card-footer text-center" *ngIf="!loading">
+                <div class="action-buttons card-footer text-center">
                   <br>
-                  <button type="submit" mat-flat-button [disabled]="phoneForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">{{"proceedToPay"|translate}}</button> 
+                  <div *ngIf="loading" class="spinner-container">
+                  <mat-spinner *ngIf="loading" diameter="30" color="accent" ></mat-spinner>
+                 </div>
+             <div *ngIf="!loading">
                   <button mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
+                  <button type="submit" mat-flat-button [disabled]="phoneForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">{{"proceedToPay"|translate}}</button> 
+               </div>
                 </div>
              </form>
             </mat-card>

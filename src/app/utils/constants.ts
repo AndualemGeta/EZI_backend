@@ -47,13 +47,17 @@ export const ReservationBody={
 }
 
 export const PAYMENT_OPTIONS = [
-    { name: 'CBE', img: '../../../assets/img/paymentoption/cbe.png' },
-    { name: 'TELEBIRR_USSD', img: '../../../assets/img/paymentoption/telebirr.png' },
-    { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png' },
-    { name: 'AWASH', img: '../../../assets/img/paymentoption/awash.png' },
-    { name: 'AMOLE', img: '../../../assets/img/paymentoption/amole.png' },
-    { name: 'HELLOCASH', img: '../../../assets/img/paymentoption/hello-cash.png' },
+    { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png' }
   ];
+
+  // export const PAYMENT_OPTIONS = [
+  //   { name: 'CBE', img: '../../../assets/img/paymentoption/cbe.png' },
+  //   { name: 'TELEBIRR_USSD', img: '../../../assets/img/paymentoption/telebirr.png' },
+  //   { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png' },
+  //   { name: 'AWASH', img: '../../../assets/img/paymentoption/awash.png' },
+  //   { name: 'AMOLE', img: '../../../assets/img/paymentoption/amole.png' },
+  //   { name: 'HELLOCASH', img: '../../../assets/img/paymentoption/hello-cash.png' },
+  // ];
   
   export const ArifPaycreateSessionData = {
     cancelUrl: "https://ezibus.leapfrogtechafrica.com/book-bus-tickets-in-ethiopia",
