@@ -51,7 +51,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
     await this.getSearchResult(this.selectedDeparture,this.selectedDestination, this.routeState?.tripDate);
   });
   
-  
   }
   
   async ngAfterViewInit(){
@@ -80,27 +79,26 @@ constructor(private routeStateService: RouteStateService, private router: Router
   async getSearchResult(departure,destination,tripDate) {
   if(departure==""||destination==""){
     this.route=[];
-    this.searchResultmessage="Please select Departure and Destination";
+    this.searchResultmessage = "Please select both a departure and destination location.";
     this.cdr.detectChanges();
     return;
   }
   else if (this.compareDates(new Date(tripDate))) {
     this.route=[];
-    this.searchResultmessage="Please select a future date";
+   this.searchResultmessage = "Please choose a valid future date for your trip.";
     this.cdr.detectChanges();
     return;
   }
   this.loading=true;
  this.eziService.searchAllTrip(departure,destination,tripDate).then((response) => {
     this.route = response;
-    console.log("response",this.route);
-    
+  
        if(this.route.length==0){
-        this.searchResultmessage="No Trip Found, Please select another date";
+        this.searchResultmessage = "No trips available for the selected date. Please try a different date.";
        }
      this.loading=false;
     },(error) => {
-      this.searchResultmessage="some thing went wrong Please try again";
+      this.searchResultmessage = "Something went wrong while searching. Please try again later.";
       this.loading=false;
     });
  }

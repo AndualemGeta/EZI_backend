@@ -16,6 +16,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {HowItWorkModule} from "src/app/componenet/how-it-work/how-it-work.module";
 import {HomeHeaderModule} from "src/app/componenet/home-header/home-header.module";
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import {HeaderModule} from"src/app/shared/pages/header/header.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +28,8 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
     LandingPageModule,
     HomeHeaderModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HeaderModule
   ],
   declarations: [HomeComponent,HeadingComponent,AboutComponent,InformationComponent,TravelInformationComponent,PaymentOptionComponent,ContactComponent,FooterComponent]
 })
