@@ -1,3 +1,5 @@
+
+import { environment } from '../../environments/environment';
 export const getSeatConfig = (price: number) => [
   {
     seat_price: price,
@@ -33,13 +35,12 @@ export const ReservationBody={
   updatedAt: new Date(),
   scheduleId: "",
   paymentNumber:"0703272182",
-  accountId: "69c8bcb1-08cf-43fb-ff38-08dd925e043b",
-  //"3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  accountId:environment.accountId,
   paymentMethodCode: "",
   paymentProviderCode: "",
   debitAccount: "",
   passengers: [],
-  bookedById:"cbfaf8ce-4282-4a60-ba52-5999c39a1d8e",
+  bookedById:environment.bookedById,
   statusCode: 'Reserved',
   PaymentTypeCode: 'Electronic',
   PaymentOption: '',
@@ -155,4 +156,6 @@ export const PAYMENT_OPTIONS = [
   
     return urls[paymentMethod.toUpperCase()] || null; // Return null if the payment method is not found
   };
+  
+
   

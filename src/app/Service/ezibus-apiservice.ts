@@ -163,9 +163,7 @@ export class EziBusService {
   }
 
 reserveMultiple(data){
-    console.log(data);
-let paymentMethod= "MPESA";
-    let url = `/api/book/online/${paymentMethod}/payment`;
+    let url = `/api/public/reserveMultiple`;
     return this.postApiService(url,data).pipe(
       map((data: any) => {
         return data;
@@ -231,6 +229,25 @@ let paymentMethod= "MPESA";
     );
   }
 
+
+
+  add_transaction_log(data){
+    let url = `/api/book/online/add/log`;
+    return this.postApiService(url,data).pipe(
+      map((data: any) => {
+        return data;
+      }),
+      catchError((error) => {
+        let errorMsg;
+        if (error.error instanceof ErrorEvent) {
+          errorMsg = "Error:" + error.error.message;
+        } else {
+          errorMsg = this.getServerErrorMessage(error);
+        }
+        return throwError(errorMsg);
+      })
+    );
+  }
 
   private getServerErrorMessage(error: HttpErrorResponse): any {
     switch (error.status) {

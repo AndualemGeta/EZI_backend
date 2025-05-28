@@ -12,6 +12,7 @@ import {PassengerTicketPrintService} from '../../Service/passenger-ticket-print.
 import {getSeatConfig,ReservationBody,setPaymentDetails,PAYMENT_OPTIONS,ArifPaycreateSessionData,arifPayCheckoutBbody} from '../../utils/constants';
 import { processSeatChart } from 'src/app/utils/seat-list-utils';
 import { Observable } from 'rxjs';
+import { MpesaPaymentService } from '../../Service/pay-with-mpesa';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -41,6 +42,7 @@ export class SeatListComponent  {
     showRowWisePricing: false,
     newSeatNoForRow: false
   };
+ 
   ReservedSeats=[];
    cart = {
     selectedSeats: [],
@@ -55,7 +57,7 @@ export class SeatListComponent  {
   selectedCity: any;
   selectedTrip: any;
   accounts: any[];
-  agentId: string;
+
   routeState;
   reserveRegisterForm: FormGroup;
   awashOtpForm : FormGroup;
@@ -67,8 +69,6 @@ export class SeatListComponent  {
   awashOtp : string;
   awashPhoneNumber : string;
   reservation: any;
-  // Only required when not passing the id in methods
- 
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
   constructor(private routeStateService: RouteStateService,private paymentService: PaymentService, private router: Router,
@@ -76,7 +76,8 @@ export class SeatListComponent  {
     private eziService: EziBusService,
     private _snackBar : MatSnackBar,
     private printService: TicketPrintService,
-    private  ticketPrintService : PassengerTicketPrintService
+    private  ticketPrintService : PassengerTicketPrintService,
+    private payWithMpesa: MpesaPaymentService
     ) { }
 
     isLinear = false;
@@ -107,8 +108,6 @@ export class SeatListComponent  {
     this.display = false;
     this.getAllLocations();
     this.getAllBankAccounts();
-    //this.agentId = "a4853181-acaa-4238-2dca-08dc46be1bd8";
-    this.agentId='52c2ae4c-ea56-47e3-dee0-08dd8ae8ad79';
     this.seatConfig = getSeatConfig(this.selectedTrip.price);
     processSeatChart(this.seatConfig, this.seatChartConfig, this.seatmap);
     for(let z=1;z<=this.selectedTrip.seatCapacity;z++){
@@ -120,7 +119,9 @@ export class SeatListComponent  {
   this.blockSeats(this.ReservedSeats);
   }
 
-  
+ 
+
+
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
       // if(this.cart.selectedSeats.length>=3){
@@ -226,8 +227,6 @@ reserveSeat(data){
         this.myStepper.next();
       }
       else{
-      //  this.printData(res);
-      //  this.dynamicForm.reset();
        this.routeStateService.add(
         "user-list",
         "/book-result",
@@ -294,13 +293,12 @@ BackToTripList(){
     searchData,
     false
   );
-  //this.router.navigate(["trip-list"]);
 }
 printData(selectedData) {
   this.printService.generatePassengerTicketPDF(selectedData);
 }
  
-selectPayment(paymentName: string){
+async selectPayment(paymentName: string){
   this.selectedPayment=paymentName;
   this.paymentProviderDetail=setPaymentDetails(paymentName);
   this.submitted = true;
@@ -309,7 +307,6 @@ selectPayment(paymentName: string){
     return;
   }
   this.newPassanger.passengers=[];
-  
   let number_of_passengers=this.dynamicForm.value;
   if (number_of_passengers.tickets.length<=0) {
     this.showMessage("Please select seat first");
@@ -336,7 +333,21 @@ selectPayment(paymentName: string){
   this.newPassanger.paymentProviderCode = this.paymentProviderDetail.paymentProviderCode || null ;
   this.newPassanger.PaymentOption=paymentName; 
   this.newPassanger.paymentMethodCode =  this.paymentProviderDetail.paymentMethodCode;
-  this.myStepper.next();
+   const result = await this.reserveMultipleSeat(this.newPassanger);
+      if (result.success) {
+      this.payWithMpesa.payWithMpesa(result);
+    
+          } else {
+         this.loading = false;
+         if (result.success === false && result.error) {
+           this.showMessage(`Seat Reservation Failed ${result.error}`);
+         }  
+      else {        
+      this.showMessage("Seat Reservation Failed. Please try again.");
+       }
+      //  console.error("Reservation Failed:", result.error);
+      }
+      this.loading = false;
   }
   
   async proceedToPay() {

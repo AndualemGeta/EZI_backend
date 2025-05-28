@@ -69,5 +69,6 @@
      "luggageWeight":"Luggage Weight",
      "seat":"Seat",
      "proceedToPay":"Proceed To Pay",
-     "choosPaymentOption":"Choose Payment Option"
+     "choosPaymentOption":"Choose Payment Option",
+    "paywithmpesa":"Pay with M-Pesa"
 }
