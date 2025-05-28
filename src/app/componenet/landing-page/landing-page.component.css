@@ -50,3 +50,269 @@
   gap: 5px;
   background-color: rgba(255, 255, 255, 0.9);
 }
+
+
+
+.form-input {
+    margin: 2vh;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+  } 
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    width: 400px;
+    max-height: 320px; /* Adjust height as needed */
+    overflow-y: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE/Edge */
+    border: 0;
+  }
+  
+  .dropdown-menu::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+  }
+
+  .list-group-item {
+    cursor: pointer;
+    border-top: 0;
+    border-bottom: 0.5px solid #b8f3c6;
+    border-radius:0;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .list-group-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Placeholder text */
+.decorated-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.exchange-icon {
+    color: green;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+  
+  .exchange-icon.active {
+    transform: rotate(180deg);
+  }
+  
+  .form-control {
+    cursor: pointer;
+  }
+  .input-icon-container {
+    position: relative;
+    border: 1px solid rgba(58, 150, 12, 0.74);
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: -5px;
+  }
+
+/* Filter input - border only bottom */
+.list-group-item input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #b8f3c6;  /* Bottom border */
+  outline: none;  /* Remove default focus outline */
+  transition: border-color 0.3s ease-in-out;
+  color: rgb(45, 46, 46);
+  background: transparent;
+  padding-left: 30px;
+}
+
+#departureInput, 
+#destinationInput, 
+#dateInput {
+    cursor: pointer !important;
+}
+
+
+/* Active dropdown state */
+/* .input-icon-container input[type="text"]:focus-within, 
+.input-icon-container:hover { 
+   border-color: rgb(58, 243, 147); 
+   box-shadow: 0 0 5px rgba(35, 247, 7, 0.5); 
+   
+} */
+
+.location-input{
+  cursor: pointer;
+}
+  .geo-input-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #007bff;
+  }
+  
+  .decorated-input {
+    padding-left: 30px;
+    border: none;
+    outline: none;
+    color: rgb(45, 46, 46);
+    width: 100%;
+    background: transparent;
+  }
+  
+  .search-button-container {
+    position: relative;
+    background-color: #28a745;
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: -5px;
+  }
+  
+  .search-input-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    height: auto;
+    cursor: pointer !important;
+  }
+  
+  .search-input-button:hover {
+    background-color: #218838;
+  }
+  
+  .search-widget {
+    display: flex;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .location-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .geo-icon {
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  
+  .location-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .city-name {
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+  }
+  
+  .location-station {
+    font-size: 0.6rem;
+    color: #666;
+  }
+  
+  .text-muted {
+    color: #ccc;
+  }
+  
+  .search-button {
+    font-size: 14px;
+    margin-top: 5vh;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-content-between {
+    justify-content: space-between;
+  }
+  
+  .flex-grow-1 {
+    flex-grow: 1;
+  }
+  
+  .weekday-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .weekday {
+    text-align: center;
+    padding: 3px;
+  }
+  
+  .date-item {
+    width: 5px;
+    line-height: 40px;
+    padding: 5px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.3s ease-in-out;
+  }
+  
+  .date-item:hover {
+    border: #28a745 solid 1px;
+  }
+  
+  .date-item.selected {
+    background-color: #2b6098;
+    color: #fff;
+  }
+  
+  .date-item.active {
+    transform: rotateY(180deg);
+  }
+  
+  .month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .month-navigation .text-center {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .exchange-icon {
+    color: green;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .exchange-icon.active {
+    transform: rotate(180deg);
+  }
+  
+  @media (max-width: 768px) {
+    .exchange-icon {
+      transform: rotate(90deg);
+    }
+    .search-button {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+  

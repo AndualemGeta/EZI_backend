@@ -7,13 +7,189 @@
 	  </div>
 	<div class="form-section">
 	<div class="search-widgetss">
-		<app-search-form 
-        [(departureinput)]="selectedDeparture"
-        [(destinationinput)]="selectedDestination"
-        [(tripDateinput)]="formattedDate"
-        [(loading)]="loading"
-        (searchFunction)="searchResult()">
-      </app-search-form> 
+		<form [formGroup]="form">
+  <div class="row form-input">
+    <!-- Departure Field -->
+    <div class="col-lg-3 col-md-6 col-12 position-relative">
+      <div class="form-group">
+        <label for="departureInput">{{ "departure" | translate }}</label>
+        <div class="input-icon-container">
+          <i class="bi bi-geo-alt geo-input-icon"></i>
+          <!-- Departure Input -->
+          <input
+  type="text"
+  id="departureInput"
+  class="form-control decorated-input"
+  [(ngModel)]="selectedDeparture"
+  readonly
+  placeholder="Select a departure"
+  [value]="departureName"
+  (click)="toggleDropdown('departure')"
+/>
+        </div>
+      </div>
+      <div *ngIf="dropdownVisible.departure" class="dropdown-menu show w-100">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <input
+              type="text"
+              class=""
+              placeholder="Search departure..."
+              (input)="filterCities($event.target.value, 'departure')"
+            />
+          </li>
+      
+          <!-- Display filtered cities -->
+          <li *ngFor="let city of filteredCities" class="list-group-item"
+          (click)="selectTown('departure', city.locationId)">
+            <div class="location-container">
+              <i class="bi bi-geo-alt geo-icon"></i>
+              <div class="location-details">
+                <span class="city-name">{{ city.name | translate }}</span>
+                <span class="location-station">{{ city?.stations[0]?.name| translate }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Exchange Button -->
+    <div class="col-lg-1 col-md-1 col-1 d-none d-sm-block  align-self-center">
+         <label> <br> </label>
+      <span (click)="ExchangeTrip()" class="material-icons exchange-icon">
+        sync_alt
+      </span>
+    </div>
+
+    <!-- Destination Field -->
+    <div class="col-lg-3 col-md-6 col-12 position-relative">
+      <div class="form-group">
+        <label for="destinationInput">{{ "destination" | translate }}</label>
+        <div class="input-icon-container">
+          <i class="bi bi-geo-alt geo-input-icon"></i>
+          <input
+          type="text"
+          id="destinationInput"
+          class="form-control decorated-input"
+          [(ngModel)]="selectedDestination"
+          placeholder="Select a destination"
+          readonly
+          [value]="destinationName"
+          (click)="toggleDropdown('destination')"
+        />
+        </div>
+      </div>
+      <div *ngIf="dropdownVisible.destination" class="dropdown-menu show w-100">
+        <ul class="list-group">
+          <!-- Filter input inside the dropdown -->
+          <li class="list-group-item">
+            <input
+              type="text"
+              class=""
+              placeholder="Search destination..."
+              (input)="filterCities($event.target.value, 'destination')"
+            />
+          </li>
+
+          <!-- List of filtered cities -->
+          <li *ngFor="let city of filteredCities" class="list-group-item"
+          (click)="selectTown('destination', city.locationId)">
+            <div class="location-container">
+              <i class="bi bi-geo-alt geo-icon"></i>
+              <div class="location-details">
+                <span class="city-name">{{ city.name | translate}}</span>
+                <span class="location-station">{{ city?.stations[0]?.name | translate}}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-12 position-relative">
+			<!-- Date Input Field -->
+			<div class="form-group">
+				<label for="dateInput">{{ "tripDate" | translate }}</label>
+				<div class="input-icon-container">
+				<i class="bi bi-calendar-event geo-input-icon"></i>
+				<input
+					type="text"
+					id="dateInput"
+					class="form-control decorated-input"
+          [(ngModel)]="selectedDate"
+					[value]="selectedDate ? (selectedDate | date: 'MMM d, y') : (now | date: 'MMM d, y')"
+					readonly
+					placeholder="{{ 'Select a trip date' | translate }}"
+					(click)="toggleDropdown('date')"
+					/>
+
+				</div>
+			</div>
+			
+			<!-- Date Dropdown -->
+			<div
+				*ngIf="dropdownVisible.date"
+				class="dropdown-menu show"
+				style="position: absolute; z-index: 1000; overflow-y: auto; width: 400px;"
+			>
+				<!-- Month Navigation -->
+				<div class="month-navigation d-flex justify-content-between align-items-center mb-3">
+				<button class="btn btn-light" (click)="navigateMonth(-1)">
+					<i class="bi bi-chevron-left"></i>
+				</button>
+				<div class="text-center">
+					<strong>{{ months[currentMonthIndex].startDate | date: 'MMMM yyyy' }}</strong>
+				</div>
+				<button class="btn btn-light" (click)="navigateMonth(1)">
+					<i class="bi bi-chevron-right"></i>
+				</button>
+				</div>
+			
+				<!-- Calendar -->
+				<div *ngIf="months[currentMonthIndex]" class="month-container">
+				<div class="weekday-header d-flex justify-content-between">
+					<span *ngFor="let day of weekdays" class="weekday">{{ day }}</span>
+				</div>
+				<div class="weeks-container">
+					<div *ngFor="let week of months[currentMonthIndex].weeks" class="week-row d-flex">
+					<span
+						*ngFor="let date of week"
+						class="date-item flex-fill text-center"
+						[ngClass]="{
+						'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
+						'selected': selectedDate?.getTime() === date.getTime()
+						}"
+						(click)="!isPastDate(date) && selectDate(date)"
+            [disabled]="isPastDate(date)"
+					>
+            {{ date.getDate()}}
+					</span>
+					</div>
+				</div>
+				</div>
+			</div>
+			</div>
+
+    <!-- Search Button -->
+    <div class="col-lg-2 col-md-6 col-12">
+      <div class="form-group">
+        <label for="dateInput"><br /></label>
+        <div style="margin-top: 5.5%;margin-left: 1%;">
+          <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
+        </div>
+        <div *ngIf="!loading" class="search-button-container">
+          <input
+            type="button"
+            class="form-control search-input-button"
+            value="{{ 'search' | translate }}"
+            (click)="searchResult()"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 	</div>  
 	</div>	  
 </section> 

@@ -1,18 +1,9 @@
 <mat-toolbar class="navigation-toolbar" [class.navigation-is-mobile]="mobileQuery.matches" [class.mat-elevation-z0]="!isActive" [class.mat-elevation-z8]="isActive" [class.animated-header]="!isActivefadeInDown" [class.fadeInDown]="!isActivefadeInDown" [class.navigation-fixed]="!fixedTolbar">
-    <button fxShow="true" fxShow.gt-xs="false" mat-icon-button (click)="snav.toggle()"><mat-icon class="header-icon">menu</mat-icon></button>
-    <a class="logo" fxShow="false" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')">
+    <a class="logo" fxShow="true" fxShow.gt-xs="true"  [routerLink]=""  (click)="scroll('heading')">
       <img height="80%" src="assets/img/ezi-icon.png" ></a>
-    <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" > {{'ezibus'|translate}} </span>    
-    <mat-nav-list class="navigation-list" fxLayout="row" fxShow="false" fxShow.gt-xs="true">
-      
-<a mat-list-item [routerLink]="" (click)="scroll('landing-page')" > {{'home'|translate}}</a>
-       <a mat-list-item [routerLink]="" (click)="scroll('partners')" > {{'partner'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{"contact"|translate}} </a>
-    </mat-nav-list>
+    <!-- <span style="color: #f4f5f6;"  fxShow="true" fxShow.gt-xs="false" > {{'ezibus'|translate}} </span>     -->
     <span class="navigation-spacer"></span>
-    <button fxShow="false" fxShow.gt-xs="true" mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5%;">
+    <button fxShow="true" fxShow.gt-xs="true" mat-icon-button [matMenuTriggerFor]="menu" style="margin-right: 5%;">
       <mat-icon class="header-icon">language</mat-icon>
       <span style="color: white;">{{'language'|translate}}</span>
     </button>
@@ -28,17 +19,5 @@
       </mat-menu>
     </mat-toolbar>
 
-  <mat-sidenav-container class="navigation-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" (opened)="setToggleOn()" (closed)="setToggleOff()">
-       <mat-nav-list>
-        <a id="mobilelogo" class="logo" fxShow="true" fxShow.gt-xs="false" [routerLink]=""  (click)="scroll('heading')"><img src="assets/img/ezibus.PNG"></a>
-        <a mat-list-item [routerLink]="" (click)="scroll('landing-page')" >{{'home'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('partners')" >{{'partner'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('travel-info')">{{'travel'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('payment-option')">{{'payment'|translate}}</a>
-        <a mat-list-item [routerLink]="" (click)="scroll('contact')">{{'contact'|translate}}</a>
-      </mat-nav-list>
-    </mat-sidenav>
-  </mat-sidenav-container>
+  
   
