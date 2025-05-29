@@ -294,6 +294,13 @@ div.mat-step-label.mat-step-label-active.mat-step-label-selected {
   margin: 20px 0;
 }
 
+.spineer-area.card-footer {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  /* Centers vertically */
+  min-height: 60px;        /* Optional: adds vertical space */
+}
+
 /*
 :root {
     --blue: #1e90ff;
