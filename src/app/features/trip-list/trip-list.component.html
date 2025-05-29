@@ -21,46 +21,41 @@
           {{searchResultmessage}}
       </mat-card>
     </div>
-  <div *ngIf="route.length != 0">
-    <mat-card class="trip-lists"  *ngFor="let trip of route">
-      <div class="trip-item">
-      <div class="operator-name" flex="1">
-         {{trip.operator | uppercase }} BUS
+    
+  <div *ngIf="route.length !== 0">
+  <mat-card 
+    class="trip-lists"
+    *ngFor="let trip of route" 
+    (click)="ReserveSeat(trip)"
+    style="margin: 10px; cursor: pointer;"
+  >
+    <div class="trip-mobile-card">
+      <div class="trip-header">
+        <div class="bus-name">{{ trip.operator | uppercase }} BUS</div>
       </div>
-      <div class="trip-detail" >
-        <div class="trip-detail-item">
-          <i class="material-icons trip-result-icon">
-            place
-          </i><br/>
-      <div class="trip-detail-property">{{"departure"|translate}} - {{"destination"|translate}} </div>  <br/>
-      <div class="trip-detail-value"> {{trip.departureLocation|translate}} - {{trip.arrivalLocation |translate}} </div>
-      </div>
-      <div class="trip-detail-item">
-          <i class="material-icons trip-result-icon">
-            airline_seat_recline_normal
-          </i> <br/>
-          <div class="trip-detail-property">{{"seatAvailable"| translate}}</div> <br/>
-          <div class="trip-detail-value">{{trip.availableSeats.length}}</div>
-        </div>
-        <div class="trip-detail-item">
-          <i class="material-icons trip-result-icon">
-           watch_later
-          </i> <br/>
-          <div class="trip-detail-property">{{"departureTime"|translate}}  </div><br/>
-            <div class="trip-detail-value">{{trip.departureTime|date:'MMM d, y, h:mm:ss a'	}}</div>
-        </div>
 
-        <div class="trip-detail-item">
-          <i class="material-icons trip-result-icon">
-            payments
-          </i> <br/>
-          <div class="trip-detail-property">{{trip.price}} {{"birr"|translate}}</div> <br/>
-           <a class="reserve-btn" mat-flat-button  (click)="ReserveSeat(trip)">{{"reserve"|translate}}</a>
+    
+      <div class="trip-date">
+        <div class="trip-date">{{ trip.departureTime | date: 'MMM d, y' }}</div>
+      <div class="trip-time">{{ trip.departureTime | date: 'h:mm a' }}</div>
+      </div>
+
+      <div class="trip-locations">
+        <span>{{ trip.departureLocation | translate }}</span>
+        <span class="arrow">-------------<i class="material-icons" style="color:#5cb85c">directions_bus</i>-------------</span>
+        <span>{{ trip.arrivalLocation | translate }}</span>
+      </div>
+      <div class="trip-footer">
+        <div class="trip-info">
+          <span> {{ 'seatAvailable' | translate }} {{ trip.availableSeats.length }}</span>
         </div>
-       </div>
-     </div>
-    </mat-card>
-  </div>
+        <div class="trip-info">
+          <span> {{ 'price' | translate }}: {{ trip.price }} {{ "birr" | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
   </div>
 </div>
 </div>

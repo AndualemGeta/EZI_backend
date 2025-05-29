@@ -181,12 +181,13 @@
           <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
         </div>
         <div *ngIf="!loading" class="search-button-container">
-          <input
-            type="button"
-            class="form-control search-input-button"
-            value="{{ 'search' | translate }}"
-            (click)="searchResult()"
-          />
+        <button
+  class="form-control search-input-button"
+  (click)="searchResult()"
+>
+  {{ 'search' | translate }}
+</button>
+
         </div>
       </div>
     </div>

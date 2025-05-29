@@ -307,8 +307,8 @@ printData(selectedData) {
 }
  
 async selectPayment(paymentName: string){
-  const blocked = this.miniProgramService.blockIfNotInMiniProgram();
-    if (blocked) return;
+  // const blocked = this.miniProgramService.blockIfNotInMiniProgram();
+  //   if (blocked) return;
   this.selectedPayment=paymentName;
   this.paymentProviderDetail=setPaymentDetails(paymentName);
   this.submitted = true;
@@ -357,12 +357,13 @@ async selectPayment(paymentName: string){
          if (result.success === false && result.error) {
             this.showMessage(`Seat Reservation Failed ${result.error}`);
          }  
-      else {        
+      else {    
+    
         this.showMessage("Seat Reservation Failed. Please try again.");
        }
       //  console.error("Reservation Failed:", result.error);
       }
-      this.loading = false;
+      
   }
   
   async proceedToPay() {
