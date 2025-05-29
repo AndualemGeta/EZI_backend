@@ -4,6 +4,7 @@ import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { customDateFormat } from 'src/app/utils/date-utils';
 import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -18,8 +19,9 @@ export class LandingPageComponent implements OnInit {
   currentMonthIndex: number = 0;
   routeState:any;
   loading:boolean=false;
-  selectedDeparture: any;
-  selectedDestination: any;
+  selectedDeparture: any="select departure";
+  selectedDestination: any="select destination";
+  selectedDate: Date= this.getMidnightDate(new Date());
   seatNo: any;
   AvailableSeat: any[] = [];
   accounts: any[] = [];
@@ -31,53 +33,48 @@ export class LandingPageComponent implements OnInit {
   now:Date=new Date();
   myControl = new FormControl();
   rotationAngle = 0;
+  tripdateName:any;
   departureName: string = '';
   destinationName: string = '';
   dropdownVisible = { departure: false, destination: false, date: false };
-  selectedDate: Date | null = null;
+  
   months: { startDate: Date; weeks: Date[][] }[] = [];
   weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   availableDates: Date[] = [];
-
   constructor(
     private routeStateService: RouteStateService,
     private fb: FormBuilder,
     private eziService: EziBusService,
-     private translate: TranslateService,
+    private translate: TranslateService,
+     private _snackBar : MatSnackBar,
    
   ) {}
 
   ngOnInit() {
+   
     this.loading=false;
      this.generateMonths();
     this.getAllLocations();
     this.getAllBankAccounts();
-   
-    this.selectedDeparture ="acd5118e-c32a-422b-5618-08dc2f3fba36";
-    this.selectedDestination ="f28dd0f3-9d56-40d3-8aa2-bab909217887";
-    this.selectedDate = this.getMidnightDate(new Date());
-    
     this.form = this.fb.group({
-      departure: [this.selectedDeparture, Validators.required],
-      destination: [this.selectedDestination, Validators.required],
-      tripDate: [this.selectedDate, Validators.required],
+      departure: [this.selectedDeparture],
+      destination: [this.selectedDestination],
+      tripDate: [this.selectedDate],
     }); 
+   
     document.addEventListener('click', this.documentClickHandler.bind(this));
-
     this.filteredCities = [...this.cities];
-    if (this.selectedDate) {
+     if (this.selectedDate) {
       this.updateTripDate(this.selectedDate);
-    }
-
-  this.departureName = this.getCityNameById(this.selectedDeparture);
+       }
+   this.departureName = this.getCityNameById(this.selectedDeparture);
   this.destinationName = this.getCityNameById(this.selectedDestination);
+  this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
   }
 
   ngOnDestroy() {
     document.removeEventListener('click', this.documentClickHandler);
   }
-
-
   get formattedDate(): Date {
     return new Date(this.selectedDate);
   }
@@ -148,8 +145,7 @@ export class LandingPageComponent implements OnInit {
     this.dropdownVisible[type] = true; // Ensure dropdown stays open
   }
 
-
-   updateTripDate(date: Date): void {
+updateTripDate(date: Date): void {
     this.selectedDate = this.getMidnightDate(date);
   }
   getAllLocations() {
@@ -160,9 +156,6 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
- 
-
- 
   getAllBankAccounts() {
     this.eziService.getOperatorAccounts().then(response => {
       this.accounts = response;
@@ -207,13 +200,18 @@ export class LandingPageComponent implements OnInit {
    // this.form.controls[type].setValue(town);
     
   }
- 
   selectDate(date: Date) {
     this.selectedDate = this.getMidnightDate(date);
+    this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
     this.toggleDropdown('date');
   }
 
   searchResult() {
+   if (!this.selectedDeparture|| this.selectedDeparture=="select departure" || !this.selectedDestination || this.selectedDestination=="select destination") {
+    const message = this.translate.instant('Please select both departure and destination locations.');
+    this._snackBar.open(message,"OK");
+    return; // prevent navigation
+  }
     const searchData = {
       departure: this.selectedDeparture,
       destination:this.selectedDestination,
@@ -221,6 +219,7 @@ export class LandingPageComponent implements OnInit {
   ? customDateFormat(this.selectedDate) 
   : customDateFormat(new Date()),
     };
+    
     this.routeStateService.add(
       "user-list",
       "/trip-list",
@@ -252,7 +251,13 @@ export class LandingPageComponent implements OnInit {
     return this.translate.instant(city.name) || '';
     }
 
-   
+  formatDateToMMMdy(date: Date): string {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month} ${day}, ${year}`;
+}
 }
 
 

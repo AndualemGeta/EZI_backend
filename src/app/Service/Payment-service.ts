@@ -4,9 +4,7 @@ import { SessionService } from './SessionService';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 import {ArifPaymentUrls,arifPayVerifyOtpBankUrl} from '../utils/constants';
-import { get } from 'jquery';
 @Injectable({
   providedIn: 'root',
 })

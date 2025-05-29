@@ -20,7 +20,7 @@
   type="text"
   id="departureInput"
   class="form-control decorated-input"
-  [(ngModel)]="selectedDeparture"
+  formControlName="departure"
   readonly
   placeholder="Select a departure"
   [value]="departureName"
@@ -72,7 +72,7 @@
           type="text"
           id="destinationInput"
           class="form-control decorated-input"
-          [(ngModel)]="selectedDestination"
+          formControlName="destination"
           placeholder="Select a destination"
           readonly
           [value]="destinationName"
@@ -113,12 +113,15 @@
 				<label for="dateInput">{{ "tripDate" | translate }}</label>
 				<div class="input-icon-container">
 				<i class="bi bi-calendar-event geo-input-icon"></i>
+        <!-- <input
+					type="hidden"
+          formControlName="tripDate"
+					/> -->
 				<input
 					type="text"
 					id="dateInput"
 					class="form-control decorated-input"
-          [(ngModel)]="selectedDate"
-					[value]="selectedDate ? (selectedDate | date: 'MMM d, y') : (now | date: 'MMM d, y')"
+					[value]="tripdateName"
 					readonly
 					placeholder="{{ 'Select a trip date' | translate }}"
 					(click)="toggleDropdown('date')"
@@ -160,6 +163,7 @@
 						'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
 						'selected': selectedDate?.getTime() === date.getTime()
 						}"
+            [matTooltip]="isPastDate(date) ? 'You cannot select a past date' : ''"
 						(click)="!isPastDate(date) && selectDate(date)"
             [disabled]="isPastDate(date)"
 					>
