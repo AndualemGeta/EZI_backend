@@ -5,13 +5,16 @@
 .search-trip-content {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
-   margin: 3% 10% 1% 10%; 
+   margin: 1% ; 
    justify-content: center; 
   } 
-
+.trip-list-body {
+  margin: 1% ; 
+   justify-content: center;
+}
 .trip-lists{
-  padding: 5px;
-  margin:5px;
+  padding: 1px;
+  margin:1%;
 }
 mat-slider {
   width: 300px;
@@ -41,9 +44,9 @@ mat-slider {
 }
 
 .trip-detail-property{
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 200;
   margin-bottom : 10px !important;
   font-family: yrsa;
 }
@@ -63,8 +66,8 @@ mat-slider {
 
 @media(min-width: 768px){
   .trip-lists {
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 3%;
+    margin-right: 3%;
   }
 }
 

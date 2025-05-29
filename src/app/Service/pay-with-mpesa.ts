@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { call, alert } from 'hylid-bridge';
 import { environment } from '../../environments/environment';
-
+import {RouteStateService } from 'src/app/Service/route-state.service';
+import { MiniProgramService } from 'src/app/Service/mini-program-service';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,8 +25,10 @@ export class MpesaPaymentService {
   status: "string",
   callbackMetadata:{}
   }
-  constructor(private eziBusService: EziBusService) {}
+  constructor(private eziBusService: EziBusService,private routeStateService: RouteStateService,private miniProgramService: MiniProgramService) {}
   payWithMpesa(reservation) {
+  const blocked = this.miniProgramService.blockIfNotInMiniProgram();
+    if (blocked) return;
     const data = reservation.data;
     // console.log('payWithMpesa called with reservation:', data.transactions);
     if (!data || !data.reservationId || !data.totalPrice) {  
@@ -48,6 +51,12 @@ export class MpesaPaymentService {
         this.logdata.callbackMetadata = res; 
         this.logOnline(this.logdata);
         console.log('Payment Success', res);
+        this.routeStateService.add(
+          "user-list",
+          "/book-result",
+          res,
+          false
+        );
       },
       fail: (res: any) => {
         alert({ content: JSON.stringify(res) });

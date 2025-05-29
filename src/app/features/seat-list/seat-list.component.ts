@@ -13,6 +13,7 @@ import {getSeatConfig,ReservationBody,setPaymentDetails,PAYMENT_OPTIONS,ArifPayc
 import { processSeatChart } from 'src/app/utils/seat-list-utils';
 import { Observable } from 'rxjs';
 import { MpesaPaymentService } from '../../Service/pay-with-mpesa';
+import { MiniProgramService } from '../../Service/mini-program-service';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -77,7 +78,8 @@ export class SeatListComponent  {
     private _snackBar : MatSnackBar,
     private printService: TicketPrintService,
     private  ticketPrintService : PassengerTicketPrintService,
-    private payWithMpesa: MpesaPaymentService
+    private payWithMpesa: MpesaPaymentService,
+    private miniProgramService: MiniProgramService
     ) { }
 
     isLinear = false;
@@ -124,10 +126,11 @@ export class SeatListComponent  {
 
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
-      // if(this.cart.selectedSeats.length>=3){
-      //  this.showMessage("You Can not reserve more than 3 seats if you want more Call 9293");
-      //   return false;
-      //       }
+    if (this.cart.selectedSeats.length >= 3) {
+  this.showMessage("You can reserve a maximum of 3 seats at a time. For group bookings or additional seats, please contact our support team.");
+  return false;
+   }
+
       seatObject.status = "booked";
       this.cart.selectedSeats.push(seatObject.seatNo);
       this.cart.seatstoStore.push(seatObject.key);
@@ -167,7 +170,12 @@ public blockSeats(seatsToBlock) {
 get f() { return this.dynamicForm.controls; }
 get t() { return this.f.tickets as FormArray; }
 showMessage(message){
-  this._snackBar.open(message,"OK");
+  this._snackBar.open(message,"", {
+  duration: 4000,
+  verticalPosition: 'top',        
+  horizontalPosition: 'center',   
+}
+);
 }
 AddNUmberOfPassengers(e) {
   const numberOfTickets = e || 0;
@@ -299,9 +307,12 @@ printData(selectedData) {
 }
  
 async selectPayment(paymentName: string){
+  const blocked = this.miniProgramService.blockIfNotInMiniProgram();
+    if (blocked) return;
   this.selectedPayment=paymentName;
   this.paymentProviderDetail=setPaymentDetails(paymentName);
   this.submitted = true;
+
   if (this.dynamicForm.invalid) {
     this.showMessage("Please fill all passenger information first");
     return;
@@ -314,6 +325,11 @@ async selectPayment(paymentName: string){
   }
   this.newPassanger.scheduleId=this.selectedTrip.scheduleId;
   this.newPassanger.totalPrice=this.selectedTrip.price*number_of_passengers.tickets.length;
+ if (this.newPassanger.totalPrice <= 0) {
+  this.showMessage("Please select a seat before proceeding.");
+  return;
+}
+
   for(let i=0;i<number_of_passengers.tickets.length;i++){
     let newPassengerData={
     charges: this.selectedTrip.price,
@@ -333,17 +349,16 @@ async selectPayment(paymentName: string){
   this.newPassanger.paymentProviderCode = this.paymentProviderDetail.paymentProviderCode || null ;
   this.newPassanger.PaymentOption=paymentName; 
   this.newPassanger.paymentMethodCode =  this.paymentProviderDetail.paymentMethodCode;
-   const result = await this.reserveMultipleSeat(this.newPassanger);
+  const result = await this.reserveMultipleSeat(this.newPassanger);
       if (result.success) {
-      this.payWithMpesa.payWithMpesa(result);
-    
+        this.payWithMpesa.payWithMpesa(result);
           } else {
          this.loading = false;
          if (result.success === false && result.error) {
-           this.showMessage(`Seat Reservation Failed ${result.error}`);
+            this.showMessage(`Seat Reservation Failed ${result.error}`);
          }  
       else {        
-      this.showMessage("Seat Reservation Failed. Please try again.");
+        this.showMessage("Seat Reservation Failed. Please try again.");
        }
       //  console.error("Reservation Failed:", result.error);
       }
@@ -414,6 +429,7 @@ async selectPayment(paymentName: string){
         }
       }
       else{
+
         this.routeStateService.add(
           "user-list",
           "/book-result",

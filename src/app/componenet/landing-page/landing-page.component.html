@@ -40,7 +40,7 @@
           </li>
       
           <!-- Display filtered cities -->
-          <li *ngFor="let city of filteredCities" class="list-group-item"
+          <li *ngFor="let city of filteredDepartureCities" class="list-group-item"
           (click)="selectTown('departure', city.locationId)">
             <div class="location-container">
               <i class="bi bi-geo-alt geo-icon"></i>
@@ -91,9 +91,8 @@
               (input)="filterCities($event.target.value, 'destination')"
             />
           </li>
-
           <!-- List of filtered cities -->
-          <li *ngFor="let city of filteredCities" class="list-group-item"
+          <li *ngFor="let city of filteredDestinationCities" class="list-group-item"
           (click)="selectTown('destination', city.locationId)">
             <div class="location-container">
               <i class="bi bi-geo-alt geo-icon"></i>
@@ -163,8 +162,7 @@
 						'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
 						'selected': selectedDate?.getTime() === date.getTime()
 						}"
-            [matTooltip]="isPastDate(date) ? 'You cannot select a past date' : ''"
-						(click)="!isPastDate(date) && selectDate(date)"
+						(click)="onDateClick(date)"
             [disabled]="isPastDate(date)"
 					>
             {{ date.getDate()}}

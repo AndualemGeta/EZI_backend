@@ -11,7 +11,7 @@
   type="text"
   id="departureInput"
   class="form-control decorated-input"
-  [(ngModel)]="selectedDeparture"
+ formControlName="departure"
   readonly
   placeholder="Select a departure"
   [value]="departureName"
@@ -63,7 +63,7 @@
           type="text"
           id="destinationInput"
           class="form-control decorated-input"
-          [(ngModel)]="selectedDestination"
+          formControlName="destination"
           placeholder="Select a destination"
           readonly
           [value]="destinationName"
@@ -109,13 +109,11 @@
 					type="text"
 					id="dateInput"
 					class="form-control decorated-input"
-          [(ngModel)]="selectedDate"
 					[value]="selectedDate ? (selectedDate | date: 'MMM d, y') : (now | date: 'MMM d, y')"
 					readonly
 					placeholder="{{ 'Select a trip date' | translate }}"
 					(click)="toggleDropdown('date')"
 					/>
-
 				</div>
 			</div>
 			

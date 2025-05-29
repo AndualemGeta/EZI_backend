@@ -70,5 +70,6 @@
      "seat":"Seat",
      "proceedToPay":"Proceed To Pay",
      "choosPaymentOption":"Choose Payment Option",
-    "paywithmpesa":"Pay with M-Pesa"
+    "paywithmpesa":"Pay with M-Pesa",
+    "pay":"Pay"
 }

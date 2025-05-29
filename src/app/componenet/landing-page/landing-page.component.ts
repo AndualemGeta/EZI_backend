@@ -11,7 +11,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
-  filteredCities: any[] = [];
+  filteredDepartureCities: any[] = [];
+  filteredDestinationCities: any[] = [];
+
   form: FormGroup;
   isHeading = true;
   isSubheading = true;
@@ -63,7 +65,8 @@ export class LandingPageComponent implements OnInit {
     }); 
    
     document.addEventListener('click', this.documentClickHandler.bind(this));
-    this.filteredCities = [...this.cities];
+    this.filteredDepartureCities = [...this.cities];
+    this.filteredDestinationCities = [...this.cities];
      if (this.selectedDate) {
       this.updateTripDate(this.selectedDate);
        }
@@ -134,14 +137,21 @@ export class LandingPageComponent implements OnInit {
   }
 
    filterCities(searchText: string, type: 'departure' | 'destination') {
-    if (!searchText) {
-      this.filteredCities = [...this.cities]; // Show all cities if no input
-    } else {
-      this.filteredCities = this.cities.filter(city =>
-        city.name.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
+    if (type === 'departure') {
+    this.filteredDepartureCities = !searchText
+      ? [...this.cities]
+      : this.cities.filter(city =>
+          city.name.toLowerCase().includes(searchText.toLowerCase())
+        );
+  } else {
+    this.filteredDestinationCities = !searchText
+      ? [...this.cities]
+      : this.cities.filter(city =>
+          city.name.toLowerCase().includes(searchText.toLowerCase())
+        );
+  }
   
+
     this.dropdownVisible[type] = true; // Ensure dropdown stays open
   }
 
@@ -150,9 +160,9 @@ updateTripDate(date: Date): void {
   }
   getAllLocations() {
     this.eziService.getAllLocations().then(value => {
-    
-      this.cities = value;
-       this.filteredCities = [...this.cities]; 
+    this.cities = value;
+    this.filteredDepartureCities = [...this.cities];
+    this.filteredDestinationCities = [...this.cities];
     });
   }
 
@@ -207,11 +217,15 @@ updateTripDate(date: Date): void {
   }
 
   searchResult() {
+    this.loading=true;
    if (!this.selectedDeparture|| this.selectedDeparture=="select departure" || !this.selectedDestination || this.selectedDestination=="select destination") {
     const message = this.translate.instant('Please select both departure and destination locations.');
-    this._snackBar.open(message,"OK");
-    return; // prevent navigation
+    this._snackBar.open(message, '', {duration: 2000, verticalPosition: 'top',        
+  horizontalPosition: 'center'});
+    this.loading=false;
+    return;
   }
+  
     const searchData = {
       departure: this.selectedDeparture,
       destination:this.selectedDestination,
@@ -226,6 +240,7 @@ updateTripDate(date: Date): void {
       searchData,
       false
     );
+    this.loading=false;
   }
 
   isPastDate(date: Date): boolean {
@@ -234,6 +249,18 @@ updateTripDate(date: Date): void {
     return date < today; // Disable past dates
   } 
 
+onDateClick(date: Date) {
+  if (this.isPastDate(date)) {
+    this._snackBar.open('You cannot select a past date', '', {
+  duration: 2000,
+  verticalPosition: 'top',        
+  horizontalPosition: 'center',   
+});
+
+    return;
+  }
+  this.selectDate(date);
+}
 
   updateDeparture(newValue: string): void {
     this.selectedDeparture = newValue;

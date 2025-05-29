@@ -5,10 +5,11 @@
       <ng-template matStepLabel>
         <span fxShow="false" fxShow.gt-xs="true">{{"selectSeatInstruction"|translate}}</span>
        </ng-template>
-      <div class="row ">
+      <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <div class="reserved-trip-detail">
-            <mat-card style="height: 500px; width:90%;" >
+            
+            <mat-card style="margin-bottom: 5px;" >
         <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
@@ -52,7 +53,7 @@
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-          <mat-card style="height: 500px; width:90%;">
+          <mat-card style="margin-bottom: 5px;">
             <div class="trip-detail-title">{{"selectASeat"|translate}}</div>
             <div *ngFor="let seatrow of seatmap">
               <div class="col-12 pricing-label"
@@ -79,7 +80,7 @@
         </div>
         <!-- *ngIf="cart?.selectedSeats?.length > 0" -->
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-card style="height: 500px; width:90%;" >
+          <mat-card style="margin-top: 5px;" >
             <div class="trip-detail-item">
               <i class="material-icons trip-result-icon">summarize</i>
               <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
@@ -117,7 +118,7 @@
         </ng-template>
         <div class="row ">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
-            <mat-card style="height: 400px; width:90%;">
+            <mat-card style="width:100%">
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">summarize</i>
                 <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
@@ -140,7 +141,7 @@
             </mat-card>
           </div>
            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="card" style="width:90%;">
+            <div class="card" style="width:100%;">
               <div *ngFor="let ticket of t.controls;let i = index" class="list-group list-group-flush">
                 <div class="list-group-item">
                   <div class="trip-detail-item">
@@ -193,7 +194,7 @@
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
             <div class="reserved-trip-detail">
-              <mat-card style="height: 530px; width:90%;">
+              <mat-card style="width:100%;">
                 <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
@@ -244,7 +245,7 @@
           </div>
 
           <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4" >
-            <mat-card style="width:90%;">
+            <mat-card style="width:100%;">
               <div class="trip-detail-title"> 
                 {{routeState.operator | uppercase }} BUS 
                  <p class="trip-detail-property"> 
@@ -264,24 +265,27 @@
                       class="badge badge-primary">
                   {{seatLabel}}</span>
               </div>
-              
-  <div class="col-md-12" >
-    <p class="trip-detail-title"> {{"paywithmpesa"| translate}}</p>
-        <img *ngFor="let payment of paymentOptions" class="payment-option-list" 
-             [src]="payment.img" 
-             (click)="selectPayment(payment.name)" 
-             [alt]="payment.name" 
-             [class.clicked]="payment.clicked">
-    
-              <div class="action-buttons card-footer" *ngIf="!loading">
+        <div class="col-md-12" >
+        <p class="trip-detail-title"> {{"paywithmpesa"| translate}} <img src="../../../assets/img/paymentoption/mpesa.png"  alt="pay with M-Pesa"  style="height:60px; margin-bottom: 10px;"/></p>
+        <div class="action-buttons card-footer" *ngIf="!loading">
                 <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
+               <button  mat-flat-button (click)="selectPayment('Mpesa')" color="success" class="bootom-action-btn" style="width:120px">
+                  {{"pay"|translate}}
+                  </button>
               </div>
+                 <br>
+                 <br>
               </div>
             </mat-card>
           </div>
         </div>
       </mat-step>
     </form>
+
+
+
+
+
 <!--step 3-->
       <mat-step  state="paymentInstruction">
         <ng-template matStepLabel >

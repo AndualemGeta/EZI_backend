@@ -259,13 +259,13 @@
   }
   
   .weekday {
-    text-align: center;
-    padding: 3px;
+    text-align: center; 
+      padding: 2px; 
   }
   
   .date-item {
     width: 5px;
-    line-height: 40px;
+    line-height: 20px;
     padding: 5px;
     border-radius: 50%;
     text-align: center;

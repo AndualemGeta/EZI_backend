@@ -13,8 +13,8 @@ import { customDateFormat } from 'src/app/utils/date-utils';
 })
 
 export class SearchFormComponent implements OnInit, OnDestroy {
-  @Input() departureinput: string = 'acd5118e-c32a-422b-5618-08dc2f3fba36';
-  @Input() destinationinput: string = 'f28dd0f3-9d56-40d3-8aa2-bab909217887';
+  @Input() departureinput: string = 'select departure';
+  @Input() destinationinput: string = 'select destination';
   @Input() tripDateinput: Date = new Date();
   @Input() loading: boolean = false;
   @Output() loadingChange = new EventEmitter<boolean>();
