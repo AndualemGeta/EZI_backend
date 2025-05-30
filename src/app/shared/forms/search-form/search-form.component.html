@@ -150,7 +150,7 @@
 						'text-muted': date.getMonth() !== months[currentMonthIndex].startDate.getMonth(),
 						'selected': selectedDate?.getTime() === date.getTime()
 						}"
-						(click)="!isPastDate(date) && selectDate(date)"
+						(click)="selectDate(date)"
             [disabled]="isPastDate(date)"
 					>
             {{ date.getDate()}}

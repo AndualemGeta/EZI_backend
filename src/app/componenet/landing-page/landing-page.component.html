@@ -5,17 +5,16 @@
 		<!-- <p class="subheading">{{'ezibus2Title' | translate}}</p> -->
 	   </div>
 	  </div>
-	<div class="form-section">
+
+	<div  class="form-section">
 	<div class="search-widgetss">
 		<form [formGroup]="form">
   <div class="row form-input">
-    <!-- Departure Field -->
     <div class="col-lg-3 col-md-6 col-12 position-relative">
       <div class="form-group">
         <label for="departureInput">{{ "departure" | translate }}</label>
         <div class="input-icon-container">
           <i class="bi bi-geo-alt geo-input-icon"></i>
-          <!-- Departure Input -->
           <input
   type="text"
   id="departureInput"
@@ -38,8 +37,6 @@
               (input)="filterCities($event.target.value, 'departure')"
             />
           </li>
-      
-          <!-- Display filtered cities -->
           <li *ngFor="let city of filteredDepartureCities" class="list-group-item"
           (click)="selectTown('departure', city.locationId)">
             <div class="location-container">
@@ -53,16 +50,12 @@
         </ul>
       </div>
     </div>
-
-    <!-- Exchange Button -->
     <div class="col-lg-1 col-md-1 col-1 d-none d-sm-block  align-self-center">
          <label> <br> </label>
       <span (click)="ExchangeTrip()" class="material-icons exchange-icon">
         sync_alt
       </span>
     </div>
-
-    <!-- Destination Field -->
     <div class="col-lg-3 col-md-6 col-12 position-relative">
       <div class="form-group">
         <label for="destinationInput">{{ "destination" | translate }}</label>
@@ -82,7 +75,6 @@
       </div>
       <div *ngIf="dropdownVisible.destination" class="dropdown-menu show w-100">
         <ul class="list-group">
-          <!-- Filter input inside the dropdown -->
           <li class="list-group-item">
             <input
               type="text"
@@ -91,7 +83,6 @@
               (input)="filterCities($event.target.value, 'destination')"
             />
           </li>
-          <!-- List of filtered cities -->
           <li *ngFor="let city of filteredDestinationCities" class="list-group-item"
           (click)="selectTown('destination', city.locationId)">
             <div class="location-container">
@@ -107,15 +98,10 @@
     </div>
 
     <div class="col-lg-3 col-md-6 col-12 position-relative">
-			<!-- Date Input Field -->
 			<div class="form-group">
 				<label for="dateInput">{{ "tripDate" | translate }}</label>
 				<div class="input-icon-container">
 				<i class="bi bi-calendar-event geo-input-icon"></i>
-        <!-- <input
-					type="hidden"
-          formControlName="tripDate"
-					/> -->
 				<input
 					type="text"
 					id="dateInput"
@@ -125,11 +111,9 @@
 					placeholder="{{ 'Select a trip date' | translate }}"
 					(click)="toggleDropdown('date')"
 					/>
-
 				</div>
 			</div>
-			
-			<!-- Date Dropdown -->
+      <!-- Date Picker Dropdown -->
 			<div
 				*ngIf="dropdownVisible.date"
 				class="dropdown-menu show"
@@ -181,9 +165,9 @@
           <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
         </div>
         <div *ngIf="!loading" class="search-button-container">
-        <button
-  class="form-control search-input-button"
-  (click)="searchResult()"
+        <button  (click)="searchResult()"
+        class="form-control search-input-button"
+  
 >
   {{ 'search' | translate }}
 </button>

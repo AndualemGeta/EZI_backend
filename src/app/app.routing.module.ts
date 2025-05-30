@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 const appRoutes: Routes = [
   {
-    path: "book-bus-tickets-in-ethiopia",
+    path: "",
     loadChildren: () =>
       import("src/app/componenet/home/home.module").then((m) => m.HomeModule),
   },

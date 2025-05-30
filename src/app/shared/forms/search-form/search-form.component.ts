@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { customDateFormat } from 'src/app/utils/date-utils';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-search-form',
@@ -80,6 +80,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private eziService: EziBusService,
     private translate: TranslateService,
+    private _snackBar : MatSnackBar,
   ) {}
 
   async ngOnInit() {
@@ -232,12 +233,20 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   getMidnightDate(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
-
-
-  selectDate(date: Date) {
-    this.updateTripDate(date);
-    this.dropdownVisible['date'] = false;
+  
+selectDate(date: Date) {
+  if (this.isPastDate(date)) {
+    this._snackBar.open('You cannot select a past date', '', {
+  duration: 2000,
+  verticalPosition: 'top',        
+  horizontalPosition: 'center',   
+});
+ return;
   }
+ this.updateTripDate(date);
+    this.dropdownVisible['date'] = false;
+}
+
 
   isPastDate(date: Date): boolean {
     const today = new Date();

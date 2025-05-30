@@ -61,7 +61,7 @@ export class MpesaPaymentService {
         this.logdata.status = 'fail';
         this.logdata.merchantRequestID = data.reservationId;    
         this.logdata.amount = data.totalPrice;
-        this.logdata.transactionFrom =  res.error;  
+        this.logdata.transactionFrom =  res.errorMessage;  
         this.logOnline(this.logdata);
         console.error('Payment Failed', res);
       },

@@ -1,6 +1,6 @@
 export const environment = {
    production: true,
-  apiUrl: "https://eziapi.leapfrogtechafrica.com",
+   apiUrl: "https://eziapi.leapfrogtechafrica.com",
   // apiUrl:"https://eziapi.mttelectrical.com",
   public_user : 'EzibusPublic',
   public_password : 'Ezibus@ezibus0.',

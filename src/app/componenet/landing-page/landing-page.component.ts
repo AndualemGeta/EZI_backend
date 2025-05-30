@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit,OnDestroy,ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
@@ -8,12 +8,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  styleUrls: ['./landing-page.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LandingPageComponent implements OnInit {
   filteredDepartureCities: any[] = [];
   filteredDestinationCities: any[] = [];
-
   form: FormGroup;
   isHeading = true;
   isSubheading = true;
@@ -43,6 +43,7 @@ export class LandingPageComponent implements OnInit {
   months: { startDate: Date; weeks: Date[][] }[] = [];
   weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   availableDates: Date[] = [];
+
   constructor(
     private routeStateService: RouteStateService,
     private fb: FormBuilder,
@@ -53,11 +54,19 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   
-    this.loading=false;
-     this.generateMonths();
-    this.getAllLocations();
-    this.getAllBankAccounts();
+    this.generateMonths();
+    Promise.all([
+    this.eziService.getAllLocations(),
+    this.eziService.getOperatorAccounts()
+  ]).then(([locations, accounts]) => {
+    this.cities = locations;
+    this.accounts = accounts;
+    this.filteredDepartureCities = [...this.cities];
+    this.filteredDestinationCities = [...this.cities];
+  }).catch(() => {
+    this._snackBar.open('Failed to load data', '', { duration: 2000 });
+  });
+
     this.form = this.fb.group({
       departure: [this.selectedDeparture],
       destination: [this.selectedDestination],
@@ -103,38 +112,56 @@ export class LandingPageComponent implements OnInit {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
- generateMonths() {
+  generateMonths() {
+    this.months = [];
     const today = new Date();
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < 2; i++) {
       const monthStartDate = new Date(today.getFullYear(), today.getMonth() + i, 1);
-      const monthEndDate = new Date(today.getFullYear(), today.getMonth() + i + 1, 0);
-      const calendarStartDate = new Date(monthStartDate);
-      calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
-      const calendarEndDate = new Date(monthEndDate);
-      calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
-
-      const weeks: Date[][] = [];
-      let currentWeek: Date[] = [];
-
-      for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
-        currentWeek.push(new Date(d));
-        if (currentWeek.length === 7) {
-          weeks.push(currentWeek);
-          currentWeek = [];
-        }
-      }
-      this.months.push({ startDate: monthStartDate, weeks });
+      this.months.push({
+        startDate: monthStartDate,
+        weeks: this.generateWeeksForMonth(monthStartDate)
+      });
     }
+  }
+
+  generateWeeksForMonth(monthStartDate: Date): Date[][] {
+    const monthEndDate = new Date(monthStartDate.getFullYear(), monthStartDate.getMonth() + 1, 0);
+    const calendarStartDate = new Date(monthStartDate);
+    calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
+    const calendarEndDate = new Date(monthEndDate);
+    calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
+
+    const weeks: Date[][] = [];
+    let currentWeek: Date[] = [];
+
+    for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
+      currentWeek.push(new Date(d));
+      if (currentWeek.length === 7) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+      }
+    }
+    if (currentWeek.length > 0) {
+      weeks.push(currentWeek);
+    }
+    return weeks;
   }
 
   navigateMonth(direction: number): void {
     this.currentMonthIndex += direction;
+    if (this.currentMonthIndex >= this.months.length) {
+      const nextMonth = new Date(this.months[this.months.length - 1].startDate);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      this.months.push({
+        startDate: nextMonth,
+        weeks: this.generateWeeksForMonth(nextMonth)
+      });
+    }
     if (this.currentMonthIndex < 0) {
-      this.currentMonthIndex = this.months.length - 1;
-    } else if (this.currentMonthIndex >= this.months.length) {
       this.currentMonthIndex = 0;
     }
   }
+
 
    filterCities(searchText: string, type: 'departure' | 'destination') {
     if (type === 'departure') {
@@ -158,20 +185,8 @@ export class LandingPageComponent implements OnInit {
 updateTripDate(date: Date): void {
     this.selectedDate = this.getMidnightDate(date);
   }
-  getAllLocations() {
-    this.eziService.getAllLocations().then(value => {
-    this.cities = value;
-    this.filteredDepartureCities = [...this.cities];
-    this.filteredDestinationCities = [...this.cities];
-    });
-  }
 
-  getAllBankAccounts() {
-    this.eziService.getOperatorAccounts().then(response => {
-      this.accounts = response;
-    });
-  }
-
+  
   ExchangeTrip() {
     const icon = document.querySelector('.exchange-icon') as HTMLElement;
     if (icon) {
@@ -216,11 +231,12 @@ updateTripDate(date: Date): void {
     this.toggleDropdown('date');
   }
 
-  searchResult() {
-    this.loading=true;
-   if (!this.selectedDeparture|| this.selectedDeparture=="select departure" || !this.selectedDestination || this.selectedDestination=="select destination") {
-    const message = this.translate.instant('Please select both departure and destination locations.');
-    this._snackBar.open(message, '', {duration: 2000, verticalPosition: 'top',        
+  async searchResult() {
+  this.loading=true;
+   if (this.selectedDeparture=="select departure" || this.selectedDestination=="select destination") {
+    const message = 'Please select both departure and destination locations.';
+    this._snackBar.open(message, '',
+      {duration: 2000, verticalPosition: 'top',        
   horizontalPosition: 'center'});
     this.loading=false;
     return;
@@ -230,7 +246,7 @@ updateTripDate(date: Date): void {
       destination:this.selectedDestination,
       tripDate: customDateFormat(this.selectedDate) 
     };
-    this.routeStateService.add(
+     this.routeStateService.add(
       "user-list",
       "/trip-list",
       searchData,
