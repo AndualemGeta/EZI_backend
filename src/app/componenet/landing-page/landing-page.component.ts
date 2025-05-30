@@ -225,22 +225,18 @@ updateTripDate(date: Date): void {
     this.loading=false;
     return;
   }
-  
-    const searchData = {
+  const searchData = {
       departure: this.selectedDeparture,
       destination:this.selectedDestination,
-      tripDate: this.selectedDate 
-  ? customDateFormat(this.selectedDate) 
-  : customDateFormat(new Date()),
+      tripDate: customDateFormat(this.selectedDate) 
     };
-    
     this.routeStateService.add(
       "user-list",
       "/trip-list",
       searchData,
       false
     );
-    this.loading=false;
+   this.loading=false;
   }
 
   isPastDate(date: Date): boolean {
