@@ -94,7 +94,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       tripDate: [this.selectedDate, Validators.required],
     });
     await this.getAllLocations();
-    await this.getAllBankAccounts();
+    // await this.getAllBankAccounts();
     this.generateMonths();
      document.addEventListener('click', this.documentClickHandler.bind(this));
     this.filteredCities = [...this.cities];
@@ -179,11 +179,11 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return this.translate.instant(city.name) || '';
     }
  
-  async getAllBankAccounts() {
-    return await this.eziService.getOperatorAccounts().then(response => {
-      this.accounts = response;
-    });
-  }
+  // async getAllBankAccounts() {
+  //   return await this.eziService.getOperatorAccounts().then(response => {
+  //     this.accounts = response;
+  //   });
+  // }
 
   ExchangeTrip() {
     const icon = document.querySelector('.exchange-icon') as HTMLElement;

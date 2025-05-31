@@ -20,8 +20,7 @@ export class EziBusService {
     private sessionService: SessionService
   ) {
   }
-  // operatorId ='a1ceb086-3757-416c-3cbb-08dc46bbea6a';
-  operatorId ='3e8f594d-b594-449d-f5ee-08dd8ade3cad';
+  
   getApiService(url): any {
     // this.user = this.sessionService.getItem("currentUser");
     return this.http
@@ -81,25 +80,27 @@ export class EziBusService {
       return data;
     });
   }
-  searchTrip(departureLocationId,arrivalLocationId,tripDate){
-    let url = `/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+  searchTrip(operatorId,departureLocationId,arrivalLocationId,tripDate){
+    let url = `/api/public/searchTrip/${operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
     return this.getApiService(url).then((data) => {
      return data;
     });
   }
   
-  getOperatorAccounts(){
-    let url = `/api/public/bankAccounts/${this.operatorId}`;
+  getOperatorAccounts(operatorId){
+    let url = `/api/public/bankAccounts/${operatorId}`;
     return this.getApiService(url).then((data) => {
+      console.log(data);
       return data;
+
     })
       .catch((item) => {
         return false;
       });;
   }
 
-  search(departureLocationId, arrivalLocationId, tripDate){
-    let url = `/api/public/searchTrip/${this.operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
+  search(operatorId,departureLocationId, arrivalLocationId, tripDate){
+    let url = `/api/public/searchTrip/${operatorId}/${departureLocationId}/${arrivalLocationId}/${tripDate}`;
     return this.getApiService(url).then((data) => {
       console.log(data)
       return data;

@@ -26,7 +26,6 @@ export class LandingPageComponent implements OnInit {
   selectedDate: Date= this.getMidnightDate(new Date());
   seatNo: any;
   AvailableSeat: any[] = [];
-  accounts: any[] = [];
   selectedTrip: any;
   agentId: string;
   responseStyle:any;
@@ -57,10 +56,8 @@ export class LandingPageComponent implements OnInit {
     this.generateMonths();
     Promise.all([
     this.eziService.getAllLocations(),
-    this.eziService.getOperatorAccounts()
-  ]).then(([locations, accounts]) => {
+  ]).then(([locations]) => {
     this.cities = locations;
-    this.accounts = accounts;
     this.filteredDepartureCities = [...this.cities];
     this.filteredDestinationCities = [...this.cities];
   }).catch(() => {
@@ -79,7 +76,7 @@ export class LandingPageComponent implements OnInit {
      if (this.selectedDate) {
       this.updateTripDate(this.selectedDate);
        }
-   this.departureName = this.getCityNameById(this.selectedDeparture);
+  this.departureName = this.getCityNameById(this.selectedDeparture);
   this.destinationName = this.getCityNameById(this.selectedDestination);
   this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
   }
@@ -130,10 +127,8 @@ export class LandingPageComponent implements OnInit {
     calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
     const calendarEndDate = new Date(monthEndDate);
     calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
-
     const weeks: Date[][] = [];
     let currentWeek: Date[] = [];
-
     for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
       currentWeek.push(new Date(d));
       if (currentWeek.length === 7) {
@@ -177,16 +172,12 @@ export class LandingPageComponent implements OnInit {
           city.name.toLowerCase().includes(searchText.toLowerCase())
         );
   }
-  
-
     this.dropdownVisible[type] = true; // Ensure dropdown stays open
   }
 
 updateTripDate(date: Date): void {
     this.selectedDate = this.getMidnightDate(date);
   }
-
-  
   ExchangeTrip() {
     const icon = document.querySelector('.exchange-icon') as HTMLElement;
     if (icon) {
@@ -209,9 +200,8 @@ updateTripDate(date: Date): void {
 
   toggleDropdown(type: 'departure' | 'destination' | 'date'): void {
     this.dropdownVisible[type] = !this.dropdownVisible[type];
-
   }
-
+  
   selectTown(type: 'departure' | 'destination' | 'date', town: string): void {
     if (type === 'departure') {
      this.updateDeparture(town);
@@ -219,11 +209,9 @@ updateTripDate(date: Date): void {
     } else {
        this.updateDestination(town);
       this.dropdownVisible[type] = false;
-
     }
     this.dropdownVisible[type] = false;
    // this.form.controls[type].setValue(town);
-    
   }
   selectDate(date: Date) {
     this.selectedDate = this.getMidnightDate(date);

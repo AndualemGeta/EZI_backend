@@ -87,7 +87,7 @@ export class ReserveTripComponent implements OnInit {
     });
     this.display = false;
     this.getAllLocations();
-    this.getAllBankAccounts();
+    // this.getAllBankAccounts();
    // this.agentId = 'DE937EB1-F20A-44E5-451C-08D8A705F255';
     this.agentId='52c2ae4c-ea56-47e3-dee0-08dd8ae8ad79';
     var bankControl = this.reserveRegisterForm.get('accountId');
@@ -108,11 +108,11 @@ export class ReserveTripComponent implements OnInit {
     });
   }
 
-  getAllBankAccounts() {
-    this.eziService.getOperatorAccounts().then((response) => {
-      this.accounts = response;
-    });
-  }
+  // getAllBankAccounts() {
+  //   this.eziService.getOperatorAccounts().then((response) => {
+  //     this.accounts = response;
+  //   });
+  // }
 backFunction(){
    let searchData={
     departure:this.routeState.departureLocationId,
@@ -160,6 +160,7 @@ backFunction(){
       var data = this.userform.getRawValue();
       this.eziService
         .search(
+          data.operatorId,
           data.departure.locationId,
           data.destination.locationId,
           new Date(data.tripDate).toDateString()

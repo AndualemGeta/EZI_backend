@@ -58,7 +58,6 @@ export class SeatListComponent  {
   selectedCity: any;
   selectedTrip: any;
   accounts: any[];
-
   routeState;
   reserveRegisterForm: FormGroup;
   awashOtpForm : FormGroup;
@@ -108,22 +107,20 @@ export class SeatListComponent  {
       otp : ['', Validators.required]
     });
     this.display = false;
-    this.getAllLocations();
-    this.getAllBankAccounts();
+   
     this.seatConfig = getSeatConfig(this.selectedTrip.price);
     processSeatChart(this.seatConfig, this.seatChartConfig, this.seatmap);
-    for(let z=1;z<=this.selectedTrip.seatCapacity;z++){
+    for(let z=1;z<=51;z++){
       let seat=this.selectedTrip.availableSeats.filter(x => x == z).length
       if(seat==0){
         this.ReservedSeats.push(z);
           }
     }
   this.blockSeats(this.ReservedSeats);
+  
   }
 
  
-
-
  public selectSeat(seatObject: any) {
  if (seatObject.status == "available") {
     if (this.cart.selectedSeats.length >= 3) {
@@ -203,17 +200,22 @@ onReset() {
     this.t.reset();
   }
 
-getAllLocations() {
-    this.eziService.getAllLocations().then((value) => {
-      this.cities = value;
-    });
-  }
 
-getAllBankAccounts() {
-    this.eziService.getOperatorAccounts().then((response) => {
-      this.accounts = response;
-    });
+getAllBankAccounts(OperatorId: string): Promise<string> {
+   if (this.accounts?.length > 0) {
+    return Promise.resolve(this.accounts[0]?.reservationBankAccountsId || '');
   }
+  return this.eziService.getOperatorAccounts(OperatorId)
+    .then((response) => {
+      this.accounts = response;
+      return this.accounts[0]?.reservationBankAccountsId || '';
+    })
+    .catch((error) => {
+      console.error('Failed to get accounts:', error);
+      return '';
+    });
+}
+
   
 reserveSeat(data){
   this.loading = true;
@@ -317,6 +319,8 @@ async selectPayment(paymentName: string){
     this.showMessage("Please fill all passenger information first");
     return;
   }
+  // Inside an async method
+  this.newPassanger.accountId = await this.getAllBankAccounts(this.selectedTrip.operatorId);
   this.newPassanger.passengers=[];
   let number_of_passengers=this.dynamicForm.value;
   if (number_of_passengers.tickets.length<=0) {
@@ -469,6 +473,7 @@ async selectPayment(paymentName: string){
       image: "https://ezibus.leapfrogtechafrica.com/assets/img/ezi-icon.png"
     }));
   }
+
   getSelectedImage(): string {
     const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
     return option ? option.img : '';

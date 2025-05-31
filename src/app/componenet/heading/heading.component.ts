@@ -4,7 +4,6 @@ import { ContactDialogComponent } from  'src/app/componenet/contact-dialog/conta
 import { MatDialog} from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 import * as AOS from 'aos';
-import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from 'src/app/Service/SessionService';
 @Component({
@@ -29,7 +28,7 @@ export class HeadingComponent implements OnInit, OnDestroy {
   
     private _mobileQueryListener: () => void;
     constructor(@Inject(DOCUMENT)  document: Document,private sessionService: SessionService,
-    public translate: TranslateService, private eziService: EziBusService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
+    public translate: TranslateService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
       this.mobileQuery = media.matchMedia('(max-width: 600px)');
       this._mobileQueryListener = () => changeDetectorRef.detectChanges();
       this.mobileQuery.addListener(this._mobileQueryListener);
@@ -37,27 +36,8 @@ export class HeadingComponent implements OnInit, OnDestroy {
     }
     async ngOnInit(): Promise<void>{
       AOS.init();
-     await this.getAllBankAccounts();
-     await this.getAllLocations();  
       this.locale = this.sessionService.getItem("local-language");
     }
-  
-  
-    async getAllLocations() {
-     return this.eziService.getAllLocations().then((value) => {
-        this.cities = value || []; 
-      }).catch(() => {
-        this.cities = []; 
-      });
-    }
-    
-    async getAllBankAccounts() {
-        this.eziService.getOperatorAccounts().then((response) => {
-      
-          this.accounts = response;
-        });
-      }
-  
     public detectScroll(event: any) {
       if (event.header) {
         this.isActive = false;
@@ -123,5 +103,4 @@ export class HeadingComponent implements OnInit, OnDestroy {
     this.translate.use(this.locale);
     this.sessionService.setItem("local-language", this.locale);
   }
-  
   }
