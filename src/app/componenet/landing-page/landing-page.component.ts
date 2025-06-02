@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy,ElementRef, Renderer2  } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
@@ -15,21 +15,14 @@ export class LandingPageComponent implements OnInit {
   filteredDepartureCities: any[] = [];
   filteredDestinationCities: any[] = [];
   form: FormGroup;
-  isHeading = true;
-  isSubheading = true;
-  isHeadingBtn = true;
   currentMonthIndex: number = 0;
   routeState:any;
   loading:boolean=false;
+  page_loading:boolean=false;
   selectedDeparture: any="select departure";
   selectedDestination: any="select destination";
   selectedDate: Date= this.getMidnightDate(new Date());
-  seatNo: any;
-  AvailableSeat: any[] = [];
-  selectedTrip: any;
-  agentId: string;
-  responseStyle:any;
-  newLine: any = {};
+
   cities: any[] = [];
   now:Date=new Date();
   myControl = new FormControl();
@@ -48,7 +41,9 @@ export class LandingPageComponent implements OnInit {
     private fb: FormBuilder,
     private eziService: EziBusService,
     private translate: TranslateService,
-     private _snackBar : MatSnackBar,
+    private _snackBar : MatSnackBar,
+    private el: ElementRef,
+    private renderer: Renderer2
    
   ) {}
 
@@ -60,8 +55,14 @@ export class LandingPageComponent implements OnInit {
     this.cities = locations;
     this.filteredDepartureCities = [...this.cities];
     this.filteredDestinationCities = [...this.cities];
+  if (this.cities.length >= 2) {
+      this.selectedDeparture = this.cities[0].locationId;
+      this.selectedDestination = this.cities[1].locationId;
+    }
+   this.page_loading = false;
   }).catch(() => {
     this._snackBar.open('Failed to load data', '', { duration: 2000 });
+    this.page_loading = false;
   });
 
     this.form = this.fb.group({
@@ -69,7 +70,7 @@ export class LandingPageComponent implements OnInit {
       destination: [this.selectedDestination],
       tripDate: [this.selectedDate],
     }); 
-   
+  
     document.addEventListener('click', this.documentClickHandler.bind(this));
     this.filteredDepartureCities = [...this.cities];
     this.filteredDestinationCities = [...this.cities];
@@ -80,6 +81,15 @@ export class LandingPageComponent implements OnInit {
   this.destinationName = this.getCityNameById(this.selectedDestination);
   this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
   }
+
+ngAfterViewInit(): void {
+  const heading = this.el.nativeElement.querySelector('#heading');
+  if (heading) {
+    setTimeout(() => {
+      this.renderer.addClass(heading, 'lazy-loaded');
+    }, 0);
+  }
+}
 
   ngOnDestroy() {
     document.removeEventListener('click', this.documentClickHandler);
@@ -120,7 +130,6 @@ export class LandingPageComponent implements OnInit {
       });
     }
   }
-
   generateWeeksForMonth(monthStartDate: Date): Date[][] {
     const monthEndDate = new Date(monthStartDate.getFullYear(), monthStartDate.getMonth() + 1, 0);
     const calendarStartDate = new Date(monthStartDate);

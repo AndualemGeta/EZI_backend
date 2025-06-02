@@ -71,5 +71,6 @@
      "proceedToPay":"Proceed To Pay",
      "choosPaymentOption":"Choose Payment Option",
     "paywithmpesa":"Pay with M-Pesa",
-    "pay":"Pay"
+    "pay":"Pay",
+    "trip-detail": "Detail"
 }

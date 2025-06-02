@@ -27,9 +27,7 @@
               <hr>
               <div class="col-md-6">
                 <p><strong>Bill Code:</strong> {{ reservation.billCode }}</p>
-                <p><strong>Bank:</strong> {{ reservation.account?.bankName }}</p>
-                <p><strong>Bank Account Number:</strong> {{ reservation.account?.accountNumber }}</p>
-                <p><strong>Account Holder Name:</strong> {{ reservation.account?.accountHolderName }}</p>
+                <p><strong>Transaction No:</strong> {{ reservation.transactionId }}</p>
               </div>
               <div class="col-md-6">
                 <p><strong>Price:</strong> {{ reservation.totalPrice }} ETB</p>
@@ -38,11 +36,7 @@
               </div>
             </div>
           </div>
-      
-          <!-- Footer -->
-          <div class="footer-card">
-            <p> <i> Please pay at any {{ reservation.account?.bankName }} bank branch before {{ reservation.expirationTime | date:'medium' }} </i></p>
-          </div>
+    
           <!-- Buttons -->
           <div class="button-group">
             <button mat-raised-button class="green-button"  (click)="printData()">Print</button>

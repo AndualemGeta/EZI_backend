@@ -1,4 +1,3 @@
-
 import { environment } from '../../environments/environment';
 export const getSeatConfig = (price: number) => [
   {
@@ -35,7 +34,7 @@ export const ReservationBody={
   updatedAt: new Date(),
   scheduleId: "",
   paymentNumber:"0703272182",
-  accountId:environment.accountId,
+  accountId:"environment.accountId",
   paymentMethodCode: "",
   paymentProviderCode: "",
   debitAccount: "",

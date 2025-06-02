@@ -23,7 +23,6 @@ export class ReservationResultComponent implements OnInit {
   ngOnInit(): void {
     this.routeState = this.routeStateService.getCurrent().data;
     this.reservation=this.routeState;
-    console.log(this.reservation);
   }
 
   getStatus(status: number): string {

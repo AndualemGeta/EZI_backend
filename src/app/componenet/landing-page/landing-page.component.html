@@ -1,11 +1,4 @@
-<section id="landing-page" class="top page-content">
-	<div id="heading">
-	  <div class="text-container">
-		<!-- <h1 class="main-heading">{{'ezibus' | translate}}</h1> -->
-		<!-- <p class="subheading">{{'ezibus2Title' | translate}}</p> -->
-	   </div>
-	  </div>
-
+<div id="heading">
 	<div  class="form-section">
 	<div class="search-widgetss">
 		<form [formGroup]="form">
@@ -165,7 +158,7 @@
           <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
         </div>
         <div *ngIf="!loading" class="search-button-container">
-        <button  (click)="searchResult()"
+        <button type="submit" (click)="searchResult()"
         class="form-control search-input-button"
   
 >
@@ -178,5 +171,5 @@
   </div>
 </form>
 	</div>  
-	</div>	  
-</section> 
+	</div>	 
+</div> 

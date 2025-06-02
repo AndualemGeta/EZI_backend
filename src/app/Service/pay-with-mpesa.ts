@@ -27,9 +27,21 @@ export class MpesaPaymentService {
   }
   constructor(private eziBusService: EziBusService,private routeStateService: RouteStateService,private miniProgramService: MiniProgramService) {}
   payWithMpesa(reservation) {
-  // const blocked = this.miniProgramService.blockIfNotInMiniProgram();
-  //   if (blocked) return;
-    const data = reservation.data;
+    
+
+  const blocked = this.miniProgramService.blockIfNotInMiniProgram();
+    if (blocked)
+      console.log('Blocked: Not running inside Mini Program');
+      //  return;
+    let data = reservation.data;
+       data.transactionId= Math.floor(Math.random() * 1000000).toString();
+ this.routeStateService.add(
+          "user-list",
+          "/book-result",
+          data,
+          false
+        );
+
     // console.log('payWithMpesa called with reservation:', data.transactions);
     if (!data || !data.reservationId || !data.totalPrice) {  
       alert({ content: 'Invalid payment data. Please try again.' });
@@ -42,17 +54,16 @@ export class MpesaPaymentService {
       currency: 'ETB',
       reason: this.mpesaMiniconstants.reason,
       success: (res: any) => {
-        alert({ content: JSON.stringify(res) });
+        // alert({ content: JSON.stringify(res) });
         this.logdata.status = 'success';
         this.logdata.merchantRequestID = data.reservationId;    
         this.logdata.amount = data.totalPrice;
         this.logdata.transactionFrom = res.transactionId; 
         this.logOnline(this.logdata);
-        console.log('Payment Success', res);
-        this.routeStateService.add(
+       this.routeStateService.add(
           "user-list",
           "/book-result",
-          res,
+          data,
           false
         );
       },

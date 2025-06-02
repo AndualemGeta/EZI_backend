@@ -44,11 +44,17 @@
         <span>{{ trip.departureLocation | translate }}</span>
         <span class="arrow">-------------<i class="material-icons" style="color:#5cb85c">directions_bus</i>-------------</span>
         <span>{{ trip.arrivalLocation | translate }}</span>
+       
       </div>
       <div class="trip-footer">
         <div class="trip-info">
           <span> {{ 'seatAvailable' | translate }} : {{ trip.availableSeats.length }}</span>
         </div>
+         <div class="trip-action">
+  <span>{{ 'trip-detail' | translate }}</span>
+  <i class="material-icons" style="color:#5cb85c;">arrow_forward</i>
+</div>
+
         <div class="trip-info">
           <span> {{ 'price' | translate }}: {{ trip.price }} {{ "birr" | translate }}</span>
         </div>

@@ -90,9 +90,7 @@ export class EziBusService {
   getOperatorAccounts(operatorId){
     let url = `/api/public/bankAccounts/${operatorId}`;
     return this.getApiService(url).then((data) => {
-      console.log(data);
       return data;
-
     })
       .catch((item) => {
         return false;
