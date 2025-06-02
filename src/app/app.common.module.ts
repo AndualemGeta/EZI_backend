@@ -14,16 +14,16 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 import { LanguageModule } from "src/app/shared/module/language.module";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
     imports: [
         CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
        HttpClientModule, MatIconModule, MatFormFieldModule,
-       MatInputModule,
+       MatInputModule,QRCodeModule,
       MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,Material2Module, Ng2TelInputModule
     ] ,
     exports: [LanguageModule,CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
-      HttpClientModule, MatIconModule,
+      HttpClientModule, MatIconModule,QRCodeModule,
       MatDialogModule,MatProgressSpinnerModule, MatSnackBarModule, Ng2TelInputModule],
     declarations: []
 })

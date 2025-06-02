@@ -4,16 +4,19 @@
     justify-content: center;
     align-items: center;
   }
-  
+  p {
+  margin: 2px 0;
+  padding: 0;
+}
+
   .card {
     position: relative;
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1px;
+    box-shadow: 2px 2px 10px rgba(35, 22, 22, 0.1);
     background-color: white;
-    overflow: hidden;
-    width: 80%;
+    width: 100%;
   }
   
   /* Watermark styling */
@@ -23,7 +26,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-30deg);
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.05); /* Light transparent color */
     white-space: nowrap;
@@ -32,11 +35,12 @@
   
   /* Header and footer styling */
   .header-card, .footer-card {
-    padding: 15px;
+    padding: 1px;
     border-radius: 10px;
     text-align: center;
     text-transform: capitalize;
-    
+    font-family: yarse;
+    font-size: 16px;
   }
   
   .logo {
@@ -51,18 +55,36 @@
   
   /* Spacing for the reservation details */
   .reservation-card {
-    margin: 20px 0;
-    text-align: left;
+    margin: 1px;
+    justify-content: center;
   }
-  
+  .reservation-card label {
+   font-family: yarse;
+  font-size: 12px;
+  margin-bottom: 2px;
+  display: block;  /* Ensures it stacks above <p> cleanly */
+  }
+  .reservation-card p {
+  font-family: yarse;
+  font-size: 10px;
+  margin: 2px 0;  /* Reduced vertical space */
+  padding: 0;      /* Ensure no extra padding */
+}
+
+
   /* Button styling */
   .button-group {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 15px;
+    margin-bottom:10px;
+     margin-top:10px;
   }
-  
+
+.col-lg-12 {
+  text-align: center;
+}
+
   .button-group button {
     padding: 8px 40px;
     font-size: 16px;
