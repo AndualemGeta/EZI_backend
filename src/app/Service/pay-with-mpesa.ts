@@ -27,21 +27,11 @@ export class MpesaPaymentService {
   }
   constructor(private eziBusService: EziBusService,private routeStateService: RouteStateService,private miniProgramService: MiniProgramService) {}
   payWithMpesa(reservation) {
-    
-
   const blocked = this.miniProgramService.blockIfNotInMiniProgram();
     if (blocked)
       console.log('Blocked: Not running inside Mini Program');
       //  return;
     let data = reservation.data;
-       data.transactionId= Math.floor(Math.random() * 1000000).toString();
- this.routeStateService.add(
-          "user-list",
-          "/book-result",
-          data,
-          false
-        );
-
     // console.log('payWithMpesa called with reservation:', data.transactions);
     if (!data || !data.reservationId || !data.totalPrice) {  
       alert({ content: 'Invalid payment data. Please try again.' });
@@ -59,6 +49,8 @@ export class MpesaPaymentService {
         this.logdata.merchantRequestID = data.reservationId;    
         this.logdata.amount = data.totalPrice;
         this.logdata.transactionFrom = res.transactionId; 
+        data.transactionId = res.transactionId;
+        this.logdata.oPeratorReference=data.reservationId; 
         this.logOnline(this.logdata);
        this.routeStateService.add(
           "user-list",
@@ -68,12 +60,19 @@ export class MpesaPaymentService {
         );
       },
       fail: (res: any) => {
-        alert({ content: JSON.stringify(res) });
+        // alert({ content: JSON.stringify(res) });
         this.logdata.status = 'fail';
         this.logdata.merchantRequestID = data.reservationId;    
         this.logdata.amount = data.totalPrice;
-        this.logdata.transactionFrom =  res.errorMessage;  
+        this.logdata.transactionFrom =  res.errorMessage; 
+        this.logdata.oPeratorReference=data.reservationId; 
         this.logOnline(this.logdata);
+        this.routeStateService.add(
+          "user-list",
+          "/book-failed",
+          {},
+          false
+        );
         console.error('Payment Failed', res);
       },
     });

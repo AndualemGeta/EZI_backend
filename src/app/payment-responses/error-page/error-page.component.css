@@ -1,0 +1,16 @@
+.card-body{
+font-family: yarse;
+font-size: 16px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom:10px;
+    margin-top:10px;
+  }
+  .home-button {
+  background-color: green;
+  color: white; /* Adjust text color for better contrast */
+}

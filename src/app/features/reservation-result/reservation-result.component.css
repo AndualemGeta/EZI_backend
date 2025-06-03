@@ -1,9 +1,4 @@
-/* Center the entire card */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   p {
   margin: 2px 0;
   padding: 0;
@@ -21,17 +16,18 @@
   
   /* Watermark styling */
   .card::before {
-    content: "Ezi Bus Technology";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-30deg);
-    font-size: 20px;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.05); /* Light transparent color */
-    white-space: nowrap;
-    pointer-events: none; /* Ensure it doesn't interfere with interactions */
-  }
+  content: "EziBus Technology";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.09); 
+  white-space: nowrap;
+  pointer-events: none;
+}
+
   
   /* Header and footer styling */
   .header-card, .footer-card {
@@ -55,7 +51,7 @@
   
   /* Spacing for the reservation details */
   .reservation-card {
-    margin: 1px;
+    margin: 0px;
     justify-content: center;
   }
   .reservation-card label {
@@ -120,4 +116,27 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+
+/* Common watermark style */
+.watermark {
+  position: absolute;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.09);
+  white-space: nowrap;
+  transform: rotate(-30deg);
+  pointer-events: none;
+}
+
+/* Specific positions */
+.watermark.top-left {
+  top: 10px;
+  left: 10px;
+}
+
+.watermark.bottom-right {
+  bottom: 10px;
+  right: 10px;
 }

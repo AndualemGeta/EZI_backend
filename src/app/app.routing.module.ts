@@ -47,10 +47,16 @@ const appRoutes: Routes = [
       import("src/app/payment-responses/success-page/success-page.module").then((m) => m.SuccessPageModule),
   },
   {
+    path: "book-failed",
+    loadChildren: () =>
+      import("src/app/payment-responses/error-page/error-page.module").then((m) => m.ErrorPageModule),
+  },
+  {
     path: "book-result",
     loadChildren: () =>
       import("src/app/features/reservation-result/reservation-result.module").then((m) => m.ReservationResultModule),
   },
+  
   {
     path: "ezibus/termsof-service",
     loadChildren: () =>
