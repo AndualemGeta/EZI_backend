@@ -87,5 +87,16 @@
    "choosPaymentOption":" የክፍያ አማራጭ ይምረጡ ",
    "paywithmpesa":" በምፔሳ ይክፈሉ ",
    "pay":"ክፍያ ይፈጽሙ",
-    "trip-detail": "ሙሉ መረጃ"
+  "trip-detail": "ሙሉ መረጃ",
+  "trip": "ጉዞ",
+  "departure_time": "መነሻ ሰዓት",
+  "departure_station": "መነሻ ጣቢያ",
+  "arrival_station": "መድረሻ ጣቢያ",
+  "bus_side_number": "የጎን ቁጥር",
+  "seat_number": "የመቀመጫ ቁጥር",
+  "phone": "ስልክ",
+  "ticket_info": "የትኬት መረጃ",
+  "bill_code": "የቢል ኮድ",
+  "transaction_no": "የግብይት ቁጥር",
+   "electronic_ticket": "እዚባስ ኤሌክትሮኒክ ትኬት ደረሰኝ"
       }

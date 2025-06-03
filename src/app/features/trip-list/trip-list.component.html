@@ -11,9 +11,13 @@
       </app-search-form> 
     </div> 
     
-      <div *ngIf="loading" style="text-align:center; margin: 6%;">
-        <img src="../../../assets/img/searching.gif">
-      </div>
+     <!-- Loading Spinner -->
+
+<div class="loading-container" *ngIf="loading">
+  <div class="loader"></div>
+</div>
+
+
   <div class="trip-list-body" *ngIf="!loading">
   <div fxFlex="100%">
     <div *ngIf="loading==false">

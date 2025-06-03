@@ -2,47 +2,47 @@
 
 <div class="page-content container mt-5 ">
   <div #contentToDownload class="card">
-  <span class="watermark top-left">EziBus Technology</span>
-  <span class="watermark bottom-right">EziBus Technology</span>
+  <span class="watermark top-left">EZIBUS Technology</span>
+  <span class="watermark bottom-right">EZIBUS Technology</span>
       <div class="header-card text-center">
           <img src="assets/img/ezi-circle.png" alt="Ezibus Logo" class="logo">
-          <h6>EziBus Electronic Ticket</h6>
+          <h6>{{ 'electronic_ticket' | translate }}</h6>
           <h6>{{ reservation.transactions[0]?.schedule?.operator }} Bus</h6>
         </div>
-  
     <div class="row reservation-card">
         <div class="col-6 column">
-            <label>Trip/የጉዞ መስመር</label>
+            <label> {{ 'trip' | translate }}</label>
             <p>{{ reservation.transactions[0]?.schedule?.departureLocation }} → {{ reservation.transactions[0]?.schedule?.arrivalLocation }}</p>
-            <label>Departure Time /መነሻ ሰዓት</label>
-            <p>{{ reservation.transactions[0]?.schedule?.departureTime | date:'medium' }}</p>
-            <label>Departure Station/መነሻ ጣቢያ</label>
+             <label>{{ 'departure_time' | translate }}</label>
+             <p>{{ reservation.transactions[0]?.schedule?.departureTime | date:'medium' }}</p>
+            <p>{{convertDat(reservation.transactions[0]?.schedule?.departureTime)}} </p>
+             <label>{{ 'departure_station' | translate }}</label>
             <p>{{ reservation.transactions[0]?.schedule?.departureStation }}</p>
-            <label>Arrival Station/መድረሻ ጣቢያ</label>
+             <label>{{ 'arrival_station' | translate }}</label>
             <p>{{ reservation.transactions[0]?.schedule?.arrivalStation }}</p>
-            <label>Bus/የጎን ቁጥር</label>
-            <p>{{ reservation.transactions[0]?.schedule?.busSideNumber }}</p>
-            <p>Seat No {{ reservation.transactions[0]?.seatNumber }}</p>
+            <p> {{ 'bus_side_number' | translate }} {{ reservation.transactions[0]?.schedule?.busSideNumber }}</p>
+            <p>{{ 'seat_number' | translate }}  {{ reservation.transactions[0]?.seatNumber }}</p>
         </div>
         <div class="col-6 column">
-            <label>Passenger/መንገደኛ</label>
+            <label>{{ 'passenger' | translate }}</label>
             <p>{{ reservation.transactions[0]?.passenger?.fullName }}</p>
-            <p>Phone: {{ reservation.transactions[0]?.passenger?.phoneNumber }}</p>
-            <label>Ticket Info/የትኬት መረጃ</label>
-            <p>Bill Code: {{ reservation.billCode }}</p>
-            <p>Transaction No: {{ reservation.transactionId }}</p>
-            <p>Price: {{ reservation.totalPrice }} ETB</p>
+            <p>{{ 'phone' | translate }}: {{ reservation.transactions[0]?.passenger?.phoneNumber }}</p>
+            <label>{{ 'ticket_info' | translate }}</label>
+             <p>{{ 'bill_code' | translate }}: {{ reservation.billCode }}</p>
+             <p>{{ 'transaction_no' | translate }}: {{ reservation.transactionId }}</p>
+             <p>{{ 'price' | translate }}: {{ reservation.totalPrice }} ETB</p>
             <div class="qr-code">
               <qrcode [qrdata]="qrData" [width]="100" [errorCorrectionLevel]="'M'" style="max-width: 100%;"></qrcode>
             </div>
         </div>
     </div>
 </div>
+
 <div class="col-sm-12 card">
       <!-- Buttons -->
       <div class="button-group text-center mt-3">
         <button mat-raised-button class="green-button" (click)="downloadAsImage()">Download</button>
-        <button mat-raised-button class="home-button" routerLink="/" aria-label="Go to Home">Home</button>
+        <button mat-raised-button class="home-button" (click)="gotoHome()" aria-label="Go to Home">Home</button>
       </div>
     </div>
 </div>

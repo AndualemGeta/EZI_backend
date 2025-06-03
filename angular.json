@@ -31,7 +31,8 @@
             ],
             "allowedCommonJsDependencies": [
   "qs-es5",
-  "react-style-object-to-css"
+  "react-style-object-to-css",
+   "qrcode"
 ]
 ,
             "styles": [

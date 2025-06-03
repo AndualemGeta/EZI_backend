@@ -72,5 +72,16 @@
      "choosPaymentOption":"Choose Payment Option",
     "paywithmpesa":"Pay with M-Pesa",
     "pay":"Pay",
-    "trip-detail": "Detail"
+    "trip-detail": "Detail",
+    "trip": "Trip",
+  "departure_time": "Departure Time",
+  "departure_station": "Departure Station",
+  "arrival_station": "Arrival Station",
+  "bus_side_number": "Bus Side Number",
+  "seat_number": "Seat No",
+  "phone": "Phone",
+  "ticket_info": "Ticket Info",
+  "bill_code": "Bill Code",
+  "transaction_no": "Transaction No",
+   "electronic_ticket": "EZIBUS Electronic Ticket Receipt"
 }

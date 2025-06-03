@@ -5,7 +5,7 @@ import { PassengerTicketPrintService } from 'src/app/Service/passenger-ticket-pr
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import { TicketPrintService } from 'src/app/Service/ticket-print.service';
 import html2canvas from 'html2canvas';
-
+import etDate from "../../../assets/js/getEthiopianDate.js";
 @Component({
   selector: 'app-reservation-result',
   templateUrl: './reservation-result.component.html',
@@ -48,14 +48,31 @@ export class ReservationResultComponent implements OnInit {
   printData() {
     this.printService.generatePassengerTicketPDF(this.reservation);
   }
+ convertDat(date){
+    return etDate(new Date(date));
+ }
+ gotoHome(){
+  this.router.navigate([""]);
+  //this.location.back();
+}
 
- downloadAsImage(): void {
-  html2canvas(this.content.nativeElement).then((canvas) => {
-    const randomNum = Math.floor(1000 + Math.random() * 9000); // Generates a random 4-digit number
+downloadAsImage(): void {
+  html2canvas(this.content.nativeElement, {
+    scale: window.devicePixelRatio, // improve resolution for high-DPI screens
+  }).then((canvas) => {
+    const image = canvas.toDataURL('image/png');
+
+    // Generate random 5-digit number
+    const randomNumber = Math.floor(10000 + Math.random() * 90000);
+    const fileName = `ezibus-${randomNumber}.png`;
+
+    // Force download
     const link = document.createElement('a');
-    link.download = `ezibus-${randomNum}.png`; // Set the image name
-    link.href = canvas.toDataURL('image/png');
+    link.href = image;
+    link.download = fileName;
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   });
 }
 

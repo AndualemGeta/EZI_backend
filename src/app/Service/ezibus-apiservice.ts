@@ -64,15 +64,42 @@ export class EziBusService {
     });
   }
 
-  getAllLocations(){
-    let url = `/api/public/locations`;
-    return this.getApiService(url).then((data) => {
+  getAllLocations(): Promise<any> {
+  const cacheKey = 'cached_locations';
+  const cached = localStorage.getItem(cacheKey);
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      const now = Date.now();
+      if (parsed.expiresAt && parsed.expiresAt > now) {
+        return Promise.resolve(parsed.data);
+      } else {
+        localStorage.removeItem(cacheKey);
+      }
+    } catch (e) {
+      console.error('Failed to parse cached data:', e);
+      localStorage.removeItem(cacheKey); // Clean up invalid cache
+    }
+  }
+  const url = `/api/public/locations`;
+  return this.getApiService(url)
+    .then((data) => {
+      if (data) {
+        const expiresInMs = 24 * 60 * 60 * 1000; 
+        const cacheObject = {
+          data,
+          expiresAt: Date.now() + expiresInMs,
+        };
+        localStorage.setItem(cacheKey, JSON.stringify(cacheObject));
+      }
       return data;
     })
-      .catch((item) => {
-        return false;
-      });;
-  }
+    .catch((err) => {
+      console.error('Failed to fetch locations:', err);
+      return false;
+    });
+}
+
 
   searchAllTrip(departureLocationId,arrivalLocationId,tripDate){
     let url = `/api/public/saerchAllTrip/${departureLocationId}/${arrivalLocationId}/${tripDate}`;

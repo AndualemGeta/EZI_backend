@@ -243,6 +243,7 @@ updateTripDate(date: Date): void {
       destination:this.selectedDestination,
       tripDate: customDateFormat(this.selectedDate) 
     };
+
      this.routeStateService.add(
       "user-list",
       "/trip-list",
