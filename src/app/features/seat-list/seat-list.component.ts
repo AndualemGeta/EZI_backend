@@ -76,7 +76,6 @@ export class SeatListComponent  {
     private eziService: EziBusService,
     private _snackBar : MatSnackBar,
     private printService: TicketPrintService,
-    private  ticketPrintService : PassengerTicketPrintService,
     private payWithMpesa: MpesaPaymentService,
     private miniProgramService: MiniProgramService
     ) { }
@@ -309,17 +308,14 @@ printData(selectedData) {
 }
  
 async selectPayment(paymentName: string){
-  // const blocked = this.miniProgramService.blockIfNotInMiniProgram();
-  //   if (blocked) return;
   this.selectedPayment=paymentName;
   this.paymentProviderDetail=setPaymentDetails(paymentName);
   this.submitted = true;
-
   if (this.dynamicForm.invalid) {
     this.showMessage("Please fill all passenger information first");
     return;
   }
-  // Inside an async method
+  
   this.newPassanger.accountId = await this.getAllBankAccounts(this.selectedTrip.operatorId);
   this.newPassanger.passengers=[];
   let number_of_passengers=this.dynamicForm.value;
@@ -353,20 +349,25 @@ async selectPayment(paymentName: string){
   this.newPassanger.paymentProviderCode = this.paymentProviderDetail.paymentProviderCode || null ;
   this.newPassanger.PaymentOption=paymentName; 
   this.newPassanger.paymentMethodCode =  this.paymentProviderDetail.paymentMethodCode;
+   try {
   const result = await this.reserveMultipleSeat(this.newPassanger);
       if (result.success) {
-        this.payWithMpesa.payWithMpesa(result);
+        //this.routeStateService.add("user-list", "/book-result", result.data, false);
+         await this.payWithMpesa.payWithMpesa(result);
           } else {
-         this.loading = false;
          if (result.success === false && result.error) {
             this.showMessage(`Seat Reservation Failed ${result.error}`);
          }  
       else {    
-    
-        this.showMessage("Seat Reservation Failed. Please try again.");
+         this.showMessage("Seat Reservation Failed. Please try again.");
        }
-      //  console.error("Reservation Failed:", result.error);
       }
+       } 
+      catch (error) {
+       this.showMessage(`Payment Failed: ${error}`);
+       } finally {
+    this.loading = false;
+  }
       
   }
   

@@ -26,57 +26,49 @@ export class MpesaPaymentService {
   callbackMetadata:{}
   }
   constructor(private eziBusService: EziBusService,private routeStateService: RouteStateService,private miniProgramService: MiniProgramService) {}
-  payWithMpesa(reservation) {
-  // const blocked = this.miniProgramService.blockIfNotInMiniProgram();
-  //   if (blocked)
-  //      return;
+  payWithMpesa(reservation): Promise<void> {
+  return new Promise((resolve, reject) => {
     let data = reservation.data;
-    console.log(data);
-    // console.log('payWithMpesa called with reservation:', data.transactions);
     if (!data || !data.reservationId || !data.totalPrice) {  
       alert({ content: 'Invalid payment data. Please try again.' });
+      reject('Invalid payment data');
       return;
     }
-    call('payWithMpesa', {
+ call('payWithMpesa', {
       businessID: this.mpesaMiniconstants.businessID,
       billReference: data.billCode,
       amount: data.totalPrice,
       currency: 'ETB',
       reason: this.mpesaMiniconstants.reason,
       success: (res: any) => {
-        // alert({ content: JSON.stringify(res) });
         this.logdata.status = 'success';
         this.logdata.merchantRequestID = data.reservationId;    
         this.logdata.amount = data.totalPrice;
         this.logdata.transactionFrom = res.transactionId; 
         data.transactionId = res.transactionId;
-        this.logdata.oPeratorReference=data.billCode; 
+        this.logdata.oPeratorReference = data.billCode; 
         this.logOnline(this.logdata);
-       this.routeStateService.add(
-          "user-list",
-          "/book-result",
-          data,
-          false
-        );
+        this.routeStateService.add("user-list", "/book-result", data, false);
+        alert({content: 'Payment successful! Your bus ticket has been confirmed.' });
+        resolve();
       },
       fail: (res: any) => {
-        // alert({ content: JSON.stringify(res) });
         this.logdata.status = 'fail';
         this.logdata.merchantRequestID = data.reservationId;    
         this.logdata.amount = data.totalPrice;
-        this.logdata.transactionFrom =  res.errorMessage; 
-        this.logdata.oPeratorReference=data.reservationId; 
+        this.logdata.transactionFrom = res.errorMessage; 
+        this.logdata.oPeratorReference = data.reservationId; 
         this.logOnline(this.logdata);
-        this.routeStateService.add(
-          "user-list",
-          "/book-failed",
-          {},
-          false
-        );
-        // console.error('Payment Failed', res);
+        this.routeStateService.add("user-list", "/book-failed", {}, false);
+        alert({
+        content: 'Payment failed: Please try again or contact support.',
+      });
+        
+        reject(res.errorMessage); 
       },
     });
-  }
+  });
+}
 
   private logOnline(data) {
     this.eziBusService.add_transaction_log(data).subscribe(

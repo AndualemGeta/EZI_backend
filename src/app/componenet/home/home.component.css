@@ -1,0 +1,250 @@
+.initial-loader {
+  background-color: #f4f4f4; /* or your preferred background */
+  width: 100vw;
+  height: 100vh;
+}
+
+
+#heading {
+  height: auto; /* Allow content height */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f0f0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-image 0.5s ease-in-out;
+  padding-top: 2rem;
+}
+
+#heading.lazy-loaded {
+  background-image: url('../../../assets/img/bg/ezi-bg.jpg');
+}
+.form-section {
+  width: 100%;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* align at top instead of center */
+  flex-wrap: wrap;
+  margin-top: 5vh; /* creates space from top */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+
+.search-widget {
+  display: flex;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.form-input {
+  margin: 2vh;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+input.decorated-input {
+  cursor: pointer !important;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.dropdown-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.list-group-item {
+  cursor: pointer;
+  border-bottom: 0.5px solid #b8f3c6;
+  border-radius: 0;
+  margin: 0 5px;
+}
+.list-group-item:hover {
+  background-color: #f0f0f0;
+}
+.list-group-item input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #b8f3c6;
+  outline: none;
+  background: transparent;
+  padding-left: 30px;
+  color: #2d2e2e;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.decorated-input,
+.form-control {
+  padding-left: 30px;
+  border: none;
+  outline: none;
+  color: #2d2e2e;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+.decorated-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.input-icon-container {
+  position: relative;
+  border: 1px solid rgba(58, 150, 12, 0.74);
+  border-radius: 4px;
+  padding: 5px;
+  margin-top: -5px;
+   
+}
+
+.geo-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #007bff;
+}
+
+.exchange-icon {
+  color: green;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+.exchange-icon.active {
+  transform: rotate(180deg);
+}
+
+.search-button-container {
+  background-color: #28a745;
+  border-radius: 4px;
+  padding: 5px;
+  margin-top: -5px;
+}
+
+.search-input-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.search-input-button:hover {
+  background-color: #218838;
+}
+
+.location-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+.geo-icon {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+.location-details {
+  display: flex;
+  flex-direction: column;
+}
+.city-name {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.location-station {
+  font-size: 0.6rem;
+  color: #666;
+}
+
+.text-muted {
+  color: #ccc;
+}
+.text-center {
+  text-align: center;
+}
+.d-flex {
+  display: flex;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.weekday-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.weekday {
+  text-align: center;
+  padding: 2px;
+}
+.date-item {
+  width: 5px;
+  line-height: 20px;
+  padding: 5px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.3s ease-in-out;
+}
+.date-item:hover {
+  border: #28a745 solid 1px;
+}
+.date-item.selected {
+  background-color: #2b6098;
+  color: #fff;
+}
+.date-item.active {
+  transform: rotateY(180deg);
+}
+
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.month-navigation .text-center {
+  flex-grow: 1;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .exchange-icon {
+    transform: rotate(90deg);
+  }
+  .search-button {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+.initial-loader {
+  background-color: #f4f4f4;
+  width: 100vw;
+  height: 100vh;
+  display: flex;                  /* Enables flexbox */
+  align-items: center;            /* Vertical centering */
+  justify-content: center;        /* Horizontal centering */
+}
+

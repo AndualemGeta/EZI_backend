@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { RouteStateService } from 'src/app/Service/route-state.service';
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private routeStateService: RouteStateService) { }
 
   ngOnInit(): void {
   }
+
+   gotoHome(){
+    this.routeStateService.add(
+    "user-list",
+    "/",
+     {},
+    false
+  );
+}
+
 
 }

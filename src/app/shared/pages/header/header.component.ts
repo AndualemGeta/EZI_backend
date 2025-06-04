@@ -69,8 +69,12 @@ scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
 }
 gotoHome(){
-  this.router.navigate([""]);
-  //this.location.back();
+    this.routeStateService.add(
+    "user-list",
+    "/",
+     {},
+    false
+  );
 }
 
 ChangeLanguage(lang) {
