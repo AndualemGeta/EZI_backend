@@ -141,48 +141,84 @@
             </mat-card>
           </div>
            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="card" style="width:100%;">
-              <div *ngFor="let ticket of t.controls;let i = index" class="list-group list-group-flush">
-                <div class="list-group-item">
-                  <div class="trip-detail-item">
-                    <i class="material-icons trip-result-icon">person</i>
-                    <span class="trip-detail-property">{{"passenger"|translate}} {{i + 1}} </span>
-                    <span style="float: right;">
-                        <span class="material-icons trip-result-icon">event_seat</span>
-                          <span class="trip-detail-property">{{"seat"|translate}} {{this.cart.selectedSeats[i]}}</span>
-                        </span>
-                  </div>
-                  <div [formGroup]="ticket" class="form-row">
-                    <div class="form-group col-10">
-                      <mat-form-field class="full-width">
-                        <mat-label>{{"fullName"|translate}}</mat-label>
-                        <input matInput placeholder="Full Name" name="fname" formControlName="name" required  maxlength="50">
-                      </mat-form-field>
-                    </div>
-                    <div class="form-group col-10">
-                      <mat-form-field class="full-width">
-                        <mat-label>{{"phoneNumber"|translate}}</mat-label>
-                        <input matInput formControlName="phone" placeholder="Phone Number" name="address" maxlength="10"
-                               required>
-                      </mat-form-field>
-                    </div>
-                    <div class="form-group col-10">
-                      <mat-form-field class="full-width">
-                        <mat-label>{{"luggageWeight"|translate}}</mat-label>
-                        <input type="number" matInput placeholder="Luggage Weight" formControlName="laggage" min="0"  max="20">
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer text-center">
+<div class="card" style="width:100%;">
+  <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
+    <div class="list-group-item">
+      <div class="trip-detail-item">
+        <i class="material-icons trip-result-icon">person</i>
+        <span class="trip-detail-property">{{ 'passenger' | translate }} {{ i + 1 }}</span>
+        <span style="float: right;">
+          <span class="material-icons trip-result-icon">event_seat</span>
+          <span class="trip-detail-property">{{ 'seat' | translate }} {{ this.cart.selectedSeats[i] }}</span>
+        </span>
+      </div>
+      <div [formGroup]="ticket" class="form-row">
+  <div class="form-group col-12">
+    <div class="input-container">
+      <label for="name-{{i}}">{{ 'fullName' | translate }}</label>
+      <input
+        id="name-{{i}}"
+        class="form-input"
+        placeholder="{{ 'fullName' | translate }}"
+        name="fname"
+        formControlName="name"
+        required
+        maxlength="50"
+      />
+      <div *ngIf="ticket.get('name')?.invalid && (ticket.get('name')?.dirty || ticket.get('name')?.touched)"
+           class="error-message">
+        {{ 'fullNameRequired' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-12">
+    <div class="input-container">
+      <label for="phone-{{i}}">{{ 'phoneNumber' | translate }}</label>
+      <input
+        id="phone-{{i}}"
+        class="form-input"
+        placeholder="{{ 'phoneNumber' | translate }}"
+        name="phone"
+        formControlName="phone"
+        maxlength="10"
+        required
+        type="tel"
+      />
+      <div *ngIf="ticket.get('phone')?.invalid && (ticket.get('phone')?.dirty || ticket.get('phone')?.touched)"
+           class="error-message">
+        {{ 'phoneNumberRequired' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-12">
+    <div class="input-container">
+      <label for="luggage-{{i}}">{{ 'luggageWeight' | translate }}</label>
+      <input
+        id="luggage-{{i}}"
+        type="number"
+        class="form-input"
+        placeholder="{{ 'luggageWeight' | translate }}"
+        formControlName="laggage"
+        min="0"
+        max="20"
+      />
+      <div *ngIf="ticket.get('laggage')?.invalid && (ticket.get('laggage')?.dirty || ticket.get('laggage')?.touched)"
+           class="error-message">
+        {{ 'luggageWeightInvalid' | translate }}
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+    <div class="card-footer text-center">
                 <div>
                   <button mat-button matStepperPrevious color="back-button-color" class="bootom-action-btn">{{"back"|translate}}</button>
                   <button mat-flat-button [disabled]="this.dynamicForm.invalid" color="success" matStepperNext class="bootom-action-btn" style="width:120px">{{"proceedToPay"|translate}}
                   </button>
                 </div>
               </div>
-            </div>
+</div>
           </div>
         </div>
       </mat-step>
@@ -348,6 +384,7 @@
               </mat-card>
             </div>
           </div>
+
            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
             <mat-card class="center-content" >
               <p class="trip-detail-title">Payment Instruction</p>
@@ -367,7 +404,6 @@
                    <small *ngIf="phoneInput.errors?.pattern">Enter a valid phone number (10 digits only).</small>
                 </div>
                 <div class="action-buttons card-footer text-center">
-                  <br>
                   <div *ngIf="loading" class="spinner-container">
                   <mat-spinner *ngIf="loading" diameter="30" color="accent" ></mat-spinner>
                  </div>

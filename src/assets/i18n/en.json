@@ -83,5 +83,7 @@
   "ticket_info": "Ticket Info",
   "bill_code": "Bill Code",
   "transaction_no": "Transaction No",
-   "electronic_ticket": "EZIBUS Electronic Ticket Receipt"
+   "electronic_ticket": "EZIBUS Electronic Ticket Receipt",
+    "fullNameRequired": "Full name is required",
+  "phoneNumberRequired": "Phone number is required"
 }

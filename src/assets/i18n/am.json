@@ -98,5 +98,7 @@
   "ticket_info": "የትኬት መረጃ",
   "bill_code": "ቢል ኮድ",
   "transaction_no": "የግብይት ቁጥር",
-   "electronic_ticket": "እዚባስ ኤሌክትሮኒክ ትኬት ደረሰኝ"
+   "electronic_ticket": "እዚባስ ኤሌክትሮኒክ ትኬት ደረሰኝ",
+   "fullNameRequired": "ሙሉ ስም ይሙሉ",
+  "phoneNumberRequired": "ስልክ ቁጥር ይሙሉ"
       }
