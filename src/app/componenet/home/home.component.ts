@@ -6,6 +6,7 @@ import { RouteStateService } from 'src/app/Service/route-state.service';
 import { customDateFormat } from 'src/app/utils/date-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit  {
   months: { startDate: Date; weeks: Date[][] }[] = [];
   weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   availableDates: Date[] = [];
-
+private routeSub: Subscription;
   constructor(
     private routeStateService: RouteStateService,
     private fb: FormBuilder,
@@ -45,11 +46,19 @@ export class HomeComponent implements OnInit  {
     private el: ElementRef,
     private renderer: Renderer2,private route: ActivatedRoute
    
-  ) {}
+  ) {
+     this.form = this.fb.group({
+      departure: [this.selectedDeparture],
+      destination: [this.selectedDestination],
+      tripDate: [this.selectedDate],
+    }); 
+  }
 
 ngOnInit() {
-  this.initializeHomePage();  // Call a function to re-fetch data
-  
+  this.routeSub = this.route.queryParams.subscribe(params => {
+      this.initializeHomePage(); 
+    });
+  document.addEventListener('click', this.documentClickHandler.bind(this));
 }
 
   initializeHomePage() {
@@ -66,18 +75,11 @@ ngOnInit() {
       this.selectedDestination = this.cities[1].locationId;
     }
    this.page_loading = false;
-  }).catch(() => {
-    this._snackBar.open('Failed to load data', '', { duration: 2000 });
-    this.page_loading = false;
-  });
-
-    this.form = this.fb.group({
-      departure: [this.selectedDeparture],
-      destination: [this.selectedDestination],
-      tripDate: [this.selectedDate],
-    }); 
-  
-    document.addEventListener('click', this.documentClickHandler.bind(this));
+     this.form.patchValue({
+        departure: this.selectedDeparture,
+        destination: this.selectedDestination,
+        tripDate: this.selectedDate,
+      });
     this.filteredDepartureCities = [...this.cities];
     this.filteredDestinationCities = [...this.cities];
      if (this.selectedDate) {
@@ -86,6 +88,10 @@ ngOnInit() {
   this.departureName = this.getCityNameById(this.selectedDeparture);
   this.destinationName = this.getCityNameById(this.selectedDestination);
   this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
+  }).catch(() => {
+    this._snackBar.open('Failed to load data', '', { duration: 2000 });
+    this.page_loading = false;
+  });
   }
 
 ngAfterViewInit(): void {
@@ -99,6 +105,9 @@ ngAfterViewInit(): void {
 
   ngOnDestroy() {
     document.removeEventListener('click', this.documentClickHandler);
+ if (this.routeSub) {
+      this.routeSub.unsubscribe(); // Clean up subscription
+    }
   }
   get formattedDate(): Date {
     return new Date(this.selectedDate);

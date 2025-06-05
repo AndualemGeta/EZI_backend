@@ -12,14 +12,9 @@ export class ErrorPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-   gotoHome(){
-    this.routeStateService.add(
-    "user-list",
-    "/",
-     {},
-    false
-  );
-}
+   gotoHome() {
+   this.routeStateService.add("user-list", "/", { refresh: Date.now() }, false);
+  }
 
 
 }

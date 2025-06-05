@@ -61,7 +61,7 @@ export class ReservationResultComponent implements OnInit {
   }
 
   gotoHome() {
-    this.routeStateService.add("user-list", "/", {}, false);
+   this.routeStateService.add("user-list", "/", { refresh: Date.now() }, false);
   }
 
 async saveToGallery(): Promise<void> {

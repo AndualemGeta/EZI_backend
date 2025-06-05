@@ -6,6 +6,7 @@ import { DOCUMENT } from '@angular/common';
 import * as AOS from 'aos';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from 'src/app/Service/SessionService';
+import { RouteStateService } from 'src/app/Service/route-state.service';
 @Component({
   selector: 'app-heading',
   templateUrl: './heading.component.html',
@@ -27,11 +28,12 @@ export class HeadingComponent implements OnInit, OnDestroy {
     mobileQuery: MediaQueryList;
   
     private _mobileQueryListener: () => void;
-    constructor(@Inject(DOCUMENT)  document: Document,private sessionService: SessionService,
+    constructor(@Inject(DOCUMENT)  document: Document, private routeStateService: RouteStateService, private sessionService: SessionService,
     public translate: TranslateService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
       this.mobileQuery = media.matchMedia('(max-width: 600px)');
       this._mobileQueryListener = () => changeDetectorRef.detectChanges();
       this.mobileQuery.addListener(this._mobileQueryListener);
+      
       
     }
     async ngOnInit(): Promise<void>{
@@ -89,6 +91,7 @@ export class HeadingComponent implements OnInit, OnDestroy {
   
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
+    // this.routeStateService.add("user-list", "/", { refresh: Date.now() }, false);
   }
   
   ChangeLanguage(lang) {

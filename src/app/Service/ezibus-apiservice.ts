@@ -85,7 +85,7 @@ export class EziBusService {
   return this.getApiService(url)
     .then((data) => {
       if (data) {
-        const expiresInMs = 24 * 60 * 60 * 1000; 
+        const expiresInMs = 1 * 60 * 60 * 1000; 
         const cacheObject = {
           data,
           expiresAt: Date.now() + expiresInMs,

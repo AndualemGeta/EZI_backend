@@ -69,12 +69,7 @@ scroll(id:any) {
     document.getElementById(id)?.scrollIntoView();
 }
 gotoHome(){
-    this.routeStateService.add(
-    "user-list",
-    "/",
-     {},
-    false
-  );
+    this.routeStateService.add("user-list", "/", { refresh: Date.now() }, false);
 }
 
 ChangeLanguage(lang) {
