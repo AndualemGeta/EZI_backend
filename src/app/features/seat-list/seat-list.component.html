@@ -6,11 +6,8 @@
         <span fxShow="false" fxShow.gt-xs="true">{{"selectSeatInstruction"|translate}}</span>
        </ng-template>
       <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-          <div class="reserved-trip-detail">
-            
-            <mat-card style="margin-bottom: 5px;" >
-        <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" style="margin-bottom: 5px;">
+            <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
                 <span class="trip-detail-property">{{"tripDate"|translate}} :</span>
@@ -48,12 +45,11 @@
                 <span class="trip-detail-property">{{"price"|translate}}:</span>:
                 <span class="trip-detail-value">{{ routeState.price}} ETB</span>
               </div>
-            </mat-card>
           </div>
-        </div>
+    
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-          <mat-card style="margin-bottom: 5px;">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5px;">
+         
             <div class="trip-detail-title">{{"selectASeat"|translate}}</div>
             <div *ngFor="let seatrow of seatmap">
               <div class="col-12 pricing-label"
@@ -76,11 +72,11 @@
                 </div>
               </div>
             </div>
-          </mat-card>
         </div>
+
         <!-- *ngIf="cart?.selectedSeats?.length > 0" -->
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-card style="margin-top: 5px;" >
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="margin-top: 5px;">
+         
             <div class="trip-detail-item">
               <i class="material-icons trip-result-icon">summarize</i>
               <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
@@ -107,7 +103,6 @@
                       color="success" class="bootom-action-btn" >{{"bookNow"|translate}}
               </button>
             </div>
-          </mat-card>
         </div>
       </div><!--end of page-->
     </mat-step>
@@ -116,9 +111,9 @@
         <ng-template  matStepLabel >
           <span fxShow="false" fxShow.gt-xs="true"> {{"fillPassengerInfoInstruction"|translate}} </span>  
         </ng-template>
-        <div class="row ">
+        <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
-            <mat-card style="width:100%">
+          
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">summarize</i>
                 <span class="trip-detail-property">{{"totalSelectedSeat"|translate}} : </span>
@@ -138,10 +133,10 @@
                       class="badge badge-primary">
                   {{seatLabel}}</span>
               </div>
-            </mat-card>
+         
           </div>
-           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-<div class="card" style="width:100%;">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 shadow-sm" style="border-radius: 2%; padding: 2%; background-color: hsl(0, 9%, 96%);">
+
   <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
     <div class="list-group-item">
       <div class="trip-detail-item">
@@ -218,7 +213,8 @@
                   </button>
                 </div>
               </div>
-</div>
+
+          
           </div>
         </div>
       </mat-step>
@@ -229,8 +225,6 @@
         </ng-template>
         <div class="row">
           <div class="d-none d-lg-block col-md-2 col-lg-4">
-            <div class="reserved-trip-detail">
-              <mat-card style="width:100%;">
                 <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
@@ -276,12 +270,11 @@
                   <span class="trip-detail-property"> {{"totalAmount"|translate}} : </span>
                   <span class="trip-detail-value">{{cart.totalamount}} ETB</span>
                 </div>
-              </mat-card>
-            </div>
+         
           </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4" >
-            <mat-card style="width:100%;">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+
               <div class="trip-detail-title"> 
                 {{routeState.operator | uppercase }} BUS 
                  <p class="trip-detail-property"> 
@@ -315,15 +308,10 @@
                  <br>
                  <br>
               </div>
-            </mat-card>
           </div>
         </div>
       </mat-step>
     </form>
-
-
-
-
 
 <!--step 3-->
       <mat-step  state="paymentInstruction">

@@ -2,8 +2,6 @@ import { Component,Input, OnInit, OnDestroy, EventEmitter, Output } from '@angul
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { EziBusService } from 'src/app/Service/ezibus-apiservice';
-import { RouteStateService } from 'src/app/Service/route-state.service';
-import { customDateFormat } from 'src/app/utils/date-utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -47,6 +45,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.loadingChange.emit(this.loading);
     this.searchFunction.emit();
   }
+departureFilteredCities: any[] = [];
+destinationFilteredCities: any[] = [];
 
   filteredCities: any[] = [];
   departureSearch: string = '';
@@ -73,9 +73,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
  destinationName = '';
   rotationAngle = 0;
   dropdownVisible = { departure: false, destination: false, date: false };
-  months: { startDate: Date; weeks: Date[][] }[] = [];
-  weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  availableDates: Date[] = [];
   constructor(
     private fb: FormBuilder,
     private eziService: EziBusService,
@@ -94,8 +91,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       tripDate: [this.selectedDate, Validators.required],
     });
     await this.getAllLocations();
-    // await this.getAllBankAccounts();
-    this.generateMonths();
+   
      document.addEventListener('click', this.documentClickHandler.bind(this));
     this.filteredCities = [...this.cities];
     if (this.selectedDate) {
@@ -111,7 +107,6 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   documentClickHandler(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    // Check if the click is outside of the dropdowns
     const isClickOutsideDropdown =
       !target.closest('.dropdown-menu') && 
       !target.closest('#departureInput') && 
@@ -125,66 +120,22 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  generateMonths() {
-    const today = new Date();
-    for (let i = 0; i < 13; i++) {
-      const monthStartDate = new Date(today.getFullYear(), today.getMonth() + i, 1);
-      const monthEndDate = new Date(today.getFullYear(), today.getMonth() + i + 1, 0);
-      const calendarStartDate = new Date(monthStartDate);
-      calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
-      const calendarEndDate = new Date(monthEndDate);
-      calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
-
-      const weeks: Date[][] = [];
-      let currentWeek: Date[] = [];
-
-      for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
-        currentWeek.push(new Date(d));
-        if (currentWeek.length === 7) {
-          weeks.push(currentWeek);
-          currentWeek = [];
-        }
-      }
-      this.months.push({ startDate: monthStartDate, weeks });
-    }
-  }
-
-  navigateMonth(direction: number): void {
-    if(this.currentMonthIndex==0 && direction<=0){
-      this.currentMonthIndex = 0;    
-     }
-     else{
-    this.currentMonthIndex += direction;
-    if (this.currentMonthIndex < 0) {
-      this.currentMonthIndex = this.months.length - 1;
-    } else if (this.currentMonthIndex >= this.months.length) {
-      this.currentMonthIndex = 0;
-    }
-  }
-  }
-
   async getAllLocations() {
    await this.eziService.getAllLocations().then(value => {
       this.cities = value;
-      this.filteredCities = [...this.cities]; // Initialize filtered list
+      this.departureFilteredCities = [...this.cities];
+      this.destinationFilteredCities = [...this.cities];
     }).catch(error => {
       console.error('Error fetching locations:', error);
     });
   }
   
-
   getCityNameById(cityId: string): string {
     if (!cityId || !this.cities || this.cities.length === 0) return '';
     const city = this.cities.find(c => c.locationId === cityId);
     return this.translate.instant(city.name) || '';
     }
  
-  // async getAllBankAccounts() {
-  //   return await this.eziService.getOperatorAccounts().then(response => {
-  //     this.accounts = response;
-  //   });
-  // }
-
   ExchangeTrip() {
     const icon = document.querySelector('.exchange-icon') as HTMLElement;
     if (icon) {
@@ -218,18 +169,34 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
   
   
-  filterCities(searchText: string, type: 'departure' | 'destination') {
-    if (!searchText) {
-      this.filteredCities = [...this.cities]; // Show all cities if no input
-    } else {
-      this.filteredCities = this.cities.filter(city =>
-        city.name.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
+  // filterCities(searchText: string, type: 'departure' | 'destination') {
+  //   if (!searchText) {
+  //     this.filteredCities = [...this.cities]; // Show all cities if no input
+  //   } else {
+  //     this.filteredCities = this.cities.filter(city =>
+  //       city.name.toLowerCase().includes(searchText.toLowerCase())
+  //     );
+  //   }
   
-    this.dropdownVisible[type] = true; // Ensure dropdown stays open
+  //   this.dropdownVisible[type] = true; // Ensure dropdown stays open
+  // }
+  
+filterCities(searchText: string, type: 'departure' | 'destination') {
+  const filtered = this.cities.filter(city =>
+    city.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  if (type === 'departure') {
+    this.departureFilteredCities = searchText ? filtered : [...this.cities];
+  } else {
+    this.destinationFilteredCities = searchText ? filtered : [...this.cities];
   }
-  
+
+  this.dropdownVisible[type] = true;
+}
+
+
+
   getMidnightDate(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
@@ -243,8 +210,8 @@ selectDate(date: Date) {
 });
  return;
   }
- this.updateTripDate(date);
-    this.dropdownVisible['date'] = false;
+  this.updateTripDate(date);
+  this.dropdownVisible['date'] = false;
 }
 
 

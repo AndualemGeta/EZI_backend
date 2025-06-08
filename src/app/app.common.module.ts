@@ -15,15 +15,16 @@ import { LanguageModule } from "src/app/shared/module/language.module";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { QRCodeModule } from 'angularx-qrcode';
+import { MatNativeDateModule } from '@angular/material/core'; 
 @NgModule({
     imports: [
         CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
        HttpClientModule, MatIconModule, MatFormFieldModule,
-       MatInputModule,QRCodeModule,
+       MatInputModule,QRCodeModule,MatNativeDateModule,
       MatDialogModule, MatProgressSpinnerModule, MatSnackBarModule,Material2Module, Ng2TelInputModule
     ] ,
     exports: [LanguageModule,CommonModule,FlexLayoutModule,FormsModule,ReactiveFormsModule,DirectivesModule,MatSliderModule,
-      HttpClientModule, MatIconModule,QRCodeModule,
+      HttpClientModule, MatIconModule,QRCodeModule,MatNativeDateModule,
       MatDialogModule,MatProgressSpinnerModule, MatSnackBarModule, Ng2TelInputModule],
     declarations: []
 })

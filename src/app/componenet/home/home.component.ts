@@ -16,26 +16,21 @@ export class HomeComponent implements OnInit  {
   filteredDepartureCities: any[] = [];
   filteredDestinationCities: any[] = [];
   form: FormGroup;
-  currentMonthIndex: number = 0;
   routeState:any;
   loading:boolean=false;
   page_loading:boolean=true;
   selectedDeparture: any="select departure";
   selectedDestination: any="select destination";
-  selectedDate: Date= this.getMidnightDate(new Date());
-
+  selectedDate: Date = new Date();
+  minDate: Date = this.getMidnightDate(new Date());
   cities: any[] = [];
   now:Date=new Date();
   myControl = new FormControl();
   rotationAngle = 0;
-  tripdateName:any;
   departureName: string = '';
   destinationName: string = '';
   dropdownVisible = { departure: false, destination: false, date: false };
-  
-  months: { startDate: Date; weeks: Date[][] }[] = [];
-  weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  availableDates: Date[] = [];
+
 private routeSub: Subscription;
   constructor(
     private routeStateService: RouteStateService,
@@ -58,12 +53,12 @@ ngOnInit() {
   this.routeSub = this.route.queryParams.subscribe(params => {
       this.initializeHomePage(); 
     });
+    
   document.addEventListener('click', this.documentClickHandler.bind(this));
 }
 
   initializeHomePage() {
     this.page_loading = true;
-    this.generateMonths();
     Promise.all([
     this.eziService.getAllLocations(),
   ]).then(([locations]) => {
@@ -82,12 +77,8 @@ ngOnInit() {
       });
     this.filteredDepartureCities = [...this.cities];
     this.filteredDestinationCities = [...this.cities];
-     if (this.selectedDate) {
-      this.updateTripDate(this.selectedDate);
-       }
-  this.departureName = this.getCityNameById(this.selectedDeparture);
+    this.departureName = this.getCityNameById(this.selectedDeparture);
   this.destinationName = this.getCityNameById(this.selectedDestination);
-  this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
   }).catch(() => {
     this._snackBar.open('Failed to load data', '', { duration: 2000 });
     this.page_loading = false;
@@ -130,58 +121,7 @@ ngAfterViewInit(): void {
       this.dropdownVisible.date = false;
     }
   }
-  getMidnightDate(date: Date): Date {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  }
-
-  generateMonths() {
-    this.months = [];
-    const today = new Date();
-    for (let i = 0; i < 2; i++) {
-      const monthStartDate = new Date(today.getFullYear(), today.getMonth() + i, 1);
-      this.months.push({
-        startDate: monthStartDate,
-        weeks: this.generateWeeksForMonth(monthStartDate)
-      });
-    }
-  }
-  generateWeeksForMonth(monthStartDate: Date): Date[][] {
-    const monthEndDate = new Date(monthStartDate.getFullYear(), monthStartDate.getMonth() + 1, 0);
-    const calendarStartDate = new Date(monthStartDate);
-    calendarStartDate.setDate(calendarStartDate.getDate() - calendarStartDate.getDay() + 1);
-    const calendarEndDate = new Date(monthEndDate);
-    calendarEndDate.setDate(calendarEndDate.getDate() + (7 - calendarEndDate.getDay()));
-    const weeks: Date[][] = [];
-    let currentWeek: Date[] = [];
-    for (let d = new Date(calendarStartDate); d <= calendarEndDate; d.setDate(d.getDate() + 1)) {
-      currentWeek.push(new Date(d));
-      if (currentWeek.length === 7) {
-        weeks.push(currentWeek);
-        currentWeek = [];
-      }
-    }
-    if (currentWeek.length > 0) {
-      weeks.push(currentWeek);
-    }
-    return weeks;
-  }
-
-  navigateMonth(direction: number): void {
-    this.currentMonthIndex += direction;
-    if (this.currentMonthIndex >= this.months.length) {
-      const nextMonth = new Date(this.months[this.months.length - 1].startDate);
-      nextMonth.setMonth(nextMonth.getMonth() + 1);
-      this.months.push({
-        startDate: nextMonth,
-        weeks: this.generateWeeksForMonth(nextMonth)
-      });
-    }
-    if (this.currentMonthIndex < 0) {
-      this.currentMonthIndex = 0;
-    }
-  }
-
-
+ 
    filterCities(searchText: string, type: 'departure' | 'destination') {
     if (type === 'departure') {
     this.filteredDepartureCities = !searchText
@@ -199,9 +139,6 @@ ngAfterViewInit(): void {
     this.dropdownVisible[type] = true; // Ensure dropdown stays open
   }
 
-updateTripDate(date: Date): void {
-    this.selectedDate = this.getMidnightDate(date);
-  }
   ExchangeTrip() {
     const icon = document.querySelector('.exchange-icon') as HTMLElement;
     if (icon) {
@@ -237,11 +174,7 @@ updateTripDate(date: Date): void {
     this.dropdownVisible[type] = false;
    // this.form.controls[type].setValue(town);
   }
-  selectDate(date: Date) {
-    this.selectedDate = this.getMidnightDate(date);
-    this.tripdateName= this.formatDateToMMMdy(this.selectedDate);
-    this.toggleDropdown('date');
-  }
+  
 
   async searchResult() {
   this.loading=true;
@@ -253,10 +186,12 @@ updateTripDate(date: Date): void {
     this.loading=false;
     return;
   }
+  const tripDateValue = this.form.get('tripDate').value;
+  console.log('Selected Trip Date:', tripDateValue);
   const searchData = {
       departure: this.selectedDeparture,
       destination:this.selectedDestination,
-      tripDate: customDateFormat(this.selectedDate) 
+      tripDate: customDateFormat(tripDateValue) 
     };
 
      this.routeStateService.add(
@@ -273,20 +208,6 @@ updateTripDate(date: Date): void {
     today.setHours(0, 0, 0, 0); // Normalize to midnight
     return date < today; // Disable past dates
   } 
-
-onDateClick(date: Date) {
-  if (this.isPastDate(date)) {
-    this._snackBar.open('You cannot select a past date', '', {
-  duration: 2000,
-  verticalPosition: 'top',        
-  horizontalPosition: 'center',   
-});
-
-    return;
-  }
-  this.selectDate(date);
-}
-
   updateDeparture(newValue: string): void {
     this.selectedDeparture = newValue;
     this.departureName = this.getCityNameById(this.selectedDeparture);
@@ -310,4 +231,12 @@ onDateClick(date: Date) {
   const year = date.getFullYear();
   return `${month} ${day}, ${year}`;
 }
+
+
+
+  getMidnightDate(date: Date): Date {
+    const midnightDate = new Date(date);
+    midnightDate.setHours(0, 0, 0, 0); // Set to midnight
+    return midnightDate;
+  }
 }
