@@ -206,16 +206,43 @@ input {
 .mat-radio-label {
   margin : 0;
 }
-
 ::ng-deep .mat-horizontal-stepper-header{
   pointer-events: none !important;
 }
-
-::ng-deep .mat-step-header[aria-selected="true"]  {
-  background-color: #44CF6C;
-  border-radius: 32px;
-  font-weight: 12px;
+::ng-deep .mat-step-header[aria-selected="true"] {
+  background-color: #e6f9ef; /* very light green background */
+  color: #2e7d32 !important; /* elegant green text/icon */
+  border: 1px solid #44CF6C; /* soft green border */
+  border-radius: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 1px 2px;
+  box-shadow: 0 2px 6px rgba(68, 207, 108, 0.15); /* subtle glow */
+  transition: all 0.2s ease-in-out;
+   min-height: unset !important; /* Override Angular Material height if needed */
+  height: auto !important;
 }
+
+@media (max-width: 600px) {
+  /* Remove background and border from selected header on small screens */
+  ::ng-deep .mat-step-header[aria-selected="true"] {
+    background-color: transparent !important;
+    border-radius: 0;
+    border: none !important; /* ✅ This removes the green border */
+  }
+
+  /* Style only the selected icon */
+  ::ng-deep .mat-step-header[aria-selected="true"] .mat-step-icon {
+    background-color: #44CF6C !important;
+    color: white !important;
+  }
+
+  /* Hide the label text */
+  ::ng-deep .mat-step-header[aria-selected="true"] .mat-step-label {
+    display: none !important;
+  }
+}
+
 
 div.mat-step-label.mat-step-label-active.mat-step-label-selected {
   color: #FFF;
