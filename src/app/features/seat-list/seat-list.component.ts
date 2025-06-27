@@ -93,6 +93,8 @@ export class SeatListComponent  {
       return;
     }
     this.selectedTrip=this.routeState;
+    this.newPassanger.bookedById=this.routeState.agentId;
+    this.newPassanger.accountId=this.routeState.reservationBankAccountsId;
     this.dynamicForm  =this._formBuilder.group({
       tickets: new FormArray([]),
       accountId: ['', []],
@@ -315,8 +317,6 @@ async selectPayment(paymentName: string){
     this.showMessage("Please fill all passenger information first");
     return;
   }
-  
-  this.newPassanger.accountId = await this.getAllBankAccounts(this.selectedTrip.operatorId);
   this.newPassanger.passengers=[];
   let number_of_passengers=this.dynamicForm.value;
   if (number_of_passengers.tickets.length<=0) {

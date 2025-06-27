@@ -20,6 +20,22 @@ export const getSeatConfig = (price: number) => [
   }
 ];
 
+export const ReservationBody={
+  registrationDate: new Date(),
+  updatedAt: new Date(),
+  scheduleId: "",
+  paymentNumber:"",
+  accountId:"environment.accountId",
+  paymentMethodCode: "",
+  paymentProviderCode: "",
+  debitAccount: "",
+  passengers: [],
+  bookedById: "",
+  statusCode: 'PENDING',
+  PaymentTypeCode: 'Electronic',
+  PaymentOption: '',
+  totalPrice:0
+}
 export const ArifPaymentUrls: Record<string, string> = {
   CBE: '/api/checkout/session',
   MPESSA: '/api/checkout/mpesa/transfer/direct',
@@ -28,23 +44,6 @@ export const ArifPaymentUrls: Record<string, string> = {
   AMOLE: '/api/checkout/session',
   HELLOCASH: '/api/checkout/session',
 };
-
-export const ReservationBody={
-  registrationDate: new Date(),
-  updatedAt: new Date(),
-  scheduleId: "",
-  paymentNumber:"0703272182",
-  accountId:"environment.accountId",
-  paymentMethodCode: "",
-  paymentProviderCode: "",
-  debitAccount: "",
-  passengers: [],
-  bookedById:environment.bookedById,
-  statusCode: 'Reserved',
-  PaymentTypeCode: 'Electronic',
-  PaymentOption: '',
-  totalPrice:0
-}
 
 export const PAYMENT_OPTIONS = [
     { name: 'MPESSA', img: '../../../assets/img/paymentoption/mpesa.png' }
