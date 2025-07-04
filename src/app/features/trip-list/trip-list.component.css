@@ -109,9 +109,19 @@ mat-slider {
 
 .trip-action {
   display: flex;
+  justify-content: center;
   align-items: center;
-  font-size: 14px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: #fcfcfc;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trip-action:hover {
+  background-color: #025506;
 }
 
 /* Date and Time in a row: left and right */
