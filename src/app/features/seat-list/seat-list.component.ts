@@ -14,6 +14,7 @@ import { processSeatChart } from 'src/app/utils/seat-list-utils';
 import { Observable } from 'rxjs';
 import { MpesaPaymentService } from '../../Service/pay-with-mpesa';
 import { MiniProgramService } from '../../Service/mini-program-service';
+import { SeatFormValidators} from 'src/app/utils/seat-form-validator';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -180,9 +181,9 @@ AddNUmberOfPassengers(e) {
   if (this.t.length < numberOfTickets) {
       for (let i = this.t.length; i < numberOfTickets; i++) {
           this.t.push(this._formBuilder.group({
-              name: ['', Validators.required],
+              name: ['', [Validators.required, SeatFormValidators.fullNameValidator]],
               phone:['', [Validators.required, Validators.pattern(new RegExp("[0-9 ]{10}"))]],
-              laggage: [0],
+              laggage: [null, [SeatFormValidators.luggageValidator]],
           }));
       }
   } else {
@@ -453,8 +454,7 @@ async selectPayment(paymentName: string){
     }
     // this.loading = false;
   }
-
-
+  
   checkoutSession(data): Observable<any> {
     return this.paymentService.createSession(data, this.selectedPayment);
   }
@@ -479,5 +479,8 @@ async selectPayment(paymentName: string){
     const option = this.paymentOptions.find(opt => opt.name === this.selectedPayment);
     return option ? option.img : '';
   }
+
+
+
 }
 

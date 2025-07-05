@@ -100,5 +100,7 @@
   "transaction_no": "የግብይት ቁጥር",
    "electronic_ticket": "እዚባስ ኤሌክትሮኒክ ትኬት ደረሰኝ",
    "fullNameRequired": "ሙሉ ስም ይሙሉ",
-  "phoneNumberRequired": "ስልክ ቁጥር ይሙሉ"
+   "fullNameInvalid": "እባክዎ ሙሉ ስም በትክክል ይሙሉ",
+  "phoneNumberRequired": "ስልክ ቁጥር ይሙሉ",
+ "luggageWeightInvalid": "የሻንጣ ክብደት ከ0 እስከ 25 ኪ.ግ መሆን አለበት"
       }
