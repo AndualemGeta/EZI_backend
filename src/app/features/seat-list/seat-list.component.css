@@ -23,49 +23,46 @@ input {
     color: #a0a0a0;
     border-bottom: 1px solid #e2e2e2;
 }
-
 .seat-item {
-    height: 27px;
-    width: 27px;
-    line-height: 25px;
-    margin: 3px;
-    border-radius: 7px;
-    font-size: 14px;
-    padding-left: 5px;
+  height: 27px;
+  width: 27px;
+  line-height: 25px;
+  margin: 3px;
+  border-radius: 7px;
+  font-size: 14px;
+  padding-left: 5px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .seat-space {
-    background-color: white;
-    border: 0;
+  background-color: transparent;
+  border: none;
 }
 
 .seat-available {
-    color: #a0a0a0;
-    background-color: white;
-    font-weight: bolder;
-    border: 1px solid #a0a0a0;
+  color: #2d6a4f; 
+  background-color: #d8f3dc;
+  border: 1px solid #40916c;
+  transition: background-color 0.3s;
 }
-
 .seat-available:hover {
-    color: #a0a0a0;
-    background-color: white;
-    border: 1px solid #a0a0a0;
-}
-
-.seat-unavailable {
-    color: white;
-    background-color: black;
-    font-weight: bolder;
-    border: 1px solid white;
+  background-color: #b7e4c7; 
+  border-color: #2d6a4f;
+  cursor: pointer;
 }
 
 .seat-booked {
-    color: white;
-    font-weight: bolder;
-    background-color: #a0a0a0;
-    border: 1px solid white;
+  color: white;
+  background-color: #6c757d; 
+  border: 1px solid #adb5bd;
 }
 
+.seat-unavailable {
+  color: white;
+  background-color: #fbe4e4; 
+  border: 1px solid #ffffff;
+}
 .seat-item:hover {
     cursor: pointer;
 }
@@ -174,7 +171,6 @@ div.mat-step-label.mat-step-label-active.mat-step-label-selected {
 .reserve-action-btn {
     margin: 5px;
 }
-
 .selected-payment-img {
     display: block;
     margin: 10px auto;
@@ -182,13 +178,6 @@ div.mat-step-label.mat-step-label-active.mat-step-label-selected {
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-.spinner-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
 }
 
 .form-row {

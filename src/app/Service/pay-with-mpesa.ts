@@ -63,7 +63,6 @@ export class MpesaPaymentService {
         alert({
         content: 'Payment failed: Please try again or contact support.',
       });
-        
         reject(res.errorMessage); 
       },
     });
@@ -73,11 +72,11 @@ export class MpesaPaymentService {
   private logOnline(data) {
     this.eziBusService.add_transaction_log(data).subscribe(
       (res) => {
-        console.log('Reservation success:', res);
+       // console.log('Reservation success:', res);
         // You can emit events or return observables for UI feedback if needed
       },
       (error) => {
-        console.error('Reservation error:', error);
+       // console.error('Reservation error:', error);
       }
     );
   }

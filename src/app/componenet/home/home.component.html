@@ -120,14 +120,10 @@
     <div class="col-lg-2 col-md-6 col-12">
       <div class="form-group">
         <label for="dateInput"><br /></label>
-        <div style="margin-top: 5.5%;margin-left: 1%;">
-          <mat-spinner *ngIf="loading" diameter="20" color="accent" ></mat-spinner>
+       <div style="margin-top: 5.5%;margin-left: 1%; max-width: 30px; max-height: 30px;" *ngIf="loading" class="loader">
         </div>
         <div *ngIf="!loading" class="search-button-container">
-        <button type="submit" (click)="searchResult()"
-        class="form-control search-input-button"
-  
->
+        <button type="submit"  (click)="searchResult()" class="form-control search-input-button">
   {{ 'search' | translate }}
 </button>
 

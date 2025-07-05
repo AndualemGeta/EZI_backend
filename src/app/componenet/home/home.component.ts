@@ -187,7 +187,7 @@ ngAfterViewInit(): void {
     return;
   }
   const tripDateValue = this.form.get('tripDate').value;
-  console.log('Selected Trip Date:', tripDateValue);
+  
   const searchData = {
       departure: this.selectedDeparture,
       destination:this.selectedDestination,

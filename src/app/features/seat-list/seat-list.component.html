@@ -2,7 +2,6 @@
 <div class="container-fluid " style="margin-top: 100px;">
   <mat-stepper #stepper>
     <mat-step  state="seat">
-  
       <ng-template matStepLabel>
         <span fxShow="false" fxShow.gt-xs="true">{{"selectSeatInstruction"|translate}}</span>
        </ng-template>
@@ -22,12 +21,12 @@
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">business</i>
-                <span class="trip-detail-property">{{"departureStation"|translate}}:</span>:
+                <span class="trip-detail-property">{{"departureStation"|translate}}:</span>
                 <span class="trip-detail-value">{{routeState.departureStation}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">business</i>
-                <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>:
+                <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>
                 <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
               </div>
               <div class="trip-detail-item">
@@ -43,14 +42,12 @@
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">payments</i>
-                <span class="trip-detail-property">{{"price"|translate}}:</span>:
+                <span class="trip-detail-property">{{"price"|translate}}:</span>
                 <span class="trip-detail-value">{{ routeState.price}} ETB</span>
               </div>
           </div>
     
-
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 5px;">
-         
             <div class="trip-detail-title">{{"selectASeat"|translate}}</div>
             <div *ngFor="let seatrow of seatmap">
               <div class="col-12 pricing-label"
@@ -225,7 +222,7 @@
                 <div class="trip-detail-title"> {{routeState.operator| uppercase}} Bus {{"tripDetail"|translate}}</div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
-                  <span class="trip-detail-property"> {{"tripDate"|translate}} :</span>:
+                  <span class="trip-detail-property"> {{"tripDate"|translate}} :</span>
                   <span class="trip-detail-value">{{routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
                 </div>
                 <div class="trip-detail-item">
@@ -236,12 +233,12 @@
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">business</i>
-                  <span class="trip-detail-property">{{"departureStation"|translate}}:</span>:
+                  <span class="trip-detail-property">{{"departureStation"|translate}}:</span>
                   <span class="trip-detail-value">{{routeState.departureStation}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">business</i>
-                  <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>:
+                  <span class="trip-detail-property">{{"arrivalStation"|translate}}:</span>
                   <span class="trip-detail-value"> {{routeState.arrivalStation}}</span>
                 </div>
                 <div class="trip-detail-item">
@@ -292,16 +289,12 @@
         <p class="trip-detail-title"> {{"paywithmpesa"| translate}} <img src="../../../assets/img/paymentoption/mpesa.png"  alt="pay with M-Pesa"  style="height:60px; margin-bottom: 10px;"/></p>
         <div class="action-buttons card-footer" *ngIf="!loading">
                 <button class="reserve-action-btn" mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  
-               <button  mat-flat-button (click)="selectPayment('Mpesa')" color="success" class="bootom-action-btn" style="width:120px">
+               <button  mat-flat-button (click)="mpesaMiniAppPayment('Mpesa')" color="success" class="bootom-action-btn" style="width:120px">
                   {{"pay"|translate}}
                   </button>
               </div>
-        <div class="spineer-area card-footer" *ngIf="loading">
-                 <mat-spinner *ngIf="loading" diameter="30" color="accent" ></mat-spinner>    
-                 </div>
-                 <br>
-                 <br>
-              </div>
+           <div *ngIf="loading" class="loader" style="margin: 1% 0% 1% 20%;  max-width: 30px; max-height: 30px;"></div>          
+              </div>  
           </div>
         </div>
       </mat-step>
@@ -384,8 +377,8 @@
                    <small *ngIf="phoneInput.errors?.pattern">Enter a valid phone number (10 digits only).</small>
                 </div>
                 <div class="action-buttons card-footer text-center">
-                  <div *ngIf="loading" class="spinner-container">
-                  <mat-spinner *ngIf="loading" diameter="30" color="accent" ></mat-spinner>
+                  <div *ngIf="loading"  class="loader" style="margin-top: 5.5%;margin-left: 1%; max-width: 30px; max-height: 30px;">
+                 
                  </div>
              <div *ngIf="!loading">
                   <button mat-button matStepperPrevious mat-flat-button color="back-button-color">{{"back"|translate}}</button>  

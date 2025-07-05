@@ -36,7 +36,6 @@ export class SeatListComponent  {
   responseStyle:string;
    responseTitle:string;
    seatConfig: any = null;
-   submitted:boolean;
    seatmap = [];
    phoneNumber: string = '';	
    seatChartConfig = {
@@ -310,10 +309,11 @@ printData(selectedData) {
   this.printService.generatePassengerTicketPDF(selectedData);
 }
  
-async selectPayment(paymentName: string){
+async mpesaMiniAppPayment(paymentName: string){
+  this.loading=true;
   this.selectedPayment=paymentName;
   this.paymentProviderDetail=setPaymentDetails(paymentName);
-  this.submitted = true;
+  
   if (this.dynamicForm.invalid) {
     this.showMessage("Please fill all passenger information first");
     return;
@@ -329,7 +329,7 @@ async selectPayment(paymentName: string){
  if (this.newPassanger.totalPrice <= 0) {
   this.showMessage("Please select a seat before proceeding.");
   return;
-}
+ }
 
   for(let i=0;i<number_of_passengers.tickets.length;i++){
     let newPassengerData={
@@ -337,20 +337,22 @@ async selectPayment(paymentName: string){
      discount: 0,
      seatNumber: this.cart.selectedSeats[i],
      luggageWeight: 0,
-     pickupLocation: "mexico shebelie",
+     pickupLocation: "not set miniapp",
      passenger: {
        phoneNumber: number_of_passengers.tickets[i].phone,
        fullName: number_of_passengers.tickets[i].name,
-       gender: "Male",
+       gender: "none",
        age: 0
      }
     }
     this.newPassanger.passengers.push(newPassengerData);
     }
+
   this.newPassanger.paymentProviderCode = this.paymentProviderDetail.paymentProviderCode || null ;
   this.newPassanger.PaymentOption=paymentName; 
   this.newPassanger.paymentMethodCode =  this.paymentProviderDetail.paymentMethodCode;
-   try {
+
+  try {
   const result = await this.reserveMultipleSeat(this.newPassanger);
       if (result.success) {
         //this.routeStateService.add("user-list", "/book-result", result.data, false);
@@ -367,36 +369,36 @@ async selectPayment(paymentName: string){
       catch (error) {
        this.showMessage(`Payment Failed: ${error}`);
        } finally {
-    this.loading = false;
+      this.loading = false;
   }
       
   }
   
   async proceedToPay() {
      this.loading = true;
-    const updatedItems = this.generateUpdatedItems(this.newPassanger.passengers);
-    const paymentPhone = "251" + this.phoneNumber.substring(1);
-    if (this.phoneNumber) {
-      this.newPassanger.paymentNumber = paymentPhone;
-      const result = await this.reserveMultipleSeat(this.newPassanger);
-      if (result.success) {
-        this.routeStateService.add(
-            "user-list",
-            "/payment-confirmation",
-            result,
-            false
-          ); 
-      } else {
-         this.loading = false;
-        this.showMessage("Seat Reservation Failed. Please try again.");
-        console.error("Reservation Failed:", result.error);
-      }
-    }
-    else{
-       this.loading = false
-        this.showMessage("Seat Reservation Failed. Please try again.");
-        console.error("Reservation Failed: Pyament Phone Number is required");
-      }
+    // const updatedItems = this.generateUpdatedItems(this.newPassanger.passengers);
+    // const paymentPhone = "251" + this.phoneNumber.substring(1);
+    // if (this.phoneNumber) {
+    //   this.newPassanger.paymentNumber = paymentPhone;
+    //   const result = await this.reserveMultipleSeat(this.newPassanger);
+    //   if (result.success) {
+    //     this.routeStateService.add(
+    //         "user-list",
+    //         "/payment-confirmation",
+    //         result,
+    //         false
+    //       ); 
+    //   } else {
+    //      this.loading = false;
+    //     this.showMessage("Seat Reservation Failed. Please try again.");
+    //     console.error("Reservation Failed:", result.error);
+    //   }
+    // }
+    // else{
+    //    this.loading = false
+    //     this.showMessage("Seat Reservation Failed. Please try again.");
+    //     console.error("Reservation Failed: Pyament Phone Number is required");
+    //   }
   }
   async handleCheckoutResult(data: any, phoneNumber: string) {
     try {
