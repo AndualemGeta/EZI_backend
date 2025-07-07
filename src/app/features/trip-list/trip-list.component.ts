@@ -21,7 +21,7 @@ export class TripListComponent implements OnInit {
 constructor(private routeStateService: RouteStateService, private router: Router, private activatedRoute: ActivatedRoute,
   private cdr: ChangeDetectorRef,
   private eziService: EziBusService,
-  private etDate: EthiopianDateService
+  public etDate: EthiopianDateService
   ) { }
   selectedDeparture:any;
   selectedDestination:any;
@@ -40,11 +40,8 @@ constructor(private routeStateService: RouteStateService, private router: Router
   cities: any[];
   route:any=[];
   now: Date = new Date();
-  
   async ngOnInit(): Promise<void> {
     this.loading=true;
-     const testDate = new Date(); // Example date
-     console.log('Test:', this.etDate.convertToEthiopianString(testDate));
     this.activatedRoute.params.subscribe(async (params) => {
     this.routeState = this.routeStateService.getCurrent().data || {};
     this.selectedDeparture =this.routeState?.departure || "select departure";
@@ -69,13 +66,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
     }
   }
   
-  
-ethiopianDateFormat(date: Date | string): string {
-  return this.etDate.convertToEthiopianString(date);
-}
-
-
-
   set formattedDate(value: Date) {
     this.selectedDate = new Date(value);
   }

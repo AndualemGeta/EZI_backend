@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { MpesaPaymentService } from '../../Service/pay-with-mpesa';
 import { MiniProgramService } from '../../Service/mini-program-service';
 import { SeatFormValidators} from 'src/app/utils/seat-form-validator';
+import { EthiopianDateService } from 'src/app/Service/ethiopian-date.service';
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 @Component({
   selector: 'app-seat-list',
@@ -77,7 +78,8 @@ export class SeatListComponent  {
     private _snackBar : MatSnackBar,
     private printService: TicketPrintService,
     private payWithMpesa: MpesaPaymentService,
-    private miniProgramService: MiniProgramService
+    private miniProgramService: MiniProgramService,
+    public etDate: EthiopianDateService
     ) { }
 
     isLinear = false;

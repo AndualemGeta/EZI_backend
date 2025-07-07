@@ -11,7 +11,7 @@
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">event</i>
                 <span class="trip-detail-property">{{"tripDate"|translate}} :</span>
-                <span class="trip-detail-value">{{ routeState.tripDate | date:"MMM dd, Y"}}</span>
+                <span class="trip-detail-value">{{etDate.convertToEthiopianDate(routeState.tripDate)}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">place</i>
@@ -33,7 +33,7 @@
                 <i class="material-icons trip-result-icon">
                   watch_later
                 </i> <span class="trip-detail-property">{{"departureTime"|translate}}</span>:
-                <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+                <span class="trip-detail-value">{{etDate.convertToEthiopianTime(routeState.departureTime)}}</span>
               </div>
               <div class="trip-detail-item">
                 <i class="material-icons trip-result-icon">call</i>
@@ -223,7 +223,7 @@
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
                   <span class="trip-detail-property"> {{"tripDate"|translate}} :</span>
-                  <span class="trip-detail-value">{{routeState.tripDate|date:"MMM,dd,yyyy"}}</span>
+                  <span class="trip-detail-value">{{ etDate.convertToEthiopianDate(routeState.tripDate) }}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">place</i>
@@ -245,7 +245,7 @@
                   <i class="material-icons trip-result-icon">
                     watch_later
                   </i> <span class="trip-detail-property"> {{"departureTime"|translate}}</span>:
-                  <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+                  <span class="trip-detail-value"> {{etDate.convertToEthiopianTime(routeState.departureTime)}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">call</i>
@@ -271,7 +271,7 @@
                  <p class="trip-detail-property"> 
                    {{routeState.departureLocation |translate}} - {{routeState.arrivalLocation |translate}}
                   </p> 
-                <p class="trip-detail-property">{{ routeState.tripDate|date:"MMM dd, Y"}} </p>
+                <p class="trip-detail-property">{{ etDate.convertToEthiopianDate(routeState.tripDate) }} </p>
                 <p class="trip-detail-property">{{"totalSelectedSeat"|translate}} : 
                 <span class="trip-detail-value">{{ cart?.selectedSeats?.length }}</span>
               </p>
@@ -312,7 +312,7 @@
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">event</i>
                   <span class="trip-detail-property">{{"tripDate"|translate}} :</span>:
-                  <span class="trip-detail-value">{{ routeState.tripDate|date:"MMM dd,Y"}}</span>
+                  <span class="trip-detail-value">{{ etDate.convertToEthiopianDate(routeState.tripDate)}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">place</i>
@@ -334,7 +334,7 @@
                   <i class="material-icons trip-result-icon">
                     watch_later
                   </i> <span class="trip-detail-property"> {{"departureTime"|translate}}</span>:
-                  <span class="trip-detail-value"> {{routeState.departureTime|date:"hh:mm"}}</span>
+                  <span class="trip-detail-value"> {{ etDate.convertToEthiopianTime(routeState.departureTime)}}</span>
                 </div>
                 <div class="trip-detail-item">
                   <i class="material-icons trip-result-icon">call</i>
