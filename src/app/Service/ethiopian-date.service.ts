@@ -13,7 +13,7 @@ export class EthiopianDateService {
     'ሐምሌ', 'ነሐሴ', 'ጳጉሜን'
   ];
   public convertToEthiopianDate(gregorianInput: Date | string): string {
-    if (this.translate.currentLang=='en'){
+    if ( !this.translate.currentLang || this.translate.currentLang=='en'){
       return this.datePipe.transform(gregorianInput, 'MMM d, y') ?? '';
     };
     const gDate = new Date(gregorianInput);
@@ -29,7 +29,7 @@ export class EthiopianDateService {
   }
 
 public convertToEthiopianTime(gregorianInput: Date | string): string {
-    if (this.translate.currentLang=='en'){
+    if (!this.translate.currentLang || this.translate.currentLang=='en'){
       return this.datePipe.transform(gregorianInput, 'h:mm a') ?? '';
     };
     const gDate = new Date(gregorianInput);

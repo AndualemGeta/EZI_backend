@@ -101,6 +101,6 @@
    "electronic_ticket": "እዚባስ ኤሌክትሮኒክ ትኬት ደረሰኝ",
    "fullNameRequired": "ሙሉ ስም ይሙሉ",
    "fullNameInvalid": "እባክዎ ሙሉ ስም በትክክል ይሙሉ",
-  "phoneNumberRequired": "ስልክ ቁጥር ይሙሉ",
+  "phoneNumberRequired": "እባክዎ ስልክ ቁጥር በትክክል ይሙሉ",
  "luggageWeightInvalid": "የሻንጣ ክብደት ከ0 እስከ 25 ኪ.ግ መሆን አለበት"
       }
