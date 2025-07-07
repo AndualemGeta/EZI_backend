@@ -40,7 +40,7 @@
 
     
       <div class="trip-date">
-        <div class="trip-date">{{ trip.departureTime | date: 'MMM d, y' }}</div>
+        <div class="trip-date"> {{ethiopianDateFormat(trip.departureTime)}}  {{ trip.departureTime | date: 'MMM d, y' }}</div>
       <div class="trip-time">{{ trip.departureTime | date: 'h:mm a' }}</div>
       </div>
 

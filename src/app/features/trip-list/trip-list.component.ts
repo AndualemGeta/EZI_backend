@@ -5,7 +5,7 @@ import { EziBusService } from 'src/app/Service/ezibus-apiservice';
 import { RouteStateService } from 'src/app/Service/route-state.service';
 import {formatDate} from '@angular/common';
 import { customDateFormat } from 'src/app/utils/date-utils';
-
+import { EthiopianDateService } from 'src/app/Service/ethiopian-date.service';
 export interface PeriodicElement {
   name: string;
   position: string;
@@ -21,6 +21,7 @@ export class TripListComponent implements OnInit {
 constructor(private routeStateService: RouteStateService, private router: Router, private activatedRoute: ActivatedRoute,
   private cdr: ChangeDetectorRef,
   private eziService: EziBusService,
+  private etDate: EthiopianDateService
   ) { }
   selectedDeparture:any;
   selectedDestination:any;
@@ -42,6 +43,8 @@ constructor(private routeStateService: RouteStateService, private router: Router
   
   async ngOnInit(): Promise<void> {
     this.loading=true;
+     const testDate = new Date(); // Example date
+     console.log('Test:', this.etDate.convertToEthiopianString(testDate));
     this.activatedRoute.params.subscribe(async (params) => {
     this.routeState = this.routeStateService.getCurrent().data || {};
     this.selectedDeparture =this.routeState?.departure || "select departure";
@@ -67,10 +70,11 @@ constructor(private routeStateService: RouteStateService, private router: Router
   }
   
   
+ethiopianDateFormat(date: Date | string): string {
+  return this.etDate.convertToEthiopianString(date);
+}
 
-  get formattedDate(): Date {
-    return new Date(this.selectedDate);
-  }
+
 
   set formattedDate(value: Date) {
     this.selectedDate = new Date(value);
