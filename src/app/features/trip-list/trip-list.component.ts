@@ -39,7 +39,6 @@ constructor(private routeStateService: RouteStateService, private router: Router
   newLine: any = {};
   cities: any[];
   route:any=[];
-  now: Date = new Date();
   async ngOnInit(): Promise<void> {
     this.loading=true;
     this.activatedRoute.params.subscribe(async (params) => {
