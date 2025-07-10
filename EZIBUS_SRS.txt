@@ -1,0 +1,72 @@
+Software Requirements Specification (SRS)
+1. Introduction
+This document combines the requirements for both the agent-based ticketing app and supervisor/admin dashboard. It describes the functional and non-functional requirements for the Bus Ticketing System, which includes bus registration, ticket booking, queue handling, printing, and system-wide monitoring.
+2. Overall Description
+2.1 Product Perspective
+A hybrid system including an Android-based Agent App and a web-based Admin/Supervisor dashboard. Agents use the mobile app to register buses, book passengers, and print tickets and queue slips. Admins and Supervisors use the dashboard to configure, monitor, and analyze operations.
+2.2 Product Functions
+The system includes the following major functions:
+- Agent login and ticketing workflow
+- Manual bus registration and queueing
+- Passenger seat assignment and printing
+- Supervisor dashboard for real-time monitoring
+- Admin control panel for configuration and reporting
+2.3 User Characteristics
+Agents: Basic smartphone and printer operation skills
+Supervisors: Familiar with web dashboards and analytics
+Admins: Full system access, technical understanding of operations
+2.4 Constraints
+Android-only mobile interface for agents; web dashboard for admins and supervisors
+ESC/POS-compatible Bluetooth thermal printer support
+Each agent is assigned to a fixed station and destination
+3. Functional Requirements
+* FR1: Admin can register Agents and Supervisors.
+* FR2: Agent can log in using secure credentials.
+* FR3: Agent can register a bus with number and capacity.
+* FR4: System assigns queue number based on route and waiting buses.
+* FR5: Agent can view queue for their assigned route. (Currently our system support assign Agents for departure Station, it should also support Agent with Specific Destination)
+* FR6: Agent can book tickets with automatic seat assignment.
+* FR7: Ticket and queue slip printing is available for agents.
+* FR8: Supervisor can log in and access a live dashboard. (it can be one of the Operator staff that our system support).
+* FR9: Supervisor can monitor agent activity, bus movement, and schedules.
+* FR10: Admin and Supervisor can view system-wide analytics and reports.
+4. Non-Functional Requirements
+* NFR1: Agent app must support offline mode with syncing. (Very High Priority)
+* NFR2: Support ESC/POS-compatible thermal printers (58mm or 80mm).
+* NFR3: Backend response time must be < 2 seconds.
+* NFR4: Data integrity must be preserved under concurrent actions.
+* NFR5: Dashboard should update in near real-time for supervisors.
+* NFR6: Communications should be encrypted using HTTPS.
+* NFR7: Local Language Support
+5. Use Case Diagram
+The following diagram illustrates the main actors and their interactions with the system
+
+
+?? ACTOR: Admin
+?? Use Cases:
+1. Login – Authenticate securely
+2. Register Agent – Add new station-level users
+3. Register Supervisor – Add oversight personnel
+4. Manage Stations & Routes – Define and maintain transportation routes
+5. View System Reports – Access summaries, logs, analytics
+6. Configure System Settings – Set global app/system preferences
+
+?? ACTOR: Agent
+?? Use Cases:
+1. Login – Secure access to agent panel
+2. Register Available Bus – Manually add vehicle to queue
+3. View Bus Queue – Check current buses awaiting dispatch
+4. Book Passenger Ticket – Assign passengers and seats
+5. Print Ticket – Generate physical passenger slip
+6. Print Queue Slip – Give driver physical queue information
+
+?? ACTOR: Supervisor
+?? Use Cases:
+1. Login – Secure dashboard access
+2. View Dashboard – Overview of all stations, agents, routes
+3. Monitor Bus Queues – Check which buses are where, in what order
+4. Monitor Agent Activity – Track booking rates, recent actions
+5. Access Reports – View analytics by route, station, agent
+6. View Schedules – Access planned and live bus movements
+
+

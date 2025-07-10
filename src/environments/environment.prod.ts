@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl: "https://eziapi.leapfrogtechafrica.com",
-  // apiUrl: "https://localhost:5001",
+  //apiUrl: "https://eziapi.leapfrogtechafrica.com",
+   apiUrl: "https://localhost:5001",
   public_user : 'EzibusPublic',
   public_password : 'Ezibus@ezibus0.',
   accountId: "",
